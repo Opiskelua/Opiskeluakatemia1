@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
 import { Bullet, Card, EmptyState, Field, LoadingState, Notice, PageHeader } from '../components/ui';
 import { loadContent } from '../lib/course';
@@ -9,7 +10,9 @@ export default function Theory() {
   const { data, loading, error, refresh } = useSyncedResource(loadContent);
   const pull = usePullToRefresh(refresh);
   const [search, setSearch] = useState('');
-  const [expanded, setExpanded] = useState<string | null>(null);
+  // Optional section to open first (from a Polku "Muista sääntö" link).
+  const { section } = useLocalSearchParams<{ section?: string }>();
+  const [expanded, setExpanded] = useState<string | null>(typeof section === 'string' && /^[a-z0-9-]{1,80}$/i.test(section) ? section : null);
   const sections = data?.theory.filter(s => `${s.title} ${s.content.description}`.toLocaleLowerCase('fi').includes(search.toLocaleLowerCase('fi'))) ?? [];
   return <Screen {...pull}>
     <PageHeader kicker="Kurssikirjasto" title="Kielioppi selkeäksi." intro="Samat säännöt, esimerkit ja yo-vinkit kuin verkkokurssilla." />

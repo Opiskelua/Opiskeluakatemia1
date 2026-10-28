@@ -13,6 +13,9 @@ import { colors, disabledOpacity, layout, maxScale, radii, shadow, space, type }
 import { LegalLinks } from './src/components/LegalLinks';
 import { useGutter } from './src/components/Screen';
 import { Button, Card, Chevron, Field, ListRow, LoadingState, NavCard, Notice, SectionTitle } from './src/components/ui';
+import { PathHomeCard } from './src/components/PathProgress';
+import { loadPath } from './src/lib/path-v2';
+import type { PathStateV2 } from './src/lib/path-v2-types';
 
 type Access = 'loading' | 'active' | 'inactive' | 'error';
 
@@ -54,6 +57,9 @@ function CourseHome({ session }: { session: Session }) {
   const historyRequest = useRef(0);
   const [recent, setRecent] = useState<Attempt[] | null>(null);
   const [pulling, setPulling] = useState(false);
+  const [path, setPath] = useState<PathStateV2 | null>(null);
+  const [pathError, setPathError] = useState(false);
+  const pathRequest = useRef(0);
   const request = useRef(0);
   const name = accountName(session);
   const gutter = useGutter();
@@ -81,15 +87,21 @@ function CourseHome({ session }: { session: Session }) {
     try { const rows = await loadHistory(); if (current === historyRequest.current) { setRecent(rows); setHistoryError(''); } }
     catch { if (current === historyRequest.current) setHistoryError('Suorituksia ei voitu päivittää. Yritä uudelleen.'); }
   }, []);
+  const refreshPath = useCallback(async () => {
+    const current = ++pathRequest.current;
+    try { const value = await loadPath(); if (current === pathRequest.current) { setPath(value); setPathError(false); } }
+    catch { if (current === pathRequest.current) setPathError(true); }
+  }, []);
   useFocusEffect(useCallback(() => {
     void refresh();
     void refreshHistory();
-    return () => { request.current++; historyRequest.current++; };
-  }, [refresh, refreshHistory]));
+    void refreshPath();
+    return () => { request.current++; historyRequest.current++; pathRequest.current++; };
+  }, [refresh, refreshHistory, refreshPath]));
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', state => { if (state === 'active') { void refresh(); void refreshHistory(); } });
+    const subscription = AppState.addEventListener('change', state => { if (state === 'active') { void refresh(); void refreshHistory(); void refreshPath(); } });
     return () => subscription.remove();
-  }, [refresh, refreshHistory]);
+  }, [refresh, refreshHistory, refreshPath]);
   const rows = recent ?? [];
   const latest = rows.slice(0, 3);
   const last = rows[0];
@@ -98,7 +110,7 @@ function CourseHome({ session }: { session: Session }) {
   const active = access === 'active';
   const go = (path: Href) => () => router.push(path);
   return <ScrollView
-    refreshControl={<RefreshControl refreshing={pulling} tintColor={colors.ink} colors={[colors.ink]} onRefresh={() => { setPulling(true); void Promise.all([refresh(), refreshHistory()]).finally(() => setPulling(false)); }} />}
+    refreshControl={<RefreshControl refreshing={pulling} tintColor={colors.ink} colors={[colors.ink]} onRefresh={() => { setPulling(true); void Promise.all([refresh(), refreshHistory(), refreshPath()]).finally(() => setPulling(false)); }} />}
     contentContainerStyle={[styles.homeContent, { paddingHorizontal: gutter, paddingBottom: space.xxxl + insets.bottom }]}>
     <View style={styles.header}>
       <View style={styles.headerText}>
@@ -120,7 +132,8 @@ function CourseHome({ session }: { session: Session }) {
     {access === 'inactive' && <Notice title="Kurssioikeutta ei löytynyt" message="Tälle tilille ei löytynyt aktiivista kurssioikeutta. Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä." actionTitle="Tarkista uudelleen" onAction={() => void refresh()} />}
 
     <SectionTitle title="Tänään" />
-    <NavCard dark kicker="Päivän suunnitelma" title="Päivän tehtävät" description="Sinulle valitut tehtävät taitoprofiilisi perusteella." disabled={!active} onPress={go('/daily')} />
+    <PathHomeCard state={active ? path : null} error={pathError} disabled={!active} onPress={go('/path')} />
+    <NavCard kicker="Päivän suunnitelma" title="Päivän tehtävät" description="Sinulle valitut tehtävät taitoprofiilisi perusteella." disabled={!active} onPress={go('/daily')} />
     <NavCard kicker={last ? 'Jatka siitä mihin jäit' : 'Aloita tästä'} title={last ? (last.exercise_title || last.exercise_id) : 'Aloita harjoittelu'}
       description={last ? `Viimeksi ${categoryLabel[last.category].toLocaleLowerCase('fi-FI')} · ${Math.round(Number(last.score_percentage))} %` : 'Kielioppi, luetun- ja kuullunymmärtäminen.'}
       disabled={!active} onPress={go('/exercises')} accessibilityHint="Avaa harjoitusvalikon" />

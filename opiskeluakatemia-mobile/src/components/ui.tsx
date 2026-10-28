@@ -136,10 +136,23 @@ export function EmptyState({ title, message, actionTitle, onAction }: { title: s
   </View>;
 }
 
-export function ProgressBar({ value, label, tone = 'ink' }: { value: number; label: string; tone?: 'ink' | 'accent' | 'success' }) {
+export function ProgressBar({ value, label, tone = 'ink', dark = false }: { value: number; label: string; tone?: 'ink' | 'accent' | 'success'; dark?: boolean }) {
   const pct = Math.min(100, Math.max(0, Number.isFinite(value) ? value : 0));
-  return <View accessible accessibilityRole="progressbar" accessibilityLabel={label} accessibilityValue={{ min: 0, max: 100, now: Math.round(pct) }} style={ui.track}>
-    <View style={[ui.fill, { width: `${pct}%`, backgroundColor: tone === 'accent' ? colors.accentInk : tone === 'success' ? colors.success : colors.ink }]} />
+  // On black surfaces the bar uses a dark track and the bright gold fill.
+  const fill = dark ? colors.accent : tone === 'accent' ? colors.accentInk : tone === 'success' ? colors.success : colors.ink;
+  return <View accessible accessibilityRole="progressbar" accessibilityLabel={label} accessibilityValue={{ min: 0, max: 100, now: Math.round(pct) }} style={[ui.track, dark && { backgroundColor: colors.trackOnDark }]}>
+    <View style={[ui.fill, { width: `${pct}%`, backgroundColor: fill }]} />
+  </View>;
+}
+
+/** Small status label, e.g. "Tulossa" or "Kesken". */
+export function Pill({ label, tone = 'neutral' }: { label: string; tone?: 'neutral' | 'success' | 'accent' | 'dark' }) {
+  const palette = tone === 'success' ? { bg: colors.successSurface, fg: colors.success }
+    : tone === 'accent' ? { bg: colors.accentSurface, fg: colors.accentInk }
+      : tone === 'dark' ? { bg: colors.black, fg: colors.white }
+        : { bg: colors.surfaceMuted, fg: colors.inkSecondary };
+  return <View style={[ui.pill, { backgroundColor: palette.bg }]}>
+    <Text style={[ui.pillText, { color: palette.fg }]} maxFontSizeMultiplier={1.4}>{label}</Text>
   </View>;
 }
 
@@ -186,4 +199,6 @@ export const ui = StyleSheet.create({
   track: { height: 8, borderRadius: radii.pill, backgroundColor: colors.track, overflow: 'hidden' },
   fill: { height: 8, borderRadius: radii.pill },
   bullet: { flexDirection: 'row', gap: space.xs },
+  pill: { alignSelf: 'flex-start', borderRadius: radii.pill, paddingHorizontal: space.xs + 2, paddingVertical: 3 },
+  pillText: { fontSize: 12, lineHeight: 16, fontWeight: '700', letterSpacing: 0.2 },
 });

@@ -1,5 +1,5 @@
 const SCHEME = 'opiskeluakatemia';
-const ROUTES = new Set(['/', '/exercises', '/exercise', '/flashcards', '/daily', '/theory', '/progress', '/essays', '/history', '/settings']);
+const ROUTES = new Set(['/', '/exercises', '/exercise', '/flashcards', '/daily', '/theory', '/progress', '/essays', '/history', '/settings', '/path', '/path-review']);
 const DIFFICULTIES = new Set(['beginner', 'intermediate', 'advanced']);
 
 function param(query: string, name: string) {
@@ -23,6 +23,8 @@ export function sanitizeDeepLink(path: string): string | null {
   const queryStart = rest.indexOf('?');
   const route = `/${(queryStart < 0 ? rest : rest.slice(0, queryStart)).replace(/^\/+|\/+$/g, '')}`;
   const query = queryStart < 0 ? '' : rest.slice(queryStart + 1);
+  // Lesson links open the path map; a lesson ID is never taken from outside the app.
+  if (route === '/path-lesson') return '/path';
   if (!ROUTES.has(route)) return '/';
   if (route !== '/exercise') return route;
   const id = param(query, 'id');

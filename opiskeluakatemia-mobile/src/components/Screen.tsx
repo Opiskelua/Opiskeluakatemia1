@@ -1,5 +1,5 @@
-import { useCallback, useContext, useState, type ReactNode } from 'react';
-import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
+import { useCallback, useContext, useState, type ReactNode, type Ref } from 'react';
+import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, StyleSheet, useWindowDimensions, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
 import { HeaderHeightContext } from 'expo-router/react-navigation';
 import { colors, layout, space } from '../theme';
@@ -23,14 +23,14 @@ export function usePullToRefresh(refresh: () => Promise<unknown> | void) {
  * Standard scrolling screen: safe areas, keyboard avoidance (offset by the stack header),
  * optional pull-to-refresh, responsive side gutters and a readable max width on large phones.
  */
-export function Screen({ children, refreshing = false, onRefresh, edges = ['bottom', 'left', 'right'] }: {
-  children: ReactNode; refreshing?: boolean; onRefresh?: () => void; edges?: Edge[];
+export function Screen({ children, refreshing = false, onRefresh, edges = ['bottom', 'left', 'right'], scrollRef }: {
+  children: ReactNode; refreshing?: boolean; onRefresh?: () => void; edges?: Edge[]; scrollRef?: Ref<ScrollViewInstance>;
 }) {
   const headerHeight = useContext(HeaderHeightContext) ?? 0;
   const gutter = useGutter();
   return <SafeAreaView style={styles.safe} edges={edges}>
     <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={headerHeight}>
-      <ScrollView keyboardShouldPersistTaps="handled" keyboardDismissMode="interactive" contentInsetAdjustmentBehavior="never"
+      <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled" keyboardDismissMode="interactive" contentInsetAdjustmentBehavior="never"
         contentContainerStyle={[styles.content, { paddingHorizontal: gutter }]}
         refreshControl={onRefresh ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.ink} colors={[colors.ink]} /> : undefined}>
         {children}

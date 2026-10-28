@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SessionProvider, useSession } from '../providers/SessionProvider';
 import { Button, LoadingState } from '../components/ui';
 import { colors, space, type } from '../theme';
+import { PATH_PREVIEW } from '../lib/path-v2';
 function Navigation() {
   const { session, loading } = useSession();
   if (loading) return <View style={{ flex: 1, justifyContent: 'center', backgroundColor: colors.canvas }}><LoadingState label="Ladataan tiliä" /></View>;
@@ -27,6 +28,12 @@ function Navigation() {
       <Stack.Screen name="essays" options={{ title: 'Kirjoitelmat' }} />
       <Stack.Screen name="history" options={{ title: 'Harjoitushistoria' }} />
       <Stack.Screen name="settings" options={{ title: 'Tili' }} />
+    </Stack.Protected>
+    {/* PATH_PREVIEW is a development-only flag (always false in release builds); see src/lib/path-v2.ts. */}
+    <Stack.Protected guard={!!session || PATH_PREVIEW}>
+      <Stack.Screen name="path" options={{ title: 'Polku' }} />
+      <Stack.Screen name="path-lesson" options={{ title: 'Oppitunti' }} />
+      <Stack.Screen name="path-review" options={{ title: 'Kertaus' }} />
     </Stack.Protected>
   </Stack>;
 }

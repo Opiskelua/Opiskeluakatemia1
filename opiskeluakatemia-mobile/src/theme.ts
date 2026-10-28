@@ -22,6 +22,7 @@ export const colors = {
   accentInk: '#7A5B12', // gold readable on light surfaces
   accentSurface: '#FBF6E7',
   track: '#E9E9EC',
+  trackOnDark: '#3A3A3C', // progress track on black surfaces
   success: '#1D7A46',
   successSurface: '#EAF6EF',
   successLine: '#9ED3B3',
