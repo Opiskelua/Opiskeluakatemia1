@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { Alert, Text, TextInput, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams, usePreventRemove } from 'expo-router';
-import { Screen } from '../components/Screen';
-import { Button, styles } from '../../App';
+import { Screen, usePullToRefresh } from '../components/Screen';
+import { Bullet, Button, Card, EmptyState, Field, ListRow, LoadingState, Notice, PageHeader, ProgressBar, SectionTitle } from '../components/ui';
+import { colors, maxScale, radii, space, type } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { completeTask, loadContent, type Topic } from '../lib/course';
 import { essayCounts, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
@@ -86,36 +87,65 @@ export default function Essays() {
     } catch (e) { setError((e instanceof Error ? e.message : 'Tallennus epäonnistui.') + ' Tekstisi säilyy tässä näkymässä.'); }
     finally { inFlight.current = false; if (mounted.current) setBusy(false); }
   }
-  return <Screen>
-    <Text style={styles.kicker}>Kirjoittaminen</Text><Text style={styles.title}>Löydä oma äänesi.</Text>
-    <Text style={styles.body}>Verkkokurssin aiheet, luonnokset ja arvioinnit samalla tilillä.</Text>
-    {!!error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
-    {!!taskError && <><Text accessibilityRole="alert" style={styles.error}>{taskError}</Text><Button title={busy ? 'Kuitataan…' : 'Yritä kuittausta uudelleen'} disabled={busy} onPress={() => void retryTaskCompletion()} /></>}
-    {!!notice && <Text accessibilityRole="status" style={styles.body}>{notice}</Text>}
-    {topic && <View style={styles.card}>
-      <Text style={styles.heading}>{topic.title}</Text><Text style={styles.body}>{topic.description}</Text>
-      <TextInput accessibilityLabel="Kirjoitelma" multiline textAlignVertical="top" style={[styles.input, { minHeight: 280 }]} placeholder="Write your essay here…" value={text} editable={!busy && !submitted} onChangeText={setText} />
-      <Text style={styles.footer}>{counts.charCount} merkkiä · {counts.wordCount} sanaa · arviointiin vähintään 700 merkkiä</Text>
-      {!submitted && <Button title={busy ? 'Tallennetaan…' : 'Tallenna luonnos'} disabled={busy || !text.trim()} onPress={() => void save(false)} />}
-      {!evaluation && <Button title={busy ? 'Odota hetki…' : submitted ? 'Yritä arviointia uudelleen' : 'Palauta arvioitavaksi'} disabled={busy || counts.charCount < 700} onPress={() => void save(true)} />}
-    </View>}
-    {evaluation && <View style={styles.card}><Text style={styles.heading}>{evaluation.essay.topicTitle}</Text><Text style={styles.score}>{evaluation.evaluation.mappedScore} / 99</Text><Text style={styles.body}>{evaluation.evaluation.scoreLevelDescription}</Text>
-      {Object.entries(evaluation.evaluation.categoryFeedback ?? {}).map(([key, value]) => <Text key={key} selectable style={styles.body}>{typeof value === 'string' ? value : JSON.stringify(value)}</Text>)}
-      <Text style={styles.heading}>Vahvuudet</Text>{evaluation.evaluation.strengths?.map((s, i) => <Text key={i} style={styles.body}>• {s}</Text>)}
-      <Text style={styles.heading}>Kehitettävää</Text>{evaluation.evaluation.weaknesses?.map((s, i) => <Text key={i} style={styles.body}>• {s}</Text>)}
-      <Text selectable style={styles.body}>{evaluation.essay.content}</Text>
-    </View>}
+  const refreshContent = content.refresh; const refreshList = list.refresh;
+  const pull = usePullToRefresh(useCallback(() => Promise.all([refreshContent(), refreshList()]), [refreshContent, refreshList]));
+  const enough = counts.charCount >= 700;
+  return <Screen {...(topic ? {} : pull)}>
+    <PageHeader kicker="Kirjoittaminen" title="Löydä oma äänesi." intro="Verkkokurssin aiheet, luonnokset ja arvioinnit samalla tilillä." />
+    {!!error && <Notice tone="error" message={error} />}
+    {!!taskError && <Notice tone="error" message={taskError} actionTitle={busy ? 'Kuitataan…' : 'Yritä kuittausta uudelleen'} actionDisabled={busy} onAction={() => void retryTaskCompletion()} />}
+    {!!notice && <Notice tone="success" message={notice} />}
+    {topic && <Card>
+      <Text accessibilityRole="header" style={type.heading}>{topic.title}</Text>
+      {!!topic.description && <Text style={type.body}>{topic.description}</Text>}
+      <Field accessibilityLabel="Kirjoitelma" multiline style={styles.editor} placeholder="Write your essay here…" value={text} editable={!busy && !submitted} onChangeText={setText} autoCapitalize="sentences" />
+      <View style={{ gap: space.xxs }}>
+        <Text style={[type.caption, enough && { color: colors.success }]}>{counts.charCount} merkkiä · {counts.wordCount} sanaa · arviointiin vähintään 700 merkkiä</Text>
+        <ProgressBar tone={enough ? 'success' : 'ink'} value={(counts.charCount / 700) * 100} label="Merkkimäärä suhteessa arvioinnin vähimmäismäärään" />
+      </View>
+      {dirty && !busy && <Text style={type.caption}>Tallentamattomia muutoksia</Text>}
+      {!evaluation && <Button title={busy ? 'Odota hetki…' : submitted ? 'Yritä arviointia uudelleen' : 'Palauta arvioitavaksi'} disabled={busy || !enough} onPress={() => void save(true)} />}
+      {!submitted && <Button title={busy ? 'Tallennetaan…' : 'Tallenna luonnos'} secondary disabled={busy || !text.trim()} onPress={() => void save(false)} />}
+    </Card>}
+    {evaluation && <Card>
+      <Text style={type.overline}>Arviointi</Text>
+      <Text accessibilityRole="header" style={type.heading}>{evaluation.essay.topicTitle}</Text>
+      <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat}>{evaluation.evaluation.mappedScore} / 99</Text>
+      <ProgressBar value={(evaluation.evaluation.mappedScore / 99) * 100} label="Pisteet" />
+      <Text style={type.body}>{evaluation.evaluation.scoreLevelDescription}</Text>
+      {Object.entries(evaluation.evaluation.categoryFeedback ?? {}).map(([key, value]) => <Text key={key} selectable style={type.body}>{typeof value === 'string' ? value : JSON.stringify(value)}</Text>)}
+      <Text accessibilityRole="header" style={[type.subheading, styles.subhead, { color: colors.success }]}>Vahvuudet</Text>
+      {evaluation.evaluation.strengths?.map((s, i) => <Bullet key={i}>{s}</Bullet>)}
+      <Text accessibilityRole="header" style={[type.subheading, styles.subhead]}>Kehitettävää</Text>
+      {evaluation.evaluation.weaknesses?.map((s, i) => <Bullet key={i}>{s}</Bullet>)}
+      <Text accessibilityRole="header" style={[type.subheading, styles.subhead]}>Oma tekstisi</Text>
+      <View style={styles.essayText}><Text selectable style={type.body}>{evaluation.essay.content}</Text></View>
+    </Card>}
     {topic || evaluation ? <Button title="Valitse uusi aihe" secondary disabled={busy || dirty} onPress={() => { setTopic(null); setEvaluation(null); setText(''); setSavedText(''); setEssayId(undefined); setSubmitted(false); setNotice(''); setTaskError(''); }} /> : <>
-      <Text style={styles.heading}>Valitse aihe</Text>
-      {!!content.error && <><Text style={styles.error}>{content.error}</Text><Button title="Päivitä aiheet" onPress={() => void content.refresh()} /></>}
-      {content.loading && !content.data && <Text style={styles.body}>Haetaan aiheita…</Text>}
-      {content.data?.topics.map(t => <View key={t.id} style={styles.card}><Text style={styles.heading}>{t.title}</Text><Text style={styles.body}>{t.description}</Text><Button title="Kirjoita tästä" disabled={busy} onPress={() => { setTopic(t); setText(''); setSavedText(''); setEssayId(undefined); setSubmitted(false); }} /></View>)}
+      <SectionTitle title="Valitse aihe" />
+      {!!content.error && <Notice tone="error" message={content.error} actionTitle="Päivitä aiheet" actionDisabled={content.loading} onAction={() => void content.refresh()} />}
+      {content.loading && !content.data && <LoadingState label="Haetaan aiheita…" />}
+      {content.data && !content.data.topics.length && <EmptyState title="Ei aiheita" message="Aiheita ei juuri nyt löytynyt. Päivitä myöhemmin uudelleen." />}
+      {content.data?.topics.map(t => <Card key={t.id}>
+        <Text style={type.subheading}>{t.title}</Text>
+        <Text style={type.body}>{t.description}</Text>
+        <Button title="Kirjoita tästä" disabled={busy} onPress={() => { setTopic(t); setText(''); setSavedText(''); setEssayId(undefined); setSubmitted(false); }} />
+      </Card>)}
     </>}
-    <Text style={styles.heading}>Omat kirjoitelmat</Text>
-    {!!list.error && <Text style={styles.error}>{list.error}</Text>}
-    {!list.loading && list.data?.essays.length === 0 && <Text style={styles.body}>Ei vielä kirjoitelmia. Aloita valitsemalla aihe.</Text>}
-    {list.data?.essays.map(e => <View key={e.id} style={styles.card}><Text style={styles.heading}>{e.topicTitle}</Text><Text style={styles.muted}>{e.isDraft ? 'Luonnos' : e.evaluation ? `${e.evaluation.mappedScore} / 99 pistettä` : 'Arviointi ei ole valmis'} · {new Date(e.updatedAt).toLocaleDateString('fi-FI')}</Text><Button title={e.isDraft ? 'Jatka luonnosta' : 'Avaa arviointi'} secondary disabled={busy || dirty} onPress={() => void open(e)} /></View>)}
-    {list.data?.hasMore && <Text style={styles.footer}>Näytetään 100 viimeisintä kirjoitelmaa.</Text>}
-    <Button title={list.loading ? 'Päivitetään…' : 'Päivitä kirjoitelmat'} secondary disabled={list.loading} onPress={() => void list.refresh()} />
+    <SectionTitle title="Omat kirjoitelmat" detail={list.data?.hasMore ? 'Näytetään 100 viimeisintä kirjoitelmaa.' : undefined}
+      action={{ label: list.loading ? 'Päivitetään…' : 'Päivitä', accessibilityLabel: 'Päivitä kirjoitelmat', onPress: () => { if (!list.loading) void list.refresh(); } }} />
+    {!!list.error && <Notice tone="error" message={list.error} actionTitle="Yritä uudelleen" actionDisabled={list.loading} onAction={() => void list.refresh()} />}
+    {list.loading && !list.data && <LoadingState label="Haetaan kirjoitelmia…" />}
+    {!list.loading && list.data?.essays.length === 0 && <EmptyState title="Ei vielä kirjoitelmia" message="Aloita valitsemalla aihe." />}
+    {list.data?.essays.map(e => <ListRow key={e.id} badge={e.isDraft ? 'L' : 'A'} title={e.topicTitle}
+      subtitle={`${e.isDraft ? 'Luonnos' : e.evaluation ? `${e.evaluation.mappedScore} / 99 pistettä` : 'Arviointi ei ole valmis'} · ${new Date(e.updatedAt).toLocaleDateString('fi-FI')}`}
+      accessibilityLabel={`${e.topicTitle}. ${e.isDraft ? 'Jatka luonnosta' : 'Avaa arviointi'}`}
+      onPress={busy || dirty ? undefined : () => void open(e)} />)}
   </Screen>;
 }
+
+const styles = StyleSheet.create({
+  editor: { minHeight: 280 },
+  subhead: { marginTop: space.xs },
+  essayText: { padding: space.sm, borderRadius: radii.md, backgroundColor: colors.surfaceMuted },
+});

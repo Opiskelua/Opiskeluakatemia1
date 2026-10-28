@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
-import { Button, styles } from '../../App';
+import { Button, Card, Notice, ProgressBar } from './ui';
 import { config } from '../lib/config';
+import { space, type } from '../theme';
 const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 export function ExerciseAudio({ url, splitTime }: { url: string; splitTime?: number }) {
   const uri = url.startsWith('/') ? `${config.apiUrl}${url}` : url;
@@ -18,13 +19,22 @@ export function ExerciseAudio({ url, splitTime }: { url: string; splitTime?: num
       player.play();
     } catch { setError('Ääntä ei voitu toistaa. Tarkista verkkoyhteys.'); }
   }
-  return <View style={styles.card}>
-    <Text style={styles.heading}>Kuuntele aineisto</Text>
-    <Text style={styles.body}>{status.isLoaded ? `${clock(status.currentTime)} / ${clock(status.duration)}` : 'Ladataan ääntä…'}</Text>
+  const progress = status.isLoaded && status.duration > 0 ? (status.currentTime / status.duration) * 100 : 0;
+  return <Card>
+    <Text accessibilityRole="header" style={type.subheading}>Kuuntele aineisto</Text>
+    <ProgressBar value={progress} label="Äänen toiston edistyminen" />
+    <Text style={[type.caption, styles.time]}>{status.isLoaded ? `${clock(status.currentTime)} / ${clock(status.duration)}` : 'Ladataan ääntä…'}</Text>
     <Button title={status.playing ? 'Keskeytä' : 'Kuuntele'} disabled={!status.isLoaded} onPress={() => status.playing ? player.pause() : void play()} />
-    <Button title="Alusta" secondary disabled={!status.isLoaded} onPress={() => void play(0)} />
-    {!!splitTime && <Button title="Jatka toisesta osiosta" secondary disabled={!status.isLoaded} onPress={() => void play(splitTime)} />}
-    {!status.isLoaded && <Button title="Lataa ääni uudelleen" secondary onPress={() => { setError(''); player.replace(uri); }} />}
-    {!!error && <Text style={styles.error}>{error}</Text>}
-  </View>;
+    <View style={styles.row}>
+      <Button title="Alusta" secondary style={styles.item} disabled={!status.isLoaded} onPress={() => void play(0)} />
+      {!!splitTime && <Button title="Toinen osio" accessibilityLabel="Jatka toisesta osiosta" secondary style={styles.item} disabled={!status.isLoaded} onPress={() => void play(splitTime)} />}
+    </View>
+    {!status.isLoaded && <Button title="Lataa ääni uudelleen" variant="ghost" onPress={() => { setError(''); player.replace(uri); }} />}
+    {!!error && <Notice tone="error" message={error} />}
+  </Card>;
 }
+const styles = StyleSheet.create({
+  time: { fontVariant: ['tabular-nums'] },
+  row: { flexDirection: 'row', flexWrap: 'wrap', gap: space.xs },
+  item: { flexGrow: 1, flexBasis: 120 },
+});

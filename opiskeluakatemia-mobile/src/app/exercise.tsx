@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { router, useLocalSearchParams, usePreventRemove } from 'expo-router';
 import { randomUUID } from 'expo-crypto';
 import { Screen } from '../components/Screen';
 import { ExerciseAudio } from '../components/ExerciseAudio';
-import { Button, styles } from '../../App';
+import { Button, Card, EmptyState, Field, LoadingState, Notice, ProgressBar } from '../components/ui';
+import { colors, layout, radii, space, type } from '../theme';
 import { completeTask } from '../lib/course';
 import { choices } from '../lib/catalogue';
 import { allAnswered, usesAiGrading, type Answers, type Exercise, type Result } from '../lib/exercise-model';
 import { loadExercise, submitExercise } from '../lib/exercises';
 import { ensureAiConsent } from '../lib/ai-consent';
+
+const categoryLabel = { grammar: 'Kielioppi ja sanasto', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' } as const;
 
 export default function ExerciseScreen() {
   const { id, difficulty, taskId } = useLocalSearchParams<{ id: string; difficulty?: string; taskId?: string }>();
@@ -57,38 +60,80 @@ export default function ExerciseScreen() {
       if (mounted.current) setError((e instanceof Error ? e.message : 'Tallennus epäonnistui.') + ' Vastaukset ovat tallessa tässä näkymässä. Voit yrittää tallennusta uudelleen.');
     } finally { inFlight.current = false; if (mounted.current) setSaving(false); }
   }
-  if (!choice) return <Screen><Text style={styles.error}>Tehtävää ei löytynyt.</Text></Screen>;
-  if (loading) return <Screen><ActivityIndicator color="#111111" /><Text style={styles.body}>Valmistellaan harjoitusta…</Text><Button title="Peruuta" secondary onPress={() => router.back()} /></Screen>;
-  if (!exercise) return <Screen><Text style={styles.error}>{error}</Text><Button title="Yritä uudelleen" onPress={() => { setLoading(true); setError(''); setReload(n => n + 1); }} /></Screen>;
+  if (!choice) return <Screen><EmptyState title="Tehtävää ei löytynyt." message="Valitse harjoitus uudelleen harjoitusvalikosta." actionTitle="Takaisin" onAction={() => router.back()} /></Screen>;
+  if (loading) return <Screen><LoadingState label="Valmistellaan harjoitusta…" /><Button title="Peruuta" secondary onPress={() => router.back()} /></Screen>;
+  if (!exercise) return <Screen><Notice tone="error" title="Tehtävää ei voitu ladata" message={error} actionTitle="Yritä uudelleen" onAction={() => { setLoading(true); setError(''); setReload(n => n + 1); }} /><Button title="Takaisin" variant="ghost" onPress={() => router.back()} /></Screen>;
+  const answered = exercise.questions.filter(q => answers[q.id] !== undefined && String(answers[q.id]).trim()).length;
   return <Screen>
-    <Text style={styles.kicker}>{result ? 'Tallennettu verkkopalveluun' : 'Harjoitus'}</Text>
-    <Text style={styles.heading}>{exercise.title}</Text>
-    {!!exercise.instructions && <Text style={styles.body}>{exercise.instructions}</Text>}
-    {result && <View style={styles.card}><Text style={styles.kicker}>Tulos</Text><Text style={styles.score}>{result.totalScore} / {result.maxScore}</Text><Text style={styles.body}>Tulos näkyy myös verkkopalvelun harjoitushistoriassa samalla tilillä.</Text><Button title="Katso historia" onPress={() => router.replace('/history')} /></View>}
-    {!!taskError && <><Text style={styles.error}>{taskError}</Text><Button title="Yritä kuittausta uudelleen" onPress={() => { if (result && taskId) void completeTask(taskId, result.totalScore, result.maxScore).then(() => setTaskError('')).catch(() => setTaskError('Kuittaus epäonnistui. Yritä uudelleen.')); }} /></>}
+    <View style={{ gap: space.xs }}>
+      <Text style={type.overline}>{result ? 'Tallennettu verkkopalveluun' : categoryLabel[exercise.category]}</Text>
+      <Text accessibilityRole="header" style={type.title}>{exercise.title}</Text>
+      {!!exercise.instructions && <Text style={type.body}>{exercise.instructions}</Text>}
+    </View>
+    {result && <Card tone="success">
+      <Text style={[type.overline, { color: colors.success }]}>Tulos</Text>
+      <Text style={type.stat} accessibilityLabel={`Tulos ${result.totalScore} / ${result.maxScore} pistettä`}>{result.totalScore} / {result.maxScore}</Text>
+      <ProgressBar tone="success" value={result.maxScore ? (result.totalScore / result.maxScore) * 100 : 0} label="Tulos prosentteina" />
+      <Text style={type.body}>Tulos näkyy myös verkkopalvelun harjoitushistoriassa samalla tilillä.</Text>
+      <Button title="Katso historia" onPress={() => router.replace('/history')} />
+    </Card>}
+    {!!taskError && <Notice tone="error" message={taskError} actionTitle="Yritä kuittausta uudelleen" onAction={() => { if (result && taskId) void completeTask(taskId, result.totalScore, result.maxScore).then(() => setTaskError('')).catch(() => setTaskError('Kuittaus epäonnistui. Yritä uudelleen.')); }} />}
     {!!exercise.audioUrl && <ExerciseAudio url={exercise.audioUrl} splitTime={exercise.splitTime} />}
-    {exercise.passages.map((text, index) => <View style={styles.card} key={index}><Text selectable style={styles.body}>{text}</Text></View>)}
+    {exercise.passages.map((text, index) => <Card key={index}><Text selectable style={[type.body, { color: colors.ink }]}>{text}</Text></Card>)}
     {exercise.questions.map((q, index) => {
       const feedback = result?.evaluations?.find(e => e.questionId === q.id);
-      return <View key={q.id} style={styles.card}>
-        <Text style={styles.kicker}>Kysymys {index + 1} / {exercise.questions.length}</Text>
-        <Text selectable style={styles.heading}>{q.prompt}</Text>
-        {!!q.hint && <Text style={styles.body}>{q.hint}</Text>}
-        {q.options ? q.options.map((option, optionIndex) => <Pressable accessibilityRole="radio" accessibilityState={{ checked: answers[q.id] === optionIndex, disabled: locked }} disabled={locked} key={optionIndex}
-          onPress={() => setAnswers(previous => ({ ...previous, [q.id]: optionIndex }))}
-          style={[styles.choice, answers[q.id] === optionIndex && styles.choiceOn]}>
-          <Text style={[styles.body, answers[q.id] === optionIndex && { color: '#111111', fontWeight: '600' }]}>{String.fromCharCode(65 + optionIndex)}. {option}</Text>
-        </Pressable>) : <><TextInput accessibilityLabel={`Vastaus kysymykseen ${index + 1}`} style={[styles.input, { minHeight: 64 }]} multiline autoCorrect={false} autoCapitalize="none" editable={!locked}
-          value={String(answers[q.id] ?? '')} placeholder="Kirjoita vastauksesi" placeholderTextColor="#A1A1A6" maxLength={q.maxCharacters}
-          onChangeText={text => setAnswers(previous => ({ ...previous, [q.id]: text }))} />
-          {!!q.maxCharacters && <Text style={styles.footer}>{String(answers[q.id] ?? '').length} / {q.maxCharacters} merkkiä</Text>}</>}
-        {feedback && <View style={styles.note}><Text style={styles.label}>{feedback.score} p.</Text><Text selectable style={styles.body}>{feedback.feedback}</Text></View>}
-      </View>;
+      return <Card key={q.id}>
+        <Text style={type.overline}>Kysymys {index + 1} / {exercise.questions.length}</Text>
+        <Text selectable style={type.subheading}>{q.prompt}</Text>
+        {!!q.hint && <Text style={type.caption}>{q.hint}</Text>}
+        {q.options ? <View accessibilityRole="radiogroup" style={{ gap: space.xs }}>{q.options.map((option, optionIndex) => {
+          const selected = answers[q.id] === optionIndex;
+          // After grading, highlight the right answer and mark a wrong selection.
+          const graded = !!result && q.correctIndex !== undefined;
+          const correct = graded && optionIndex === q.correctIndex;
+          const wrong = graded && selected && !correct;
+          const letter = String.fromCharCode(65 + optionIndex);
+          return <Pressable accessibilityRole="radio" accessibilityLabel={`${letter}. ${option}${correct ? ', oikea vastaus' : wrong ? ', väärä vastaus' : ''}`} accessibilityState={{ checked: selected, disabled: locked }} disabled={locked} key={optionIndex}
+            onPress={() => setAnswers(previous => ({ ...previous, [q.id]: optionIndex }))}
+            style={({ pressed }) => [styles.choice, selected && styles.choiceOn, correct && styles.choiceCorrect, wrong && styles.choiceWrong, pressed && !selected && { backgroundColor: colors.surfacePressed }]}>
+            <View style={[styles.letter, selected && !graded && styles.letterOn, correct && { backgroundColor: colors.success, borderColor: colors.success }, wrong && { backgroundColor: colors.danger, borderColor: colors.danger }]}>
+              <Text style={[styles.letterText, ((selected && !graded) || correct || wrong) && { color: colors.white }]} maxFontSizeMultiplier={1.3}>{correct ? '✓' : wrong ? '✕' : letter}</Text>
+            </View>
+            <Text style={[type.body, styles.choiceText, (selected || correct) && { color: colors.ink, fontWeight: '600' }]}>{option}</Text>
+          </Pressable>;
+        })}</View> : <Field accessibilityLabel={`Vastaus kysymykseen ${index + 1}`} style={{ minHeight: 64 }} multiline autoCorrect={false} autoCapitalize="none" editable={!locked}
+          value={String(answers[q.id] ?? '')} placeholder="Kirjoita vastauksesi" maxLength={q.maxCharacters}
+          onChangeText={text => setAnswers(previous => ({ ...previous, [q.id]: text }))}
+          hint={q.maxCharacters ? `${String(answers[q.id] ?? '').length} / ${q.maxCharacters} merkkiä` : undefined} />}
+        {feedback && <View style={[styles.feedback, feedback.score > 0 ? styles.feedbackGood : styles.feedbackBad]}>
+          <Text style={[type.label, { color: feedback.score > 0 ? colors.success : colors.danger }]}>{feedback.score > 0 ? '✓' : '✕'} {feedback.score} p.</Text>
+          {!!feedback.feedback && <Text selectable style={[type.body, { fontSize: 15, lineHeight: 21 }]}>{feedback.feedback}</Text>}
+        </View>}
+      </Card>;
     })}
-    {!!error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
-    {!result && <><Text style={styles.body}>{exercise.questions.filter(q => answers[q.id] !== undefined && String(answers[q.id]).trim()).length} / {exercise.questions.length} vastattu</Text>
-      <Button title={saving ? 'Arvioidaan ja tallennetaan…' : locked ? 'Yritä tallennusta uudelleen' : 'Palauta ja tallenna'} disabled={saving || !allAnswered(exercise, answers)} onPress={() => void submit()} /></>}
-    {result && !!exercise.transcript && <View style={styles.card}><Text style={styles.heading}>Kuuntelun teksti</Text><Text selectable style={styles.body}>{exercise.transcript}</Text></View>}
+    {!!error && <Notice tone="error" message={error} />}
+    {!result && <View style={{ gap: space.sm }}>
+      <View style={{ gap: space.xs }}>
+        <Text style={type.caption}>{answered} / {exercise.questions.length} vastattu</Text>
+        <ProgressBar value={exercise.questions.length ? (answered / exercise.questions.length) * 100 : 0} label="Vastatut kysymykset" />
+      </View>
+      <Button title={saving ? 'Arvioidaan ja tallennetaan…' : locked ? 'Yritä tallennusta uudelleen' : 'Palauta ja tallenna'} loading={saving} disabled={!allAnswered(exercise, answers)} onPress={() => void submit()} />
+    </View>}
+    {result && !!exercise.transcript && <Card><Text accessibilityRole="header" style={type.subheading}>Kuuntelun teksti</Text><Text selectable style={type.body}>{exercise.transcript}</Text></Card>}
     {result && <Button title="Takaisin harjoituksiin" secondary onPress={() => router.back()} />}
   </Screen>;
 }
+
+const styles = StyleSheet.create({
+  choice: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 8, paddingVertical: space.sm, paddingHorizontal: space.sm, borderRadius: radii.md, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
+  choiceOn: { borderColor: colors.ink, borderWidth: 1.5, backgroundColor: colors.surfaceMuted },
+  choiceCorrect: { borderColor: colors.success, borderWidth: 1.5, backgroundColor: colors.successSurface },
+  choiceWrong: { borderColor: colors.danger, borderWidth: 1.5, backgroundColor: colors.dangerSurface },
+  choiceText: { flex: 1, minWidth: 0 },
+  letter: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, borderColor: colors.lineStrong, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  letterOn: { backgroundColor: colors.ink, borderColor: colors.ink },
+  letterText: { fontSize: 13, fontWeight: '700', color: colors.ink },
+  feedback: { gap: space.xxs, padding: space.sm, borderRadius: radii.md, borderWidth: 1 },
+  feedbackGood: { backgroundColor: colors.successSurface, borderColor: colors.successLine },
+  feedbackBad: { backgroundColor: colors.dangerSurface, borderColor: colors.dangerLine },
+});

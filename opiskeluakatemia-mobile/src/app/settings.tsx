@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { Alert, Platform, Text, TextInput, View } from 'react-native';
+import { Alert, Platform, Text } from 'react-native';
 import { Screen } from '../components/Screen';
-import { Button, styles } from '../../App';
+import { Button, Card, Field, Notice, PageHeader } from '../components/ui';
 import { useSession } from '../providers/SessionProvider';
 import { supabase } from '../lib/supabase';
 import { deleteAccount, RequestError } from '../lib/api';
 import { supportEmail } from '../lib/config';
 import { LegalLinks, openExternal } from '../components/LegalLinks';
-import { colors } from '../theme';
+import { colors, type } from '../theme';
 
 const CONFIRM_WORD = 'POISTA';
 
@@ -67,34 +67,32 @@ export default function Settings() {
   }
 
   return <Screen>
-    <Text style={styles.kicker}>Tili</Text>
-    <Text style={styles.title}>Asetukset</Text>
-    <View style={styles.card}>
-      <Text style={styles.label}>Kirjautuneena</Text>
-      <Text style={styles.body}>{session?.user.email ?? '—'}</Text>
+    <PageHeader title="Asetukset" />
+    <Card>
+      <Text style={type.overline}>Kirjautuneena</Text>
+      <Text selectable style={type.bodyStrong}>{session?.user.email ?? '—'}</Text>
       <Button title={busy && !deleting ? 'Hetkinen…' : 'Kirjaudu ulos'} secondary disabled={busy} onPress={() => void signOut()} />
-    </View>
+    </Card>
 
-    <View style={styles.card}>
-      <Text style={styles.heading}>Tietosuoja ja ehdot</Text>
-      <Text style={styles.body}>Lue, miten käsittelemme tietojasi ja millä ehdoilla palvelua käytetään.</Text>
+    <Card>
+      <Text accessibilityRole="header" style={type.subheading}>Tietosuoja ja ehdot</Text>
+      <Text style={type.body}>Lue, miten käsittelemme tietojasi ja millä ehdoilla palvelua käytetään.</Text>
       <LegalLinks />
-      <Button title={`Ota yhteyttä: ${supportEmail}`} secondary onPress={() => openExternal(`mailto:${supportEmail}`)} />
-    </View>
+      <Button title="Ota yhteyttä" accessibilityLabel={`Ota yhteyttä sähköpostilla: ${supportEmail}`} variant="ghost" onPress={() => openExternal(`mailto:${supportEmail}`)} />
+      <Text selectable style={[type.caption, { textAlign: 'center' }]}>{supportEmail}</Text>
+    </Card>
 
-    {!!error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
+    {!!error && <Notice tone="error" message={error} />}
 
-    <View style={[styles.card, { borderWidth: 1, borderColor: colors.danger }]}>
-      <Text style={styles.heading}>Poista tili</Text>
-      <Text style={styles.body}>Tilin poistaminen poistaa pysyvästi kirjautumistietosi sekä harjoitushistoriasi, kirjoitelmasi, muistikorttisi ja edistymistietosi. Poisto koskee sekä sovellusta että verkkopalvelua, ja tiliin liitetty kurssioikeus poistuu samalla. Poistoa ei voi perua.</Text>
+    <Card tone="danger">
+      <Text accessibilityRole="header" style={[type.subheading, { color: colors.danger }]}>Poista tili</Text>
+      <Text style={type.body}>Tilin poistaminen poistaa pysyvästi kirjautumistietosi sekä harjoitushistoriasi, kirjoitelmasi, muistikorttisi ja edistymistietosi. Poisto koskee sekä sovellusta että verkkopalvelua, ja tiliin liitetty kurssioikeus poistuu samalla. Poistoa ei voi perua.</Text>
       {!deleting ? <Button title="Poista tili…" secondary disabled={busy} onPress={() => { setDeleting(true); setError(''); }} /> : <>
-        <Text style={styles.label}>Salasana</Text>
-        <TextInput accessibilityLabel="Salasana tilin poiston vahvistamiseen" style={styles.input} value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" placeholder="Nykyinen salasanasi" placeholderTextColor="#A1A1A6" editable={!busy} />
-        <Text style={styles.label}>Kirjoita {CONFIRM_WORD} vahvistaaksesi</Text>
-        <TextInput accessibilityLabel={`Kirjoita ${CONFIRM_WORD} vahvistaaksesi`} style={styles.input} value={confirmation} onChangeText={setConfirmation} autoCapitalize="characters" autoCorrect={false} placeholder={CONFIRM_WORD} placeholderTextColor="#A1A1A6" editable={!busy} />
-        <Button title={busy ? 'Poistetaan…' : 'Poista tili pysyvästi'} disabled={!ready || busy} onPress={confirmRemove} />
+        <Field label="Salasana" accessibilityLabel="Salasana tilin poiston vahvistamiseen" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Nykyinen salasanasi" editable={!busy} />
+        <Field label={`Kirjoita ${CONFIRM_WORD} vahvistaaksesi`} value={confirmation} onChangeText={setConfirmation} autoCapitalize="characters" autoCorrect={false} placeholder={CONFIRM_WORD} editable={!busy} />
+        <Button title={busy ? 'Poistetaan…' : 'Poista tili pysyvästi'} variant="destructive" loading={busy} disabled={!ready} onPress={confirmRemove} />
         <Button title="Peruuta" secondary disabled={busy} onPress={() => { setDeleting(false); setPassword(''); setConfirmation(''); setError(''); }} />
       </>}
-    </View>
+    </Card>
   </Screen>;
 }
