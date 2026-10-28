@@ -1,0 +1,86 @@
+[
+  {
+    "education_start_year": 2024,
+    "all_records": 26290,
+    "certificate_records": 1542,
+    "sectors": {
+      "Ammattikorkeakoulukoulutus": {
+        "records": 804,
+        "with_cutoff": 804,
+        "distinct_hakukohde_oids_with_cutoff": 804,
+        "institutions_with_cutoff": 22
+      },
+      "Tieto puuttuu": {
+        "records": 1,
+        "with_cutoff": 0,
+        "distinct_hakukohde_oids_with_cutoff": 0,
+        "institutions_with_cutoff": 0
+      },
+      "Yliopistokoulutus": {
+        "records": 737,
+        "with_cutoff": 493,
+        "distinct_hakukohde_oids_with_cutoff": 493,
+        "institutions_with_cutoff": 12
+      }
+    },
+    "source_updated_dates": [
+      "2026-10-13"
+    ]
+  },
+  {
+    "education_start_year": 2025,
+    "all_records": 26254,
+    "certificate_records": 1589,
+    "sectors": {
+      "Ammattikorkeakoulukoulutus": {
+        "records": 848,
+        "with_cutoff": 848,
+        "distinct_hakukohde_oids_with_cutoff": 848,
+        "institutions_with_cutoff": 22
+      },
+      "Tieto puuttuu": {
+        "records": 5,
+        "with_cutoff": 0,
+        "distinct_hakukohde_oids_with_cutoff": 0,
+        "institutions_with_cutoff": 0
+      },
+      "Yliopistokoulutus": {
+        "records": 736,
+        "with_cutoff": 476,
+        "distinct_hakukohde_oids_with_cutoff": 476,
+        "institutions_with_cutoff": 12
+      }
+    },
+    "source_updated_dates": [
+      "2026-10-13"
+    ]
+  },
+  {
+    "education_start_year": 2026,
+    "all_records": 26217,
+    "certificate_records": 1630,
+    "sectors": {
+      "Ammattikorkeakoulukoulutus": {
+        "records": 893,
+        "with_cutoff": 893,
+        "distinct_hakukohde_oids_with_cutoff": 893,
+        "institutions_with_cutoff": 22
+      },
+      "Tieto puuttuu": {
+        "records": 7,
+        "with_cutoff": 2,
+        "distinct_hakukohde_oids_with_cutoff": 2,
+        "institutions_with_cutoff": 1
+      },
+      "Yliopistokoulutus": {
+        "records": 730,
+        "with_cutoff": 493,
+        "distinct_hakukohde_oids_with_cutoff": 493,
+        "institutions_with_cutoff": 12
+      }
+    },
+    "source_updated_dates": [
+      "2026-10-13"
+    ]
+  }
+]

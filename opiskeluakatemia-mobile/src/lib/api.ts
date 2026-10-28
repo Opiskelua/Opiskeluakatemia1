@@ -28,6 +28,7 @@ export async function apiRequest(path: string, options: { method?: string; body?
     return await response.json();
   } catch (error) {
     if (controller.signal.aborted) throw new Error('Pyyntö keskeytettiin tai aikaraja ylittyi. Tarkista yhteys.');
+    if (error instanceof TypeError) throw new Error('Yhteys palvelimeen ei onnistunut. Tarkista verkkoyhteys ja että kurssipalvelu on käynnissä.');
     throw error;
   } finally { clearTimeout(timeout); options.signal?.removeEventListener('abort', abort); }
 }

@@ -21,17 +21,25 @@ export default function History() {
   useEffect(() => { const listener = AppState.addEventListener('change', state => { if (state === 'active') void refresh(); }); return () => listener.remove(); }, [refresh]);
   const average = attempts.length ? attempts.reduce((sum, a) => sum + Number(a.score_percentage), 0) / attempts.length : 0;
   return <Screen refreshing={loading} onRefresh={() => void refresh()}>
-    <Text style={styles.title}>Oma edistyminen.</Text>
+    <Text style={styles.kicker}>Edistyminen</Text>
+    <Text style={styles.title}>Harjoitushistoria</Text>
     <Text style={styles.body}>Saman tilin verkossa ja puhelimessa tallennetut harjoitukset. Näytetään enintään 100 viimeisintä suoritusta kustakin osa-alueesta.</Text>
     {!!updated && <Text style={styles.footer}>Päivitetty {updated}</Text>}
     {!!error && <Text style={styles.error}>{error}</Text>}
-    <Button title={loading ? 'Päivitetään…' : 'Päivitä historia'} secondary disabled={loading} onPress={() => void refresh()} />
-    <View style={styles.note}><Text style={styles.heading}>{attempts.length} suoritusta · {Math.round(average)} % keskiarvo</Text></View>
+    <View style={styles.card}>
+      <Text style={styles.kicker}>Yhteenveto</Text>
+      <Text style={styles.score}>{attempts.length}</Text>
+      <Text style={styles.body}>{Math.round(average)} % keskiarvo</Text>
+    </View>
     {!loading && !error && !attempts.length && <Text style={styles.body}>Ei vielä suorituksia. Palauta ensimmäinen harjoitus, niin tulos näkyy täällä ja verkkopalvelussa.</Text>}
-    {attempts.map(a => <View key={`${a.category}-${a.id}`} style={styles.card}>
-      <Text style={styles.eyebrow}>{labels[a.category]}</Text><Text style={styles.heading}>{a.exercise_title || a.exercise_id}</Text>
-      <Text style={styles.title}>{a.total_score} / {a.max_score}</Text>
-      <Text style={styles.body}>{Math.round(Number(a.score_percentage))} % · {new Date(a.submitted_at).toLocaleString('fi-FI')}</Text>
+    {attempts.map(a => <View key={`${a.category}-${a.id}`} style={styles.activity}>
+      <View style={styles.activityIcon}><Text style={styles.activityIconText}>{a.category === 'grammar' ? 'K' : a.category === 'reading' ? 'L' : 'U'}</Text></View>
+      <View style={styles.activityCopy}>
+        <Text style={styles.activityTitle} numberOfLines={1}>{a.exercise_title || a.exercise_id}</Text>
+        <Text style={styles.muted} numberOfLines={1}>{labels[a.category]} · {new Date(a.submitted_at).toLocaleString('fi-FI')}</Text>
+      </View>
+      <Text style={styles.activityScore}>{a.total_score}/{a.max_score}</Text>
     </View>)}
+    <Button title={loading ? 'Päivitetään…' : 'Päivitä historia'} secondary disabled={loading} onPress={() => void refresh()} />
   </Screen>;
 }
