@@ -10,6 +10,7 @@ import { loadHistory, type Attempt } from './src/lib/exercises';
 import { router, useFocusEffect } from 'expo-router';
 import { useSession } from './src/providers/SessionProvider';
 import { colors, shadow } from './src/theme';
+import { LegalLinks } from './src/components/LegalLinks';
 
 type Access = 'loading' | 'active' | 'inactive' | 'error';
 
@@ -72,7 +73,6 @@ function TabBar() {
 function CourseHome({ session }: { session: Session }) {
   const [access, setAccess] = useState<Access>('loading');
   const [error, setError] = useState('');
-  const [signingOut, setSigningOut] = useState(false);
   const [historyError, setHistoryError] = useState('');
   const historyRequest = useRef(0);
   const [recent, setRecent] = useState<Attempt[] | null>(null);
@@ -108,14 +108,6 @@ function CourseHome({ session }: { session: Session }) {
     const subscription = AppState.addEventListener('change', state => { if (state === 'active') { void refresh(); void refreshHistory(); } });
     return () => subscription.remove();
   }, [refresh, refreshHistory]);
-  async function signOut() {
-    setSigningOut(true);
-    try {
-      const result = await supabase!.auth.signOut({ scope: 'local' });
-      if (result.error) throw result.error;
-    } catch { setError('Uloskirjautuminen epäonnistui. Yritä uudelleen.'); }
-    finally { setSigningOut(false); }
-  }
   const rows = recent ?? [];
   const latest = rows.slice(0, 3);
   const scores = rows.slice(0, 8).reverse().map(item => Number(item.score_percentage) || 0);
@@ -130,8 +122,8 @@ function CourseHome({ session }: { session: Session }) {
           <Text style={styles.name} numberOfLines={1}>{name}</Text>
           <Text style={styles.email} numberOfLines={1}>{session.user.email}</Text>
         </View>
-        <Pressable accessibilityRole="button" accessibilityLabel="Kirjaudu ulos" disabled={signingOut} onPress={() => void signOut()} style={({ pressed }) => [styles.iconButton, pressed && { opacity: 0.6 }]}>
-          <Text style={styles.iconButtonText}>{signingOut ? '…' : 'Ulos'}</Text>
+        <Pressable accessibilityRole="button" accessibilityLabel="Tili ja asetukset" onPress={() => router.push('/settings')} style={({ pressed }) => [styles.iconButton, pressed && { opacity: 0.6 }]}>
+          <Text style={styles.iconButtonText}>Tili</Text>
         </Pressable>
       </View>
 
@@ -175,14 +167,14 @@ function CourseHome({ session }: { session: Session }) {
         <View style={styles.featureTop}>
           <View style={styles.featureCopy}>
             <Text style={styles.kicker}>Pitkä englanti</Text>
-            <Text style={styles.featureTitle}>{access === 'active' ? 'Yo-englanti,\noma tahti.' : 'Kurssi odottaa\naktivointia.'}</Text>
+            <Text style={styles.featureTitle}>{access === 'active' ? 'Yo-englanti,\noma tahti.' : 'Kurssioikeutta\nei löytynyt.'}</Text>
           </View>
           <View style={styles.ringWrap}><View style={styles.ring} /></View>
         </View>
         <Text style={styles.body}>{access === 'active'
           ? 'Kielioppi, luetunymmärtäminen ja kuuntelu. Tulokset tallentuvat samalle tilille kuin verkossa.'
           : access === 'inactive'
-            ? 'Tälle tilille ei löytynyt aktiivista kurssia. Käytä samaa sähköpostia kuin verkkopalvelussa.'
+            ? 'Tälle tilille ei löytynyt aktiivista kurssioikeutta. Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä.'
             : 'Kurssioikeus tarkistetaan verkkopalvelusta.'}</Text>
         <Pressable accessibilityRole="button" disabled={access === 'loading'} onPress={() => access === 'active' ? router.push('/exercises') : void refresh()} style={({ pressed }) => [styles.pill, (pressed || access === 'loading') && { opacity: 0.6 }]}>
           <Text style={styles.pillText}>{access === 'active' ? 'Aloita nyt' : access === 'loading' ? 'Tarkistetaan…' : 'Tarkista kurssi'}</Text>
@@ -233,7 +225,7 @@ function Login() {
     if (!email.trim()) { setMessage('Kirjoita ensin sähköpostiosoitteesi.'); return; }
     setBusy(true); setMessage('');
     try {
-      const { error } = await supabase!.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${config.apiUrl}/reset-password` });
+      const { error } = await supabase!.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${config.siteUrl}/reset-password` });
       if (error) throw error;
       setMessage('Jos osoitteella on tili, saat sähköpostiin linkin salasanan vaihtamiseen verkkopalvelussa.');
     } catch { setMessage('Salasanan palautus ei onnistunut. Yritä myöhemmin uudelleen.'); }
@@ -254,7 +246,8 @@ function Login() {
       <Button title={busy ? 'Hetkinen…' : 'Kirjaudu sisään'} disabled={busy || !email.trim() || !password} onPress={() => void login()} />
       <Button title="Unohditko salasanasi?" secondary disabled={busy} onPress={() => void resetPassword()} />
     </View>
-    <Text style={styles.footer}>Ensimmäinen mobiiliversio tukee olemassa olevia sähköposti- ja salasanatilejä. Google-kirjautuminen lisätään myöhemmin.</Text>
+    <Text style={styles.footer}>Kirjaudu sähköpostilla ja salasanalla. Käyttämällä sovellusta hyväksyt käyttöehdot.</Text>
+    <LegalLinks />
   </>;
 }
 
@@ -267,7 +260,7 @@ function ScrollShell({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { session, loading } = useSession();
   return <SafeAreaProvider><SafeAreaView style={styles.safe}><StatusBar style="dark" />
-    {!isConfigured ? <ScrollShell><Wordmark /><View style={styles.card}><Text style={styles.heading}>Yhteys odottaa määritystä</Text><Text style={styles.body}>Lisää projektin .env.local-tiedostoon README-ohjeen mukaiset julkiset yhteysasetukset ja käynnistä sovellus uudelleen.</Text></View></ScrollShell>
+    {!isConfigured ? <ScrollShell><Wordmark /><View style={styles.card}><Text style={styles.heading}>{__DEV__ ? 'Yhteys odottaa määritystä' : 'Palveluun ei saada yhteyttä'}</Text><Text style={styles.body}>{__DEV__ ? 'Lisää projektin .env.local-tiedostoon README-ohjeen mukaiset julkiset HTTPS-yhteysasetukset ja käynnistä sovellus uudelleen.' : 'Päivitä sovellus uusimpaan versioon tai yritä myöhemmin uudelleen.'}</Text></View></ScrollShell>
       : loading ? <View style={styles.center}><ActivityIndicator accessibilityLabel="Ladataan tiliä" color={colors.ink} size="large" /></View>
       : session ? <CourseHome key={session.user.id} session={session} /> : <ScrollShell><Login /></ScrollShell>}
   </SafeAreaView></SafeAreaProvider>;

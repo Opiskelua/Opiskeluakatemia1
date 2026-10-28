@@ -1,0 +1,77 @@
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const ts = require('typescript');
+const Module = require('node:module');
+function load(file) {
+  const source = path.resolve(__dirname, '../src/lib', file);
+  const loaded = new Module(source, module);
+  loaded._compile(ts.transpileModule(fs.readFileSync(source, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, source);
+  return loaded.exports;
+}
+const { resolveApiOrigin, isAllowedOrigin, PRODUCTION_ORIGIN } = load('api-origin.ts');
+const { sanitizeDeepLink } = load('deep-link.ts');
+const { createChunkedSecureStorage } = load('chunked-storage.ts');
+
+test('release builds default to the HTTPS production API and refuse plain-HTTP internet origins', () => {
+  assert.equal(resolveApiOrigin('', undefined, false, 'ios'), PRODUCTION_ORIGIN);
+  assert.equal(resolveApiOrigin('https://opiskeluakatemia.fi/', undefined, false, 'android'), 'https://opiskeluakatemia.fi');
+  assert.equal(resolveApiOrigin('http://opiskeluakatemia.fi', undefined, false, 'ios'), '');
+  assert.equal(resolveApiOrigin('http://192.168.1.20:3000', undefined, false, 'ios'), 'http://192.168.1.20:3000');
+  assert.equal(resolveApiOrigin('ftp://example.com', undefined, false, 'ios'), '');
+  assert.equal(resolveApiOrigin('', '192.168.1.50:8081', true, 'ios'), '');
+  assert.equal(isAllowedOrigin('https://user:pw@example.com', false), false);
+  assert.equal(isAllowedOrigin('http://evil.example', true), true);
+});
+
+test('deep links only open known screens and never carry task IDs', () => {
+  assert.equal(sanitizeDeepLink('opiskeluakatemia://history'), '/history');
+  assert.equal(sanitizeDeepLink('opiskeluakatemia:///settings?delete=1'), '/settings');
+  assert.equal(sanitizeDeepLink('/exercise?id=present-perfect&difficulty=advanced&taskId=x'), '/exercise?id=present-perfect&difficulty=advanced');
+  assert.equal(sanitizeDeepLink('opiskeluakatemia://exercise?id=../../etc&difficulty=hack'), '/exercises');
+  assert.equal(sanitizeDeepLink('opiskeluakatemia://exercise?id=abc&difficulty=hack'), '/exercise?id=abc');
+  assert.equal(sanitizeDeepLink('opiskeluakatemia://essays?taskId=foreign'), '/essays');
+  assert.equal(sanitizeDeepLink('opiskeluakatemia://reset?access_token=abc#refresh_token=x'), '/');
+  assert.equal(sanitizeDeepLink('/+not-found'), '/');
+  assert.equal(sanitizeDeepLink('https://evil.example/exercise'), null);
+  assert.equal(sanitizeDeepLink('exp+opiskeluakatemia-mobile://expo-development-client/?url=x'), null);
+});
+
+function fakeSecure() {
+  const map = new Map();
+  return { map, getItemAsync: async k => map.has(k) ? map.get(k) : null, setItemAsync: async (k, v) => { if (!/^[A-Za-z0-9._-]+$/.test(k)) throw new Error('bad key'); if (v.length > 2048) throw new Error('too big'); map.set(k, v); }, deleteItemAsync: async k => { map.delete(k); } };
+}
+function fakeLegacy(initial = {}) {
+  const map = new Map(Object.entries(initial));
+  return { map, getItem: async k => map.has(k) ? map.get(k) : null, setItem: async (k, v) => { map.set(k, v); }, removeItem: async k => { map.delete(k); } };
+}
+
+test('session storage chunks large values into the keychain and cleans up', async () => {
+  const secure = fakeSecure(); const legacy = fakeLegacy();
+  const storage = createChunkedSecureStorage(secure, legacy);
+  const session = JSON.stringify({ access_token: 'a'.repeat(5000), refresh_token: 'r' });
+  await storage.setItem('sb-ref-auth-token', session);
+  assert.equal(secure.map.get('sb-ref-auth-token.n'), '3');
+  assert.equal(await storage.getItem('sb-ref-auth-token'), session);
+  await storage.setItem('sb-ref-auth-token', 'short');
+  assert.equal(secure.map.has('sb-ref-auth-token.1'), false);
+  assert.equal(await storage.getItem('sb-ref-auth-token'), 'short');
+  await storage.removeItem('sb-ref-auth-token');
+  assert.equal(secure.map.size, 0);
+  assert.equal(await storage.getItem('sb-ref-auth-token'), null);
+});
+
+test('a session left in AsyncStorage by an earlier version moves to secure storage', async () => {
+  const secure = fakeSecure(); const legacy = fakeLegacy({ 'sb-ref-auth-token': '{"old":true}' });
+  const storage = createChunkedSecureStorage(secure, legacy);
+  assert.equal(await storage.getItem('sb-ref-auth-token'), '{"old":true}');
+  assert.equal(legacy.map.size, 0);
+  assert.equal(secure.map.get('sb-ref-auth-token.0'), '{"old":true}');
+});
+
+test('overlapping writes are serialized per key', async () => {
+  const storage = createChunkedSecureStorage(fakeSecure(), fakeLegacy());
+  await Promise.all([storage.setItem('k', 'x'.repeat(4000)), storage.setItem('k', 'y'), storage.removeItem('k'), storage.setItem('k', 'z'.repeat(1900))]);
+  assert.equal(await storage.getItem('k'), 'z'.repeat(1900));
+});

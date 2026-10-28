@@ -14,7 +14,7 @@ An Expo / React Native TypeScript app for iOS and Android, beside the existing N
 - Retry-safe mobile submissions: a repeated request reuses the same saved attempt instead of recording it twice.
 - Reading and listening media, answer feedback, history refresh and pull-to-refresh.
 
-Google sign-in, signup, native payments, notifications and offline study are not implemented yet. This is a development foundation, not an App Store release. The icon assets are Expo placeholders.
+Google sign-in, signup, native payments, notifications and offline study are not implemented yet. Store-release configuration (identifiers, privacy manifest, EAS profiles, account deletion) is in place; see `STORE_SUBMISSION.md` for the remaining human steps. The icon and splash assets are still Expo placeholders.
 
 ## Run
 
@@ -59,7 +59,7 @@ Requests send `Authorization: Bearer <Supabase access token>` to the existing Ne
 - `POST /api/courses/link-purchases` associates matching purchases with the signed-in account, as the website does.
 - `GET /api/courses/check-access?courseType=abikurssi` returns `{ hasAccess: boolean, courseType: string }`.
 
-The server verifies the user and evaluates course access. A local UI state never grants access to protected course material. Supabase public keys are expected to be visible in a client app; server service-role keys, Stripe secrets and AI keys must never be included. Session persistence currently uses AsyncStorage, following Supabase's React Native quickstart; it is not encrypted storage.
+The server verifies the user and evaluates course access. A local UI state never grants access to protected course material. Supabase public keys are expected to be visible in a client app; server service-role keys, Stripe secrets and AI keys must never be included. The Supabase session is stored in the iOS Keychain / Android Keystore through `expo-secure-store` (chunked, `src/lib/chunked-storage.ts`); a session saved in AsyncStorage by an earlier build is migrated on first launch. The web preview still uses AsyncStorage.
 
 ## Next milestone
 
@@ -102,3 +102,13 @@ The backend now defaults to `gemini-3.8-flash` through a shared model factory. S
 The previous `gemini-2.5-flash` request returned 404 for the new account; direct replacement-model checks returned 503 and a timeout. Local request-format tests use a mocked transport and do not spend Gemini quota. Live end-to-end AI verification remains outstanding; a subsequent live check was blocked by Codex's automatic approval review reporting its usage limit. No browser testing was used for this migration.
 
 Live Gemini verification subsequently succeeded on 27 October: `gemini-3.5-flash-lite` returned HTTP 200, and the shared backend SDK generated a JSON grammar exercise with 10 questions and valid answer indexes. The local backend `.env.local` now selects this model via `GEMINI_MODEL`. These checks used terminal requests; no browser testing or student-data submission was involved. Full in-app grading and physical-device regression testing remain separate checks.
+
+## Release preparation (28 October 2026)
+
+- `app.json`: version 1.0.0, `fi.opiskeluakatemia.app` identifiers, `ITSAppUsesNonExemptEncryption=false`, iOS privacy manifest, ATS without arbitrary loads, blocked unneeded Android permissions (expo-audio playback only: no microphone, no background playback service), splash screen config.
+- `eas.json`: `development`, `development-device`, `preview` and `production` profiles, remote build numbers, no secrets. `expo-dev-client`, `expo-secure-store`, `expo-splash-screen` and the missing `expo-asset` peer were added with `npx expo install`; SDK patch versions aligned (`expo-doctor` 20/20).
+- Release builds default to `https://opiskeluakatemia.fi` and refuse non-HTTPS origins except local-network addresses. Password reset and legal links always use the public HTTPS site.
+- New **Tili** screen (`src/app/settings.tsx`): sign out, privacy policy / terms links, contact, and **Poista tili** (password + typing POISTA + destructive confirmation), backed by the website's `POST /api/account/delete`.
+- Deep links pass through `src/app/+native-intent.tsx`: only known screens open, and external links cannot carry task IDs.
+- A root error boundary, Finnish timeout/offline messages without internal details, and a one-time consent before essays or open answers are sent for AI grading.
+- Neutral no-access copy without purchase prompts; the "Google sign-in later" text was removed.

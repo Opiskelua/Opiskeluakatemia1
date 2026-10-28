@@ -7,8 +7,9 @@ import { ExerciseAudio } from '../components/ExerciseAudio';
 import { Button, styles } from '../../App';
 import { completeTask } from '../lib/course';
 import { choices } from '../lib/catalogue';
-import { allAnswered, type Answers, type Exercise, type Result } from '../lib/exercise-model';
+import { allAnswered, usesAiGrading, type Answers, type Exercise, type Result } from '../lib/exercise-model';
 import { loadExercise, submitExercise } from '../lib/exercises';
+import { ensureAiConsent } from '../lib/ai-consent';
 
 export default function ExerciseScreen() {
   const { id, difficulty, taskId } = useLocalSearchParams<{ id: string; difficulty?: string; taskId?: string }>();
@@ -45,7 +46,9 @@ export default function ExerciseScreen() {
   });
   async function submit() {
     if (!exercise || inFlight.current || result) return;
-    inFlight.current = true; setSaving(true); setLocked(true); setError('');
+    inFlight.current = true;
+    if (usesAiGrading(exercise) && !await ensureAiConsent()) { inFlight.current = false; setError('Vastauksia ei lähetetty. Avoimet vastaukset vaativat tekoälyarvioinnin hyväksymisen.'); return; }
+    setSaving(true); setLocked(true); setError('');
     try {
       const saved = await submitExercise(exercise, answers, attemptId.current);
       if (mounted.current) setResult(saved);

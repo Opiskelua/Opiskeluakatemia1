@@ -7,6 +7,7 @@ import { useSyncedResource } from '../hooks/useSyncedResource';
 import { completeTask, loadContent, type Topic } from '../lib/course';
 import { essayCounts, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
 import { apiRequest, checkCourseAccess } from '../lib/api';
+import { ensureAiConsent } from '../lib/ai-consent';
 export default function Essays() {
   const { taskId } = useLocalSearchParams<{ taskId?: string }>();
   const content = useSyncedResource(loadContent);
@@ -61,6 +62,7 @@ export default function Essays() {
   }
   async function save(submit: boolean) {
     if (!topic || inFlight.current) return;
+    if (submit && !await ensureAiConsent()) { setNotice('Arviointia ei lähetetty. Luonnoksesi säilyy tässä näkymässä.'); return; }
     inFlight.current = true; setBusy(true); setError(''); setNotice('');
     let id = essayId;
     try {

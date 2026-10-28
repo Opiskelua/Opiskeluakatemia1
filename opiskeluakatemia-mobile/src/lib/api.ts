@@ -9,10 +9,11 @@ export async function apiRequest(path: string, options: { method?: string; body?
   const { data, error } = await supabase.auth.getSession();
   if (error || !data.session) throw new RequestError('Kirjaudu uudelleen jatkaaksesi.', 401);
   const controller = new AbortController();
+  let timedOut = false;
   const abort = () => controller.abort();
   if (options.signal?.aborted) controller.abort();
   options.signal?.addEventListener('abort', abort);
-  const timeout = setTimeout(abort, options.timeout ?? 30000);
+  const timeout = setTimeout(() => { timedOut = true; abort(); }, options.timeout ?? 30000);
   try {
     const response = await fetch(`${config.apiUrl}${path}`, {
       method: options.method ?? 'GET',
@@ -24,12 +25,16 @@ export async function apiRequest(path: string, options: { method?: string; body?
       : response.status === 403 ? 'Kurssioikeus puuttuu.'
       : response.status === 429 ? 'Harjoitusraja tuli vastaan. Odota hetki ja yritä uudelleen.'
       : response.status === 503 ? 'Harjoituspalvelu on hetkellisesti poissa käytöstä. Yritä myöhemmin.'
+      : response.status >= 500 ? 'Palvelussa on hetkellinen häiriö. Yritä hetken kuluttua uudelleen.'
       : 'Pyyntö epäonnistui. Yritä uudelleen.', response.status);
-    return await response.json();
+    try { return await response.json(); }
+    catch { throw new RequestError('Palvelimen vastausta ei voitu lukea. Yritä uudelleen.', response.status); }
   } catch (error) {
-    if (controller.signal.aborted) throw new Error('Pyyntö keskeytettiin tai aikaraja ylittyi. Tarkista yhteys.');
-    if (error instanceof TypeError) throw new Error('Yhteys palvelimeen ei onnistunut. Tarkista verkkoyhteys ja että kurssipalvelu on käynnissä.');
-    throw error;
+    if (error instanceof RequestError) throw error;
+    if (timedOut) throw new Error('Palvelu ei vastannut ajoissa. Tarkista verkkoyhteys ja yritä uudelleen.');
+    if (controller.signal.aborted) throw new Error('Pyyntö keskeytettiin.');
+    // Native fetch reports offline, DNS and TLS failures as TypeError; never show its internal message.
+    throw new Error('Yhteys palvelimeen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.');
   } finally { clearTimeout(timeout); options.signal?.removeEventListener('abort', abort); }
 }
 export function courseRequest(path: string, method = 'GET') { return apiRequest(`/api/courses/${path}`, { method }); }
@@ -37,4 +42,9 @@ export async function checkCourseAccess(): Promise<boolean> {
   const result = await courseRequest('check-access?courseType=abikurssi');
   if (typeof result !== 'object' || result === null || !('hasAccess' in result) || typeof result.hasAccess !== 'boolean') throw new Error('Palvelimen vastausta ei voitu lukea.');
   return result.hasAccess;
+}
+
+/** Permanently deletes the signed-in account on the server. The password is re-verified there. */
+export async function deleteAccount(password: string) {
+  await apiRequest('/api/account/delete', { method: 'POST', body: { password, confirmation: 'POISTA' }, timeout: 45000 });
 }

@@ -77,3 +77,5 @@ export function parseResult(value: unknown): Result {
   const evaluations = Array.isArray(data.evaluations) ? data.evaluations.map(e => { const row = record(e); return { questionId: str(row.questionId), score: Number(row.score) || 0, feedback: plainText(row.feedback) }; }) : undefined;
   return { attemptId: data.attemptId, totalScore: data.totalScore, maxScore: data.maxScore, evaluations };
 }
+/** Open answers in reading and listening are graded by the backend's AI provider (Google Gemini). */
+export const usesAiGrading = (exercise: Exercise) => exercise.category !== 'grammar' && exercise.questions.some(q => !q.options);
