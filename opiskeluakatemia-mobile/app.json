@@ -3,6 +3,15 @@
     "name": "Opiskeluakatemia",
     "slug": "opiskeluakatemia-mobile",
     "version": "1.0.0",
+    "owner": "opiskeluakatemias-team",
+    "updates": {
+      "url": "https://u.expo.dev/54f701b7-84fd-499a-b8ce-a5f676b9a615"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "54f701b7-84fd-499a-b8ce-a5f676b9a615"
+      }
+    },
     "runtimeVersion": {
       "policy": "appVersion"
     },
