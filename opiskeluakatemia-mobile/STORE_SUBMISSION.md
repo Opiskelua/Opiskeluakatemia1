@@ -13,7 +13,7 @@ Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store rele
 | Build number / versionCode | 1 / 1 at first build, then incremented remotely by EAS | `eas.json` → `cli.appVersionSource: "remote"`, `production.autoIncrement` |
 | Deep-link scheme | `opiskeluakatemia://` | `app.json` → `scheme` |
 
-The identifier is a proposal. Change it **before the first upload**; it cannot be changed after the app exists in App Store Connect or Play Console.
+The identifier `fi.opiskeluakatemia.app` is final (confirmed 29.10.2026). Do not change it: it cannot be changed after the app exists in App Store Connect or Play Console.
 
 ## 2. Build profiles (`eas.json`)
 
@@ -107,7 +107,7 @@ Android permissions in the release manifest:
 
 ## 8. Remaining human steps (in order)
 
-1. **Choose the final identifiers.** Keep or change `fi.opiskeluakatemia.app` in `app.json` before the first build.
+1. **Identifiers:** `fi.opiskeluakatemia.app` is confirmed as final. Nothing to do.
 2. **Accounts:** set up an Apple Developer Program membership (organisation, D-U-N-S for Y-tunnus 3302177-2) and a Google Play Console developer account. Google requires identity verification and, for new personal accounts, closed testing with 12 testers for 14 days before production.
 3. **EAS project:**
    - Run `npx eas-cli@latest login`, then `npx eas-cli@latest init` (adds `extra.eas.projectId` and `owner` to `app.json`).
