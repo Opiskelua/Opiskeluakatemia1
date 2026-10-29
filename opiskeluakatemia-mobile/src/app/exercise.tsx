@@ -89,8 +89,9 @@ export default function ExerciseScreen() {
         {q.options ? <View accessibilityRole="radiogroup" style={{ gap: space.xs }}>{q.options.map((option, optionIndex) => {
           const selected = answers[q.id] === optionIndex;
           // After grading, highlight the right answer and mark a wrong selection.
-          const graded = !!result && q.correctIndex !== undefined;
-          const correct = graded && optionIndex === q.correctIndex;
+          const correctIndex = q.correctIndex ?? result?.correctIndexes?.[q.id];
+          const graded = !!result && correctIndex !== undefined;
+          const correct = graded && optionIndex === correctIndex;
           const wrong = graded && selected && !correct;
           const letter = String.fromCharCode(65 + optionIndex);
           return <Pressable accessibilityRole="radio" accessibilityLabel={`${letter}. ${option}${correct ? ', oikea vastaus' : wrong ? ', väärä vastaus' : ''}`} accessibilityState={{ checked: selected, disabled: locked }} disabled={locked} key={optionIndex}
@@ -119,7 +120,7 @@ export default function ExerciseScreen() {
       </View>
       <Button title={saving ? 'Arvioidaan ja tallennetaan…' : locked ? 'Yritä tallennusta uudelleen' : 'Palauta ja tallenna'} loading={saving} disabled={!allAnswered(exercise, answers)} onPress={() => void submit()} />
     </View>}
-    {result && !!exercise.transcript && <Card><Text accessibilityRole="header" style={type.subheading}>Kuuntelun teksti</Text><Text selectable style={type.body}>{exercise.transcript}</Text></Card>}
+    {!!(result?.transcript || (result && exercise.transcript)) && <Card><Text accessibilityRole="header" style={type.subheading}>Kuuntelun teksti</Text><Text selectable style={type.body}>{result?.transcript || exercise.transcript}</Text></Card>}
     {result && <Button title="Takaisin harjoituksiin" secondary onPress={() => router.back()} />}
   </Screen>;
 }

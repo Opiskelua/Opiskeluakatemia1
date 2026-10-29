@@ -3,9 +3,11 @@ export type Answers = Record<string, string | number>;
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 export interface Choice { id: string; title: string; category: Category; type: string; path?: string; multipleChoiceOnly?: boolean; }
 export interface Question { id: string; prompt: string; hint?: string; options?: string[]; correctIndex?: number; acceptableAnswers?: string[]; explanation?: string; maxCharacters?: number; }
-export interface Exercise { id: string; title: string; type: string; difficulty: string; category: Category; instructions: string; passages: string[]; questions: Question[]; audioUrl?: string; splitTime?: number; transcript?: string; raw: Record<string, unknown>; }
+export interface Exercise { id: string; title: string; type: string; difficulty: string; category: Category; instructions: string; passages: string[]; questions: Question[]; audioUrl?: string; splitTime?: number; transcript?: string; raw: Record<string, unknown>;
+  /** Ready-made exercise: loaded without answer keys and graded by the server. */
+  serverGraded: boolean; }
 export interface Evaluation { questionId: string; score: number; feedback: string; }
-export interface Result { attemptId: string; totalScore: number; maxScore: number; evaluations?: Evaluation[]; }
+export interface Result { attemptId: string; totalScore: number; maxScore: number; evaluations?: Evaluation[]; correctIndexes?: Record<string, number>; transcript?: string; }
 export function record(value: unknown): Record<string, unknown> {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) throw new Error('Tehtävän tiedot ovat puutteelliset.');
   return value as Record<string, unknown>;
@@ -37,7 +39,7 @@ export function normalizeExercise(value: unknown, choice: Choice): Exercise {
     const options = Array.isArray(q.options) && q.options.every(o => typeof o === 'string') ? q.options as string[] : undefined;
     const correctIndex = typeof q.correctIndex === 'number' ? q.correctIndex : typeof q.correctAnswer === 'number' ? q.correctAnswer : undefined;
     const acceptableAnswers = Array.isArray(q.acceptableAnswers) ? q.acceptableAnswers.filter((a): a is string => typeof a === 'string') : [q.correctWord, q.correctAnswer].filter((a): a is string => typeof a === 'string');
-    if (choice.category === 'grammar' && (options ? !Number.isInteger(correctIndex) || correctIndex! < 0 || correctIndex! >= options.length : !acceptableAnswers.length)) throw new Error('Tehtävän vastausavain puuttuu. Luo uusi tehtävä.');
+    if (choice.category === 'grammar' && !choice.path && (options ? !Number.isInteger(correctIndex) || correctIndex! < 0 || correctIndex! >= options.length : !acceptableAnswers.length)) throw new Error('Tehtävän vastausavain puuttuu. Luo uusi tehtävä.');
     return {
       id: q.id,
       prompt: plainText(q.questionFi || q.question || q.sentence || (q.textBefore !== undefined ? `${str(q.textBefore)} _____ ${str(q.textAfter)}` : `Aukko ${q.gapNumber || index + 1}`)),
@@ -48,7 +50,7 @@ export function normalizeExercise(value: unknown, choice: Choice): Exercise {
   });
   if (new Set(questions.map(q => q.id)).size !== questions.length) throw new Error('Tehtävän kysymystunnisteet eivät ole yksilöllisiä.');
   return { id: raw.id, title: raw.title, category: choice.category, type, difficulty: str(raw.difficulty) || 'intermediate', instructions: plainText(raw.instructions || raw.taskIntro), passages, questions,
-    audioUrl: str(raw.audioUrl) || undefined, splitTime: typeof raw.splitTime === 'number' ? raw.splitTime : undefined, transcript: str(raw.transcript), raw };
+    audioUrl: str(raw.audioUrl) || undefined, splitTime: typeof raw.splitTime === 'number' ? raw.splitTime : undefined, transcript: str(raw.transcript), raw, serverGraded: !!choice.path };
 }
 export function allAnswered(exercise: Exercise, answers: Answers): boolean {
   return exercise.questions.every(q => q.options ? Number.isInteger(answers[q.id]) && Number(answers[q.id]) >= 0 && Number(answers[q.id]) < q.options.length : typeof answers[q.id] === 'string' && String(answers[q.id]).trim().length > 0);
@@ -64,18 +66,23 @@ export function grammarScore(exercise: Exercise, answers: Answers) {
 }
 export function submission(exercise: Exercise, answers: Answers) {
   if (!allAnswered(exercise, answers)) throw new Error('Vastaa kaikkiin kysymyksiin ennen palautusta.');
+  if (exercise.category === 'grammar' && exercise.serverGraded) return { path: '/api/grammar/evaluate', body: { exerciseId: exercise.id, answers } };
   if (exercise.category === 'grammar') {
     const score = grammarScore(exercise, answers);
     return { path: '/api/grammar/evaluate', body: { exerciseId: exercise.id, exerciseTitle: exercise.title, exerciseType: exercise.type, exerciseDifficulty: exercise.difficulty, answers, totalScore: score.totalScore, maxScore: score.maxScore } };
   }
-  if (exercise.category === 'reading') return { path: '/api/reading/evaluate', body: { exerciseId: exercise.id, exercise: exercise.raw, answers } };
+  if (exercise.category === 'reading') return { path: '/api/reading/evaluate', body: exercise.serverGraded ? { exerciseId: exercise.id, answers } : { exerciseId: exercise.id, exercise: exercise.raw, answers } };
   return { path: exercise.questions.every(q => q.options) ? '/api/listening/evaluate-mc' : '/api/listening/evaluate', body: { exerciseId: exercise.id, answers } };
 }
 export function parseResult(value: unknown): Result {
   const data = record(value);
   if (typeof data.attemptId !== 'string' || typeof data.totalScore !== 'number' || typeof data.maxScore !== 'number') throw new Error('Tallennuksen vahvistus puuttuu. Tarkista historia ennen uutta palautusta.');
   const evaluations = Array.isArray(data.evaluations) ? data.evaluations.map(e => { const row = record(e); return { questionId: str(row.questionId), score: Number(row.score) || 0, feedback: plainText(row.feedback) }; }) : undefined;
-  return { attemptId: data.attemptId, totalScore: data.totalScore, maxScore: data.maxScore, evaluations };
+  // Ready-made exercises reveal the right options and the listening transcript only after submission.
+  const solutions = typeof data.solutions === 'object' && data.solutions !== null ? data.solutions as Record<string, unknown> : {};
+  const correctIndexes = typeof solutions.correctIndexes === 'object' && solutions.correctIndexes !== null
+    ? Object.fromEntries(Object.entries(solutions.correctIndexes).filter((e): e is [string, number] => Number.isInteger(e[1]))) : undefined;
+  return { attemptId: data.attemptId, totalScore: data.totalScore, maxScore: data.maxScore, evaluations, correctIndexes, transcript: str(solutions.transcript) || undefined };
 }
 /** Open answers in reading and listening are graded by the backend's AI provider (Google Gemini). */
 export const usesAiGrading = (exercise: Exercise) => exercise.category !== 'grammar' && exercise.questions.some(q => !q.options);

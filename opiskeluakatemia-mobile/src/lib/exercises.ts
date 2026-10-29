@@ -13,7 +13,7 @@ export async function submitExercise(exercise: Exercise, answers: Answers, clien
   if (!await checkCourseAccess()) throw new Error('Kurssioikeutesi ei ole aktiivinen. Vastauksia ei tallennettu.');
   const request = submission(exercise, answers);
   const result = parseResult(await apiRequest(request.path, { method: 'POST', body: { ...request.body, clientAttemptId }, timeout: 180000 }));
-  if (exercise.category === 'grammar') result.evaluations = grammarScore(exercise, answers).evaluations;
+  if (exercise.category === 'grammar' && !exercise.serverGraded) result.evaluations = grammarScore(exercise, answers).evaluations;
   return result;
 }
 export interface Attempt {

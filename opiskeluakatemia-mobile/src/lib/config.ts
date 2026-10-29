@@ -11,9 +11,10 @@ export const config = {
   // Password reset and legal pages always use a public HTTPS website, never a LAN address.
   siteUrl: apiUrl.startsWith('https://') ? apiUrl : PRODUCTION_ORIGIN,
 };
+// ?app=1 makes the website hide purchase links on these pages (App Store guideline 3.1.3(b)).
 export const legalLinks = {
-  privacy: `${PRODUCTION_ORIGIN}/tietosuojakaytanto`,
-  terms: `${PRODUCTION_ORIGIN}/kayttoehdot`,
+  privacy: `${PRODUCTION_ORIGIN}/tietosuojakaytanto?app=1`,
+  terms: `${PRODUCTION_ORIGIN}/kayttoehdot?app=1`,
 };
 export const supportEmail = 'support@opiskeluakatemia.fi';
 export const isConfigured = Boolean(config.supabaseUrl && config.supabaseKey && config.apiUrl);

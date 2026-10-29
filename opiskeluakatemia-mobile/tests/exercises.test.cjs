@@ -8,7 +8,10 @@ const source = path.resolve(__dirname, '../src/lib/exercise-model.ts');
 const compiled = ts.transpileModule(fs.readFileSync(source, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
 const model = new Module(source, module); model._compile(compiled, source);
 const { normalizeExercise, allAnswered, grammarScore, submission, parseResult } = model.exports;
-const fixtures = path.resolve(__dirname, '../../opiskeluakatemia/public/data');
+const fixtures = path.resolve(__dirname, '../../opiskeluakatemia/data');
+// Mirrors stripAnswerKeys in the website's src/lib/course-exercises.ts (what /api/abikurssi/course-exercises returns).
+const KEY_FIELDS = new Set(['correctAnswer','correctIndex','correctWord','acceptableAnswers','modelAnswer','explanation','transcript','splitNote']);
+const strip = v => Array.isArray(v) ? v.map(strip) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).filter(([k]) => !KEY_FIELDS.has(k)).map(([k, x]) => [k, strip(x)])) : v;
 for (const [folder, category] of [['grammar-exercises','grammar'],['reading-exercises','reading'],['listening-exercises','listening'],['listening-exercises-mc','listening']]) {
   for (const file of fs.readdirSync(path.join(fixtures, folder)).filter(x => x.endsWith('.json'))) {
     test(`website fixture renders on mobile: ${folder}/${file}`, () => {
@@ -24,6 +27,15 @@ for (const [folder, category] of [['grammar-exercises','grammar'],['reading-exer
       if (category === 'reading') assert.equal(request.body.exercise, raw);
       if (category === 'listening') assert.equal(request.path, folder.endsWith('-mc') ? '/api/listening/evaluate-mc' : '/api/listening/evaluate');
     });
+    test(`ready-made exercise without answer keys is graded by the server: ${folder}/${file}`, () => {
+      const raw = strip(JSON.parse(fs.readFileSync(path.join(fixtures, folder, file))));
+      assert.ok(!JSON.stringify(raw).includes('"correctAnswer"') && !JSON.stringify(raw).includes('"correctIndex"'));
+      const exercise = normalizeExercise(raw, { category, type: raw.type || 'open-ended', path: `/api/abikurssi/course-exercises/${folder}/${file}` });
+      assert.equal(exercise.serverGraded, true);
+      const answers = Object.fromEntries(exercise.questions.map(q => [q.id, q.options ? 0 : 'test answer']));
+      const request = submission(exercise, answers);
+      assert.deepEqual(request.body, { exerciseId: raw.id, answers });
+    });
   }
 }
 test('grammar matches website: trims text, accepts alternatives, keeps option zero', () => {
@@ -31,6 +43,10 @@ test('grammar matches website: trims text, accepts alternatives, keeps option ze
   assert.equal(grammarScore(exercise,{a:0,b:' COLOR '}).totalScore,2);
   assert.equal(grammarScore(exercise,{a:1,b:'wrong'}).totalScore,0);
   assert.throws(() => submission(exercise,{a:0}));
+});
+test('server solutions reveal correct options and transcript after submission', () => {
+  const result = parseResult({ attemptId: 'a', totalScore: 3, maxScore: 6, solutions: { transcript: 'Hello', correctIndexes: { q1: 2, q2: 'x' } } });
+  assert.deepEqual(result.correctIndexes, { q1: 2 }); assert.equal(result.transcript, 'Hello');
 });
 test('malformed response never becomes a saved result', () => {
   assert.throws(() => parseResult({success:true}));
