@@ -34,7 +34,8 @@ Release builds enforce the following:
 ## 3. Apple review notes (paste into App Store Connect → App Review Information)
 
 > Opiskeluakatemia is the companion app for an existing Finnish English-course web service (Englannin abikurssi). Users sign in with an account created on opiskeluakatemia.fi. The app does not sell anything: there are no purchases, prices or links to purchase pages. Accounts without course access see neutral "no active course access" copy (guideline 3.1.3(b), multiplatform services).
-> Demo account: <email> / <password> (has active course access).
+> Demo account: test@example.com / (password in the owner's password manager, not in the repo) — has active course access until 22.3.2027.
+> Legal pages (privacy policy, terms) open in the browser with ?app=1, which hides all purchase links on those pages.
 > Account deletion: Koti → "Tili" (top right) → Poista tili. Deletion requires the password and typing POISTA, and it permanently removes the account on the server.
 > Essays and open answers are graded by AI (Google Gemini) via our server. The user is asked for consent before the first upload.
 
@@ -89,11 +90,28 @@ Android permissions in the release manifest:
 
 ## 6. Age rating and audience
 
-**Apple age rating questionnaire:** answer "None" or "No" to everything. That covers violence, sexual content, profanity, drugs, gambling, horror, medical, contests, unrestricted web access, user-to-user communication, user-generated content shared with others, and chatbots. Essays are private and graded, not published. The expected result is **4+**.
+**Apple age rating questionnaire:** answer "None" or "No" to everything, including the newer questions on AI chatbots/assistants (the app has none: AI only grades essays and open answers and returns feedback, there is no free-form chat) and social media features. That covers violence, sexual content, profanity, drugs, gambling, horror, medical, contests, unrestricted web access, user-to-user communication, user-generated content shared with others, and chatbots. Essays are private and graded, not published. The expected result is **4+**.
 
 **Google Play content rating (IARC):** category Education/Reference. Answer "No" for violence, sexuality, language, controlled substances, gambling, user interaction/communication, sharing location, and digital purchases. The expected result is PEGI 3 / Everyone.
 
 **Google Play target audience:** 16–17 and 18+ (upper-secondary students preparing for the matriculation exam). Do not select under-13 groups, because the Families policy would then apply. Not designed for children.
+
+### Google Play: other "App content" answers
+
+| Section | Answer |
+| --- | --- |
+| Privacy policy | `https://opiskeluakatemia.fi/tietosuojakaytanto` |
+| App access | "All or some functionality is restricted" → add the demo account (test@example.com + password), instructions: "Sign in with these credentials. The account has active course access." |
+| Ads | No, the app contains no ads |
+| Content rating | IARC questionnaire as above (Education) |
+| Target audience | 16–17 and 18+ |
+| News app | No |
+| COVID-19 contact tracing/status | No |
+| Data safety | Section 5 |
+| Government app | No |
+| Financial features | None |
+| Health | None |
+| Account deletion URL | `https://opiskeluakatemia.fi/poista-tili` |
 
 ## 7. Policy compliance implemented in the app
 
@@ -144,13 +162,16 @@ Android permissions in the release manifest:
    Update `android.adaptiveIcon.backgroundColor` to the brand colour.
 8. **Builds:** run `npx eas-cli@latest build --profile production --platform all`. Let EAS manage signing: it creates the iOS distribution certificate and provisioning profile, and the Android upload keystore. Back up the keystore credentials from `eas credentials`.
 9. **Device testing (preview build on a physical iPhone and Android phone):**
-   - sign in, wrong password, password reset email link;
-   - app restart keeps the session (now in Keychain/Keystore; an old AsyncStorage session migrates);
-   - active and no course access;
-   - offline mode: airplane mode should give Finnish error and retry;
-   - exercises incl. listening audio, essay AI consent and grading, flashcards;
+   - sign in with the demo account; wrong password shows a Finnish error; password reset email opens `https://opiskeluakatemia.fi/reset-password` (outside the launch code gate) and works;
+   - app restart keeps the session (Keychain/Keystore); an old AsyncStorage session migrates;
+   - active course access (demo account) and no course access (a throwaway account): neutral "Kurssioikeutta ei löytynyt", no purchase wording anywhere;
+   - exercises load through `/api/abikurssi/course-exercises` (reading, listening incl. audio playback, listening MC, grammar sets) and are graded by the server; results and explanations show after submitting;
+   - essay: the AI consent dialog appears once; grading returns feedback;
+   - flashcards, daily tasks, path lessons and review, history, progress;
+   - Tili → Tietosuojakäytäntö / Käyttöehdot open the site with `?app=1`: no "Osta kurssi", no sales links in the header or footer;
+   - offline (airplane mode): Finnish error and retry;
    - deep link `opiskeluakatemia://history`;
-   - account deletion end-to-end with a throwaway account.
+   - account deletion end to end with a throwaway account (never the demo account).
 10. **Store listings:** the Finnish texts, character counts and the screenshot plan are in `STORE_LISTING.md`. Enter the description, keywords, support URL (https://opiskeluakatemia.fi/ota-yhteytta), privacy policy URL, screenshots (6.9" and 6.5" iPhone; Android phone), feature graphic (Play), category Education. Fill in the sections 4–6 answers, the review notes and the demo account (section 3).
 11. **Submit:**
     - Run `npx eas-cli@latest submit --platform ios --profile production`. The first run asks for the App Store Connect app; add `submit.production.ios.ascAppId` to `eas.json` afterwards.
