@@ -22,6 +22,8 @@ The identifier `fi.opiskeluakatemia.app` is final (confirmed 29.10.2026). Do not
 - `preview`: release-mode internal build (Android APK, iOS ad hoc) for testers.
 - `production`: store build (Android App Bundle, iOS App Store), with an automatically incremented build number.
 
+The `preview` and `production` profiles set an EAS Update `channel` with the same name (`preview`, `production`); see section 10.
+
 All profiles set `EXPO_PUBLIC_API_URL=https://opiskeluakatemia.fi`. The Supabase URL and anon key are public client values, but they are deliberately left out of the repository. Set them as EAS environment variables (see section 8). `.env.local` is git-ignored, so EAS never uploads it.
 
 Release builds enforce the following:
@@ -114,6 +116,8 @@ Android permissions in the release manifest:
    - Create the environment variables for the `preview` and `production` environments (visibility "plain text" is fine, these are public):
      - `npx eas-cli@latest env:create --name EXPO_PUBLIC_SUPABASE_URL --value https://<ref>.supabase.co --environment production --environment preview --visibility plaintext`
      - `npx eas-cli@latest env:create --name EXPO_PUBLIC_SUPABASE_ANON_KEY --value <anon key> --environment production --environment preview --visibility plaintext`
+     - `npx eas-cli@latest env:create --name EXPO_PUBLIC_API_URL --value https://opiskeluakatemia.fi --environment production --environment preview --visibility plaintext` (builds get this from `eas.json`, but `eas update` does not read build-profile `env`; see section 10).
+   - Run `npx eas-cli@latest update:configure` **before the first store build**, so the update URL is compiled into the binary (section 10).
 4. **Deploy the website first.**
    - Ship these to production:
      - `src/app/api/account/delete/route.ts`
@@ -146,7 +150,7 @@ Android permissions in the release manifest:
    - exercises incl. listening audio, essay AI consent and grading, flashcards;
    - deep link `opiskeluakatemia://history`;
    - account deletion end-to-end with a throwaway account.
-10. **Store listings:** Finnish description, keywords, support URL (https://opiskeluakatemia.fi/ota-yhteytta), privacy policy URL, screenshots (6.9" and 6.5" iPhone; Android phone), feature graphic (Play), category Education. Fill in the sections 4–6 answers, the review notes and the demo account (section 3).
+10. **Store listings:** the Finnish texts, character counts and the screenshot plan are in `STORE_LISTING.md`. Enter the description, keywords, support URL (https://opiskeluakatemia.fi/ota-yhteytta), privacy policy URL, screenshots (6.9" and 6.5" iPhone; Android phone), feature graphic (Play), category Education. Fill in the sections 4–6 answers, the review notes and the demo account (section 3).
 11. **Submit:**
     - Run `npx eas-cli@latest submit --platform ios --profile production`. The first run asks for the App Store Connect app; add `submit.production.ios.ascAppId` to `eas.json` afterwards.
     - Run `npx eas-cli@latest submit --platform android --profile production`. This uploads to the internal track as a draft. Store the Google service-account JSON outside the repo and reference it with `serviceAccountKeyPath`.
@@ -159,3 +163,48 @@ Android permissions in the release manifest:
 - The `user_course_purchases` rows follow the database's `ON DELETE CASCADE`. Stripe retains the payment records required by Finnish bookkeeping law.
 - `npm audit` reports advisories in Expo CLI build tooling (not shipped in the app bundle). The automatic fix downgrades Expo, so it was not applied.
 - Google sign-in, sign-up, offline study and push notifications are not in 1.0.0.
+
+## 10. Over-the-air updates (EAS Update)
+
+`expo-updates` is installed and prepared, but it is inactive until the EAS project exists:
+- `app.json` → `runtimeVersion: { "policy": "appVersion" }`. The runtime version equals the marketing version (`1.0.0`), so an update only reaches builds with the same `version`.
+- `eas.json` → `build.preview.channel: "preview"`, `build.production.channel: "production"`. The `development` profiles have no channel (the dev client loads from Metro).
+- `updates.url` is **not** set, because it contains the EAS `projectId`, which only exists after `eas init`. Without it, release builds have updates disabled (`EXUpdatesEnabled=false`) and always run the JS bundle embedded in the binary. Development, Expo Go, `npm test` and `npx expo export` work unchanged; the app code does not import `expo-updates`.
+- `expo-updates` is a native module. A development client built before it was added still runs the app, but rebuild it (`--profile development`) to test update behaviour.
+
+### Steps after `eas init`
+
+1. `npx eas-cli@latest update:configure`. It adds `updates.url: "https://u.expo.dev/<projectId>"` to `app.json`, keeps the existing `runtimeVersion` policy and the channels in `eas.json`. Review and commit the change.
+2. Make sure the EAS environment variables exist for the target environment (section 8 step 3), including `EXPO_PUBLIC_API_URL`. `eas update` bundles the JavaScript **on your machine** and does not use the `env` block of `eas.json`. Values from the git-ignored `.env.local` are also loaded, and that file points `EXPO_PUBLIC_API_URL` at `http://localhost:3000`. Always pass `--environment` so the EAS values take precedence, and check that every `EXPO_PUBLIC_*` name in `.env.local` also exists in that EAS environment. An update that points at localhost would leave every installed app unable to reach the server.
+3. Build and submit the store binaries **after** step 1 (section 8 steps 8 and 11). Only builds that contain `updates.url` and a channel can receive updates; builds made earlier never do.
+
+### Publishing an update
+
+```sh
+# testers first (preview builds)
+npx eas-cli@latest update --channel preview --environment preview --message "Korjaa harjoitushistorian latauksen"
+# then the store builds
+npx eas-cli@latest update --channel production --environment production --message "Korjaa harjoitushistorian latauksen"
+```
+
+- An update is downloaded on the next app launch and applied on the launch after that (default `checkAutomatically: ON_LOAD`, `fallbackToCacheTimeout: 0`).
+- It reaches only builds whose runtime version matches the current `app.json` `version`. Publish from the same commit lineage as the store build, with the same `version`.
+- Roll back with `npx eas-cli@latest update:rollback` (or republish the previous commit) if an update is broken.
+- Publish to `preview` first and test on a preview build before publishing to `production`.
+
+### Update or new store build?
+
+Can ship as an update (JavaScript and assets only):
+- bug fixes and UI changes in `src/`, `App.tsx`, copy and translations;
+- new screens or logic that use only native modules already in the build;
+- images, fonts and other assets bundled through Metro;
+- `EXPO_PUBLIC_*` values (they are inlined into the JS bundle).
+
+Needs a new store build (and review):
+- adding, removing or upgrading any package with native code (any `expo-*` module, `react-native-*`, `react-native` itself, an Expo SDK upgrade);
+- any change to native configuration in `app.json`: permissions, `blockedPermissions`, `infoPlist`, privacy manifest, plugins, bundle identifier, scheme, icon, splash screen, `updates` settings;
+- changing `version` (with the `appVersion` policy this creates a new runtime version, so existing builds stop receiving updates published from it);
+- anything Apple or Google must review as a new feature or a change of the app's purpose. Updates must stay within App Store guideline 2.5.2 and Google Play's policy: bug fixes and improvements to the reviewed app, not a different app or new purchase flows.
+
+When native code changes, bump `version` (for example to `1.0.1`), build, submit, and publish later updates against that new runtime version.
+

@@ -24,11 +24,13 @@
       "extends": "base",
       "distribution": "internal",
       "environment": "preview",
+      "channel": "preview",
       "android": { "buildType": "apk" }
     },
     "production": {
       "extends": "base",
       "environment": "production",
+      "channel": "production",
       "autoIncrement": true,
       "android": { "buildType": "app-bundle" }
     }
