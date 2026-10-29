@@ -6,7 +6,7 @@ import { Bullet, Button, Card, EmptyState, Field, ListRow, LoadingState, Notice,
 import { colors, maxScale, radii, space, type } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { completeTask, loadContent, type Topic } from '../lib/course';
-import { essayCounts, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
+import { CATEGORY_LABELS, essayCounts, feedbackLines, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
 import { apiRequest, checkCourseAccess } from '../lib/api';
 import { ensureAiConsent } from '../lib/ai-consent';
 export default function Essays() {
@@ -113,11 +113,17 @@ export default function Essays() {
       <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat}>{evaluation.evaluation.mappedScore} / 99</Text>
       <ProgressBar value={(evaluation.evaluation.mappedScore / 99) * 100} label="Pisteet" />
       <Text style={type.body}>{evaluation.evaluation.scoreLevelDescription}</Text>
-      {Object.entries(evaluation.evaluation.categoryFeedback ?? {}).map(([key, value]) => <Text key={key} selectable style={type.body}>{typeof value === 'string' ? value : JSON.stringify(value)}</Text>)}
+      {Object.entries(evaluation.evaluation.categoryFeedback ?? {}).map(([key, value]) => {
+        const lines = feedbackLines(value);
+        return lines.length ? <View key={key} style={{ gap: space.xxs }}>
+          <Text accessibilityRole="header" style={[type.subheading, styles.subhead]}>{CATEGORY_LABELS[key] ?? key}</Text>
+          {lines.map((line, i) => <Bullet key={i}>{line}</Bullet>)}
+        </View> : null;
+      })}
       <Text accessibilityRole="header" style={[type.subheading, styles.subhead, { color: colors.success }]}>Vahvuudet</Text>
-      {evaluation.evaluation.strengths?.map((s, i) => <Bullet key={i}>{s}</Bullet>)}
+      {feedbackLines(evaluation.evaluation.strengths).map((s, i) => <Bullet key={i}>{s}</Bullet>)}
       <Text accessibilityRole="header" style={[type.subheading, styles.subhead]}>Kehitettävää</Text>
-      {evaluation.evaluation.weaknesses?.map((s, i) => <Bullet key={i}>{s}</Bullet>)}
+      {feedbackLines(evaluation.evaluation.weaknesses).map((s, i) => <Bullet key={i}>{s}</Bullet>)}
       <Text accessibilityRole="header" style={[type.subheading, styles.subhead]}>Oma tekstisi</Text>
       <View style={styles.essayText}><Text selectable style={type.body}>{evaluation.essay.content}</Text></View>
     </Card>}
