@@ -5,7 +5,7 @@ import { randomUUID } from 'expo-crypto';
 import { Screen } from '../components/Screen';
 import { ExerciseAudio } from '../components/ExerciseAudio';
 import { Button, Card, EmptyState, Field, LoadingState, Notice, ProgressBar } from '../components/ui';
-import { colors, layout, radii, space, type } from '../theme';
+import { layout, makeStyles, radii, space, useTheme } from '../theme';
 import { completeTask } from '../lib/course';
 import { choices } from '../lib/catalogue';
 import { allAnswered, usesAiGrading, type Answers, type Exercise, type Result } from '../lib/exercise-model';
@@ -17,6 +17,8 @@ const categoryLabel = { grammar: 'Kielioppi ja sanasto', reading: 'Luetunymmärt
 export default function ExerciseScreen() {
   const { id, difficulty, taskId } = useLocalSearchParams<{ id: string; difficulty?: string; taskId?: string }>();
   const choice = choices.find(c => c.id === id);
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const [taskError, setTaskError] = useState('');
   const [leaving, setLeaving] = useState(false);
   const [exercise, setExercise] = useState<Exercise | null>(null);
@@ -98,7 +100,7 @@ export default function ExerciseScreen() {
             onPress={() => setAnswers(previous => ({ ...previous, [q.id]: optionIndex }))}
             style={({ pressed }) => [styles.choice, selected && styles.choiceOn, correct && styles.choiceCorrect, wrong && styles.choiceWrong, pressed && !selected && { backgroundColor: colors.surfacePressed }]}>
             <View style={[styles.letter, selected && !graded && styles.letterOn, correct && { backgroundColor: colors.success, borderColor: colors.success }, wrong && { backgroundColor: colors.danger, borderColor: colors.danger }]}>
-              <Text style={[styles.letterText, ((selected && !graded) || correct || wrong) && { color: colors.white }]} maxFontSizeMultiplier={1.3}>{correct ? '✓' : wrong ? '✕' : letter}</Text>
+              <Text style={[styles.letterText, ((selected && !graded) || correct || wrong) && { color: colors.onPrimary }]} maxFontSizeMultiplier={1.3}>{correct ? '✓' : wrong ? '✕' : letter}</Text>
             </View>
             <Text style={[type.body, styles.choiceText, (selected || correct) && { color: colors.ink, fontWeight: '600' }]}>{option}</Text>
           </Pressable>;
@@ -125,16 +127,18 @@ export default function ExerciseScreen() {
   </Screen>;
 }
 
-const styles = StyleSheet.create({
-  choice: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 8, paddingVertical: space.sm, paddingHorizontal: space.sm, borderRadius: radii.md, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
-  choiceOn: { borderColor: colors.ink, borderWidth: 1.5, backgroundColor: colors.surfaceMuted },
+// Options sit inside a card: in dark mode the card is `surface`, so options take the muted tone to stand out.
+// The letter disc text uses onPrimary, which reads on primary, success and danger fills in both modes.
+const useStyles = makeStyles(({ colors, scheme }) => StyleSheet.create({
+  choice: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 8, paddingVertical: space.sm, paddingHorizontal: space.sm, borderRadius: radii.lg, borderWidth: 1, borderColor: scheme === 'dark' ? colors.lineStrong : colors.line, backgroundColor: scheme === 'dark' ? colors.surfaceMuted : colors.surface },
+  choiceOn: { borderColor: colors.ink, borderWidth: 1.5, backgroundColor: scheme === 'dark' ? colors.surfacePressed : colors.surfaceMuted },
   choiceCorrect: { borderColor: colors.success, borderWidth: 1.5, backgroundColor: colors.successSurface },
   choiceWrong: { borderColor: colors.danger, borderWidth: 1.5, backgroundColor: colors.dangerSurface },
   choiceText: { flex: 1, minWidth: 0 },
   letter: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, borderColor: colors.lineStrong, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-  letterOn: { backgroundColor: colors.ink, borderColor: colors.ink },
+  letterOn: { backgroundColor: colors.primary, borderColor: colors.primary },
   letterText: { fontSize: 13, fontWeight: '700', color: colors.ink },
-  feedback: { gap: space.xxs, padding: space.sm, borderRadius: radii.md, borderWidth: 1 },
+  feedback: { gap: space.xxs, padding: space.sm, borderRadius: radii.lg, borderWidth: 1 },
   feedbackGood: { backgroundColor: colors.successSurface, borderColor: colors.successLine },
   feedbackBad: { backgroundColor: colors.dangerSurface, borderColor: colors.dangerLine },
-});
+}));

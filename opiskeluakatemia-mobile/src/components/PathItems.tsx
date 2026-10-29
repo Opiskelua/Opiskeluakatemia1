@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native';
 import { router } from 'expo-router';
-import { colors, layout, pressedOpacity, radii, space, type } from '../theme';
+import { layout, makeStyles, pressedOpacity, radii, space, useTheme } from '../theme';
 import { Button, Card, Pill, ProgressBar } from './ui';
 import type { AnswerValue, Answers, GradeResult, ItemFeedback, LessonGuide, PublicItem } from '../lib/path-v2-types';
 import { answeredCount, describeAnswer, isAnswered, orderAppend, orderRemaining, orderRemoveAt, orderSentence, splitPrompt, wrongFeedback } from '../lib/path-v2-model';
@@ -10,6 +10,8 @@ import { answeredCount, describeAnswer, isAnswered, orderAppend, orderRemaining,
 
 /** Sentence with its `___` blank shown as a visible gap, or filled with the current answer. */
 function Sentence({ prompt, fill }: { prompt: string; fill?: string }) {
+  const { type } = useTheme();
+  const styles = useStyles();
   const { before, after, blank } = splitPrompt(prompt);
   const filled = !!fill?.trim();
   const spoken = blank ? `${before}${filled ? fill : 'tyhjä kohta'}${after}` : prompt;
@@ -21,6 +23,8 @@ function Sentence({ prompt, fill }: { prompt: string; fill?: string }) {
 }
 
 function ChoiceItem({ item, value, onChange, disabled }: { item: Extract<PublicItem, { kind: 'choice' }>; value: AnswerValue | undefined; onChange: (v: AnswerValue) => void; disabled: boolean }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const selected = typeof value === 'number' ? value : -1;
   return <>
     <Sentence prompt={item.prompt} fill={selected >= 0 ? item.options[selected] : undefined} />
@@ -32,7 +36,7 @@ function ChoiceItem({ item, value, onChange, disabled }: { item: Extract<PublicI
           onPress={() => onChange(index)}
           style={({ pressed }) => [styles.option, on && styles.optionOn, pressed && !on && { backgroundColor: colors.surfacePressed }]}>
           <View style={[styles.letter, on && styles.letterOn]}>
-            <Text style={[styles.letterText, on && { color: colors.white }]} maxFontSizeMultiplier={1.3}>{letter}</Text>
+            <Text style={[styles.letterText, on && { color: colors.onPrimary }]} maxFontSizeMultiplier={1.3}>{letter}</Text>
           </View>
           <Text style={[type.body, styles.flex, on && { color: colors.ink, fontWeight: '600' }]}>{option}</Text>
         </Pressable>;
@@ -42,19 +46,23 @@ function ChoiceItem({ item, value, onChange, disabled }: { item: Extract<PublicI
 }
 
 function GapItem({ item, value, onChange, disabled }: { item: Extract<PublicItem, { kind: 'gap' }>; value: AnswerValue | undefined; onChange: (v: AnswerValue) => void; disabled: boolean }) {
+  const { colors, type, scheme } = useTheme();
+  const styles = useStyles();
   const text = typeof value === 'string' ? value : '';
   return <>
     <Sentence prompt={item.prompt} fill={text} />
     {!!item.hint && <View style={styles.hintRow}><Text style={type.caption}>Vihje</Text><Pill label={item.hint} tone="accent" /></View>}
     <TextInput value={text} onChangeText={onChange} editable={!disabled} maxLength={item.maxLength}
       autoCorrect={false} autoCapitalize="none" autoComplete="off" spellCheck={false} returnKeyType="done"
-      placeholder="Kirjoita puuttuva kohta" placeholderTextColor={colors.placeholder}
+      placeholder="Kirjoita puuttuva kohta" placeholderTextColor={colors.placeholder} keyboardAppearance={scheme}
       accessibilityLabel={`Puuttuva kohta${item.hint ? `, vihje ${item.hint}` : ''}`}
       style={[styles.input, disabled && { opacity: 0.6 }]} />
   </>;
 }
 
 function OrderItem({ item, value, onChange, disabled }: { item: Extract<PublicItem, { kind: 'order' }>; value: AnswerValue | undefined; onChange: (v: AnswerValue) => void; disabled: boolean }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const chosen = Array.isArray(value) ? value : [];
   const remaining = orderRemaining(item.tokens, chosen);
   const sentence = orderSentence(item.tokens, chosen);
@@ -69,7 +77,7 @@ function OrderItem({ item, value, onChange, disabled }: { item: Extract<PublicIt
         accessibilityLabel={`${position + 1}. sana: ${item.tokens[tokenIndex]}`} accessibilityHint="Poistaa sanan lauseesta"
         onPress={() => onChange(orderRemoveAt(chosen, position))}
         style={({ pressed }) => [styles.token, styles.tokenPlaced, pressed && { opacity: pressedOpacity }]}>
-        <Text style={[styles.tokenText, { color: colors.white }]}>{item.tokens[tokenIndex]}</Text>
+        <Text style={[styles.tokenText, { color: colors.onPrimary }]}>{item.tokens[tokenIndex]}</Text>
       </Pressable>)}
     </View>
     {!!sentence && <Text accessibilityLiveRegion="polite" style={type.caption}>{`Lauseesi: ${sentence}${chosen.length === item.tokens.length ? '.' : ' …'}`}</Text>}
@@ -89,6 +97,8 @@ function OrderItem({ item, value, onChange, disabled }: { item: Extract<PublicIt
 export function ItemView({ item, value, onChange, disabled = false, position, total, context }: {
   item: PublicItem; value: AnswerValue | undefined; onChange: (v: AnswerValue) => void; disabled?: boolean; position: number; total: number; context?: string;
 }) {
+  const { type } = useTheme();
+  const styles = useStyles();
   return <Card style={styles.itemCard}>
     <View style={styles.itemHead}>
       <Text style={type.overline}>Kohta {position} / {total}</Text>
@@ -103,6 +113,7 @@ export function ItemView({ item, value, onChange, disabled = false, position, to
 
 /** Segmented progress: one segment per item, filled when answered, outlined for the current one. */
 export function ItemProgress({ items, answers, index }: { items: PublicItem[]; answers: Answers; index: number }) {
+  const styles = useStyles();
   const done = answeredCount(items, answers);
   return <View accessible accessibilityRole="progressbar" accessibilityLabel={`Vastattu ${done} / ${items.length}. Nyt kohta ${index + 1}.`}
     accessibilityValue={{ min: 0, max: items.length, now: done }} style={styles.segments}>
@@ -112,6 +123,8 @@ export function ItemProgress({ items, answers, index }: { items: PublicItem[]; a
 
 /** "Muista sääntö": the lesson's rule, worked examples and a theory link, collapsed by default. */
 export function GuidePanel({ guide, initiallyOpen = false }: { guide: LessonGuide; initiallyOpen?: boolean }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const [open, setOpen] = useState(initiallyOpen);
   return <View style={styles.guide}>
     <Pressable accessibilityRole="button" accessibilityState={{ expanded: open }} accessibilityLabel="Muista sääntö" accessibilityHint={open ? 'Piilottaa säännön' : 'Näyttää säännön ja esimerkit'}
@@ -134,6 +147,8 @@ export function GuidePanel({ guide, initiallyOpen = false }: { guide: LessonGuid
 
 /** One wrong item in a result: the question, the student's answer and, when revealed, the key and why. */
 export function WrongItem({ item, mine, feedback, position }: { item: PublicItem; mine: string; feedback: ItemFeedback; position: number }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const shown = item.kind === 'order' ? item.prompt : item.prompt.replace('___', '_____');
   return <View style={styles.wrong}>
     <Text style={type.overline}>Kohta {position}</Text>
@@ -146,6 +161,7 @@ export function WrongItem({ item, mine, feedback, position }: { item: PublicItem
 
 /** Answered-count bar for the bottom of a session. */
 export function AnsweredBar({ items, answers }: { items: PublicItem[]; answers: Answers }) {
+  const { type } = useTheme();
   const done = answeredCount(items, answers);
   return <View style={{ gap: space.xs }}>
     <Text style={type.caption}>{done} / {items.length} vastattu</Text>
@@ -161,6 +177,8 @@ export function ItemStepper({ items, answers, onAnswer, index, onIndex, disabled
   items: PublicItem[]; answers: Answers; onAnswer: (id: string, value: AnswerValue) => void; index: number; onIndex: (index: number) => void;
   disabled: boolean; contextFor?: (item: PublicItem) => string | undefined; finish: ReactNode;
 }) {
+  const { type } = useTheme();
+  const styles = useStyles();
   const { fontScale } = useWindowDimensions();
   const item = items[Math.min(index, items.length - 1)];
   if (!item) return null;
@@ -184,6 +202,7 @@ export function ItemStepper({ items, answers, onAnswer, index, onIndex, disabled
 
 /** Wrong items after grading. Without revealed keys (failed checkpoint) only the student's answer is shown. */
 export function WrongList({ items, answers, result }: { items: PublicItem[]; answers: Answers; result: GradeResult }) {
+  const { colors, type } = useTheme();
   const wrong = wrongFeedback(result.feedback);
   if (!wrong.length) return <Card tone="success"><Text style={[type.bodyStrong, { color: colors.success }]}>Kaikki oikein – hienoa työtä!</Text></Card>;
   return <Card>
@@ -197,7 +216,8 @@ export function WrongList({ items, answers, result }: { items: PublicItem[]; ans
   </Card>;
 }
 
-const styles = StyleSheet.create({
+// In dark mode, controls inside a card sit on the muted surface instead of drawing a border around the card colour.
+const useStyles = makeStyles(({ colors, scheme }) => StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
   itemCard: { gap: space.md },
   itemHead: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
@@ -205,36 +225,39 @@ const styles = StyleSheet.create({
   blank: { color: colors.muted, textDecorationLine: 'underline', textDecorationColor: colors.lineStrong },
   blankFilled: { color: colors.ink, fontWeight: '700', textDecorationLine: 'underline', textDecorationColor: colors.ink },
   options: { gap: space.xs },
-  option: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 8, paddingVertical: space.sm, paddingHorizontal: space.sm, borderRadius: radii.md, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
-  optionOn: { borderColor: colors.ink, borderWidth: 1.5, backgroundColor: colors.surfaceMuted },
+  option: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 8, paddingVertical: space.sm, paddingHorizontal: space.sm, borderRadius: radii.lg, borderWidth: 1,
+    borderColor: scheme === 'dark' ? colors.surfaceMuted : colors.line, backgroundColor: scheme === 'dark' ? colors.surfaceMuted : colors.surface },
+  optionOn: { borderColor: colors.ink, borderWidth: 1.5, backgroundColor: scheme === 'dark' ? colors.surfacePressed : colors.surfaceMuted },
   letter: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, borderColor: colors.lineStrong, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
-  letterOn: { backgroundColor: colors.ink, borderColor: colors.ink },
+  letterOn: { backgroundColor: colors.primary, borderColor: colors.primary },
   letterText: { fontSize: 13, fontWeight: '700', color: colors.ink },
   hintRow: { flexDirection: 'row', alignItems: 'center', gap: space.xs, flexWrap: 'wrap' },
-  input: { borderWidth: 1.5, borderColor: colors.ink, backgroundColor: colors.surface, borderRadius: radii.md, paddingHorizontal: space.md, paddingVertical: space.sm, fontSize: 18, lineHeight: 24, color: colors.ink, minHeight: layout.controlHeight },
-  meaning: { gap: space.xxs, padding: space.sm, borderRadius: radii.md, backgroundColor: colors.surfaceMuted },
-  answerArea: { minHeight: 64, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: space.xs, padding: space.sm, borderRadius: radii.md, borderWidth: 1.5, borderStyle: 'dashed', borderColor: colors.lineStrong },
+  input: { borderWidth: 1.5, borderColor: colors.ink, backgroundColor: scheme === 'dark' ? colors.surfaceMuted : colors.surface, borderRadius: radii.md, paddingHorizontal: space.md, paddingVertical: space.sm, fontSize: 18, lineHeight: 24, color: colors.ink, minHeight: layout.controlHeight },
+  meaning: { gap: space.xxs, padding: space.sm, borderRadius: radii.lg, backgroundColor: colors.surfaceMuted },
+  answerArea: { minHeight: 64, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: space.xs, padding: space.sm, borderRadius: radii.lg, borderWidth: 1.5, borderStyle: 'dashed', borderColor: scheme === 'dark' ? colors.placeholder : colors.lineStrong },
   answerAreaFilled: { borderStyle: 'solid', borderColor: colors.ink },
   tokenBank: { flexDirection: 'row', flexWrap: 'wrap', gap: space.xs },
-  token: { minHeight: layout.minTouch, minWidth: layout.minTouch, paddingHorizontal: space.sm, paddingVertical: space.xs, borderRadius: radii.sm, borderWidth: 1, borderColor: colors.lineStrong, borderBottomWidth: 3, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' },
-  tokenPlaced: { backgroundColor: colors.black, borderColor: colors.black },
+  token: { minHeight: layout.minTouch, minWidth: layout.minTouch, paddingHorizontal: space.sm, paddingVertical: space.xs, borderRadius: radii.md, borderWidth: 1, borderColor: colors.lineStrong, borderBottomWidth: 3,
+    backgroundColor: scheme === 'dark' ? colors.surfaceMuted : colors.surface, alignItems: 'center', justifyContent: 'center' },
+  tokenPlaced: { backgroundColor: colors.primary, borderColor: colors.primary },
   tokenText: { fontSize: 17, lineHeight: 22, fontWeight: '600', color: colors.ink },
   clear: { alignSelf: 'flex-start', paddingHorizontal: 0 },
   segments: { flexDirection: 'row', gap: 4 },
   navRow: { flexDirection: 'row', gap: space.sm },
   navButton: { flex: 1 },
-  missing: { gap: space.xs, padding: space.md, borderRadius: radii.md, backgroundColor: colors.surfaceMuted },
+  missing: { gap: space.xs, padding: space.md, borderRadius: radii.lg, backgroundColor: colors.surfaceMuted },
   segment: { flex: 1, height: 8, borderRadius: radii.pill, backgroundColor: colors.track },
   segmentDone: { backgroundColor: colors.ink },
   segmentCurrent: { borderWidth: 2, borderColor: colors.accentInk },
-  guide: { borderRadius: radii.lg, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.accentSurface, overflow: 'hidden' },
+  guide: { borderRadius: radii.xl, borderWidth: scheme === 'dark' ? 0 : 1, borderColor: colors.line, backgroundColor: colors.accentSurface, overflow: 'hidden' },
   guideHead: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 8, paddingHorizontal: space.md },
   guideBadge: { width: 28, height: 28, borderRadius: 14, backgroundColor: colors.accentInk, alignItems: 'center', justifyContent: 'center' },
-  guideBadgeText: { color: colors.white, fontWeight: '700', fontSize: 15, fontStyle: 'italic' },
+  // accentInk is dark gold in light mode (white reads on it) and bright gold in dark mode (needs dark ink).
+  guideBadgeText: { color: scheme === 'dark' ? colors.black : colors.white, fontWeight: '700', fontSize: 15, fontStyle: 'italic' },
   guideToggle: { fontSize: 24, lineHeight: 26, color: colors.accentInk, fontWeight: '600' },
   guideBody: { gap: space.sm, paddingHorizontal: space.md, paddingBottom: space.md },
   example: { gap: 2, paddingLeft: space.sm, borderLeftWidth: 3, borderLeftColor: colors.accentInk },
   wrong: { gap: space.xxs, paddingVertical: space.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line },
   mine: { color: colors.danger, fontSize: 15, lineHeight: 21 },
   key: { color: colors.success, fontSize: 15, lineHeight: 21 },
-});
+}));

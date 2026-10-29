@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Animated, Easing, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
-import { colors, maxScale, radii, shadow, space, type } from '../theme';
+import { disabledOpacity, makeStyles, maxScale, radii, space, useTheme } from '../theme';
 import { Card, Chevron, ProgressBar } from './ui';
 import { useReduceMotion } from '../hooks/useReduceMotion';
 import type { DailyGoalInfo, GradeResult, LevelInfo, PathStateV2, RewardSummary, StreakInfo } from '../lib/path-v2-types';
@@ -10,6 +10,8 @@ const nativeDriver = Platform.OS !== 'web';
 
 /** Dark "career" card: level number, rank title and XP toward the next rank. */
 export function CareerCard({ level, compact = false }: { level: LevelInfo; compact?: boolean }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const next = level.nextLevelTitle ? `Seuraava: ${level.nextLevelTitle}` : 'Korkein arvo saavutettu';
   return <View style={[styles.career, compact && styles.careerCompact]}>
     <View style={styles.careerTop}>
@@ -19,31 +21,33 @@ export function CareerCard({ level, compact = false }: { level: LevelInfo; compa
       </View>
       <View style={styles.flex}>
         <Text style={[type.overline, { color: colors.accent }]}>Urapolku</Text>
-        <Text accessibilityRole="header" style={[type.heading, { color: colors.white }]} maxFontSizeMultiplier={maxScale.title}>{level.title}</Text>
-        <Text style={[type.caption, { color: colors.onDarkMuted }]}>{formatXp(level.xp)} yhteensä</Text>
+        <Text accessibilityRole="header" style={[type.heading, { color: colors.onHero }]} maxFontSizeMultiplier={maxScale.title}>{level.title}</Text>
+        <Text style={[type.caption, { color: colors.onHeroMuted }]}>{formatXp(level.xp)} yhteensä</Text>
       </View>
     </View>
     <ProgressBar dark value={percent(level.progress)} label={`Eteneminen seuraavalle tasolle: ${levelRemainingLabel(level)}`} />
     <View style={styles.careerFoot}>
-      <Text style={[type.caption, styles.flex, { color: colors.onDarkMuted }]} numberOfLines={2}>{next}</Text>
-      <Text style={[type.caption, { color: colors.white, fontWeight: '600' }]}>{levelSpanLabel(level)}</Text>
+      <Text style={[type.caption, styles.flex, { color: colors.onHeroMuted }]} numberOfLines={2}>{next}</Text>
+      <Text style={[type.caption, { color: colors.onHero, fontWeight: '600' }]}>{levelSpanLabel(level)}</Text>
     </View>
   </View>;
 }
 
 /** Home screen entry to Polku: level, streak, today's goal and the next lesson. */
 export function PathHomeCard({ state, error, disabled, onPress }: { state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const next = state ? nextStepLabel(state) : null;
   const kicker = state ? `Polku · Taso ${state.level.level} · ${state.level.title}` : 'Polku';
   const title = next ? (state?.nextLessonId ? `Seuraavaksi: ${next.title}` : next.title) : error ? 'Avaa oppimispolku' : 'Ladataan polkua…';
   const detail = state ? `${streakLabel(state.streak)} · Tänään ${dailyGoalLabel(state.dailyGoal)}` : error ? 'Tilannetta ei saatu juuri nyt. Avaa polku yrittääksesi uudelleen.' : 'Oppitunnit, välietapit ja kertaus.';
   return <Pressable accessibilityRole="button" accessibilityLabel={`${kicker}. ${title}. ${detail}`} accessibilityHint="Avaa oppimispolun" accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
-    style={({ pressed }) => [styles.home, pressed && { opacity: 0.85 }, disabled && { opacity: 0.45 }]}>
+    style={({ pressed }) => [styles.home, pressed && { opacity: 0.85 }, disabled && { opacity: disabledOpacity }]}>
     <View style={styles.homeTop}>
       <View style={styles.flex}>
         <Text style={[type.overline, { color: colors.accent }]} numberOfLines={2}>{kicker}</Text>
-        <Text style={[type.subheading, { color: colors.white }]}>{title}</Text>
-        <Text style={[type.caption, { color: colors.onDarkMuted }]}>{detail}</Text>
+        <Text style={[type.subheading, { color: colors.onHero }]}>{title}</Text>
+        <Text style={[type.caption, { color: colors.onHeroMuted }]}>{detail}</Text>
       </View>
       <Chevron light />
     </View>
@@ -53,6 +57,8 @@ export function PathHomeCard({ state, error, disabled, onPress }: { state: PathS
 
 /** Two side-by-side tiles: today's XP goal and the study streak. Stacks at large text sizes. */
 export function GoalStreak({ goal, streak, stacked = false }: { goal: DailyGoalInfo; streak: StreakInfo; stacked?: boolean }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   return <View style={[styles.tiles, stacked && { flexDirection: 'column' }]}>
     <View accessible accessibilityLabel={`Päivän tavoite: ${goal.earnedXp} / ${goal.targetXp} XP${goal.reached ? ', saavutettu' : ''}`} style={styles.tile}>
       <Text style={type.overline}>Päivän tavoite</Text>
@@ -72,6 +78,8 @@ export function GoalStreak({ goal, streak, stacked = false }: { goal: DailyGoalI
 
 /** Score summary after a lesson, checkpoint or Kertaus. */
 export function ScoreCard({ result, passScore, checkpoint, review }: { result: GradeResult; passScore: number; checkpoint: boolean; review: boolean }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const message = review
     ? result.passed ? 'Hienoa – korjatut kohdat poistuvat kertauslistalta.' : 'Väärät kohdat jäävät kertauslistalle seuraavaa kertaa varten.'
     : result.passed ? (checkpoint ? 'Välietappi läpäisty! Osa on suoritettu.' : 'Läpäisty! Oppitunti on suoritettu.')
@@ -92,6 +100,8 @@ export function RewardCard({ rewards, levelTitle, unlockedTitle, completedTitle,
   rewards: RewardSummary; levelTitle: string; unlockedTitle?: string | null; completedTitle?: string | null;
   /** The streak line is only shown for an attempt that counted as a study day. */ passed: boolean;
 }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const reduce = useReduceMotion();
   const appear = useState(() => new Animated.Value(0))[0];
   const counter = useState(() => new Animated.Value(0))[0];
@@ -121,15 +131,15 @@ export function RewardCard({ rewards, levelTitle, unlockedTitle, completedTitle,
     <View style={styles.rewardTop}>
       <Text style={[type.overline, { color: colors.accent }]}>Palkinnot</Text>
       <Text style={styles.rewardXp} maxFontSizeMultiplier={maxScale.stat}>{rewards.xpGained > 0 ? `+${reduce ? rewards.xpGained : shownXp} XP` : '+0 XP'}</Text>
-      <Text style={[type.caption, { color: colors.onDarkMuted }]}>
+      <Text style={[type.caption, { color: colors.onHeroMuted }]}>
         {rewards.xpGained > 0 ? `${formatXp(rewards.xpAfter)} yhteensä` : passed ? 'XP:tä saa ensimmäisestä läpäisystä. Uusinta voi silti nostaa parasta tulosta.' : 'XP:tä saa, kun läpäiset ensimmäistä kertaa.'}
       </Text>
     </View>
     {lines.map(line => <View key={line.key} style={styles.rewardLine}>
       <View style={styles.rewardMark}><Text style={styles.rewardMarkText} maxFontSizeMultiplier={1.2}>✓</Text></View>
       <View style={styles.flex}>
-        <Text style={[type.label, { color: colors.white }]}>{line.title}</Text>
-        <Text style={[type.caption, { color: colors.onDarkMuted }]}>{line.detail}</Text>
+        <Text style={[type.label, { color: colors.onHero }]}>{line.title}</Text>
+        <Text style={[type.caption, { color: colors.onHeroMuted }]}>{line.detail}</Text>
       </View>
     </View>)}
   </Animated.View>;
@@ -151,27 +161,28 @@ export function usePulse() {
   return value;
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
-  career: { backgroundColor: colors.black, borderRadius: radii.xl, padding: space.lg, gap: space.md, ...shadow.raised },
-  careerCompact: { padding: space.md, gap: space.sm, borderRadius: radii.lg },
+  career: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, ...shadow.raised },
+  careerCompact: { padding: space.md, gap: space.sm, borderRadius: radii.xl },
   careerTop: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   levelBadge: { width: 64, height: 64, borderRadius: radii.lg, borderWidth: 2, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
   levelSmall: { color: colors.accent, fontSize: 10, fontWeight: '700', letterSpacing: 1 },
-  levelNumber: { color: colors.white, fontSize: 28, lineHeight: 32, fontWeight: '700' },
+  levelNumber: { color: colors.onHero, fontSize: 28, lineHeight: 32, fontWeight: '700' },
   careerFoot: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
-  home: { backgroundColor: colors.black, borderRadius: radii.lg, padding: space.lg, gap: space.sm, minHeight: 72, ...shadow.card },
+  home: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.sm, minHeight: 72, ...shadow.card },
   homeTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   tiles: { flexDirection: 'row', gap: space.sm },
-  tile: { flex: 1, minWidth: 0, padding: space.md, borderRadius: radii.lg, backgroundColor: colors.surface, borderWidth: StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.xs, ...shadow.card },
+  tile: { flex: 1, minWidth: 0, padding: space.md, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.xs, ...shadow.card },
   streakRow: { flexDirection: 'row', alignItems: 'center', gap: space.xs },
   streakDot: { width: 12, height: 12, borderRadius: 6, borderWidth: 2, borderColor: colors.accentInk },
   streakDotOn: { backgroundColor: colors.accentInk },
   score: { fontSize: 48, lineHeight: 56 },
-  reward: { backgroundColor: colors.black, borderRadius: radii.xl, padding: space.lg, gap: space.md, ...shadow.raised },
+  reward: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, ...shadow.raised },
   rewardTop: { gap: 2 },
-  rewardXp: { color: colors.white, fontSize: 40, lineHeight: 46, fontWeight: '700', letterSpacing: -1 },
+  rewardXp: { color: colors.onHero, fontSize: 40, lineHeight: 46, fontWeight: '700', letterSpacing: -1 },
   rewardLine: { flexDirection: 'row', alignItems: 'flex-start', gap: space.sm },
   rewardMark: { width: 24, height: 24, borderRadius: 12, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
+  // Fixed dark ink on the gold mark in both modes.
   rewardMarkText: { color: colors.black, fontSize: 13, fontWeight: '700' },
-});
+}));

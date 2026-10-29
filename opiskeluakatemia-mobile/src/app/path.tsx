@@ -4,7 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { Screen, useGutter, usePullToRefresh } from '../components/Screen';
 import { Button, Chip, ChipRow, LoadingState, NavCard, Notice, Pill, ProgressBar } from '../components/ui';
 import { CareerCard, GoalStreak, usePulse } from '../components/PathProgress';
-import { colors, layout, maxScale, radii, shadow, space, type } from '../theme';
+import { layout, makeStyles, maxScale, radii, space, useTheme } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { choices } from '../lib/catalogue';
 import { loadPath, PATH_PREVIEW, type PreviewScenario } from '../lib/path-v2';
@@ -15,10 +15,13 @@ const SCENARIOS: PreviewScenario[] = ['fresh', 'midway', 'complete'];
 const NODE = 64;
 const LABEL_WIDTH = 200;
 
-function LockGlyph({ color = colors.muted }: { color?: string }) {
+function LockGlyph({ color }: { color?: string }) {
+  const { colors } = useTheme();
+  const styles = useStyles();
+  const tint = color ?? colors.muted;
   return <View importantForAccessibility="no-hide-descendants" accessibilityElementsHidden style={styles.lock}>
-    <View style={[styles.lockShackle, { borderColor: color }]} />
-    <View style={[styles.lockBody, { backgroundColor: color }]} />
+    <View style={[styles.lockShackle, { borderColor: tint }]} />
+    <View style={[styles.lockBody, { backgroundColor: tint }]} />
   </View>;
 }
 
@@ -30,6 +33,8 @@ function nodeCaption(lesson: PublicLessonV2, progress: LessonProgressV2 | undefi
 }
 
 function LessonNode({ lesson, progress, isNext, offset }: { lesson: PublicLessonV2; progress?: LessonProgressV2; isNext: boolean; offset: number }) {
+  const { colors, type, scheme } = useTheme();
+  const styles = useStyles();
   const state = lessonState(progress);
   const pulse = usePulse();
   const checkpoint = lesson.kind === 'checkpoint';
@@ -54,7 +59,7 @@ function LessonNode({ lesson, progress, isNext, offset }: { lesson: PublicLesson
         isNext && !locked && styles.nodeNext]}>
         <View style={checkpoint ? styles.unrotate : undefined}>
           {locked ? <LockGlyph />
-            : done ? <Text style={[styles.nodeGlyph, { color: perfect ? colors.accent : colors.white }]} maxFontSizeMultiplier={1.2}>{perfect ? '★' : '✓'}</Text>
+            : done ? <Text style={[styles.nodeGlyph, { color: perfect && scheme === 'light' ? colors.accent : colors.onPrimary }]} maxFontSizeMultiplier={1.2}>{perfect ? '★' : '✓'}</Text>
               : <Text style={[styles.nodeGlyph, { color: colors.ink }]} maxFontSizeMultiplier={1.2}>{checkpoint ? '⚑' : lesson.order}</Text>}
         </View>
       </View>
@@ -70,12 +75,15 @@ function LessonNode({ lesson, progress, isNext, offset }: { lesson: PublicLesson
 
 /** Stepping-stone dots between two nodes, drawn along the winding line. */
 function Trail({ from, to, done }: { from: number; to: number; done: boolean }) {
+  const styles = useStyles();
   return <View style={styles.trail} importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>
     {[0.25, 0.5, 0.75].map(t => <View key={t} style={[styles.trailDot, done && styles.trailDotDone, { transform: [{ translateX: from + (to - from) * t }] }]} />)}
   </View>;
 }
 
 function UnitHeader({ unit, progress }: { unit: PublicUnitV2; progress?: UnitProgressV2 }) {
+  const { type } = useTheme();
+  const styles = useStyles();
   const status = progress?.status ?? 'locked';
   const pill = status === 'completed' ? <Pill label="Suoritettu" tone="success" /> : status === 'available' ? <Pill label="Auki" tone="dark" /> : <Pill label="Lukittu" />;
   return <View style={styles.unitHeader}>
@@ -97,6 +105,8 @@ function UnitHeader({ unit, progress }: { unit: PublicUnitV2; progress?: UnitPro
 }
 
 function ComingSoonUnit({ unit }: { unit: PublicUnitV2 }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   return <View style={[styles.unit, styles.soon]}>
     <View accessible accessibilityLabel={`Osa ${unit.order}: ${unit.title}. Tulossa. ${unit.subtitle}. Suunnitellut oppitunnit: ${unit.plannedLessons.join(', ')}.`} style={{ gap: space.xs }}>
       <View style={styles.unitTop}>
@@ -115,6 +125,8 @@ function ComingSoonUnit({ unit }: { unit: PublicUnitV2 }) {
 }
 
 function UnitSection({ unit, state, amplitude }: { unit: PublicUnitV2; state: PathStateV2; amplitude: number }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const progress = state.units.find(entry => entry.unitId === unit.id);
   if (unit.comingSoon) return <ComingSoonUnit unit={unit} />;
   // A locked unit is a compact preview: the full trail appears once it opens.
@@ -143,6 +155,8 @@ function UnitSection({ unit, state, amplitude }: { unit: PublicUnitV2; state: Pa
 }
 
 export default function PathScreen() {
+  const { type } = useTheme();
+  const styles = useStyles();
   const { previewScenario } = useLocalSearchParams<{ previewScenario?: string }>();
   // Dev preview only: reset the in-memory preview user once, on the first load.
   const pendingScenario = useRef<PreviewScenario | undefined>(PATH_PREVIEW && SCENARIOS.includes(previewScenario as PreviewScenario) ? previewScenario as PreviewScenario : undefined);
@@ -183,12 +197,13 @@ export default function PathScreen() {
   </Screen>;
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
   centerText: { textAlign: 'center' },
-  nextCard: { padding: space.lg, borderRadius: radii.lg, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.ink, gap: space.xs, ...shadow.card },
-  unit: { marginTop: space.md, padding: space.md, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.md, ...shadow.card },
-  unitLocked: { backgroundColor: colors.surfaceMuted, shadowOpacity: 0, elevation: 0 },
+  // Outlined in light mode; in dark mode cards separate by colour alone.
+  nextCard: { padding: space.lg, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : 1, borderColor: colors.ink, gap: space.xs, ...shadow.card },
+  unit: { marginTop: space.md, padding: space.md, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.md, ...shadow.card },
+  unitLocked: { backgroundColor: colors.surfaceMuted, borderColor: colors.surfaceMuted, shadowOpacity: 0, elevation: 0 },
   unitHeader: { gap: space.xxs },
   unitTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   soon: { backgroundColor: colors.surfaceMuted, borderStyle: 'dashed', borderWidth: 1, borderColor: colors.lineStrong, shadowOpacity: 0, elevation: 0 },
@@ -197,14 +212,16 @@ const styles = StyleSheet.create({
   plannedDot: { width: 8, height: 8, borderRadius: 4, borderWidth: 1.5, borderColor: colors.placeholder },
   trailWrap: { alignItems: 'center', paddingVertical: space.xs },
   trail: { height: 36, justifyContent: 'space-evenly', alignItems: 'center' },
-  trailDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.lineStrong },
+  // lineStrong is too faint on the dark card; placeholder keeps the trail visible next to the bright "done" dots.
+  trailDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: scheme === 'dark' ? colors.placeholder : colors.lineStrong },
   trailDotDone: { backgroundColor: colors.ink },
   node: { alignItems: 'center', gap: space.xs, width: LABEL_WIDTH, minHeight: layout.minTouch, paddingVertical: space.xxs },
   badgeWrap: { width: NODE + 16, height: NODE + 16, alignItems: 'center', justifyContent: 'center' },
   circle: { width: NODE, height: NODE, borderRadius: NODE / 2, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderBottomWidth: 5 },
   checkpoint: { width: NODE - 6, height: NODE - 6, borderRadius: radii.md, alignItems: 'center', justifyContent: 'center', borderWidth: 2, transform: [{ rotate: '45deg' }] },
   unrotate: { transform: [{ rotate: '-45deg' }] },
-  nodeDone: { backgroundColor: colors.black, borderColor: colors.black },
+  // States: done = solid primary fill, open = outlined in ink, locked = muted fill, next = gold.
+  nodeDone: { backgroundColor: colors.primary, borderColor: colors.primary },
   nodeOpen: { backgroundColor: colors.surface, borderColor: colors.ink },
   nodeLocked: { backgroundColor: colors.surfaceMuted, borderColor: colors.lineStrong },
   nodeNext: { backgroundColor: colors.accentSurface, borderColor: colors.accentInk },
@@ -213,9 +230,10 @@ const styles = StyleSheet.create({
   nodeGlyph: { fontSize: 24, lineHeight: 28, fontWeight: '700' },
   progressDot: { position: 'absolute', right: 6, top: 6, width: 16, height: 16, borderRadius: 8, backgroundColor: colors.accentInk, borderWidth: 2, borderColor: colors.surface },
   nodeCopy: { gap: 2, alignItems: 'center', width: '100%' },
-  youAreHere: { backgroundColor: colors.black, borderRadius: radii.pill, paddingHorizontal: space.sm, paddingVertical: 3 },
+  // Gold-on-black tag in light mode; on the dark card a near-black pill would vanish, so it uses the gold surface.
+  youAreHere: { backgroundColor: scheme === 'dark' ? colors.accentSurface : colors.black, borderRadius: radii.pill, paddingHorizontal: space.sm, paddingVertical: 3 },
   youAreHereText: { color: colors.accent, fontSize: 11, fontWeight: '700', letterSpacing: 1 },
   lock: { alignItems: 'center' },
   lockShackle: { width: 12, height: 9, borderWidth: 2, borderBottomWidth: 0, borderTopLeftRadius: 6, borderTopRightRadius: 6 },
   lockBody: { width: 18, height: 13, borderRadius: 3 },
-});
+}));

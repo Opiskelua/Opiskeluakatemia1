@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import { Alert, Platform, Text } from 'react-native';
 import { Screen } from '../components/Screen';
-import { Button, Card, Field, Notice, PageHeader } from '../components/ui';
+import { Button, Card, Field, Notice, OptionGroup, PageHeader, SectionTitle } from '../components/ui';
 import { useSession } from '../providers/SessionProvider';
 import { supabase } from '../lib/supabase';
 import { deleteAccount, RequestError } from '../lib/api';
 import { supportEmail } from '../lib/config';
 import { LegalLinks, openExternal } from '../components/LegalLinks';
-import { colors, type } from '../theme';
+import { useTheme, type ThemePreference } from '../theme';
 
 const CONFIRM_WORD = 'POISTA';
+
+const appearanceOptions: { value: ThemePreference; label: string; icon: string }[] = [
+  { value: 'system', label: 'Järjestelmä', icon: '◐' },
+  { value: 'light', label: 'Vaalea', icon: '☀\uFE0E' },
+  { value: 'dark', label: 'Tumma', icon: '☾' },
+];
 
 function deletionError(cause: unknown) {
   if (cause instanceof RequestError) {
@@ -26,6 +32,7 @@ function deletionError(cause: unknown) {
 
 export default function Settings() {
   const { session } = useSession();
+  const { colors, type, preference, setPreference } = useTheme();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [deleting, setDeleting] = useState(false);
@@ -73,6 +80,9 @@ export default function Settings() {
       <Text selectable style={type.bodyStrong}>{session?.user.email ?? '—'}</Text>
       <Button title={busy && !deleting ? 'Hetkinen…' : 'Kirjaudu ulos'} secondary disabled={busy} onPress={() => void signOut()} />
     </Card>
+
+    <SectionTitle title="Ulkoasu" detail="Järjestelmä seuraa puhelimen asetusta." />
+    <OptionGroup accessibilityLabel="Ulkoasu" options={appearanceOptions} value={preference} onChange={setPreference} />
 
     <Card>
       <Text accessibilityRole="header" style={type.subheading}>Tietosuoja ja ehdot</Text>

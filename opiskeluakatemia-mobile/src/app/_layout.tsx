@@ -4,12 +4,15 @@ import { Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SessionProvider, useSession } from '../providers/SessionProvider';
 import { Button, LoadingState } from '../components/ui';
-import { colors, space, type } from '../theme';
+import { space, ThemeProvider, useTheme } from '../theme';
 import { PATH_PREVIEW } from '../lib/path-v2';
 function Navigation() {
   const { session, loading } = useSession();
+  const { colors, scheme } = useTheme();
   if (loading) return <View style={{ flex: 1, justifyContent: 'center', backgroundColor: colors.canvas }}><LoadingState label="Ladataan tiliä" /></View>;
-  return <Stack screenOptions={{
+  return <>
+  <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
+  <Stack screenOptions={{
     headerStyle: { backgroundColor: colors.canvas },
     headerShadowVisible: false,
     headerTintColor: colors.ink,
@@ -35,10 +38,12 @@ function Navigation() {
       <Stack.Screen name="path-lesson" options={{ title: 'Oppitunti' }} />
       <Stack.Screen name="path-review" options={{ title: 'Kertaus' }} />
     </Stack.Protected>
-  </Stack>;
+  </Stack>
+  </>;
 }
 // Shown instead of a blank screen if rendering fails. Internal details are only visible in development.
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  const { colors, type } = useTheme();
   return <View style={{ flex: 1, justifyContent: 'center', padding: space.xl, gap: space.md, backgroundColor: colors.canvas }}>
     <Text accessibilityRole="header" style={type.title}>Jokin meni pieleen</Text>
     <Text style={type.body}>Näkymää ei voitu näyttää. Tallennetut suorituksesi ovat tallessa. Yritä uudelleen, tai sulje ja avaa sovellus.</Text>
@@ -47,5 +52,5 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   </View>;
 }
 export default function RootLayout() {
-  return <SafeAreaProvider><SessionProvider><StatusBar style="dark" /><Navigation /></SessionProvider></SafeAreaProvider>;
+  return <SafeAreaProvider><ThemeProvider><SessionProvider><Navigation /></SessionProvider></ThemeProvider></SafeAreaProvider>;
 }

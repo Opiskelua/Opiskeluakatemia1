@@ -2,7 +2,7 @@ import { useCallback, useContext, useState, type ReactNode, type Ref } from 'rea
 import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, StyleSheet, useWindowDimensions, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
 import { HeaderHeightContext } from 'expo-router/react-navigation';
-import { colors, layout, space } from '../theme';
+import { layout, makeStyles, space, useTheme } from '../theme';
 
 export function useGutter() {
   const { width } = useWindowDimensions();
@@ -28,6 +28,8 @@ export function Screen({ children, refreshing = false, onRefresh, edges = ['bott
 }) {
   const headerHeight = useContext(HeaderHeightContext) ?? 0;
   const gutter = useGutter();
+  const { colors } = useTheme();
+  const styles = useStyles();
   return <SafeAreaView style={styles.safe} edges={edges}>
     <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={headerHeight}>
       <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled" keyboardDismissMode="interactive" contentInsetAdjustmentBehavior="never"
@@ -39,8 +41,8 @@ export function Screen({ children, refreshing = false, onRefresh, edges = ['bott
   </SafeAreaView>;
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(({ colors }) => StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.canvas },
   flex: { flex: 1 },
   content: { paddingTop: space.xs, paddingBottom: space.xxxl, gap: space.md, width: '100%', maxWidth: layout.maxWidth, alignSelf: 'center', flexGrow: 1 },
-});
+}));

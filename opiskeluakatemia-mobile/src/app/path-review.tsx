@@ -5,7 +5,7 @@ import { Screen } from '../components/Screen';
 import { Button, EmptyState, LoadingState, NavCard, Notice, PageHeader } from '../components/ui';
 import { ItemStepper, WrongList } from '../components/PathItems';
 import { RewardCard, ScoreCard } from '../components/PathProgress';
-import { space, type } from '../theme';
+import { space, useTheme } from '../theme';
 import { RequestError } from '../lib/api';
 import { loadReview, submitReview } from '../lib/path-v2';
 import type { AnswerValue, Answers, ReviewSessionV2, ReviewSubmitResponseV2 } from '../lib/path-v2-types';
@@ -18,6 +18,7 @@ function FlashcardsCard({ due }: { due: number | null }) {
 }
 
 export default function PathReviewScreen() {
+  const { type } = useTheme();
   const [session, setSession] = useState<ReviewSessionV2 | null>(null);
   const [loadError, setLoadError] = useState('');
   const [answers, setAnswers] = useState<Answers>({});

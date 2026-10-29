@@ -3,7 +3,7 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams, usePreventRemove } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
 import { Bullet, Button, Card, EmptyState, Field, ListRow, LoadingState, Notice, PageHeader, ProgressBar, SectionTitle } from '../components/ui';
-import { colors, maxScale, radii, space, type } from '../theme';
+import { makeStyles, maxScale, radii, space, useTheme } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { completeTask, loadContent, type Topic } from '../lib/course';
 import { CATEGORY_LABELS, essayCounts, feedbackLines, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
@@ -11,6 +11,8 @@ import { apiRequest, checkCourseAccess } from '../lib/api';
 import { ensureAiConsent } from '../lib/ai-consent';
 export default function Essays() {
   const { taskId } = useLocalSearchParams<{ taskId?: string }>();
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const content = useSyncedResource(loadContent);
   const list = useSyncedResource(loadEssays);
   const [topic, setTopic] = useState<Topic | null>(null);
@@ -150,8 +152,8 @@ export default function Essays() {
   </Screen>;
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(({ colors }) => StyleSheet.create({
   editor: { minHeight: 280 },
   subhead: { marginTop: space.xs },
-  essayText: { padding: space.sm, borderRadius: radii.md, backgroundColor: colors.surfaceMuted },
-});
+  essayText: { padding: space.md, borderRadius: radii.lg, backgroundColor: colors.surfaceMuted },
+}));

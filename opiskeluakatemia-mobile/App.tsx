@@ -9,7 +9,7 @@ import { checkCourseAccess, courseRequest } from './src/lib/api';
 import { loadHistory, type Attempt } from './src/lib/exercises';
 import { router, useFocusEffect, type Href } from 'expo-router';
 import { useSession } from './src/providers/SessionProvider';
-import { colors, disabledOpacity, layout, maxScale, radii, shadow, space, type } from './src/theme';
+import { disabledOpacity, layout, makeStyles, maxScale, radii, space, useTheme } from './src/theme';
 import { LegalLinks } from './src/components/LegalLinks';
 import { useGutter } from './src/components/Screen';
 import { Button, Card, Chevron, Field, ListRow, LoadingState, NavCard, Notice, SectionTitle } from './src/components/ui';
@@ -33,6 +33,8 @@ function accountName(session: Session) {
 }
 
 function Bars({ values }: { values: number[] }) {
+  const { colors } = useTheme();
+  const styles = useStyles();
   return <View style={styles.bars} importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>
     {values.map((value, index) => <View key={index} style={[styles.bar, {
       height: Math.max(4, (Math.min(100, Math.max(0, value)) / 100) * 40),
@@ -42,6 +44,8 @@ function Bars({ values }: { values: number[] }) {
 }
 
 function AreaTile({ badge, title, description, onPress, disabled }: { badge: string; title: string; description: string; onPress: () => void; disabled: boolean }) {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   return <Pressable accessibilityRole="button" accessibilityLabel={`${title}. ${description}`} accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
     style={({ pressed }) => [styles.tile, pressed && { backgroundColor: colors.surfacePressed }, disabled && { opacity: disabledOpacity }]}>
     <View style={styles.tileBadge}><Text style={styles.tileBadgeText} maxFontSizeMultiplier={1.3}>{badge}</Text></View>
@@ -61,6 +65,8 @@ function CourseHome({ session }: { session: Session }) {
   const [pathError, setPathError] = useState(false);
   const pathRequest = useRef(0);
   const request = useRef(0);
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const name = accountName(session);
   const gutter = useGutter();
   const insets = useSafeAreaInsets();
@@ -170,6 +176,7 @@ function CourseHome({ session }: { session: Session }) {
 }
 
 function Wordmark() {
+  const styles = useStyles();
   return <View style={styles.brand} accessible accessibilityRole="header" accessibilityLabel="Opiskeluakatemia">
     <View style={styles.mark}><Text style={styles.markText} maxFontSizeMultiplier={1.2}>o.</Text></View>
     <Text style={styles.brandText}>opiskeluakatemia</Text>
@@ -180,6 +187,8 @@ function Login() {
   const [email, setEmail] = useState(''); const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false); const [message, setMessage] = useState('');
   const [messageTone, setMessageTone] = useState<'error' | 'info'>('error');
+  const { type } = useTheme();
+  const styles = useStyles();
   const show = (text: string, tone: 'error' | 'info' = 'error') => { setMessage(text); setMessageTone(tone); };
   async function login() {
     setBusy(true); setMessage('');
@@ -221,6 +230,7 @@ function Login() {
 
 function ScrollShell({ children }: { children: React.ReactNode }) {
   const gutter = useGutter();
+  const styles = useStyles();
   return <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
     <ScrollView contentContainerStyle={[styles.content, { paddingHorizontal: gutter }]} keyboardShouldPersistTaps="handled" keyboardDismissMode="interactive">{children}</ScrollView>
   </KeyboardAvoidingView>;
@@ -228,14 +238,16 @@ function ScrollShell({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { session, loading } = useSession();
-  return <SafeAreaProvider><SafeAreaView style={styles.safe} edges={session ? ['top', 'left', 'right'] : undefined}><StatusBar style="dark" />
+  const { type, scheme } = useTheme();
+  const styles = useStyles();
+  return <SafeAreaProvider><SafeAreaView style={styles.safe} edges={session ? ['top', 'left', 'right'] : undefined}><StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
     {!isConfigured ? <ScrollShell><Wordmark /><Card><Text style={type.heading}>{__DEV__ ? 'Yhteys odottaa määritystä' : 'Palveluun ei saada yhteyttä'}</Text><Text style={type.body}>{__DEV__ ? 'Lisää projektin .env.local-tiedostoon README-ohjeen mukaiset julkiset HTTPS-yhteysasetukset ja käynnistä sovellus uudelleen.' : 'Päivitä sovellus uusimpaan versioon tai yritä myöhemmin uudelleen.'}</Text></Card></ScrollShell>
       : loading ? <View style={styles.center}><LoadingState label="Ladataan tiliä" /></View>
       : session ? <CourseHome key={session.user.id} session={session} /> : <ScrollShell><Login /></ScrollShell>}
   </SafeAreaView></SafeAreaProvider>;
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.canvas },
   flex: { flex: 1, minWidth: 0 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
@@ -243,22 +255,22 @@ const styles = StyleSheet.create({
   homeContent: { paddingTop: space.md, gap: space.sm, width: '100%', maxWidth: layout.maxWidth, alignSelf: 'center' },
   header: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   headerText: { flex: 1, minWidth: 0, gap: 2 },
-  avatar: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, alignItems: 'center', justifyContent: 'center', flexShrink: 0, ...shadow.card },
+  avatar: { width: 48, height: 48, borderRadius: radii.pill, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : 1, borderColor: colors.line, alignItems: 'center', justifyContent: 'center', flexShrink: 0, ...shadow.card },
   avatarText: { fontSize: 19, fontWeight: '700', color: colors.ink },
   status: { flexDirection: 'row', alignItems: 'center', gap: space.xs, minHeight: 24 },
-  statusDot: { width: 8, height: 8, borderRadius: 4 },
+  statusDot: { width: 8, height: 8, borderRadius: radii.pill },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   gridSingle: { flexDirection: 'column', flexWrap: 'nowrap' },
-  tile: { flexGrow: 1, flexBasis: '45%', minHeight: 132, padding: space.md, borderRadius: radii.lg, backgroundColor: colors.surface, borderWidth: StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.xxs, ...shadow.card },
+  tile: { flexGrow: 1, flexBasis: '45%', minHeight: 132, padding: space.lg, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.xxs, ...shadow.card },
   tileBadge: { width: 36, height: 36, borderRadius: radii.md, backgroundColor: colors.surfaceMuted, alignItems: 'center', justifyContent: 'center', marginBottom: space.xs },
   tileBadgeText: { fontSize: 15, fontWeight: '700', color: colors.ink },
-  statsCard: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, borderRadius: radii.lg, backgroundColor: colors.surface, borderWidth: StyleSheet.hairlineWidth, borderColor: colors.line, ...shadow.card },
+  statsCard: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, ...shadow.card },
   bars: { height: 40, flexDirection: 'row', alignItems: 'flex-end', gap: 4 },
-  bar: { width: 6, borderRadius: 3 },
+  bar: { width: 6, borderRadius: radii.pill },
   brand: { flexDirection: 'row', alignItems: 'center', gap: space.xs, marginTop: space.xs },
-  mark: { width: 36, height: 36, backgroundColor: colors.black, borderRadius: radii.md, alignItems: 'center', justifyContent: 'center' },
-  markText: { color: colors.white, fontSize: 18, fontWeight: '700' },
+  mark: { width: 36, height: 36, backgroundColor: colors.primary, borderRadius: radii.md, alignItems: 'center', justifyContent: 'center' },
+  markText: { color: colors.onPrimary, fontSize: 18, fontWeight: '700' },
   brandText: { fontSize: 17, fontWeight: '600', color: colors.ink, letterSpacing: -0.4 },
   hero: { gap: space.xs, marginTop: space.md, marginBottom: space.xs },
   loginCard: { gap: space.md },
-});
+}));

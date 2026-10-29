@@ -5,9 +5,10 @@ import { Screen } from '../components/Screen';
 import { Button, Chip, ChipRow, NavCard, PageHeader } from '../components/ui';
 import { choices } from '../lib/catalogue';
 import type { Category, Difficulty } from '../lib/exercise-model';
-import { space, type } from '../theme';
+import { space, useTheme } from '../theme';
 const labels: Record<Category, string> = { grammar: 'Kielioppi ja sanasto', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' };
 export default function Exercises() {
+  const { type } = useTheme();
   const [category, setCategory] = useState<Category>('grammar');
   const [difficulty, setDifficulty] = useState<Difficulty>('intermediate');
   return <Screen>

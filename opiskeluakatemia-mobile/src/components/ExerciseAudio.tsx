@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import { Button, Card, Notice, ProgressBar } from './ui';
 import { config } from '../lib/config';
-import { space, type } from '../theme';
+import { space, useTheme } from '../theme';
 const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
 export function ExerciseAudio({ url, splitTime }: { url: string; splitTime?: number }) {
+  const { type } = useTheme();
   const uri = url.startsWith('/') ? `${config.apiUrl}${url}` : url;
   const player = useAudioPlayer(uri);
   const status = useAudioPlayerStatus(player);

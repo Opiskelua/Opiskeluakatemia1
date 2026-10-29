@@ -4,8 +4,9 @@ import { Screen, usePullToRefresh } from '../components/Screen';
 import { Card, LoadingState, Notice, PageHeader, ProgressBar } from '../components/ui';
 import { loadGrade, loadSkills } from '../lib/course';
 import { useSyncedResource } from '../hooks/useSyncedResource';
-import { maxScale, space, type } from '../theme';
+import { maxScale, space, useTheme } from '../theme';
 export default function Progress() {
+  const { type } = useTheme();
   const grade = useSyncedResource(loadGrade);
   const skills = useSyncedResource(loadSkills);
   const refreshGrade = grade.refresh; const refreshSkills = skills.refresh;

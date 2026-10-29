@@ -5,7 +5,7 @@ import { Screen } from '../components/Screen';
 import { Button, EmptyState, LoadingState, Notice, Pill } from '../components/ui';
 import { GuidePanel, ItemStepper, WrongList } from '../components/PathItems';
 import { RewardCard, ScoreCard } from '../components/PathProgress';
-import { space, type } from '../theme';
+import { space, useTheme } from '../theme';
 import { RequestError } from '../lib/api';
 import { loadPath, saveLesson } from '../lib/path-v2';
 import type { AnswerValue, Answers, LessonMutationResponseV2, PathStateV2 } from '../lib/path-v2-types';
@@ -23,6 +23,7 @@ export default function PathLessonScreen() {
 type Busy = 'save' | 'submit' | null;
 
 function LessonPlayer({ lessonId }: { lessonId: string }) {
+  const { type } = useTheme();
   const [state, setState] = useState<PathStateV2 | null>(null);
   const [loadError, setLoadError] = useState('');
   const [answers, setAnswers] = useState<Answers>({});

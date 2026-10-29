@@ -4,10 +4,11 @@ import { randomUUID } from 'expo-crypto';
 import { Stack, useFocusEffect } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
 import { Button, Card, EmptyState, Field, LoadingState, NavCard, Notice, PageHeader, SectionTitle } from '../components/ui';
-import { maxScale, space, type } from '../theme';
+import { maxScale, space, useTheme } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { loadCards, loadDecks, updateFlashcards, type Deck } from '../lib/flashcards';
 function Review({ deck, back }: { deck: Deck; back: () => void }) {
+  const { colors, type } = useTheme();
   const load = useCallback(async () => ({ ...await loadCards(deck.id), loadedAt: Date.now() }), [deck.id]);
   const { data, loading, error, refresh } = useSyncedResource(load);
   const [revealedCardId, setRevealedCardId] = useState<string | null>(null);
@@ -39,7 +40,7 @@ function Review({ deck, back }: { deck: Deck; back: () => void }) {
     {!!(error || saveError) && <Notice tone="error" message={error || saveError} actionTitle="Päivitä kortit" actionDisabled={loading} onAction={() => { setSaveError(''); setRevealedCardId(null); void refresh(); }} />}
     {loading && !data && <LoadingState label="Haetaan kortteja…" />}
     {card && <Card style={styles.flashcard}>
-      <Text style={[type.overline, styles.center]}>{flipped ? 'Vastaus' : 'Muistatko tämän?'}</Text>
+      <Text style={[type.overline, styles.center, flipped && { color: colors.accentInk }]}>{flipped ? 'Vastaus' : 'Muistatko tämän?'}</Text>
       <Text selectable accessibilityLiveRegion="polite" style={[type.title, styles.center]} maxFontSizeMultiplier={maxScale.title}>{flipped ? card.back : card.front}</Text>
       {flipped && <Text style={[type.caption, styles.center]}>{card.front}</Text>}
       <View style={styles.actions}>
@@ -63,6 +64,7 @@ function Review({ deck, back }: { deck: Deck; back: () => void }) {
   </Screen>;
 }
 export default function Flashcards() {
+  const { type } = useTheme();
   const { data, loading, error, refresh } = useSyncedResource(loadDecks);
   const [deck, setDeck] = useState<Deck | null>(null);
   const [busy, setBusy] = useState(false); const [saveError, setSaveError] = useState('');
@@ -95,7 +97,7 @@ export default function Flashcards() {
 
 const styles = StyleSheet.create({
   backLink: { alignSelf: 'flex-start', paddingHorizontal: 0, marginBottom: -space.xs },
-  flashcard: { minHeight: 280, justifyContent: 'center', gap: space.md, paddingVertical: space.xl },
+  flashcard: { minHeight: 280, justifyContent: 'center', gap: space.md, paddingVertical: space.xl, paddingHorizontal: space.xl },
   center: { textAlign: 'center' },
   actions: { gap: space.xs, marginTop: space.xs },
 });

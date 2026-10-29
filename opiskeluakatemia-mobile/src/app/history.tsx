@@ -3,10 +3,11 @@ import { AppState, Text } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
 import { Card, EmptyState, ListRow, LoadingState, Notice, PageHeader, ProgressBar } from '../components/ui';
-import { maxScale, type } from '../theme';
+import { maxScale, useTheme } from '../theme';
 import { loadHistory, type Attempt } from '../lib/exercises';
 const labels = { grammar: 'Kielioppi', reading: 'Luetunymmärtäminen', listening: 'Kuuntelu' };
 export default function History() {
+  const { type } = useTheme();
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);

@@ -5,8 +5,10 @@ import { Screen, usePullToRefresh } from '../components/Screen';
 import { Bullet, Card, EmptyState, Field, LoadingState, Notice, PageHeader } from '../components/ui';
 import { loadContent } from '../lib/course';
 import { useSyncedResource } from '../hooks/useSyncedResource';
-import { colors, layout, radii, space, type } from '../theme';
+import { layout, makeStyles, radii, space, useTheme } from '../theme';
 export default function Theory() {
+  const { colors, type } = useTheme();
+  const styles = useStyles();
   const { data, loading, error, refresh } = useSyncedResource(loadContent);
   const pull = usePullToRefresh(refresh);
   const [search, setSearch] = useState('');
@@ -46,13 +48,13 @@ export default function Theory() {
     })}
   </Screen>;
 }
-const styles = StyleSheet.create({
+const useStyles = makeStyles(({ colors }) => StyleSheet.create({
   section: { padding: 0, gap: 0 },
-  toggle: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 16, padding: space.md, borderRadius: radii.lg },
+  toggle: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 16, padding: space.lg, borderRadius: radii.xl },
   toggleCopy: { flex: 1, minWidth: 0, gap: 2 },
   icon: { fontSize: 24, lineHeight: 28, color: colors.muted, width: 24, textAlign: 'center' },
-  body: { gap: space.sm, paddingHorizontal: space.md, paddingBottom: space.md },
+  body: { gap: space.sm, paddingHorizontal: space.lg, paddingBottom: space.lg },
   example: { gap: space.xxs, padding: space.sm, backgroundColor: colors.surfaceMuted, borderRadius: radii.md },
   tip: { gap: space.xxs, padding: space.sm, backgroundColor: colors.accentSurface, borderRadius: radii.md },
   small: { fontSize: 15, lineHeight: 21 },
-});
+}));

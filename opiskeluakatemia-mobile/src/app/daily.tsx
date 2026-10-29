@@ -5,8 +5,9 @@ import { Button, Card, EmptyState, LoadingState, Notice, PageHeader, ProgressBar
 import { loadDailyTasks } from '../lib/course';
 import { taskChoice } from '../lib/daily-task-choice';
 import { useSyncedResource } from '../hooks/useSyncedResource';
-import { colors, space, type } from '../theme';
+import { space, useTheme } from '../theme';
 export default function Daily() {
+  const { colors, type } = useTheme();
   const { data, loading, error, refresh } = useSyncedResource(loadDailyTasks);
   const pull = usePullToRefresh(refresh);
   const done = data?.tasks.filter(t => t.isCompleted).length ?? 0;
