@@ -65,7 +65,8 @@ If Apple's post-upload email lists another missing reason, add it there.
 
 - Does the app collect or share any of the required user data types? **Yes**
 - Is all user data encrypted in transit? **Yes** (HTTPS only in release builds)
-- Do you provide a way for users to request that their data is deleted? **Yes**. Deletion is in the app (Tili → Poista tili). Web deletion URL: `https://opiskeluakatemia.fi/tietosuojakaytanto`, which describes the email request route. A dedicated web deletion page is recommended; see section 9.
+- Do you provide a way for users to request that their data is deleted? **Yes**. Deletion is in the app (Tili → Poista tili).
+- Delete account URL (Play Console → App content → Data safety / Account deletion): `https://opiskeluakatemia.fi/poista-tili`. The public page names the app and explains all three routes (in the app: Tili → Poista tili; on the web: Asetukset → Poista tili at `/settings`, which calls the same `/api/account/delete` endpoint; or by email to support@opiskeluakatemia.fi), what is deleted and what is kept (Stripe payment records for bookkeeping). Signed-in visitors get a direct link to `/settings#poista-tili`. Deploy the page before submitting.
 
 | Category → type | Collected | Shared | Optional? | Purpose | Processed ephemerally? |
 | --- | --- | --- | --- | --- | --- |
