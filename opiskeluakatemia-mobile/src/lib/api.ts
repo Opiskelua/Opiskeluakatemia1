@@ -14,13 +14,21 @@ export async function apiRequest(path: string, options: { method?: string; body?
   if (options.signal?.aborted) controller.abort();
   options.signal?.addEventListener('abort', abort);
   const timeout = setTimeout(() => { timedOut = true; abort(); }, options.timeout ?? 30000);
+  const send = (token: string) => fetch(`${config.apiUrl}${path}`, {
+    method: options.method ?? 'GET',
+    headers: { Authorization: `Bearer ${token}`, ...(options.body ? { 'Content-Type': 'application/json' } : {}) },
+    body: options.body ? JSON.stringify(options.body) : undefined,
+    signal: controller.signal,
+  });
   try {
-    const response = await fetch(`${config.apiUrl}${path}`, {
-      method: options.method ?? 'GET',
-      headers: { Authorization: `Bearer ${data.session.access_token}`, ...(options.body ? { 'Content-Type': 'application/json' } : {}) },
-      body: options.body ? JSON.stringify(options.body) : undefined,
-      signal: controller.signal,
-    });
+    let response = await send(data.session.access_token);
+    // The server rejects the token before doing any work, so one retry with a refreshed session is safe.
+    // If the session cannot be refreshed (revoked, account removed), sign out so the app returns to sign-in.
+    if (response.status === 401) {
+      const refreshed = await supabase.auth.refreshSession().catch(() => null);
+      if (refreshed?.data.session) response = await send(refreshed.data.session.access_token);
+      else await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
+    }
     if (!response.ok) throw new RequestError(response.status === 401 ? 'Kirjaudu uudelleen jatkaaksesi.'
       : response.status === 403 ? 'Kurssioikeus puuttuu.'
       : response.status === 429 ? 'Harjoitusraja tuli vastaan. Odota hetki ja yritä uudelleen.'
