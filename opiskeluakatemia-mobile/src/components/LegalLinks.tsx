@@ -14,7 +14,7 @@ export function openExternal(raw: string) {
     Alert.alert('Linkkiä ei voitu avata', 'Sovellus avaa vain Opiskeluakatemian omia sivuja.');
     return;
   }
-  void Linking.openURL(url).catch(() => Alert.alert('Linkin avaus epäonnistui', url.startsWith('mailto:') ? `Lähetä viesti osoitteeseen ${url.slice(7)}.` : url));
+  void Linking.openURL(url).catch(() => Alert.alert('Linkin avaus epäonnistui', url.startsWith('mailto:') ? `Lähetä viesti osoitteeseen ${url.slice(7).split('?')[0]}.` : url));
 }
 
 export function LegalLinks() {
