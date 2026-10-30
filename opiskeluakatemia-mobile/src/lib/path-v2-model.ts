@@ -1,6 +1,6 @@
 // Pure helpers for the Polku v2 screens (no React Native imports, unit-tested in tests/path-v2.test.cjs).
 import type {
-  AnswerValue, Answers, DailyGoalInfo, ItemFeedback, LessonProgressV2, LevelInfo, PathStateV2, PathSummaryV2,
+  AnswerValue, Answers, DailyGoalInfo, ItemFeedback, LessonProgressV2, LevelInfo, PathErrorCode, PathStateV2, PathSummaryV2,
   PublicItem, PublicLessonV2, PublicUnitV2, ResourceLink, SkillArea, StreakInfo,
 } from './path-v2-types';
 
@@ -177,13 +177,55 @@ export function nextStepLabel(state: Pick<PathStateV2, 'nextLessonId' | 'content
   return { title: 'Kaikki tehty – kertaa korteilla', detail: 'Uusia osia on tulossa.' };
 }
 
-/** HTTP status → what the screen should do (the body `code` is not exposed by apiRequest). */
-export type PathFailure = 'conflict' | 'locked' | 'invalid' | 'retry';
-export function pathFailure(status: number | undefined): PathFailure {
+/**
+ * Server error → what the screen should do. The body `code` ({ error, code: PathErrorCode })
+ * decides; the HTTP status is the fallback for responses without one (the shared auth layer's
+ * 401/403, proxies, unreadable bodies). `nothing_to_review` means the same as a conflict for the
+ * review screen: the server state moved on, load it again.
+ */
+export type PathFailure = 'conflict' | 'locked' | 'invalid' | 'incomplete' | 'retry';
+const FAILURE_BY_CODE: Record<PathErrorCode, PathFailure> = {
+  invalid_request: 'invalid', incomplete: 'incomplete', locked: 'locked', conflict: 'conflict',
+  nothing_to_review: 'conflict', unavailable: 'retry', not_found: 'invalid',
+};
+const isPathErrorCode = (code: unknown): code is PathErrorCode => typeof code === 'string' && Object.hasOwn(FAILURE_BY_CODE, code);
+export function pathFailure(status: number | undefined, code?: string): PathFailure {
+  if (isPathErrorCode(code)) return FAILURE_BY_CODE[code];
   if (status === 409) return 'conflict';
   if (status === 403) return 'locked';
   if (status === 400 || status === 404) return 'invalid';
   return 'retry';
+}
+
+/** Finnish message for a server error code, or undefined when the code is missing or unknown. */
+const MESSAGE_BY_CODE: Record<PathErrorCode, string> = {
+  invalid_request: 'Vastauksia ei voitu käsitellä, koska oppitunnin sisältö on voinut päivittyä. Lataa oppitunti uudelleen; vastauksesi säilyvät.',
+  incomplete: 'Vastaa ensin jokaiseen kohtaan, niin voit tarkistaa vastaukset.',
+  locked: 'Tämä oppitunti on lukittu. Suorita ensin edelliset oppitunnit polulla.',
+  conflict: 'Oppituntia muokattiin samaan aikaan toisella laitteella. Vastauksesi ovat tallessa tässä näkymässä – yritä uudelleen.',
+  nothing_to_review: 'Kertaus on jo päivittynyt. Hae uudet kertaustehtävät.',
+  unavailable: 'Oppimispolku ei ole juuri nyt käytettävissä. Vastauksesi ovat tallessa tässä näkymässä – yritä hetken päästä uudelleen.',
+  not_found: 'Oppituntia ei löytynyt. Palaa polulle ja valitse oppitunti uudelleen.',
+};
+export function pathErrorMessage(code: string | undefined): string | undefined {
+  return isPathErrorCode(code) ? MESSAGE_BY_CODE[code] : undefined;
+}
+
+// ---------------------------------------------------------------------------
+// Draft autosave (used by src/hooks/useDraftAutosave.ts)
+// ---------------------------------------------------------------------------
+
+/** Order-stable fingerprint of what a draft save would send for these answers. */
+export function draftKey(items: PublicItem[], answers: unknown): string {
+  return JSON.stringify(sanitizeDraft(items, answers));
+}
+
+/**
+ * Whether an automatic draft save should run now: only for a playable lesson, never while
+ * another save or submit is running, and only when the draft differs from the one the server has.
+ */
+export function shouldAutosaveDraft(input: { enabled: boolean; busy: boolean; current: string; saved: string }): boolean {
+  return input.enabled && !input.busy && input.current !== input.saved;
 }
 
 /**

@@ -1,0 +1,408 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000036338",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047725",
+"name": "Fysioterapeutti (AMK), Fysioterapia, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047726",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047727",
+"name": "Sosionomi (AMK), Sosiaaliala, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047737",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047738",
+"name": "Restonomi (AMK), Matkailuliiketoiminta, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047743",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047770",
+"name": "Insinööri (AMK), merenkulku, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047771",
+"name": "Merikapteeni (AMK), merenkulku, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047772",
+"name": "Insinööri (AMK), Logistiikka, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047773",
+"name": "Insinööri (AMK), Tuotantotekniikka ja tuotantotalous, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047778",
+"name": "Insinööri (AMK), Energia- ja ympäristötekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047779",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047780",
+"name": "Insinööri (AMK), Prosessi- ja materiaalitekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047781",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047782",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047783",
+"name": "Tradenomi (AMK), Tietojenkäsittely, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052401",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063807",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063809",
+"name": "Bachelor of Engineering, Artificial Intelligence (Data Engineering), full-time studies, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063810",
+"name": "Bachelor of Engineering, Logistics, full-time studies, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063811",
+"name": "Bachelor of Hospitality Management, International Tourism Management, full-time studies, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064115",
+"name": "Fysioterapeutti (AMK), Fysioterapia, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064120",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064121",
+"name": "Sosionomi (AMK), Sosiaaliala, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064122",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064123",
+"name": "Merikapteeni (AMK), merenkulku, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064124",
+"name": "Insinööri (AMK), Logistiikka, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064125",
+"name": "Insinööri (AMK), merenkulku, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064126",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064127",
+"name": "Restonomi (AMK), Matkailuliiketoiminta, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064128",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064129",
+"name": "Insinööri (AMK), Energia- ja ympäristötekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064130",
+"name": "Insinööri (AMK), Prosessi- ja materiaalitekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064131",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064132",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064134",
+"name": "Insinööri (AMK), Tieto- ja viestintätekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072652",
+"name": "Sairaanhoitaja (AMK), hoitotyö, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000075198",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081909",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081912",
+"name": "Bachelor of Hospitality Management, International Tourism Management, full-time studies, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081913",
+"name": "Bachelor of Engineering, Mechanical Engineering, full-time studies, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081914",
+"name": "Bachelor of Engineering, Artificial Intelligence (Data Engineering), full-time studies, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081915",
+"name": "Bachelor of Engineering, Mechatronics, full-time studies, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082818",
+"name": "Fysioterapeutti (AMK), Fysioterapia, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082820",
+"name": "Insinööri (AMK), Energia- ja ympäristötekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082821",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082823",
+"name": "Insinööri (AMK), Logistiikka, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082832",
+"name": "Insinööri (AMK), Merenkulku, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082833",
+"name": "Insinööri (AMK), Prosessi- ja materiaalitekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082835",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082836",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082837",
+"name": "Insinööri (AMK), Tieto- ja viestintätekniikka, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082839",
+"name": "Merikapteeni (AMK), Merenkulku, päivätoteutus, Rauma",
+"municipality": "Rauma"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082840",
+"name": "Sairaanhoitaja (AMK), Hoitotyö, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082841",
+"name": "Sosionomi (AMK), Sosiaaliala, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082843",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus, Pori",
+"municipality": "Pori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082844",
+"name": "Tradenomi (AMK), Ostot ja hankinnat, päivätoteutus, Rauma",
+"municipality": "Rauma"
+}
+]

@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { disabledOpacity, makeStyles, maxScale, radii, space, useTheme } from '../theme';
-import { Card, Chevron, ProgressBar } from './ui';
+import { Button, Card, Chevron, ProgressBar } from './ui';
+import { Mascot, MascotRow, useMascotUserId } from './Mascot';
 import { useReduceMotion } from '../hooks/useReduceMotion';
-import type { DailyGoalInfo, GradeResult, LevelInfo, PathStateV2, RewardSummary, StreakInfo } from '../lib/path-v2-types';
+import { addCelebration, celebrationsOn, dismissIntro, useMascotFlags } from '../hooks/useMascotFlags';
+import { isBigCelebration, moment, momentForResult, pickLine, poseFor, showOnboarding, type ResultMoment } from '../lib/mascot';
+import type { DailyGoalInfo, GradeResult, LevelInfo, PathStateV2, PathSummaryV2, RewardSummary, StreakInfo } from '../lib/path-v2-types';
 import { dailyGoalFraction, dailyGoalLabel, dayCount, formatXp, levelRemainingLabel, levelSpanLabel, nextStepLabel, percent, streakHint, streakLabel } from '../lib/path-v2-model';
 
 const nativeDriver = Platform.OS !== 'web';
@@ -33,8 +36,36 @@ export function CareerCard({ level, compact = false }: { level: LevelInfo; compa
   </View>;
 }
 
+/** Abi's first-time intro (moments.onboarding). "Ohita" hides it for good on this device. */
+export function MascotIntro({ onStart }: { onStart: () => void }) {
+  const { type } = useTheme();
+  const styles = useStyles();
+  const intro = moment('onboarding');
+  return <Card style={{ gap: space.sm }}>
+    <View style={styles.introTop}>
+      <Mascot pose={poseFor('onboarding')} size="md" decorative animateIn />
+      <Text accessibilityRole="header" style={[type.heading, styles.flex]}>{intro.title}</Text>
+    </View>
+    {intro.lines.map(line => <Text key={line} style={type.body}>{line}</Text>)}
+    <Button title={intro.cta ?? ''} onPress={onStart} />
+    <Button title={intro.dismiss ?? ''} variant="ghost" onPress={dismissIntro} accessibilityHint="Piilottaa esittelyn" />
+  </Card>;
+}
+
 /** Home screen entry to Polku: level, streak, today's goal and the next lesson. */
-export function PathHomeCard({ state, error, disabled, onPress }: { state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void }) {
+export function PathHomeCard({ state, error, disabled, onPress, onStart }: {
+  state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void;
+  /** Onboarding "Aloitetaan"; defaults to onPress. */ onStart?: () => void;
+}) {
+  const mascot = useMascotFlags();
+  const intro = !!state && !disabled && mascot.ready && showOnboarding(state, mascot.introDismissed);
+  return <>
+    {intro && <MascotIntro onStart={onStart ?? onPress} />}
+    <PathHomeButton state={state} error={error} disabled={disabled} onPress={onPress} />
+  </>;
+}
+
+function PathHomeButton({ state, error, disabled, onPress }: { state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
   const next = state ? nextStepLabel(state) : null;
@@ -56,7 +87,10 @@ export function PathHomeCard({ state, error, disabled, onPress }: { state: PathS
 }
 
 /** Two side-by-side tiles: today's XP goal and the study streak. Stacks at large text sizes. */
-export function GoalStreak({ goal, streak, stacked = false }: { goal: DailyGoalInfo; streak: StreakInfo; stacked?: boolean }) {
+export function GoalStreak({ goal, streak, stacked = false, atRiskLine = null }: {
+  goal: DailyGoalInfo; streak: StreakInfo; stacked?: boolean;
+  /** moments.streakAtRisk line; replaces the hint and adds Abi when the streak can still be kept this evening. */ atRiskLine?: string | null;
+}) {
   const { colors, type } = useTheme();
   const styles = useStyles();
   return <View style={[styles.tiles, stacked && { flexDirection: 'column' }]}>
@@ -65,15 +99,36 @@ export function GoalStreak({ goal, streak, stacked = false }: { goal: DailyGoalI
       <Text style={[type.subheading, goal.reached && { color: colors.success }]}>{goal.reached ? '✓ ' : ''}{dailyGoalLabel(goal)}</Text>
       <ProgressBar tone={goal.reached ? 'success' : 'accent'} value={percent(dailyGoalFraction(goal))} label="Päivän tavoite" />
     </View>
-    <View accessible accessibilityLabel={`Opiskeluputki: ${streakLabel(streak)}. Pisin ${dayCount(streak.longest)}. ${streakHint(streak)}`} style={styles.tile}>
+    <View accessible accessibilityLabel={`Opiskeluputki: ${streakLabel(streak)}. Pisin ${dayCount(streak.longest)}. ${atRiskLine ?? streakHint(streak)}`} style={styles.tile}>
       <Text style={type.overline}>Putki</Text>
       <View style={styles.streakRow}>
         <View style={[styles.streakDot, streak.practicedToday && styles.streakDotOn]} />
         <Text style={[type.subheading, styles.flex]}>{streakLabel(streak)}</Text>
       </View>
-      <Text style={type.caption}>{streakHint(streak)}</Text>
+      {atRiskLine ? <MascotRow pose={poseFor('streakAtRisk')} size="sm" line={atRiskLine} /> : <Text style={type.caption}>{streakHint(streak)}</Text>}
     </View>
   </View>;
+}
+
+/**
+ * Abi's reaction on the lesson result screen. The moment is decided once (when the device flags
+ * are known) so counting a big celebration does not change it; only unitCompleted / levelUp count
+ * toward the daily cap. The line is real text; the image is decorative.
+ */
+export function ResultMascot({ result, rewards, summary }: { result: GradeResult; rewards: RewardSummary | null; summary: PathSummaryV2 }) {
+  const flags = useMascotFlags();
+  const userId = useMascotUserId();
+  const [chosen, setChosen] = useState<ResultMoment | null>(null);
+  if (!chosen && flags.ready) setChosen(momentForResult(result, rewards, celebrationsOn(summary.today)));
+  const counted = useRef(false);
+  useEffect(() => {
+    if (!chosen || counted.current) return;
+    counted.current = true;
+    if (isBigCelebration(chosen)) addCelebration(summary.today);
+  }, [chosen, summary.today]);
+  if (!chosen) return null;
+  const line = pickLine(chosen, summary.today, userId, { level: summary.level.title });
+  return <MascotRow pose={poseFor(chosen)} size={isBigCelebration(chosen) ? 'lg' : 'md'} line={line} animateIn />;
 }
 
 /** Score summary after a lesson, checkpoint or Kertaus. */
@@ -169,6 +224,7 @@ const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   levelBadge: { width: 64, height: 64, borderRadius: radii.lg, borderWidth: 2, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
   levelSmall: { color: colors.accent, fontSize: 10, fontWeight: '700', letterSpacing: 1 },
   levelNumber: { color: colors.onHero, fontSize: 28, lineHeight: 32, fontWeight: '700' },
+  introTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   careerFoot: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   home: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.sm, minHeight: 72, ...shadow.card },
   homeTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },

@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, Text, View, type ScrollViewInstance } from 'react-native';
 import { router, Stack, usePreventRemove } from 'expo-router';
 import { Screen } from '../components/Screen';
-import { Button, EmptyState, LoadingState, NavCard, Notice, PageHeader } from '../components/ui';
+import { Button, Card, LoadingState, NavCard, Notice, PageHeader } from '../components/ui';
+import { MascotRow, useMascotUserId } from '../components/Mascot';
 import { ItemStepper, WrongList } from '../components/PathItems';
 import { RewardCard, ScoreCard } from '../components/PathProgress';
 import { space, useTheme } from '../theme';
@@ -10,11 +11,24 @@ import { RequestError } from '../lib/api';
 import { loadReview, submitReview } from '../lib/path-v2';
 import type { AnswerValue, Answers, ReviewSessionV2, ReviewSubmitResponseV2 } from '../lib/path-v2-types';
 import { answeredCount, answersForSubmit, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
+import { helsinkiDate, pickLine, poseFor } from '../lib/mascot';
 
 function FlashcardsCard({ due }: { due: number | null }) {
   if (due === null) return <NavCard kicker="Muistikortit" title="Kertaa sanastoa" description="Erääntyneiden korttien määrää ei saatu juuri nyt." onPress={() => router.push('/flashcards')} />;
   return <NavCard kicker="Muistikortit" title={due > 0 ? `${due} korttia erääntynyt` : 'Ei erääntyneitä kortteja'}
     description={due > 0 ? 'Kertaa kurssin sanasto, kun virheet on käyty läpi.' : 'Voit silti selata pakkoja ja lisätä uusia kortteja.'} onPress={() => router.push('/flashcards')} />;
+}
+
+/** moments.reviewEmpty: an empty queue is an achievement. */
+function ReviewEmpty() {
+  const { type } = useTheme();
+  const userId = useMascotUserId();
+  const line = pickLine('reviewEmpty', helsinkiDate(new Date()), userId);
+  return <Card style={{ gap: space.sm }}>
+    <MascotRow pose={poseFor('reviewEmpty')} line={line} animateIn />
+    <Text style={type.body}>Kun oppitunnilla menee jotain väärin, kohta tulee tänne kerrattavaksi.</Text>
+    <Button title="Takaisin polulle" secondary onPress={() => router.back()} />
+  </Card>;
 }
 
 export default function PathReviewScreen() {
@@ -67,7 +81,7 @@ export default function PathReviewScreen() {
       scroll.current?.scrollTo({ y: 0, animated: false });
     } catch (e) {
       if (!mounted.current) return;
-      if (pathFailure(e instanceof RequestError ? e.status : undefined) === 'conflict') {
+      if (pathFailure(e instanceof RequestError ? e.status : undefined, e instanceof RequestError ? e.code : undefined) === 'conflict') {
         // Stale revision, or an item was already fixed on another device: start from a fresh list.
         await fetchSession();
         if (mounted.current) setInfo('Kertauslista päivittyi toisella laitteella. Vastauksesi jäljellä oleviin kohtiin säilyivät – tarkista ja lähetä uudelleen.');
@@ -105,7 +119,7 @@ export default function PathReviewScreen() {
     {!session && !loadError && <LoadingState label="Kootaan kertausta…" />}
     {!!loadError && <Notice tone="error" title="Kertausta ei voitu ladata" message={loadError} actionTitle="Yritä uudelleen" onAction={() => void fetchSession()} />}
     {session && !items.length && <>
-      <EmptyState title="Ei kerrattavaa juuri nyt" message="Kun oppitunnilla menee jotain väärin, kohta tulee tänne kerrattavaksi." actionTitle="Takaisin polulle" onAction={() => router.back()} />
+      <ReviewEmpty />
       <FlashcardsCard due={session.dueFlashcards} />
     </>}
     {session && items.length > 0 && <>

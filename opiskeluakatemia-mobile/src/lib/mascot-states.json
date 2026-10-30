@@ -1,0 +1,108 @@
+{
+  "$comment": "Shared mascot spec for the website (opiskeluakatemia/) and the mobile app (opiskeluakatemia-mobile/). Both apps import or copy this file; change copy and rules here, not in components. Character working name: Abi. See research/mascot-polku-plan.md.",
+  "version": 1,
+  "name": "Abi",
+  "poses": {
+    "idle":      { "web": "web/idle-{size}.webp",      "mobile": "web/idle-{size}.webp",      "alt": "Abi, ylioppilaslakkipäinen hahmo, seisoo rennosti." },
+    "greet":     { "web": "web/greet-{size}.webp",     "mobile": "web/greet-{size}.webp",     "alt": "Abi tervehtii kädellä lakin lippaan." },
+    "think":     { "web": "web/think-{size}.webp",     "mobile": "web/think-{size}.webp",     "alt": "Abi miettii." },
+    "relax":     { "web": "web/relax-{size}.webp",     "mobile": "web/relax-{size}.webp",     "alt": "Abi venyttelee rennosti." },
+    "celebrate": { "web": "web/celebrate-{size}.webp", "mobile": "web/celebrate-{size}.webp", "alt": "Abi juhlii." },
+    "cheer":     { "web": "web/cheer-{size}.webp",     "mobile": "web/cheer-{size}.webp",     "alt": "Abi tanssii ilosta." }
+  },
+  "sizes": [256, 512],
+  "rules": {
+    "decorative": "When the moment's text already says the same thing, render the mascot with empty alt / accessibilityElementsHidden. Never put information only in the mascot.",
+    "reducedMotion": "Stills only. No entry animation beyond an opacity fade.",
+    "neverShowDuring": ["lesson items while answering", "checkpoint items while answering", "grammar test", "exam practice", "payment and account errors"],
+    "rotateLines": "pickLine(moment, dateYmd, userId, vars = {}) -> string | null. Eligible lines = lines whose {placeholders} all exist in vars (null if none). Index = FNV-1a 32-bit over UTF-16 code units of `${moment}|${dateYmd}|${userId}` (h = 0x811c9dc5; per unit: h ^= c; h = Math.imul(h, 0x01000193) >>> 0) % eligible.length. Fill with line.replace(/\\{(\\w+)\\}(\\.?)/g, (_, k, dot) => /[?!.]$/.test(String(vars[k])) ? String(vars[k]) : String(vars[k]) + dot) so a value ending in ? ! . swallows a following '.'. Vars: {lesson} = lesson title, or 'Välietappi: <unit title>' for a checkpoint; {level} = new level title; {streak} = streak.current. dateYmd = summary.today (Helsinki, from server); userId = Supabase user id or 'anon'.",
+    "momentForResult": "Not passed -> lessonFailed. Else if under maxBigCelebrationsPerDay: unitCompleted (rewards.unitCompleted) then levelUp (rewards.leveledUp). Else dailyGoalReached (rewards.dailyGoalReached), lessonPerfect (score === 100), lessonPassed. Caller increments the daily big-celebration count only for unitCompleted / levelUp.",
+    "streakAtRisk": "summary.streak.current > 0 && !summary.streak.practicedToday && Helsinki hour of now >= 18 (Intl.DateTimeFormat('en-GB', {timeZone:'Europe/Helsinki', hour:'2-digit', hourCycle:'h23'})).",
+    "maxBigCelebrationsPerDay": 2,
+    "greetOncePerDay": true
+  },
+  "moments": {
+    "onboarding": {
+      "pose": "greet",
+      "when": "Path summary has xp.total === 0 and the intro has not been dismissed (local flag mascot.introDismissed).",
+      "title": "Moi, mä oon Abi.",
+      "showAllLines": true,
+      "lines": [
+        "Käydään englannin yo-koe läpi pala kerrallaan. Jokainen oppitunti vie noin 5 minuuttia.",
+        "Läpäiset oppitunnin 80 %:lla. Tarkistuspiste avaa seuraavan osion. Väärät vastaukset tulevat myöhemmin kertaukseen."
+      ],
+      "cta": "Aloitetaan",
+      "dismiss": "Ohita"
+    },
+    "pathHere": {
+      "pose": "idle",
+      "when": "Small figure beside the next lesson node on the path map (the node returned by nextLessonId). Only there, never on every node.",
+      "lines": []
+    },
+    "nextUpDaily": {
+      "pose": "greet",
+      "when": "Next-up card, first open of the day (local flag mascot.greetedOn = YYYY-MM-DD). Otherwise idle.",
+      "lines": [
+        "Seuraavaksi: {lesson}. Noin 5 minuuttia.",
+        "Tänään vuorossa: {lesson}.",
+        "Yksi oppitunti tänään riittää pitämään putken käynnissä."
+      ]
+    },
+    "lessonPassed": {
+      "pose": "greet",
+      "when": "Result screen, passed, no bigger reward.",
+      "lines": ["Hyvä veto.", "Läpi meni.", "Tämä on nyt hallussa."]
+    },
+    "lessonPerfect": {
+      "pose": "celebrate",
+      "when": "Result screen, score === 100.",
+      "lines": ["Täydet pisteet.", "Ei yhtään virhettä."]
+    },
+    "lessonFailed": {
+      "pose": "think",
+      "when": "Result screen, not passed. Supportive, never disappointed.",
+      "lines": [
+        "Vielä ei mennyt läpi, mutta virheistä näkee, mitä kerrata.",
+        "Katso selitykset ja kokeile uudestaan. Paras tulos jää voimaan."
+      ]
+    },
+    "unitCompleted": {
+      "pose": "cheer",
+      "when": "rewards.unitCompleted. Wins over levelUp when both happen. Counts toward maxBigCelebrationsPerDay; beyond the cap fall through to dailyGoalReached / lessonPerfect / lessonPassed.",
+      "lines": ["Osio suoritettu. Seuraava aukesi.", "Koko osio tehty. Seuraava on auki."]
+    },
+    "levelUp": {
+      "pose": "cheer",
+      "when": "rewards.leveledUp (and not unitCompleted). Counts toward maxBigCelebrationsPerDay; beyond the cap fall through like unitCompleted.",
+      "lines": ["Ylennys! Uusi taso: {level}.", "Nousit tasolle {level}."]
+    },
+    "dailyGoalReached": {
+      "pose": "celebrate",
+      "when": "rewards.dailyGoalReached (and no bigMilestone in the same result).",
+      "lines": ["Päivän tavoite täynnä.", "Tämän päivän osuus tehty."]
+    },
+    "streakAtRisk": {
+      "pose": "relax",
+      "when": "streak.current > 0 && !streak.practicedToday && Helsinki local time >= 18:00. Describe the state, never blame.",
+      "lines": [
+        "Putki on vielä pelastettavissa: yksi oppitunti riittää.",
+        "{streak} päivän putki jatkuu, kun teet tänään yhden oppitunnin."
+      ]
+    },
+    "reviewEmpty": {
+      "pose": "idle",
+      "when": "Kertaus has nothing to review. Frame as an achievement.",
+      "lines": ["Ei kerrattavaa. Kaikki virheet on korjattu.", "Kertausjono on tyhjä. Hyvä tilanne."]
+    },
+    "allDone": {
+      "pose": "cheer",
+      "when": "All available units completed (nextLessonId === null and units remain coming_soon).",
+      "lines": ["Kaikki valmiit osiot on tehty. Uusia osioita tulee pian. Sillä välin kertaa korteilla."]
+    },
+    "loading": {
+      "pose": "think",
+      "when": "Optional, only for waits over ~1 s (e.g. AI essay feedback). Keep the existing spinner/skeleton as well.",
+      "lines": ["Hetki, haetaan."]
+    }
+  }
+}

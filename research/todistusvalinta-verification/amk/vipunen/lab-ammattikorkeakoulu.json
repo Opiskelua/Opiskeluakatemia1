@@ -1,0 +1,954 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035828",
+"name": "Ensihoitaja (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035829",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035830",
+"name": "Terveydenhoitaja (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035836",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035842",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035843",
+"name": "Fysioterapeutti (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035844",
+"name": "Fysioterapeutti (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035846",
+"name": "Sosionomi (AMK), verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035847",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035849",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035868",
+"name": "Insinööri (AMK), konetekniikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035869",
+"name": "Insinööri (AMK), puutekniikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035871",
+"name": "Insinööri (AMK), ympäristöteknologia, monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035875",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035884",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035886",
+"name": "Tradenomi (AMK), liiketalous ja logistiikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041231",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041688",
+"name": "Bachelor of Engineering, Sustainable Solutions Engineering, online studies",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041842",
+"name": "Bachelor of Hospitality Management, Tourism and Hospitality Management, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041845",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041872",
+"name": "Bachelor of Engineering, Industrial Information Technology, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041880",
+"name": "Bachelor of Engineering, Industrial Mechanical Engineering, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041937",
+"name": "Bachelor of Health Care, Paramedic Nurse, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042557",
+"name": "Bachelor of Engineering, Sustainable Construction Technology, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045494",
+"name": "Fysioterapeutti (AMK), päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045500",
+"name": "Fysioterapeutti (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045502",
+"name": "Sosionomi (AMK), päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045503",
+"name": "Sosionomi (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045506",
+"name": "Ensihoitaja (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045507",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045527",
+"name": "Terveydenhoitaja (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045531",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045563",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045566",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045570",
+"name": "Insinööri (AMK), puutekniikka, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045580",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045584",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045588",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045609",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045638",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045682",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045683",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045684",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045804",
+"name": "Insinööri (AMK), kestävä kaupunkisuunnittelu, monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045815",
+"name": "Restonomi (AMK), matkailu- ja tapahtumaliiketoiminta, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045821",
+"name": "Restonomi (AMK), hotelli- ja ravintola-alan liikkeenjohto, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045826",
+"name": "Tradenomi (AMK), liiketalous ja logistiikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045834",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053526",
+"name": "Insinööri (AMK), kestävä kaupunkisuunnittelu, monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053544",
+"name": "Insinööri (AMK), ympäristöteknologia ja kiertotalouden ratkaisut, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053553",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053895",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053945",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053946",
+"name": "Tradenomi (AMK), liiketalous ja logistiikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053948",
+"name": "Ensihoitaja (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053975",
+"name": "Fysioterapeutti (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053976",
+"name": "Fysioterapeutti (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054023",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054024",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054030",
+"name": "Sosionomi (AMK), verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054032",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054033",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054077",
+"name": "Bachelor of Health Care, Public Health Nurse",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059807",
+"name": "Bachelor of Health Care, Paramedic Nurse, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059886",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059906",
+"name": "Bachelor of Hospitality Management, Tourism and Hospitality Management, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059913",
+"name": "Bachelor of Engineering, Industrial Information Technology, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060064",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060096",
+"name": "Bachelor of Engineering, Sustainable Construction Technology, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060119",
+"name": "Bachelor of Engineering, Sustainable Solutions Engineering, full-time studies, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060154",
+"name": "Bachelor of Engineering, Industrial Mechanical Engineering, full-time studies, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063089",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063090",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063229",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063230",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063231",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063233",
+"name": "Tradenomi (AMK), liiketalous ja logistiikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063236",
+"name": "Restonomi (AMK), matkailu- ja tapahtumaliiketoiminta, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063239",
+"name": "Restonomi (AMK), hotelli- ja ravintola-alan liikkeenjohto, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063769",
+"name": "Ensihoitaja (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063778",
+"name": "Fysioterapeutti (AMK), päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063781",
+"name": "Fysioterapeutti (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063782",
+"name": "Sosionomi (AMK), päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063783",
+"name": "Sosionomi (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063786",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063793",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063797",
+"name": "Terveydenhoitaja (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063920",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus lähihoitajataustaisille, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064057",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064058",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064059",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064060",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064065",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064066",
+"name": "Insinööri (AMK), puutekniikka, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064068",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064689",
+"name": "Insinööri (AMK), biomateriaalit ja elintarviketeknologia, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072012",
+"name": "Tradenomi (AMK), liiketalous ja logistiikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072013",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072014",
+"name": "Insinööri (AMK), kestävä kaupunkisuunnittelu, monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072018",
+"name": "Insinööri (AMK), ympäristöteknologia ja kiertotalouden ratkaisut, monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072322",
+"name": "Ensihoitaja (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072326",
+"name": "Fysioterapeutti (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072330",
+"name": "Fysioterapeutti (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072341",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072396",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072399",
+"name": "Sosionomi (AMK), verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072406",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000073681",
+"name": "Insinööri (AMK), konetekniikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082888",
+"name": "Ensihoitaja (AMK), verkkopainotteinen monimuoto, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082896",
+"name": "Fysioterapeutti (AMK), lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082897",
+"name": "Fysioterapeutti (AMK), lähiopinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082903",
+"name": "Sairaanhoitaja (AMK), lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082918",
+"name": "Restonomi (AMK), hotelli- ja ravintola-alan liikkeenjohto, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082925",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuoto lähihoitajataustaisille, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082933",
+"name": "Tradenomi (AMK), liiketalous ja logistiikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082934",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuoto, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082939",
+"name": "Sosionomi (AMK), lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082941",
+"name": "Sosionomi (AMK), lähiopinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082946",
+"name": "Terveydenhoitaja (AMK), verkkopainotteinen monimuoto, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082950",
+"name": "Sosionomi (AMK), verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082952",
+"name": "Tradenomi (AMK), tietojenkäsittely, lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082953",
+"name": "Tradenomi (AMK), tietojenkäsittely, lähiopinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082988",
+"name": "Tradenomi (AMK), liiketalous, lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082990",
+"name": "Tradenomi (AMK), liiketalous, lähiopinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082995",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082996",
+"name": "Insinööri (AMK), biomateriaalit ja elintarviketeknologia, lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082999",
+"name": "Restonomi (AMK), matkailu- ja tapahtumaliiketoiminta, lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083104",
+"name": "Insinööri (AMK), konetekniikka, lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083111",
+"name": "Insinööri (AMK), konetekniikka, lähiopinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083117",
+"name": "Insinööri (AMK), puutekniikka, lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083121",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, lähiopinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083123",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, lähiopinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083128",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, verkko-opinnot",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083133",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, lähiopinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083290",
+"name": "Laboratorioanalyytikko (AMK), monimuoto-opinnot, Lahti",
+"municipality": "Lahti"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083294",
+"name": "Laboratorioanalyytikko (AMK), monimuoto-opinnot, Lappeenranta",
+"municipality": "Lappeenranta"
+}
+]

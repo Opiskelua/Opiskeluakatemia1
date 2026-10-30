@@ -138,7 +138,8 @@ function CourseHome({ session }: { session: Session }) {
     {access === 'inactive' && <Notice title="Kurssioikeutta ei löytynyt" message="Tälle tilille ei löytynyt aktiivista kurssioikeutta. Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä." actionTitle="Tarkista uudelleen" onAction={() => void refresh()} />}
 
     <SectionTitle title="Tänään" />
-    <PathHomeCard state={active ? path : null} error={pathError} disabled={!active} onPress={go('/path')} />
+    <PathHomeCard state={active ? path : null} error={pathError} disabled={!active} onPress={go('/path')}
+      onStart={path?.nextLessonId ? () => router.push({ pathname: '/path-lesson', params: { lessonId: path.nextLessonId! } }) : go('/path')} />
     <NavCard kicker="Päivän suunnitelma" title="Päivän tehtävät" description="Sinulle valitut tehtävät taitoprofiilisi perusteella." disabled={!active} onPress={go('/daily')} />
     <NavCard kicker={last ? 'Jatka siitä mihin jäit' : 'Aloita tästä'} title={last ? (last.exercise_title || last.exercise_id) : 'Aloita harjoittelu'}
       description={last ? `Viimeksi ${categoryLabel[last.category].toLocaleLowerCase('fi-FI')} · ${Math.round(Number(last.score_percentage))} %` : 'Kielioppi, luetun- ja kuullunymmärtäminen.'}

@@ -1,0 +1,25 @@
+{
+  "amk": "Metropolia Ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://www.metropolia.fi/fi/opiskelu-metropoliassa/hakeminen/kevaan-yhteishaku",
+      "title": "Kevään yhteishaku II (Metropolia)",
+      "covers": "checked: no cutoff statistics (only programme list for spring 2027)",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.metropolia.fi/fi/opiskelu-metropoliassa/hakeminen/syksyn-yhteishaku",
+      "title": "Syksyn yhteishaku (Metropolia)",
+      "covers": "checked: no cutoff statistics",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.metropolia.fi/sites/default/files/documents/Hakeminen/syksyn-2020-yhteishaku-valitut-ja-alimmat-pisteet.pdf",
+      "title": "Syksyn 2020 korkeakoulujen yhteishaku, valitut ja alimmat pisteet",
+      "covers": "out of scope (autumn 2020 joint application); newest official Metropolia cutoff PDF found",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "No official Metropolia publication of todistusvalinta cutoffs for the 2024, 2025 or 2026 joint applications was found. Metropolia published \"valitut ja alimmat pisteet\" PDFs up to the autumn 2020 joint application (S2018, S2019, K2020 2.yh, S2020 found on metropolia.fi/sites/default/files), but nothing newer: WebSearch (fi/en, site:metropolia.fi), the hakeminen pages (kevään/syksyn yhteishaku, opiskelupaikan vahvistaminen, valintakokeet, UKK, English FAQ) and programme pages (e.g. sairaanhoitaja, tieto- ja viestintätekniikka) contain no cutoffs; guessed PDF URLs for 2021/2024/2025/2026 in the same folder return 404. Third-party aggregators (valmennuskeskus.fi, yhteishaku.app) carry Metropolia cutoffs but were not used per the rules."
+}

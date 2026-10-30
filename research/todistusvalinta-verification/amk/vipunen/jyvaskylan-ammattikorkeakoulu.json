@@ -1,0 +1,618 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035328",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus",
+"municipality": "Saarijärvi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035331",
+"name": "Insinööri (AMK), logistiikka, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035340",
+"name": "Fysioterapeutti (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035343",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035345",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035346",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035348",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035350",
+"name": "Tradenomi (AMK), liiketalous, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035351",
+"name": "Restonomi (AMK), palveluliiketoiminta, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036125",
+"name": "Insinööri (AMK), Purchasing and Logistics Engineering, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039566",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus",
+"municipality": "Saarijärvi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039567",
+"name": "Insinööri (AMK), logistiikka, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039575",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039577",
+"name": "Sosionomi (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039614",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039615",
+"name": "Insinööri (AMK), logistiikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039616",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039617",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039618",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039633",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039637",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039638",
+"name": "Restonomi (AMK), palveluliiketoiminta, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039656",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039657",
+"name": "Toimintaterapeutti (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039659",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039664",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039680",
+"name": "Sairaanhoitaja (AMK), Nursing, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039681",
+"name": "Restonomi (AMK), Tourism Management, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042271",
+"name": "Tradenomi (AMK), International Business, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000050712",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000050713",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000050714",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000050715",
+"name": "Fysioterapeutti (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000050716",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000050720",
+"name": "Restonomi (AMK), palveluliiketoiminta, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000050878",
+"name": "Tradenomi (AMK), liiketalous, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055681",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus",
+"municipality": "Saarijärvi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055707",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055708",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055709",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055711",
+"name": "Insinööri (AMK), logistiikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055712",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055735",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055736",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055739",
+"name": "Restonomi (AMK), palveluliiketoiminta, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055740",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055741",
+"name": "Toimintaterapeutti (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055742",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055743",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055751",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055752",
+"name": "Sosionomi (AMK), sosiaaliohjaus, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055810",
+"name": "Sairaanhoitaja (AMK), Nursing, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000056309",
+"name": "Restonomi (AMK), Tourism Management, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000056310",
+"name": "Insinööri (AMK), Purchasing and Logistics Engineering, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000056311",
+"name": "Insinööri (AMK), Automation and Robotics, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000056312",
+"name": "Tradenomi (AMK), International Business, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000056313",
+"name": "Insinööri (AMK), Information and Communication Technology, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000056314",
+"name": "Tradenomi (AMK), Business Information Technology, englanninkielinen päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064509",
+"name": "Sosionomi (AMK), varhaiskasvatus, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071451",
+"name": "Fysioterapeutti (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071466",
+"name": "Restonomi (AMK), palveluliiketoiminta, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071467",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071472",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071473",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071474",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000072451",
+"name": "Bachelor of Health Care, Nursing, full-time studies",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000072454",
+"name": "Bachelor of Hospitality Management, Tourism Management, full-time studies",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000072455",
+"name": "Bachelor of Business Administration, International Business, full-time studies",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000072456",
+"name": "Bachelor of Engineering, Information and Communication Technology, full-time studies",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000072464",
+"name": "Bachelor of Business Administration, Business Information Technology, Game Production, full-time studies",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000072466",
+"name": "Bachelor of Engineering, Automation and Robotics, full-time studies",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000072467",
+"name": "Bachelor of Engineering, Purchasing and Logistics Engineering, full-time studies",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073918",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073920",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073936",
+"name": "Insinööri (AMK), logistiikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073939",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073941",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073946",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073958",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073960",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073966",
+"name": "Restonomi (AMK), palveluliiketoiminta, päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073968",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073969",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073970",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073971",
+"name": "Toimintaterapeutti (AMK), päivätoteutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073972",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus, Tampere",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073975",
+"name": "Sosionomi (AMK), sosiaaliohjaus, monimuotototeutus",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073976",
+"name": "Sosionomi (AMK), varhaiskasvatus, monimuotototeutus",
+"municipality": "Jyväskylä"
+}
+]

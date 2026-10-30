@@ -1,0 +1,478 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035304",
+"name": "Fysioterapeutti (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035306",
+"name": "Geronomi (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035307",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035308",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035309",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035312",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041676",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041760",
+"name": "Insinööri (AMK), Industrial Management, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045353",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045358",
+"name": "Metsätalousinsinööri (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045376",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045379",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045381",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045383",
+"name": "Insinööri (AMK), Energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045391",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045419",
+"name": "Restonomi (AMK), Matkailu- ja palveluliiketoiminta, monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045446",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045449",
+"name": "Insinööri (AMK), Talotekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045495",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, Rakennustekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046061",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046698",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, Rakennustekniikka, monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053850",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053851",
+"name": "Insinööri (AMK), Industrial Management, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053869",
+"name": "Fysioterapeutti (AMK), monimuotototeutus, Syksyn yhteishaku 2024",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053879",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Syksyn yhteishaku 2024",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053882",
+"name": "Sosionomi (AMK), päivätoteutus, Syksyn yhteishaku 2024",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053883",
+"name": "Terveydenhoitaja (AMK), päivätoteutus, Syksyn yhteishaku 2024",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053886",
+"name": "Geronomi (AMK), monimuotototeutus, Syksyn yhteishaku 2024",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060422",
+"name": "Insinööri (AMK), Industrial Management, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060489",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus, kevät 2025",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063479",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063481",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063483",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063610",
+"name": "Insinööri (AMK), Energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063617",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, Rakennustekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063625",
+"name": "Insinööri (AMK), Talotekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063630",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063646",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063737",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063751",
+"name": "Metsätalousinsinööri (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064396",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071835",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071854",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071855",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072446",
+"name": "Bachelor of Engineering, Industrial Management, full-time studies",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072449",
+"name": "Bachelor of Business Administration, International Business, full-time studies",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000079679",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000079717",
+"name": "Insinööri (AMK), Information and Communication Technology",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080961",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080973",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080986",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080992",
+"name": "Restonomi (AMK), Matkailu- ja palveluliiketoiminta, monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081014",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081017",
+"name": "Medianomi (AMK), Tiimiyrittäjyys",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081025",
+"name": "Restonomi (AMK), Tiimiyrittäjyys",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081457",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, Rakennustekniikka, monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081462",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, Rakennustekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081523",
+"name": "Insinööri (AMK), Energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081527",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081528",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081529",
+"name": "Metsätalousinsinööri (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081531",
+"name": "Geronomi (AMK), monimuotototeutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081542",
+"name": "Fysioterapeutti (AMK), Tiimiyrittäjyys",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081545",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081555",
+"name": "Tradenomi (AMK), Tiimiyrittäjyys",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081565",
+"name": "Medianomi (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081573",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Joensuu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082674",
+"name": "Insinööri (AMK), Rakennus- ja yhdyskuntatekniikka, Talotekniikka, päivätoteutus",
+"municipality": "Joensuu"
+}
+]

@@ -1,0 +1,31 @@
+{
+  "amk": "Yrkeshögskolan Novia",
+  "sources": [
+    {
+      "url": "https://www.novia.fi/utbildning/ansokan/antagningsservice/ansokningsstatistik",
+      "title": "Ansökningsstatistik - Novia",
+      "covers": "Checked: yearly application statistics PDFs 2018-2026",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.novia.fi/assets/Dokument/Ansokan-och-studier/Ansokningsstatistik-/Statistik_till_webben_2026.pdf",
+      "title": "Gemensam ansökan 2026 statistik",
+      "covers": "Joint application 2026: nybörjarplatser, förstahandssökande, alla sökande, antal som mottagit studieplats. No points columns",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.novia.fi/assets/Dokument/Ansokan-och-studier/Ansokningsstatistik-/Statistik_till_webben_2025.pdf",
+      "title": "Gemensam ansökan 2025 statistik",
+      "covers": "Same columns as 2026; no points",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.novia.fi/assets/Dokument/Ansokan-och-studier/Ansokningsstatistik-/Statistik_till_webben_2024.pdf",
+      "title": "Gemensam ansökan 2024 statistik",
+      "covers": "Same columns as 2026; no points",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "Novia publishes yearly application statistics (Statistik_till_webben_2024/2025/2026.pdf on its Ansökningsstatistik / Statistics on Student Admissions page). They contain only places, first-choice applicants, all applicants and the number who received a place. They have no lowest-accepted-points (lägsta antagna poäng) columns, so there are no cutoffs to record. Searched: WebSearch in Swedish (lägsta antagna poäng, betygsbaserad antagning, ansökningsstatistik) and English, plus the Swedish and English statistics pages. The 2024-2026 PDFs were text-extracted and checked for any points columns; none were found. No other Novia cutoff source was found."
+}

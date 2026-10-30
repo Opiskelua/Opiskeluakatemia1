@@ -1,0 +1,25 @@
+{
+  "amk": "Turun ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://www.turkuamk.fi/koulutus/hakijan-opas/hakijatilastot/",
+      "title": "Hakijatilastot - Turku AMK",
+      "covers": "Checked: page offers only applicant-count reports and states that cutoffs (pisterajat) are found in Vipunen; no own cutoff list",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.turkuamk.fi/fi/tutkinnot-ja-opiskelu/hakeminen/opiskelijavalinta/",
+      "title": "Yhteishaun opiskelijavalinta - Turku AMK",
+      "covers": "Checked: no cutoff figures",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.turkuamk.fi/wp-content/uploads/2025/12/turunamk_info-toisen-asteen-opoille.pdf",
+      "title": "Turun AMK info toisen asteen opoille",
+      "covers": "Checked: no cutoff figures",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "Turku AMK does not publish its own certificate-selection cutoff statistics. Its official Hakijatilastot page (turkuamk.fi/koulutus/hakijan-opas/hakijatilastot/) says that information about pisterajat is in the Vipunen report (Haku- ja valintatiedot - korkeakoulu - pisterajat), and explains how to drill into the first-timer split there. The page itself publishes only applicant-count reports. Searched: WebSearch in Finnish (alin hyväksytty pistemäärä, pisterajat, valintatilasto, alimmat hyväksytyt pisteet, with 2024-2026), a scan of the full turkuamk.fi sitemap (about 2,870 URLs) for piste/tilasto/alin/valintatulos, and the opiskelijavalinta page and counselor info PDF. No 2024, 2025 or 2026 cutoff document was found for the spring or autumn joint application. Third-party sites (yhteishaku.app, valmennuskeskus.fi) were found but not used, by rule."
+}

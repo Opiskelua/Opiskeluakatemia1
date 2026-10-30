@@ -1,0 +1,13 @@
+{
+  "amk": "Karelia-ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://www.karelia.fi/wp-content/uploads/2023/09/Alimmat-pisteet-kevat-2023.pdf",
+      "title": "Alimmat pisteet kevät 2023",
+      "covers": "kevään 2023 yhteishaut, syksyllä 2023 alkavat. Outside the 2024–2026 target, so no rows were extracted",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "Searched: WebSearch (Finnish queries for alin hyväksytty pistemäärä / pisterajat / alimmat pisteet / haun ja valinnan tilasto, incl. site: queries), the WordPress REST API of the AMK site (media library PDFs since 2023, pages and posts searched for alimmat, pisterajat, alin hyväksytty, tilastot, valintojen tulokset), the application pages and the spring 2025/2026 results news posts. Karelia used to publish 'Alimmat pisteet' PDFs (autumn 2020, spring 2021, spring 2022 and spring 2023, the last uploaded 2023-09-25). The 2023 file has YO and AMM todistusvalinta columns, but it covers autumn 2023 starts, which is outside the target range, and it gives one value per queue with no first-timer split. I found no successor file for spring 2024, autumn 2024, spring 2025, autumn 2025 or spring 2026: none in the WP media library (all PDFs since 2023-10 listed), none under guessed filenames such as Alimmat-pisteet-kevat-2024/2025/2026 in the uploads folders, none on the hakeminen page, and none in the 2024, 2025 and 2026 Opotreffit/hakijapalvelut decks. The hakeminen page links only to Opintopolku results info. No rows for 2024, 2025 or 2026."
+}

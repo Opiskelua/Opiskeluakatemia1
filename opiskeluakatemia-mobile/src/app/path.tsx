@@ -1,15 +1,20 @@
-import { useCallback, useRef } from 'react';
-import { Animated, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState, type Ref } from 'react';
+import { Animated, Pressable, StyleSheet, Text, useWindowDimensions, View, type HostInstance, type ScrollViewInstance } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Screen, useGutter, usePullToRefresh } from '../components/Screen';
 import { Button, Chip, ChipRow, LoadingState, NavCard, Notice, Pill, ProgressBar } from '../components/ui';
-import { CareerCard, GoalStreak, usePulse } from '../components/PathProgress';
+import { CareerCard, GoalStreak, MascotIntro, usePulse } from '../components/PathProgress';
+import { Mascot, MascotRow, useMascotUserId } from '../components/Mascot';
+import { TargetCard } from '../components/TargetCard';
+import { dismissIntro, markGreeted, useMascotFlags } from '../hooks/useMascotFlags';
+import { useReduceMotion } from '../hooks/useReduceMotion';
 import { layout, makeStyles, maxScale, radii, space, useTheme } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { choices } from '../lib/catalogue';
 import { loadPath, PATH_PREVIEW, type PreviewScenario } from '../lib/path-v2';
 import type { LessonProgressV2, PathStateV2, PublicLessonV2, PublicUnitV2, UnitProgressV2 } from '../lib/path-v2-types';
 import { lessonState, nextStepLabel, resourceRoute, skillLabel, windingOffset, type NodeState } from '../lib/path-v2-model';
+import { allDone, pickLine, poseFor, showOnboarding, streakAtRisk, type MascotPose } from '../lib/mascot';
 
 const SCENARIOS: PreviewScenario[] = ['fresh', 'midway', 'complete'];
 const NODE = 64;
@@ -32,7 +37,10 @@ function nodeCaption(lesson: PublicLessonV2, progress: LessonProgressV2 | undefi
   return `${lesson.estimatedMinutes} min · ${lesson.maxXp} XP`;
 }
 
-function LessonNode({ lesson, progress, isNext, offset }: { lesson: PublicLessonV2; progress?: LessonProgressV2; isNext: boolean; offset: number }) {
+function LessonNode({ lesson, progress, isNext, offset, nodeRef, onLayout }: {
+  lesson: PublicLessonV2; progress?: LessonProgressV2; isNext: boolean; offset: number;
+  /** Set on the next node so the screen can scroll to it. */ nodeRef?: Ref<HostInstance>; onLayout?: () => void;
+}) {
   const { colors, type, scheme } = useTheme();
   const styles = useStyles();
   const state = lessonState(progress);
@@ -47,7 +55,7 @@ function LessonNode({ lesson, progress, isNext, offset }: { lesson: PublicLesson
     opacity: pulse.interpolate({ inputRange: [0, 1], outputRange: [0.35, 0.9] }),
     transform: [{ scale: pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] }) }],
   }]} /> : null;
-  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: locked }}
+  return <Pressable ref={nodeRef} onLayout={onLayout} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: locked }}
     accessibilityHint={locked ? undefined : done ? 'Avaa oppitunnin uudelleen' : 'Avaa oppitunnin'} disabled={locked}
     onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: lesson.id } })}
     style={({ pressed }) => [styles.node, { transform: [{ translateX: offset }] }, pressed && { opacity: 0.75 }]}>
@@ -64,6 +72,8 @@ function LessonNode({ lesson, progress, isNext, offset }: { lesson: PublicLesson
         </View>
       </View>
       {state === 'in_progress' && <View style={styles.progressDot} />}
+      {/* moments.pathHere: Abi stands beside the next node only, on the side facing the middle. */}
+      {isNext && !locked && <Mascot pose={poseFor('pathHere')} size="sm" decorative style={[styles.here, offset > 0 ? styles.hereLeft : styles.hereRight]} />}
     </View>
     <View style={styles.nodeCopy}>
       {checkpoint && <Text style={[type.overline, { textAlign: 'center' }]}>Välietappi</Text>}
@@ -124,7 +134,7 @@ function ComingSoonUnit({ unit }: { unit: PublicUnitV2 }) {
   </View>;
 }
 
-function UnitSection({ unit, state, amplitude }: { unit: PublicUnitV2; state: PathStateV2; amplitude: number }) {
+function UnitSection({ unit, state, amplitude, nextRef, onNextLayout }: { unit: PublicUnitV2; state: PathStateV2; amplitude: number; nextRef: Ref<HostInstance>; onNextLayout: () => void }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
   const progress = state.units.find(entry => entry.unitId === unit.id);
@@ -147,7 +157,9 @@ function UnitSection({ unit, state, amplitude }: { unit: PublicUnitV2; state: Pa
         const previous = index > 0 ? windingOffset(index - 1) * amplitude : offset;
         return <View key={lesson.id} style={{ alignItems: 'center', width: '100%' }}>
           {index > 0 && <Trail from={previous} to={offset} done={lessonState(state.progress[unit.lessons[index - 1].id]) === 'completed'} />}
-          <LessonNode lesson={lesson} progress={state.progress[lesson.id]} isNext={state.nextLessonId === lesson.id} offset={offset} />
+          {state.nextLessonId === lesson.id
+            ? <LessonNode lesson={lesson} progress={state.progress[lesson.id]} isNext offset={offset} nodeRef={nextRef} onLayout={onNextLayout} />
+            : <LessonNode lesson={lesson} progress={state.progress[lesson.id]} isNext={false} offset={offset} />}
         </View>;
       })}
     </View>
@@ -163,14 +175,45 @@ export default function PathScreen() {
   const load = useCallback(() => { const scenario = pendingScenario.current; pendingScenario.current = undefined; return loadPath(scenario); }, []);
   const { data, loading, error, refresh } = useSyncedResource(load);
   const pull = usePullToRefresh(refresh);
-  const { width, fontScale } = useWindowDimensions();
+  const { width, height, fontScale } = useWindowDimensions();
+  const userId = useMascotUserId();
+  const mascot = useMascotFlags();
+  const reduce = useReduceMotion();
+  const intro = !!data && mascot.ready && showOnboarding(data, mascot.introDismissed);
+  // moments.nextUpDaily: greet on the first open of the (Helsinki) day, idle afterwards. Decided
+  // once per screen visit so marking the greeting does not swap the pose under the user.
+  const [greetPose, setGreetPose] = useState<MascotPose | null>(null);
+  if (data && mascot.ready && greetPose === null) setGreetPose(mascot.greetedOn === data.today ? 'idle' : poseFor('nextUpDaily'));
+  useEffect(() => { if (data && mascot.ready) markGreeted(data.today); }, [data, mascot.ready]);
+
+  // Improvement 1: scroll the next node into view once, after the first load. No animation with
+  // Reduce motion; skipped while the intro card is showing so it stays on screen.
+  const scroll = useRef<ScrollViewInstance>(null);
+  const nextNode = useRef<HostInstance>(null);
+  const scrolled = useRef(false);
+  const scrollToNext = useCallback(() => {
+    if (scrolled.current || !data || !mascot.ready || reduce === null) return;
+    if (intro || !data.nextLessonId) { scrolled.current = true; return; }
+    const inner = scroll.current?.getInnerViewRef();
+    if (!nextNode.current || !inner) return;
+    scrolled.current = true;
+    nextNode.current.measureLayout(inner, (_x, y) => {
+      if (y > height * 0.6) scroll.current?.scrollTo({ y: Math.max(0, y - height * 0.3), animated: !reduce });
+    }, () => undefined);
+  }, [data, mascot.ready, reduce, intro, height]);
+  useEffect(() => { const id = setTimeout(scrollToNext, 0); return () => clearTimeout(id); }, [scrollToNext]);
+
   const gutter = useGutter();
   const largeText = fontScale > 1.35;
   const content = Math.min(width, layout.maxWidth) - gutter * 2 - space.md * 2;
   // The path straightens at large text sizes so labels keep their full width.
   const amplitude = largeText ? 0 : Math.max(0, Math.min(72, (content - LABEL_WIDTH) / 2));
   const next = data ? nextStepLabel(data) : null;
-  return <Screen {...pull}>
+  const atRiskLine = data && streakAtRisk(data, new Date()) ? pickLine('streakAtRisk', data.today, userId, { streak: data.streak.current }) : null;
+  const nextLine = data && next && data.nextLessonId ? pickLine('nextUpDaily', data.today, userId, { lesson: next.title }) : null;
+  const doneLine = data && allDone(data) ? pickLine('allDone', data.today, userId) : null;
+  const reviewEmptyLine = data ? pickLine('reviewEmpty', data.today, userId) : null;
+  return <Screen {...pull} scrollRef={scroll}>
     {PATH_PREVIEW && <View style={{ gap: space.xs }}>
       <Notice title="Esikatselutila (vain kehitys)" message="Tiedot tulevat verkkosivun esikatselu-API:sta ilman kirjautumista." />
       <ChipRow>{SCENARIOS.map(scenario => <Chip key={scenario} label={scenario} onPress={() => { pendingScenario.current = scenario; void refresh(); }} />)}</ChipRow>
@@ -178,21 +221,28 @@ export default function PathScreen() {
     {loading && !data && <LoadingState label="Ladataan polkua…" />}
     {!!error && <Notice tone="error" title="Polkua ei voitu päivittää" message={error} actionTitle="Yritä uudelleen" actionDisabled={loading} onAction={() => void refresh()} />}
     {data && <>
+      {intro && <MascotIntro onStart={() => data.nextLessonId ? router.push({ pathname: '/path-lesson', params: { lessonId: data.nextLessonId } }) : dismissIntro()} />}
+      {/* Target grade: an optional step right after the onboarding intro, otherwise under "Seuraavaksi". */}
+      {intro && <TargetCard state={data} onSaved={() => void refresh()} />}
       <CareerCard level={data.level} />
-      <GoalStreak goal={data.dailyGoal} streak={data.streak} stacked={largeText || width < 340} />
+      <GoalStreak goal={data.dailyGoal} streak={data.streak} stacked={largeText || width < 340} atRiskLine={atRiskLine} />
       {next && <View style={styles.nextCard}>
         <Text style={type.overline}>{data.nextLessonId ? 'Seuraavaksi' : 'Tilanne'}</Text>
         <Text style={type.subheading}>{next.title}</Text>
         <Text style={type.caption}>{next.detail}</Text>
+        {!intro && nextLine && <MascotRow pose={greetPose ?? 'idle'} size="sm" line={nextLine} animateIn={greetPose === 'greet'} />}
+        {doneLine && <MascotRow pose={poseFor('allDone')} size="md" line={doneLine} />}
         {data.nextLessonId ? <Button title={data.progress[data.nextLessonId]?.status === 'in_progress' ? 'Jatka oppituntia' : 'Aloita oppitunti'}
           onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: data.nextLessonId! } })} />
           : data.review.pendingItems > 0 ? <Button title="Aloita kertaus" onPress={() => router.push('/path-review')} />
             : <Button title="Avaa muistikortit" secondary onPress={() => router.push('/flashcards')} />}
       </View>}
-      {(data.review.pendingItems > 0 || (data.review.dueFlashcards ?? 0) > 0) && <NavCard kicker="Kertaus" title={data.review.pendingItems > 0 ? `${data.review.pendingItems} kerrattavaa kohtaa` : 'Ei kerrattavia virheitä'}
+      {!intro && <TargetCard state={data} onSaved={() => void refresh()} />}
+      {/* Improvement 4: always visible; an empty queue reads as an achievement (moments.reviewEmpty). */}
+      <NavCard kicker="Kertaus" title={data.review.pendingItems > 0 ? `${data.review.pendingItems} kerrattavaa kohtaa` : reviewEmptyLine ?? 'Ei kerrattavia virheitä'}
         description={[data.review.pendingItems > 0 ? `Istunnossa ${data.review.sessionSize} kohtaa omista virheistäsi` : null, data.review.dueFlashcards ? `${data.review.dueFlashcards} muistikorttia erääntynyt` : null].filter(Boolean).join(' · ')}
-        onPress={() => router.push('/path-review')} />}
-      {data.content.units.map(unit => <UnitSection key={unit.id} unit={unit} state={data} amplitude={amplitude} />)}
+        onPress={() => router.push('/path-review')} />
+      {data.content.units.map(unit => <UnitSection key={unit.id} unit={unit} state={data} amplitude={amplitude} nextRef={nextNode} onNextLayout={scrollToNext} />)}
     </>}
   </Screen>;
 }
@@ -233,6 +283,9 @@ const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   // Gold-on-black tag in light mode; on the dark card a near-black pill would vanish, so it uses the gold surface.
   youAreHere: { backgroundColor: scheme === 'dark' ? colors.accentSurface : colors.black, borderRadius: radii.pill, paddingHorizontal: space.sm, paddingVertical: 3 },
   youAreHereText: { color: colors.accent, fontSize: 11, fontWeight: '700', letterSpacing: 1 },
+  here: { position: 'absolute', top: 16 },
+  hereLeft: { left: -54 },
+  hereRight: { right: -54 },
   lock: { alignItems: 'center' },
   lockShackle: { width: 12, height: 9, borderWidth: 2, borderBottomWidth: 0, borderTopLeftRadius: 6, borderTopRightRadius: 6 },
   lockBody: { width: 18, height: 13, borderRadius: 3 },

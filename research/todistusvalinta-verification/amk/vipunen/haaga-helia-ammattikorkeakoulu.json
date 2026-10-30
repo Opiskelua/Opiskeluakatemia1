@@ -1,0 +1,611 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034674",
+"name": "Restonomi (AMK), majoitus- ja ravintolaliiketoiminta, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034680",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034685",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034693",
+"name": "Restonomi (AMK), matkailu- ja tapahtuma-ala, monimuotototeutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034705",
+"name": "Restonomi (AMK), ruokatuotannon johtaminen, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034716",
+"name": "Tradenomi (AMK), tietojenkäsittely, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034785",
+"name": "Tradenomi (AMK), liiketalous Helsinki, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034812",
+"name": "Tradenomi (AMK), liiketalous Helsinki, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035107",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000037130",
+"name": "Bachelor of Business Administration, Aviation Business, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000037133",
+"name": "Bachelor of Business Administration, Digital Business Innovations, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039413",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039518",
+"name": "Tradenomi (AMK), liiketalous Helsinki, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039520",
+"name": "Tradenomi (AMK), liiketalous Helsinki, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039524",
+"name": "Tradenomi (AMK), liiketalous Porvoo, päivätoteutus",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039526",
+"name": "Tradenomi (AMK), liiketalous Porvoo, monimuotototeutus",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039953",
+"name": "Bachelor of Hospitality Management, Hospitality and Tourism Experience Management, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039957",
+"name": "Bachelor of Hospitality Management, Sustainable Tourism and Event Management, full-time studies, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040361",
+"name": "Liikunnanohjaaja (AMK),  päivätoteutus, Heinola",
+"municipality": "Heinola"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040362",
+"name": "Liikunnanohjaaja (AMK),  monimuotototeutus, Tampere",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040364",
+"name": "Restonomi (AMK), ruokatuotannon johtaminen, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040368",
+"name": "Restonomi (AMK), majoitus-, ravintola- ja matkailuliiketoiminta, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040371",
+"name": "Restonomi (AMK), majoitus- ja ravintolaliiketoiminta, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040372",
+"name": "Restonomi (AMK), matkailu- ja tapahtuma-ala, päivätoteutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040373",
+"name": "Restonomi (AMK), matkailu- ja tapahtuma-ala, monimuotototeutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000041150",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043397",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043421",
+"name": "Tradenomi (AMK), tietojenkäsittely, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044577",
+"name": "Medianomi (AMK), journalismi, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052522",
+"name": "Tradenomi (AMK), liiketalous Helsinki, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053548",
+"name": "Restonomi (AMK), matkailu- ja tapahtuma-ala, monimuotototeutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053602",
+"name": "Bachelor of Hospitality Management, Strategic Hospitality Management, online studies",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053751",
+"name": "Tradenomi (AMK), liiketalous Helsinki, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053752",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054081",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054082",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054083",
+"name": "Tradenomi (AMK), tietojenkäsittely, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055635",
+"name": "Bachelor of Business Administration, Aviation Business, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000055636",
+"name": "Bachelor of Business Administration, Digital Business Innovations, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060211",
+"name": "Bachelor of Hospitality Management, Hospitality and Tourism Experience Management, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060215",
+"name": "Bachelor of Hospitality Management, Sustainable Tourism and Event Management, full-time studies, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060415",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061062",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063095",
+"name": "Liikunnanohjaaja (AMK),  päivätoteutus, Heinola",
+"municipality": "Heinola"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063096",
+"name": "Liikunnanohjaaja (AMK),  monimuotototeutus, Tampere",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063097",
+"name": "Liikunnanohjaaja (AMK),  monimuotototeutus, Heinola",
+"municipality": "Heinola"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063098",
+"name": "Restonomi (AMK), ruokatuotannon johtaminen, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063099",
+"name": "Restonomi (AMK), majoitus-, ravintola- ja matkailuliiketoiminta, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063100",
+"name": "Restonomi (AMK), majoitus- ja ravintolaliiketoiminta, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063101",
+"name": "Restonomi (AMK), matkailu- ja tapahtuma-ala, päivätoteutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063102",
+"name": "Restonomi (AMK), matkailu- ja tapahtuma-ala, monimuotototeutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063851",
+"name": "Tradenomi (AMK), liiketalous Helsinki, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063852",
+"name": "Tradenomi (AMK), liiketalous Helsinki, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064022",
+"name": "Tradenomi (AMK), liiketalous Porvoo, monimuotototeutus",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064023",
+"name": "Tradenomi (AMK), liiketalous Porvoo, päivätoteutus",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064810",
+"name": "Medianomi (AMK), journalismi, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064833",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064883",
+"name": "Tradenomi (AMK), tietojenkäsittely, monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071811",
+"name": "Tradenomi (AMK), liiketalous Helsinki, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071813",
+"name": "Tradenomi (AMK), liiketalous Helsinki, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071821",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071879",
+"name": "Bachelor of Hospitality Management, Strategic Hospitality Management, online studies",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071880",
+"name": "Restonomi (AMK), matkailu- ja tapahtuma-ala, monimuotototeutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071882",
+"name": "Liikunnanohjaaja (AMK), monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072371",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072373",
+"name": "Tradenomi (AMK), tietojenkäsittely, verkkopainotteinen monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072377",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000076537",
+"name": "Tradenomi (AMK), liiketalous Helsinki, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000076546",
+"name": "Tradenomi (AMK), liiketalous Helsinki, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000076549",
+"name": "Tradenomi (AMK), liiketalous Porvoo, päivätoteutus",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000076553",
+"name": "Tradenomi (AMK), liiketalous Porvoo, monimuotototeutus",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000076554",
+"name": "Bachelor of Business Administration, International Business, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078451",
+"name": "Bachelor of Hospitality Management, Hospitality and Tourism Experience Management (Pasila)",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078871",
+"name": "Liikunnanohjaaja (AMK),  päivätoteutus, Heinola",
+"municipality": "Heinola"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078874",
+"name": "Liikunnanohjaaja (AMK),  monimuotototeutus, Heinola",
+"municipality": "Heinola"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078877",
+"name": "Liikunnanohjaaja (AMK),  monimuotototeutus, Tampere",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078896",
+"name": "Restonomi (AMK), majoitus-, ravintola-, matkailu- ja tapahtumaliiketoiminta, päivätoteutus, Helsinki, Pasila",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078899",
+"name": "Restonomi (AMK), matkailu- ja tapahtumaliiketoiminnan johtaminen, monimuotototeutus, Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078906",
+"name": "Restonomi (AMK), ruokatuotannon johtaminen, päivätoteutus, Helsinki, Pasila",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078917",
+"name": "Restonomi (AMK), majoitus- ja ravintolaliiketoiminnan kehittäminen, monimuotototeutus, Helsinki, Pasila",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000079943",
+"name": "Bachelor of Business Administration, Business Information Technology, full-time studies, Helsinki, Finland",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000079945",
+"name": "Bachelor of Business Administration, Aviation Business, full-time studies, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000079946",
+"name": "Bachelor of Business Administration, Digital Business Innovations, Porvoo, Finland",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081275",
+"name": "Tradenomi (AMK), liiketalous, verkkototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082354",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082356",
+"name": "Tradenomi (AMK), tietojenkäsittely, verkkopainotteinen monimuotototeutus, Helsinki",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083622",
+"name": "Medianomi (AMK), journalismi, päivätoteutus, Helsinki",
+"municipality": "Helsinki"
+}
+]

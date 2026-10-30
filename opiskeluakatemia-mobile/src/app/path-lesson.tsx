@@ -4,12 +4,13 @@ import { router, Stack, useLocalSearchParams, usePreventRemove } from 'expo-rout
 import { Screen } from '../components/Screen';
 import { Button, EmptyState, LoadingState, Notice, Pill } from '../components/ui';
 import { GuidePanel, ItemStepper, WrongList } from '../components/PathItems';
-import { RewardCard, ScoreCard } from '../components/PathProgress';
+import { ResultMascot, RewardCard, ScoreCard } from '../components/PathProgress';
 import { space, useTheme } from '../theme';
 import { RequestError } from '../lib/api';
-import { loadPath, saveLesson } from '../lib/path-v2';
+import { loadPath, loadPathCached, saveLesson } from '../lib/path-v2';
+import { useDraftAutosave } from '../hooks/useDraftAutosave';
 import type { AnswerValue, Answers, LessonMutationResponseV2, PathStateV2 } from '../lib/path-v2-types';
-import { allAnswered, answersForSubmit, findLesson, firstUnanswered, lessonState, mergeSummary, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
+import { allAnswered, answersForSubmit, findLesson, firstUnanswered, lessonState, mergeSummary, pathErrorMessage, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
 
 const LESSON_ID = /^[a-z0-9-]{1,80}$/;
 
@@ -43,7 +44,8 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
 
   useEffect(() => {
     const controller = { cancelled: false };
-    loadPath().then(value => {
+    // Reuses the map screen's path when it was loaded within the last minute.
+    (reload ? loadPath() : loadPathCached()).then(value => {
       if (controller.cancelled) return;
       setState(value);
       const entry = findLesson(value.content.units, lessonId);
@@ -65,12 +67,21 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
     setDirty(true); setInfo('');
   }, []);
 
+  const autosave = useDraftAutosave({
+    lessonId, items, answers, index, busy: inFlight,
+    enabled: !!entry && !outcome && !blocked && lessonState(progress) !== 'locked',
+    savedDraft: progress?.draft, revision: progress?.revision ?? 0,
+    onSaved: (response, current) => { setState(previous => previous ? mergeSummary(previous, response.summary) : previous); if (current) setDirty(false); },
+    onReload: setState,
+  });
+
   /** Save or submit. A stale revision (409) reloads the path and retries once with the local answers. */
   async function mutate(action: 'save' | 'submit', current: PathStateV2): Promise<boolean> {
+    await autosave.settle();
     if (inFlight.current || !entry) return false;
     inFlight.current = true; setBusy(action); setError(null); setInfo('');
     const body = action === 'submit' ? answersForSubmit(entry.lesson.items, answers) : sanitizeDraft(entry.lesson.items, answers);
-    let revision = current.progress[lessonId]?.revision ?? 0;
+    let revision = Math.max(current.progress[lessonId]?.revision ?? 0, autosave.latestRevision());
     try {
       for (let attempt = 0; ; attempt++) {
         try {
@@ -82,7 +93,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
           else setInfo('Luonnos tallennettu. Voit jatkaa myöhemmin tällä tai toisella laitteella.');
           return true;
         } catch (e) {
-          const failure = pathFailure(e instanceof RequestError ? e.status : undefined);
+          const failure = e instanceof RequestError ? pathFailure(e.status, e.code) : 'retry';
           if (failure === 'conflict' && attempt === 0) {
             // Another tab or device saved this lesson: take its new revision and keep our answers.
             const fresh = await loadPath();
@@ -96,7 +107,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
       }
     } catch (e) {
       if (!mounted.current) return false;
-      const failure = pathFailure(e instanceof RequestError ? e.status : undefined);
+      const failure = e instanceof RequestError ? pathFailure(e.status, e.code) : 'retry';
       if (failure === 'locked') {
         // 403 is either a locked lesson or missing course access; a reload tells which.
         try {
@@ -105,10 +116,13 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
         } catch (reloadError) { if (mounted.current) setError({ message: reloadError instanceof Error ? reloadError.message : 'Kurssioikeus puuttuu.', action: 'back' }); }
       } else if (failure === 'conflict') {
         setError({ message: 'Oppituntia muokattiin samaan aikaan toisella laitteella. Vastauksesi ovat tallessa tässä näkymässä – yritä uudelleen.' });
+      } else if (failure === 'incomplete') {
+        setIndex(firstUnanswered(entry.lesson.items, answers));
+        setError({ message: pathErrorMessage('incomplete')! });
       } else if (failure === 'invalid') {
         setError({ message: 'Vastauksia ei voitu käsitellä, koska oppitunnin sisältö on voinut päivittyä. Lataa oppitunti uudelleen; vastauksesi säilyvät.', action: 'reload' });
       } else {
-        setError({ message: `${e instanceof Error ? e.message : 'Tallennus epäonnistui.'} Vastauksesi ovat tallessa tässä näkymässä.` });
+        setError({ message: pathErrorMessage(e instanceof RequestError ? e.code : undefined) ?? `${e instanceof Error ? e.message : 'Tallennus epäonnistui.'} Vastauksesi ovat tallessa tässä näkymässä.` });
       }
       return false;
     } finally { inFlight.current = false; if (mounted.current) setBusy(null); }
@@ -159,6 +173,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
         <Text style={type.overline}>{unit.title} · {title}</Text>
         <Text accessibilityRole="header" style={type.title}>{lesson.title}</Text>
       </View>
+      {result && <ResultMascot key={outcome.response.revision} result={result} rewards={rewards} summary={summary} />}
       {result && <ScoreCard result={result} passScore={state.rules.passScore} checkpoint={checkpoint} review={false} />}
       {rewards && <RewardCard rewards={rewards} levelTitle={summary.level.title} unlockedTitle={unitTitle(rewards.unitUnlocked)} completedTitle={unitTitle(rewards.unitCompleted)} passed={!!result?.passed} />}
       {result && <WrongList items={lesson.items} answers={outcome.answers} result={result} />}
@@ -194,6 +209,11 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
       onAction={error.action === 'back' ? () => router.back() : error.action === 'reload' ? () => void reloadKeepingAnswers() : undefined} />}
     {!locked && <Button title={busy === 'save' ? 'Tallennetaan…' : 'Tallenna keskeneräisenä'} variant="ghost" loading={busy === 'save'} disabled={disabled || !dirty} onPress={() => void mutate('save', state)}
       accessibilityHint="Tallentaa vastaukset, jotta voit jatkaa myöhemmin" />}
+    {!locked && <Text style={[type.caption, { textAlign: 'center' }]} accessibilityLiveRegion="polite">
+      {autosave.status === 'saving' ? 'Tallennetaan luonnosta…'
+        : autosave.status === 'saved' && !dirty ? 'Luonnos tallennettu automaattisesti.'
+          : autosave.status === 'error' && dirty ? 'Automaattinen tallennus ei onnistunut. Tallenna keskeneräisenä, niin voit jatkaa myöhemmin.' : ''}
+    </Text>}
   </Screen>;
 }
 

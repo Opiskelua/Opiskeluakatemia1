@@ -1,0 +1,19 @@
+{
+  "amk": "Humanistinen ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://www.humak.fi/ajankohtaista/yhteishaku-on-paattynyt-ja-edessa-ovat-todistusvalinta-seka-valintakokeet/",
+      "title": "Yhteishaku etenee – lue valintakursseista, todistusvalinnoista ja valintakokeista (Humak)",
+      "covers": "out of scope: an image (Hakijatilasto-2022-2haku.png) of lowest scores for the spring 2021 joint application only",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.humak.fi/hae-humakiin/yhteishaku/",
+      "title": "Yhteishaku (Humak)",
+      "covers": "checked: no cutoff statistics",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "No official Humak cutoffs for the 2024, 2025 or 2026 joint applications were found. The only Humak cutoff publication found is a 2022 news post with an image of the spring 2021 lowest scores (out of scope; image, not parsed). Checked: humak.fi yhteishaku and hae-humakiin pages, hakijanopas.humak.fi, programme pages, results/haku news posts, and the humak.fi WordPress search for \"pisterajat\", \"pisteraja\", \"alimmat\", \"hakijatilasto\" (the only media hit is the 2021/2022 image). Humak notes that in the autumn joint application it does not use todistusvalinta at all (own selection courses only), so there are no Kevät-start certificate cutoffs to collect."
+}

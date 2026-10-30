@@ -1,0 +1,625 @@
+[
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042092",
+"name": "Bachelor of Maritime Management, Maritime Management, Captain, daytime studies",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042127",
+"name": "Bachelor of Engineering, Maritime Technology, daytime studies",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044797",
+"name": "Agrolog (YH)/Skogsbruksingenjör (YH), dagstudier",
+"municipality": "Raasepori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044800",
+"name": "Barnmorska (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044801",
+"name": "Bioanalytiker (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044802",
+"name": "Hälsovårdare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044803",
+"name": "Hälsovårdare (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044976",
+"name": "Röntgenskötare (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044979",
+"name": "Sjukskötare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044981",
+"name": "Sjukskötare (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044982",
+"name": "Socionom (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044985",
+"name": "Socionom (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044987",
+"name": "Sjukskötare (YH), Vasa, flerform",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044988",
+"name": "Socionom (YH), Vasa, flerform",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044990",
+"name": "Sjukskötare (YH), Åbo, flerform",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044997",
+"name": "Estenom (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044999",
+"name": "Byggmästare (YH), Raseborg, dagstudier",
+"municipality": "Raasepori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045000",
+"name": "Byggmästare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045001",
+"name": "Ingenjör (YH), byggnads- och samhällsteknik, Raseborg, dagstudier",
+"municipality": "Raasepori"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045002",
+"name": "Ingenjör (YH), byggnads- och samhällsteknik, Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045003",
+"name": "Ingenjör (YH), el- och automationsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045004",
+"name": "Ingenjör (YH), informationsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045006",
+"name": "Ingenjör (YH), lantmäteriteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045007",
+"name": "Ingenjör (YH), maskin- och produktionsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045009",
+"name": "Ingenjör (YH), produktionsekonomi, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045010",
+"name": "Sjökapten (YH), dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045011",
+"name": "Tradenom (YH), företagsekonomi, Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045012",
+"name": "Tradenom (YH), företagsekonomi, Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045013",
+"name": "Tradenom (YH), informationsbehandling, online, flerform",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059925",
+"name": "Bachelor of Health Care, Nursing, daytime studies",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059931",
+"name": "Bachelor of Health Care, Biomedical Laboratory Science, daytime studies",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059934",
+"name": "Bachelor of Beauty and Cosmetics, Beauty Care, daytime studies",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059942",
+"name": "Bachelor of Engineering, Maritime Technology, daytime studies",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059944",
+"name": "Bachelor of Maritime Management, Maritime Management, Captain, daytime studies",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060649",
+"name": "Barnmorska (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060706",
+"name": "Hälsovårdare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060708",
+"name": "Hälsovårdare (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060710",
+"name": "Sjukskötare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060711",
+"name": "Sjukskötare (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060713",
+"name": "Socionom (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060714",
+"name": "Socionom (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060715",
+"name": "Sjukskötare (YH), Vasa, flerform",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060717",
+"name": "Sjukskötare (YH), Åbo, flerform",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060965",
+"name": "Byggmästare (YH), Raseborg, dagstudier",
+"municipality": "Raasepori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060968",
+"name": "Byggmästare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060970",
+"name": "Ingenjör (YH), byggnads- och samhällsteknik, Raseborg, dagstudier",
+"municipality": "Raasepori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060973",
+"name": "Ingenjör (YH), byggnads- och samhällsteknik, Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060974",
+"name": "Ingenjör (YH), el- och automationsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060977",
+"name": "Ingenjör (YH), informationsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060979",
+"name": "Ingenjör (YH), lantmäteriteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060983",
+"name": "Ingenjör (YH), maskin- och produktionsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060985",
+"name": "Ingenjör (YH), produktionsekonomi, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060988",
+"name": "Sjökapten (YH), dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061206",
+"name": "Tradenom (YH), företagsekonomi, Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061210",
+"name": "Tradenom (YH), företagsekonomi, Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061213",
+"name": "Tradenom (YH), informationsbehandling, online, flerform",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061501",
+"name": "Socionom (YH), Åbo, flerform",
+"municipality": "Turku"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064670",
+"name": "Agrolog (YH), dagstudier",
+"municipality": "Raasepori"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064691",
+"name": "Skogsbruksingenjör (YH), dagstudier",
+"municipality": "Raasepori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078448",
+"name": "Bachelor of Health Care, Nursing, daytime studies",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078458",
+"name": "Bachelor of Maritime Management, Maritime Management, Captain, daytime studies",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078473",
+"name": "Bachelor of Engineering, Maritime Technology, daytime studies",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081282",
+"name": "Tradenom (YH), företagsekonomi, Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081297",
+"name": "Tradenom (YH), företagsekonomi, Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081845",
+"name": "Barnmorska (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081846",
+"name": "Bioanalytiker (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081847",
+"name": "Hälsovårdare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081850",
+"name": "Hälsovårdare (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081851",
+"name": "Röntgenskötare (YH), dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081853",
+"name": "Sjukskötare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081854",
+"name": "Sjukskötare (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081855",
+"name": "Socionom (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081856",
+"name": "Socionom (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081857",
+"name": "Sjukskötare (YH), Vasa, flerform",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081858",
+"name": "Sjukskötare (YH), Åbo, flerform",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081859",
+"name": "Socionom (YH), Vasa, flerform",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081930",
+"name": "Byggmästare (YH), Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081932",
+"name": "Ingenjör (YH), byggnads- och samhällsteknik, Vasa, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081933",
+"name": "Ingenjör (YH), el- och automationsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081934",
+"name": "Ingenjör (YH), informationsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081935",
+"name": "Ingenjör (YH), lantmäteriteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081936",
+"name": "Ingenjör (YH), maskin- och produktionsteknik, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081937",
+"name": "Ingenjör (YH), produktionsekonomi, dagstudier",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081945",
+"name": "Sjökapten (YH), dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081946",
+"name": "Tradenom (YH), informationsbehandling, online, flerform",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083706",
+"name": "Agrolog (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083707",
+"name": "Skogsbruksingenjör (YH), Åbo, dagstudier",
+"municipality": "Turku"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083710",
+"name": "Ingenjör (YH), byggnads- och samhällsteknik, Raseborg, flerform",
+"municipality": "Raasepori"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083723",
+"name": "Bachelor of Beauty and Cosmetics, Beauty Care, daytime studies",
+"municipality": "Vaasa"
+}
+]

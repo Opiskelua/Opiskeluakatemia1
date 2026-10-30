@@ -1,3 +1,6 @@
 .DS_Store
 # Older standalone copy of the website (own git repo)
 /opiskeluakatemia-platform/
+# Website worktrees (branches polku-content and target-grade of the opiskeluakatemia repo)
+/opiskeluakatemia-content/
+/opiskeluakatemia-mascot/

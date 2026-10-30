@@ -3,6 +3,7 @@ import { AppState } from 'react-native';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { isConfigured } from '../lib/config';
+import { clearPathCache } from '../lib/path-v2';
 
 const Context = createContext<{ session: Session | null; loading: boolean }>({ session: null, loading: true });
 export function SessionProvider({ children }: { children: ReactNode }) {
@@ -11,8 +12,10 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!supabase) return;
     let mounted = true; let changed = false;
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, value) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, value) => {
       changed = true;
+      // The cached Polku belongs to the previous account.
+      if (event === 'SIGNED_OUT' || event === 'SIGNED_IN') clearPathCache();
       if (mounted) { setSession(value); setLoading(false); }
     });
     supabase.auth.getSession().then(({ data }) => {

@@ -1,0 +1,814 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035145",
+"name": "Metsätalousinsinööri (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2023 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035146",
+"name": "Restonomi (AMK), matkailu- ja palveluliiketoiminta, verkko-opinnot, Rovaniemi, syksyn 2023 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035164",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2023 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035166",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot,  Rovaniemi, syksyn 2023 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035167",
+"name": "Rakennusmestari (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2023 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035811",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Kemi, syksyn 2023 yhteishaku",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035812",
+"name": "Sosionomi (AMK), verkko-opinnot, Kemi, syksyn 2023 yhteishaku",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035813",
+"name": "Tradenomi (AMK) liiketalous, monimuoto-opinnot, Tornio, syksyn 2023 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035814",
+"name": "Tradenomi (AMK) liiketalous, päiväopinnot, Tornio, syksyn 2023 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035816",
+"name": "Tradenomi (AMK) tietojenkäsittely, monimuoto-opinnot, Tornio, syksyn 2023 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000036021",
+"name": "Tradenomi (AMK) Tietojenkäsittely, päiväopinnot, Tornio, syksyn 2023 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000040100",
+"name": "Bachelor of Hospitality Management, Tourism, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042956",
+"name": "Bachelor of Business Administration, International Sustainable Business, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042957",
+"name": "Bachelor of Engineering, Machine Learning and Data Engineering, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043818",
+"name": "Agrologi (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043821",
+"name": "Metsätalousinsinööri (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043822",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043824",
+"name": "Insinööri (AMK), konetekniikka, päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043828",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043831",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043832",
+"name": "Insinööri (AMK), maanmittaustekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043842",
+"name": "Tradenomi (AMK) liiketalous, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043845",
+"name": "Tradenomi (AMK) liiketalous, verkko-opinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043949",
+"name": "Tradenomi (AMK) tietojenkäsittely, verkko-opinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043954",
+"name": "Fysioterapia (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043957",
+"name": "Sosionomi (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044626",
+"name": "Insinööri (AMK), konetekniikka, monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044629",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044645",
+"name": "Insinööri (AMK), maanmittaustekniikka, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044649",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044652",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, verkko-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044655",
+"name": "Geronomi (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044657",
+"name": "Liikunnanohjaaja (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044659",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044665",
+"name": "Terveydenhoitaja (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044670",
+"name": "Restonomi (AMK), matkailu- ja palveluliiketoiminta, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044706",
+"name": "Sairaanhoitaja (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000049075",
+"name": "Tradenomi (AMK) liiketalous, päiväopinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000049076",
+"name": "Tradenomi (AMK) Tietojenkäsittely, päiväopinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052979",
+"name": "Restonomi (AMK), matkailu- ja palveluliiketoiminta, verkko-opinnot, Rovaniemi, syksyn 2024 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052982",
+"name": "Rakennusmestari (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2024 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052985",
+"name": "Metsätalousinsinööri (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2024 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053242",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Kemi, syksyn 2024 yhteishaku",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053600",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, Rovaniemi, suuntautumisena Liiketoiminnan riskienhallinta ja yritysjuridiikka , syksyn 2024 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053684",
+"name": "Fysioterapeutti (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2024 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053687",
+"name": "Sosionomi (AMK), verkko-opinnot, Kemi, syksyn 2024 yhteishaku",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054025",
+"name": "Tradenomi (AMK) liiketalous, verkko-opinnot, Tornio, syksyn 2024 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054027",
+"name": "Tradenomi (AMK) tietojenkäsittely, verkko-opinnot, Tornio, syksyn 2024 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058248",
+"name": "Bachelor of Hospitality Management, Tourism, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060052",
+"name": "Bachelor of Engineering, Machine Learning and Data Engineering, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060255",
+"name": "Bachelor of Business Administration, International Responsible People & Business Management, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000060274",
+"name": "Bachelor of Business Administration, International Sport Business Management, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063864",
+"name": "Geronomi (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063881",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063918",
+"name": "Liikunnanohjaaja (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063935",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063941",
+"name": "Insinööri (AMK), konetekniikka, monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063973",
+"name": "Insinööri (AMK), maanmittaustekniikka, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063976",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063978",
+"name": "Terveydenhoitaja (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063979",
+"name": "Sairaanhoitaja (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063982",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, verkko-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064003",
+"name": "Restonomi (AMK), matkailu- ja palveluliiketoiminta, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064242",
+"name": "Agrologi (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064374",
+"name": "Metsätalousinsinööri (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064377",
+"name": "Insinööri (AMK), konetekniikka, päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064378",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064379",
+"name": "Insinööri (AMK), maanmittaustekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064380",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064382",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064383",
+"name": "Fysioterapia (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064384",
+"name": "Sosionomi (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064385",
+"name": "Sosionomi (AMK), päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064386",
+"name": "Tradenomi (AMK) liiketalous, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064460",
+"name": "Tradenomi (AMK) liiketalous, päiväopinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064462",
+"name": "Tradenomi (AMK) liiketalous, verkko-opinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064466",
+"name": "Tradenomi (AMK) tietojenkäsittely, verkko-opinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064468",
+"name": "Tradenomi (AMK) Tietojenkäsittely, päiväopinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070933",
+"name": "Restonomi (AMK), matkailu- ja palveluliiketoiminta, verkko-opinnot, Rovaniemi, syksyn 2025 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070935",
+"name": "Metsätalousinsinööri (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2025 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070936",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, Rovaniemi, suuntautumisena Taloushallinto ja tilintarkastus tai Riskienhallinta ja yritysjuridiikka, syksyn 2025 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070937",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2025 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070938",
+"name": "Fysioterapeutti (AMK), monimuoto-opinnot, Rovaniemi, syksyn 2025 yhteishaku",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072008",
+"name": "Tradenomi (AMK) liiketalous, verkko-opinnot, Tornio, syksyn 2025 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072009",
+"name": "Tradenomi (AMK) tietojenkäsittely, verkko-opinnot, Tornio, syksyn 2025 yhteishaku",
+"municipality": "Tornio"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072010",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Kemi, syksyn 2025 yhteishaku",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072011",
+"name": "Sosionomi (AMK), verkko-opinnot, Kemi, syksyn 2025 yhteishaku",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000076765",
+"name": "Insinööri (AMK), konetekniikka, monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080188",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080190",
+"name": "Insinööri (AMK), maanmittaustekniikka, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080192",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080194",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, verkko-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080198",
+"name": "Geronomi (AMK), monimuoto-opinnot, (Kemi) Oulu",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080206",
+"name": "Sairaanhoitaja (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080210",
+"name": "Sairaanhoitaja (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080212",
+"name": "Liikunnanohjaaja (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080213",
+"name": "Restonomi (AMK), matkailu- ja palveluliiketoiminta, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080220",
+"name": "Terveydenhoitaja (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080225",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, suuntautumisena talotekniikka, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080228",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, drooniteknologiat ja autonomiset robotit, monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080241",
+"name": "Insinööri (AMK), logistiikka, monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081492",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081495",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081497",
+"name": "Insinööri (AMK), maanmittaustekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081600",
+"name": "Fysioterapia (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081601",
+"name": "Agrologi (AMK), monimuoto-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081602",
+"name": "Metsätalousinsinööri (AMK), päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081603",
+"name": "Insinööri (AMK), konetekniikka, päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081605",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081606",
+"name": "Sosionomi (AMK), päiväopinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081608",
+"name": "Sosionomi (AMK), monimuoto-opinnot, Kemi",
+"municipality": "Kemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082937",
+"name": "Tradenomi (AMK) liiketalous, päiväopinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082943",
+"name": "Tradenomi (AMK) liiketalous, verkko-opinnot, Rovaniemi",
+"municipality": "Rovaniemi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083357",
+"name": "Tradenomi (AMK) liiketalous, verkko-opinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083358",
+"name": "Tradenomi (AMK) Tietojenkäsittely, päiväopinnot, Tornio",
+"municipality": "Tornio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083427",
+"name": "Tradenomi (AMK) liiketalous, päiväopinnot, Tornio",
+"municipality": "Tornio"
+}
+]

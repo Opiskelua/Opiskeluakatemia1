@@ -1,0 +1,19 @@
+{
+  "amk": "Satakunnan ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://www.samk.fi/hae-opiskelemaan/hakeminen/tutkinto-opiskelijaksi-hakeminen-yhteishaussa/",
+      "title": "Tutkinto-opiskelijaksi hakeminen yhteishaussa - SAMK",
+      "covers": "Checked: points to Vipunen (vipunen.fi/fi-fi/amk/Sivut/Hakeneet-ja-hyväksytyt.aspx) for past statistics; no own cutoff list",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.samk.fi/app/uploads/sites/2/2026/02/Valintaperusteet-kevat-2026-yhteishaku-II.pdf",
+      "title": "Valintaperusteet kevät 2026 yhteishaku II - SAMK",
+      "covers": "Selection criteria only (scoring, schedules); not cutoff results",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "SAMK does not publish its own lowest-accepted-score statistics. Its joint-application page sends applicants to Opetushallitus's Vipunen for earlier-year statistics. Searched: WebSearch in Finnish (pisterajat, alin hyväksytty, valintatilasto, alimmat pisteet, samk.fi/app/uploads), a scan of the full samk.fi sitemap (about 1,215 URLs) for piste/tilasto/alin/valintatulos/todistus, and the hakeminen pages and applicant-count news items (only totals, no cutoffs). No 2024-2026 spring or autumn cutoff document was found."
+}

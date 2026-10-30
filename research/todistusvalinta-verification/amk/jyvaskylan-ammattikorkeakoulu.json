@@ -1,0 +1,6 @@
+{
+  "amk": "Jyväskylän ammattikorkeakoulu",
+  "sources": [],
+  "rows": [],
+  "notes": "No official YO-queue cutoffs found for 2024–2026. JAMK's 'Opiskelijavalintojen tilastoja' page (https://www.jamk.fi/fi/hae-opiskelemaan/hakeminen-jamkiin/opiskelijavalintojen-tilastoja) and 'Ammattikorkeakouluun ohjaaville' page refer to Vipunen.fi for pisterajat instead of publishing their own tables; the only JAMK files linked there for 2024–2026 are 'Pohjakoulutusjakaumat' PDFs (kevät 2024/2025/2026, image-only, applicant background distributions, no cutoffs). JAMK did publish its own per-programme 'alimmat hyväksytyt pisterajat' PDFs up to 2021 (e.g. https://www.jamk.fi/sites/default/files/2021-11/jamk-kevaan-2021-toisen-yhteishaun-alimmat-hyvaksytyt-pisterajat-tutkinto-ohjelmittain.pdf) and English-programme score lists for 2022 (https://www.jamk.fi/en/apply-to-jamk/how-to-apply/minimum-accepted-scores-on-student-admissions); no newer equivalents found. Searched: WebSearch with and without allowed_domains=jamk.fi ('alin hyväksytty pistemäärä todistusvalinta', 'alimmat hyväksytyt pisterajat tutkinto-ohjelmittain 2024/2025/2026', 'valintatilastot'), and fetched the hakuohjeet pages for kevään toinen yhteishaku."
+}

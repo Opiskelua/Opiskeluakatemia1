@@ -1,0 +1,6 @@
+{
+  "amk": "Kajaanin ammattikorkeakoulu",
+  "sources": [],
+  "rows": [],
+  "notes": "Searched: WebSearch (Finnish queries for alin hyväksytty pistemäärä / pisterajat / alimmat pisteet / haun ja valinnan tilasto, incl. site: queries), the WordPress REST API of the AMK site (media library PDFs since 2023, pages and posts searched for alimmat, pisterajat, alin hyväksytty, tilastot, valintojen tulokset), the application pages and the spring 2025/2026 results news posts. Pages checked: kamk.fi/opiskele-tutkintoon/hae-kamkiin/hakeminen/, /toinen-yhteishaku/, /syksyn-yhteishaku/, /ensimmainen-yhteishaku/, plus the applicant-number news posts for 2024, 2025 and 2026 (e.g. 'Ensihoitajakoulutus KAMKin suosituin hakukohde kevään toisessa yhteishaussa', 2026-03-25). They give dates and applicant counts but no lowest accepted scores. The media library has no cutoff PDFs. KAMK publishes nothing usable, so there are no rows."
+}

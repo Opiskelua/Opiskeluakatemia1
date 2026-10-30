@@ -2,7 +2,16 @@ import { config } from './config';
 import { supabase } from './supabase';
 
 export class RequestError extends Error {
-  constructor(message: string, public status: number) { super(message); }
+  /** `code` is the machine-readable error code from a JSON error body ({ error, code }), when the server sent one. */
+  constructor(message: string, public status: number, public code?: string) { super(message); }
+}
+/** Reads `code` from a JSON error body without throwing; non-JSON bodies and missing codes give undefined. */
+export async function errorCode(response: Response): Promise<string | undefined> {
+  try {
+    const body: unknown = await response.json();
+    const code = typeof body === 'object' && body !== null && 'code' in body ? body.code : undefined;
+    return typeof code === 'string' && /^[a-z_]{1,40}$/.test(code) ? code : undefined;
+  } catch { return undefined; }
 }
 export async function apiRequest(path: string, options: { method?: string; body?: unknown; signal?: AbortSignal; timeout?: number } = {}): Promise<unknown> {
   if (!supabase) throw new Error('Sovelluksen yhteyttä ei ole määritetty.');
@@ -34,7 +43,7 @@ export async function apiRequest(path: string, options: { method?: string; body?
       : response.status === 429 ? 'Harjoitusraja tuli vastaan. Odota hetki ja yritä uudelleen.'
       : response.status === 503 ? 'Harjoituspalvelu on hetkellisesti poissa käytöstä. Yritä myöhemmin.'
       : response.status >= 500 ? 'Palvelussa on hetkellinen häiriö. Yritä hetken kuluttua uudelleen.'
-      : 'Pyyntö epäonnistui. Yritä uudelleen.', response.status);
+      : 'Pyyntö epäonnistui. Yritä uudelleen.', response.status, await errorCode(response));
     try { return await response.json(); }
     catch { throw new RequestError('Palvelimen vastausta ei voitu lukea. Yritä uudelleen.', response.status); }
   } catch (error) {

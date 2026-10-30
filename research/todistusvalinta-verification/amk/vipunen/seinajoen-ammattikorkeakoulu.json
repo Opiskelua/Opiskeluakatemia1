@@ -1,0 +1,639 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035583",
+"name": "Insinööri (AMK), Bio- ja elintarviketekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035584",
+"name": "Rakennusmestari (AMK), Rakennustekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035585",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035586",
+"name": "Sosionomi (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035587",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035589",
+"name": "Terveydenhoitaja (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035591",
+"name": "Agrologi (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035766",
+"name": "Restonomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035767",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035848",
+"name": "Tradenomi (AMK), Pk-yrittäjyys, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042899",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042901",
+"name": "Bachelor of Engineering, Automation Engineering, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042903",
+"name": "Bachelor of Health Care, Nursing, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043619",
+"name": "Agrologi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044259",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044268",
+"name": "Insinööri (AMK), Automaatiotekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044271",
+"name": "Insinööri (AMK), Automaatiotekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044272",
+"name": "Insinööri (AMK), Bio- ja elintarviketekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044298",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044300",
+"name": "Insinööri (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044302",
+"name": "Insinööri (AMK), Tietotekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044304",
+"name": "Rakennusmestari (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044308",
+"name": "Restonomi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044310",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044311",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044313",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044314",
+"name": "Tradenomi (AMK), Kirjasto- ja tietopalveluala, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044315",
+"name": "Tradenomi (AMK), Liiketalous, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044317",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045402",
+"name": "Geronomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052571",
+"name": "Agrologi (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052597",
+"name": "Restonomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052625",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052659",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052660",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052672",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052674",
+"name": "Terveydenhoitaja (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052675",
+"name": "Tradenomi (AMK), Pk-yrittäjyys, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052695",
+"name": "Insinööri (AMK), Bio- ja elintarviketekniikka, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059854",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000059990",
+"name": "Bachelor of Engineering, Automation Engineering, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061938",
+"name": "Tradenomi (AMK), Kirjasto- ja tietopalveluala, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061944",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061947",
+"name": "Tradenomi (AMK), Liiketalous, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061949",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061951",
+"name": "Geronomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062019",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062022",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062040",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062047",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062053",
+"name": "Agrologi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062057",
+"name": "Insinööri (AMK), Automaatiotekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062061",
+"name": "Insinööri (AMK), Bio- ja elintarviketekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062064",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062072",
+"name": "Insinööri (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062076",
+"name": "Rakennusmestari (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062078",
+"name": "Insinööri (AMK), Tietotekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062154",
+"name": "Restonomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064753",
+"name": "Tradenomi (AMK), Digitaalinen liiketoiminta, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064798",
+"name": "Insinööri (AMK), Konetekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064965",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072564",
+"name": "Tradenomi (AMK), Pk-yrittäjyys, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072567",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072580",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072585",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072588",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072589",
+"name": "Terveydenhoitaja (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072590",
+"name": "Agrologi (AMK), monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072591",
+"name": "Insinööri (AMK), Bio- ja elintarviketekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072592",
+"name": "Insinööri (AMK), Rakennustekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080554",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus, spring 2026",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080611",
+"name": "Bachelor of Engineering, Automation Engineering, päivätoteutus, spring 2026",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083345",
+"name": "Agrologi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083362",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083369",
+"name": "Geronomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083372",
+"name": "Insinööri (AMK), Automaatiotekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083375",
+"name": "Insinööri (AMK), Bio- ja elintarviketekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083377",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083380",
+"name": "Insinööri (AMK), Konetekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083389",
+"name": "Insinööri (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083393",
+"name": "Insinööri (AMK), Tietotekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083395",
+"name": "Insinööri (AMK), Tietotekniikka, monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083398",
+"name": "Rakennusmestari (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083400",
+"name": "Restonomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083405",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083409",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083412",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083416",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083422",
+"name": "Tradenomi (AMK), Kirjasto- ja tietopalveluala, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083425",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083426",
+"name": "Tradenomi (AMK), Liiketalous, verkkopainotteinen monimuotototeutus",
+"municipality": "Seinäjoki"
+}
+]

@@ -1,0 +1,429 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035770",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035773",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046100",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046102",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046150",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046151",
+"name": "Bioanalyytikko (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046157",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046160",
+"name": "Röntgenhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046162",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046165",
+"name": "Restonomi (AMK), hyvinvointimatkailun kehittäminen, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046166",
+"name": "Tradenomi (AMK), Wellness-liiketoiminta, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046168",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046171",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046172",
+"name": "Insinööri (AMK), tietotekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046173",
+"name": "Insinööri (AMK), rakennustekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046229",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046303",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046304",
+"name": "Insinööri (AMK), ympäristötekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046306",
+"name": "Insinööri (AMK), energiatekniikka, päivätoteutus",
+"municipality": "Varkaus"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046309",
+"name": "Agrologi (AMK), päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053913",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053914",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063714",
+"name": "Tradenomi (AMK), Wellness-liiketoiminta, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063718",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064259",
+"name": "Agrologi (AMK), päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064272",
+"name": "Restonomi (AMK), hyvinvointimatkailun kehittäminen, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064278",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064282",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064296",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064297",
+"name": "Insinööri (AMK), tietotekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064298",
+"name": "Insinööri (AMK), rakennustekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064299",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064300",
+"name": "Insinööri (AMK), ympäristötekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064303",
+"name": "Insinööri (AMK), energiatekniikka, päivätoteutus",
+"municipality": "Varkaus"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064305",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064316",
+"name": "Röntgenhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064326",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064329",
+"name": "Bioanalyytikko (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064345",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000067694",
+"name": "Sosionomi (AMK), sosiaaliohjaus hyvinvointi- ja sosiaalipalveluissa, päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000067695",
+"name": "Sosionomi (AMK), sosiaalipedagoginen lapsi-, nuoriso- ja perhetyö, päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072206",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072207",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082174",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082177",
+"name": "Tradenomi (AMK), Wellness-liiketoiminta, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082178",
+"name": "Restonomi (AMK), hyvinvointimatkailun kehittäminen, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082180",
+"name": "Agrologi (AMK), päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082181",
+"name": "Bioanalyytikko (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082182",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082185",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082186",
+"name": "Röntgenhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082189",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082190",
+"name": "Sosionomi (AMK), sosiaaliohjaus hyvinvointi- ja sosiaalipalveluissa, päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082191",
+"name": "Sosionomi (AMK), sosiaalipedagoginen lapsi-, nuoriso- ja perhetyö, päivätoteutus",
+"municipality": "Iisalmi"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082194",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082199",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082200",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082202",
+"name": "Insinööri (AMK), rakennustekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082205",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082207",
+"name": "Insinööri (AMK), tietotekniikka, päivätoteutus",
+"municipality": "Kuopio"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082210",
+"name": "Insinööri (AMK), ympäristötekniikka, päivätoteutus",
+"municipality": "Kuopio"
+}
+]

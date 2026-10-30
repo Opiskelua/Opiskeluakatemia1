@@ -1,5 +1,5 @@
 // Mirrored from the website repo: ../opiskeluakatemia/src/lib/learning-path-v2/types.ts
-// (Polku v2 API contract, website commit 867c838). Keep this copy identical in substance;
+// (Polku v2 API contract, website branch target-grade, commit b426491). Keep this copy identical in substance;
 // when the website contract changes, copy the file again. See ../opiskeluakatemia/docs/LEARNING_PATH_V2.md.
 
 // Polku v2 — shared API contract.
@@ -245,6 +245,12 @@ export interface PathSummaryV2 {
   dailyGoal: DailyGoalInfo;
   streak: StreakInfo;
   review: ReviewSummary;
+  /** Target grade (docs/POLKU_TARGET_GRADE_AND_GUARANTEE.md). Optional: older servers omit these; treat undefined as null / 0. */
+  targetGrade?: TargetGrade | null;
+  /** Null when no target is set. */
+  target?: TargetProgressV2 | null;
+  /** Revision of the target setting; send with POST /target. */
+  targetRevision?: number;
 }
 
 /** GET /api/abikurssi/path */
@@ -349,6 +355,45 @@ export interface ReviewSubmitResponseV2 {
   rewards: RewardSummary;
   summary: PathSummaryV2;
 }
+
+// ---------------------------------------------------------------------------
+// Target grade — POST /api/abikurssi/path/target
+// ---------------------------------------------------------------------------
+
+export type TargetGrade = 'C' | 'M' | 'E' | 'L';
+
+export interface TargetProgressV2 {
+  grade: TargetGrade;
+  /** Best score (percent) a lesson needs to count toward the target; never below rules.passScore. */
+  passMark: number;
+  /** Required lessons (built units only) with bestScore >= passMark. */
+  lessonsMet: number;
+  lessonsRequired: number;
+  /** Completed lessons (best >= passScore) still below passMark, in path order. */
+  belowTarget: string[];
+  /** Exam season the student chose, e.g. 'K2027', or null. */
+  examSeason: string | null;
+  /** EA exam day (Helsinki) for that season, or null when unknown. */
+  examDate: string | null;
+  weeksLeft: number | null;
+  lessonsPerWeek: number | null;
+  /** Latest stored grade estimate; null when missing or too uncertain to show. */
+  estimate: { points: number; grade: string; confidence: number } | null;
+  /** EA points boundary for the target grade. */
+  targetPoints: number;
+}
+
+export interface TargetRequestV2 {
+  version: PathV2Version;
+  /** summary.targetRevision (0 when never set). */
+  revision: number;
+  /** null clears the target. */
+  targetGrade: TargetGrade | null;
+  /** 'K' or 'S' + year, e.g. 'K2027'; null when not chosen. */
+  examSeason: string | null;
+}
+
+export interface TargetResponseV2 { revision: number; summary: PathSummaryV2 }
 
 // ---------------------------------------------------------------------------
 // Errors — every non-2xx response is { error: string (Finnish, user-facing), code: PathErrorCode }

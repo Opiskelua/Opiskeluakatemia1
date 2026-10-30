@@ -4,8 +4,31 @@ import { Screen, usePullToRefresh } from '../components/Screen';
 import { Button, Card, EmptyState, LoadingState, Notice, PageHeader, ProgressBar } from '../components/ui';
 import { loadDailyTasks } from '../lib/course';
 import { taskChoice } from '../lib/daily-task-choice';
+import { loadPathCached } from '../lib/path-v2';
+import { findLesson } from '../lib/path-v2-model';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { space, useTheme } from '../theme';
+
+/** Same rule as the website's Päivän tehtävät card: next Polku lesson, else Kertaus when items are pending, else nothing. */
+function PolkuRow() {
+  const { type } = useTheme();
+  const { data } = useSyncedResource(loadPathCached);
+  if (!data) return null;
+  const next = data.nextLessonId ? findLesson(data.content.units, data.nextLessonId) : null;
+  if (next) return <Card>
+    <Text style={type.overline}>Polku · noin 5 min</Text>
+    <Text accessibilityRole="header" style={type.subheading}>{next.lesson.title}</Text>
+    <Text style={type.caption}>{next.unit.title}</Text>
+    <Button title={data.progress[next.lesson.id]?.status === 'in_progress' ? 'Jatka oppituntia' : 'Aloita oppitunti'} onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: next.lesson.id } })} />
+  </Card>;
+  if (data.review.pendingItems > 0) return <Card>
+    <Text style={type.overline}>Polku · Kertaus</Text>
+    <Text accessibilityRole="header" style={type.subheading}>{data.review.pendingItems} kerrattavaa kohtaa</Text>
+    <Button title="Aloita kertaus" onPress={() => router.push('/path-review')} />
+  </Card>;
+  return null;
+}
+
 export default function Daily() {
   const { colors, type } = useTheme();
   const { data, loading, error, refresh } = useSyncedResource(loadDailyTasks);
@@ -18,6 +41,7 @@ export default function Daily() {
       <Text style={type.label}>{done} / {total} valmiina</Text>
       <ProgressBar tone="success" value={(done / total) * 100} label="Päivän tehtävät valmiina" />
     </View>}
+    <PolkuRow />
     {loading && !data && <LoadingState label="Haetaan päivän tehtäviä…" />}
     {!!error && <Notice tone="error" title="Tehtäviä ei voitu hakea" message={error} actionTitle="Yritä uudelleen" actionDisabled={loading} onAction={() => void refresh()} />}
     {data && !total && <EmptyState title="Ei tehtäviä tälle päivälle" message="Voit harjoitella vapaasti valitsemalla harjoituksen." actionTitle="Valitse harjoitus" onAction={() => router.push('/exercises')} />}

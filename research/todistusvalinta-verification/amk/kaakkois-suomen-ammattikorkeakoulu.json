@@ -1,0 +1,19 @@
+{
+  "amk": "Kaakkois-Suomen ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://www.xamk.fi/koulutus/hakeminen/opiskelijavalinta/todistusvalinta/",
+      "title": "Todistusvalinta - Kaakkois-Suomen ammattikorkeakoulu",
+      "covers": "Only minimum thresholds (vähimmäispisteraja) for the autumn 2026 joint application, not realised cutoffs",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.xamk.fi/koulutus/hakeminen/opiskelijavalinta/",
+      "title": "Opiskelijavalinta - Kaakkois-Suomen ammattikorkeakoulu",
+      "covers": "Results section links only to Opintopolku; no cutoff statistics",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "No official Xamk publication of realised lowest accepted scores (alin hyväksytty pistemäärä) per hakukohde for certificate selection was found for 2024, 2025 or 2026, for either the spring or the autumn joint application. What I searched: WebSearch (several Finnish queries, including ones limited to xamk.fi), the xamk.fi sitemap (1,403 URLs, grepped for piste/tilasto/hyväksy/valinta), the WordPress search API on xamk.fi for posts and media (pisteraja, alin hyväksytty, alimmat, valintatilasto, hyväksytyt pisteet, pistemäärät, todistusvalinnan tulokset), the applying pages (hakeminen, yhteishaku-kevat, opiskelijavalinta, todistusvalinta) and sample programme pages (koulutukset/sairaanhoitaja-amk, tradenomi-amk-hyvinvointiliiketoiminnan-johtaminen). The todistusvalinta page lists only fixed minimum thresholds for the autumn 2026 joint application: YO 60/198 (plus a maths requirement for engineering) and AMM 80/150, with Game Technologies at 110/150. These are application requirements, not cutoffs, so they are not recorded as rows. The opiskelijavalinta page sends readers to Opintopolku for results. Xamk news posts give only applicant counts."
+}

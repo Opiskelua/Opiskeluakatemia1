@@ -1,0 +1,989 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000032586",
+"name": "Tradenomi (AMK), liiketalouden koulutus, projektijohtaminen, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033492",
+"name": "Tradenomi (AMK), liiketalouden koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033494",
+"name": "Tradenomi (AMK), liiketalouden koulutus, projektijohtaminen, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033503",
+"name": "Tradenomi (AMK), liiketalouden koulutus, verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033504",
+"name": "Tradenomi (AMK), liiketalouden koulutus, oikeudellinen osaaminen, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033784",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palveluiden kehittäminen, monimuotototeutus,  Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033786",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palveluiden kehittäminen, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033789",
+"name": "Tradenomi (AMK), tietojenkäsittely, kyberturvallisuus, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033791",
+"name": "Tradenomi (AMK), turvallisuuden ja riskienhallinnan koulutus, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033792",
+"name": "Restonomi (AMK), ravintola- ja tapahtumaliiketoiminnan koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033795",
+"name": "Fysioterapeutti (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033815",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033817",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033818",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033822",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033823",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033827",
+"name": "Terveydenhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033828",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033830",
+"name": "Sosionomi (AMK), verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000033831",
+"name": "Sosionomi (AMK), rikosseuraamusala, monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035775",
+"name": "Tradenomi (AMK), liiketalouden koulutus, henkilöstöjohtaminen, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035776",
+"name": "Tradenomi (AMK), liiketalouden koulutus, digitaalinen markkinointi, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035777",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035778",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035779",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046386",
+"name": "Tradenomi (AMK), liiketalous, projektijohtaminen, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046403",
+"name": "Tradenomi (AMK), liiketalous, digitaalinen markkinointi, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046404",
+"name": "Tradenomi (AMK), liiketalous, henkilöstöjohtaminen, monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046407",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046410",
+"name": "Tradenomi (AMK), liiketalous, projektijohtaminen, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046412",
+"name": "Tradenomi (AMK), liiketalous, oikeudellinen osaaminen, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046415",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046444",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palveluiden kehittäminen, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046448",
+"name": "Tradenomi (AMK), turvallisuuden ja riskienhallinnan koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046452",
+"name": "Restonomi (AMK), ravintola- ja tapahtumaliiketoiminta, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046455",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046459",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046463",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046468",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046469",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046473",
+"name": "Terveydenhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046474",
+"name": "Fysioterapeutti (AMK), päivätoteutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046475",
+"name": "Kuntoutuksenohjaaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046476",
+"name": "Sosionomi (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046477",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046478",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046479",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046480",
+"name": "Sosionomi (AMK), verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046481",
+"name": "Estenomi (AMK), kauneudenhoito- ja kosmetiikka-alan koulutus, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053908",
+"name": "Tradenomi (AMK), liiketalous, projektijohtaminen, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054080",
+"name": "Tradenomi (AMK), liiketalous, henkilöstöjohtaminen, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054084",
+"name": "Tradenomi (AMK), liiketalous, digitaalinen markkinointi, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054086",
+"name": "Tradenomi (AMK), oikeudellinen osaaminen, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054088",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054090",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054094",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054096",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palvelujen kehittäminen, monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054097",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palvelujen kehittäminen, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054099",
+"name": "Tradenomi (AMK), tietojenkäsittely, kyberturvallisuus, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054100",
+"name": "Tradenomi (AMK), turvallisuuden ja riskienhallinnan koulutus, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054101",
+"name": "Restonomi (AMK), ravintola- ja tapahtumaliiketoiminnan koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054103",
+"name": "Fysioterapeutti (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054104",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054105",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054106",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054107",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054109",
+"name": "Terveydenhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054113",
+"name": "Sosionomi (AMK), päivätoteutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054118",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054123",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054124",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054126",
+"name": "Sosionomi (AMK), verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054127",
+"name": "Sosionomi (AMK), rikosseuraamusala, monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063731",
+"name": "Tradenomi (AMK), liiketalous, projektijohtaminen, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063832",
+"name": "Tradenomi (AMK), liiketalous, digitaalinen markkinointi, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063834",
+"name": "Tradenomi (AMK), liiketalous, henkilöstöjohtaminen, monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063836",
+"name": "Tradenomi (AMK), liiketalous, oikeustradenomin koulutus, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063837",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063839",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063840",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063841",
+"name": "Tradenomi (AMK), turvallisuuden ja riskienhallinnan koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063842",
+"name": "Restonomi (AMK), ravintola- ja tapahtumaliiketoiminta, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063843",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palvelujen kehittäminen, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063884",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063885",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063887",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063889",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063891",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063898",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063904",
+"name": "Sosionomi (AMK), verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063908",
+"name": "Sosionomi (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063942",
+"name": "Terveydenhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063943",
+"name": "Fysioterapeutti (AMK), päivätoteutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063944",
+"name": "Kuntoutuksen ohjaaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063949",
+"name": "Estenomi (AMK), kauneudenhoito- ja kosmetiikka-alan koulutus, monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072603",
+"name": "Tradenomi (AMK), liiketalous, kestävä kehitys ja vastuullinen liiketoiminta, päivätoteutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072604",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072605",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072606",
+"name": "Tradenomi (AMK), liiketalous, johtaminen ja HR, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072607",
+"name": "Tradenomi (AMK), liiketalous, digitaalinen markkinointi, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072616",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072617",
+"name": "Tradenomi (AMK), liiketalous, oikeustradenomin koulutus, monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072619",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palveluiden kehittäminen, verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072620",
+"name": "Tradenomi (AMK), tietojenkäsittely, kyberturvallisuus, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072622",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palveluiden kehittäminen, monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072624",
+"name": "Tradenomi (AMK), turvallisuuden ja riskienhallinnan koulutus, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072626",
+"name": "Restonomi (AMK), ravintola- ja tapahtumaliiketoiminnan koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072627",
+"name": "Fysioterapeutti (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072628",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072629",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072630",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072631",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072632",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072633",
+"name": "Terveydenhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072634",
+"name": "Sosionomi (AMK), päivätoteutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072635",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072636",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072637",
+"name": "Sosionomi (AMK), verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072638",
+"name": "Sosionomi (AMK), rikosseuraamusala, monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083330",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083334",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083338",
+"name": "Tradenomi (AMK), liiketalous, digitaalinen markkinointi, monimuotototeutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083424",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083428",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083516",
+"name": "Tradenomi (AMK), liiketalous, johtaminen ja HR, monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083524",
+"name": "Tradenomi (AMK), liiketalous, oikeustradenomin koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083537",
+"name": "Tradenomi (AMK), tietojenkäsittely, digitaalisten palveluiden kehittäminen, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083539",
+"name": "Tradenomi (AMK), liiketalous, turvallisuuden ja riskienhallinnan koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083543",
+"name": "Restonomi (AMK), ravintola- ja tapahtumaliiketoiminnan koulutus, päivätoteutus, Laurea Leppävaara",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083546",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083550",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083599",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083601",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Porvoo",
+"municipality": "Porvoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083603",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Laurea Lohja",
+"municipality": "Lohja"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083604",
+"name": "Terveydenhoitaja (AMK), monimuotototeutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083609",
+"name": "Fysioterapeutti (AMK), päivätoteutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083617",
+"name": "Sosionomi (AMK), päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083618",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Otaniemi",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083619",
+"name": "Sosionomi (AMK), monimuotototeutus, Laurea Hyvinkää",
+"municipality": "Hyvinkää"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083620",
+"name": "Sosionomi (AMK), verkko-opinnot, Laurea Verkkokampus",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083621",
+"name": "Estenomi (AMK), kauneudenhoito- ja kosmetiikka-alan koulutus, päivätoteutus, Laurea Tikkurila",
+"municipality": "Vantaa"
+}
+]

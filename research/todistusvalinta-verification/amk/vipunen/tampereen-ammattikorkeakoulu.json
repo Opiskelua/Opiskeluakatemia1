@@ -1,0 +1,800 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035262",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035263",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035268",
+"name": "Sosionomi (AMK), monimuotototeutus (rajattu pohjakoulutus)",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035310",
+"name": "Insinööri (AMK), Biotuotetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035313",
+"name": "Insinööri (AMK), Konetekniikka, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035314",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035315",
+"name": "Rakennusmestari (AMK), Rakennusalan työnjohdon tutkinto-ohjelma, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045817",
+"name": "Restonomi (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045849",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045875",
+"name": "Bioanalyytikko (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045879",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045881",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045884",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045886",
+"name": "Röntgenhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045888",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045891",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045892",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045893",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045920",
+"name": "Metsätalousinsinööri (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045930",
+"name": "Insinööri (AMK), Autotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045936",
+"name": "Insinööri (AMK), Biotuotetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045938",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045940",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045941",
+"name": "Insinööri (AMK), Laboratoriotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045943",
+"name": "Insinööri (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045969",
+"name": "Insinööri (AMK), LVI-talotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045972",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045977",
+"name": "Insinööri (AMK), Sähköinen talotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046089",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046189",
+"name": "Insinööri (AMK), Tietotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046209",
+"name": "Rakennusmestari (AMK), Rakennusalan työnjohdon tutkinto-ohjelma, talonrakennus, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000046243",
+"name": "Tradenomi (AMK), Tietojenkäsittely, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053995",
+"name": "Bioanalyytikko (AMK), monimuotototeutus, Jyväskylä",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054043",
+"name": "Insinööri (AMK), Rakennustekniikka, Infrarakentaminen, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054045",
+"name": "Insinööri (AMK), LVI-talotekniikka, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054047",
+"name": "Insinööri (AMK), Konetekniikka, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054049",
+"name": "Insinööri (AMK), Biotuotetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054050",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054054",
+"name": "Insinööri (AMK), Sähköinen talotekniikka, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054056",
+"name": "Bioanalyytikko (AMK), monimuotototeutus, Seinäjoki",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054058",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054061",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054063",
+"name": "Röntgenhoitaja (AMK), monimuoto, Jyväskylä",
+"municipality": "Jyväskylä"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054066",
+"name": "Sosionomi (AMK), monimuotototeutus (rajattu pohjakoulutus)",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054071",
+"name": "Röntgenhoitaja (AMK), monimuoto, Seinäjoki",
+"municipality": "Seinäjoki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000054134",
+"name": "Sosionomi (AMK), varhaiskasvatus, monimuotototeutus (rajattu pohjakoulutus)",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062522",
+"name": "Restonomi (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062529",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063025",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063124",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063170",
+"name": "Bioanalyytikko (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063174",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063175",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063178",
+"name": "Röntgenhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063179",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063180",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063211",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063213",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000063691",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuoto, rajattu pohjakoulutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064339",
+"name": "Metsätalousinsinööri (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064607",
+"name": "Insinööri (AMK), Autotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064613",
+"name": "Insinööri (AMK), Biotuotetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064614",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064616",
+"name": "Insinööri (AMK), Laboratoriotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064617",
+"name": "Insinööri (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064619",
+"name": "Insinööri (AMK), LVI-talotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064621",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064623",
+"name": "Insinööri (AMK), Sähköinen talotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064638",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064654",
+"name": "Rakennusmestari (AMK), talonrakennus, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064655",
+"name": "Insinööri (AMK), Tietotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064657",
+"name": "Tradenomi (AMK), Tietojenkäsittely, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064665",
+"name": "Tradenomi (AMK), Tietojenkäsittely, verkkototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072421",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072422",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072444",
+"name": "Sosionomi (AMK), monimuotototeutus (rajattu pohjakoulutus)",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072452",
+"name": "Sosionomi (AMK), varhaiskasvatus, monimuotototeutus (rajattu pohjakoulutus)",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072526",
+"name": "Bioanalyytikko (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072575",
+"name": "Insinööri (AMK), Biotuotetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072577",
+"name": "Insinööri (AMK), Konetekniikka, monimuotototeutus, Tampere",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072578",
+"name": "Insinööri (AMK),Sähkö- ja automaatiotekniikka, monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072579",
+"name": "Rakennusmestari (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082905",
+"name": "Bioanalyytikko (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082912",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082916",
+"name": "Fysioterapeutti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082923",
+"name": "Insinööri (AMK), Autotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082924",
+"name": "Insinööri (AMK), Biotuotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082926",
+"name": "Insinööri (AMK), Konetekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082927",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082929",
+"name": "Insinööri (AMK), Laboratoriotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082930",
+"name": "Röntgenhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082931",
+"name": "Insinööri (AMK), Rakennustekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082932",
+"name": "Insinööri (AMK), LVI-talotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082935",
+"name": "Insinööri (AMK), Sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082936",
+"name": "Insinööri (AMK), Sähköinen talotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082938",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082940",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082944",
+"name": "Metsätalousinsinööri (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082945",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082947",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082949",
+"name": "Restonomi (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082954",
+"name": "Rakennusmestari (AMK), talonrakennus, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082956",
+"name": "Rakennusmestari (AMK), infrarakentaminen, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082959",
+"name": "Insinööri (AMK), Laboratoriotekniikka, muuntokoulutus laboratorioanalyytikosta insinööriksi",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082966",
+"name": "Tradenomi (AMK), Liiketalous, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082971",
+"name": "Insinööri (AMK), Tietotekniikka, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082972",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuoto, rajattu pohjakoulutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082985",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082994",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083032",
+"name": "Tradenomi (AMK), Tietojenkäsittely, Ohjelmistotuotanto, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083035",
+"name": "Tradenomi (AMK), Tietojenkäsittely, Pelituotanto, päivätoteutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083038",
+"name": "Tradenomi (AMK), Tietojenkäsittely, verkkototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083162",
+"name": "Restonomi (AMK), Palveluliiketoiminta, verkkototeutus",
+"municipality": "Tampere"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083282",
+"name": "Tekniikan monialainen tutkinto-ohjelma, päivätoteutus",
+"municipality": "Tampere"
+}
+]

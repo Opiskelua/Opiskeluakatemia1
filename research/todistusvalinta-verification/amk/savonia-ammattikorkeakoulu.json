@@ -1,0 +1,19 @@
+{
+  "amk": "Savonia-ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://www.savonia.fi/opiskele-tutkinto/tutkinnot-ja-hakeminen/tietoa-opinto-ohjaajille/",
+      "title": "Tietoa opinto-ohjaajille - Savonia-AMK",
+      "covers": "States 'Hakijatilastot löydät Opetushallinnon Vipunen-tilastopalvelusta'; no own cutoff statistics",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://www.savonia.fi/opiskele-tutkinto/tutkinnot-ja-hakeminen/hakeminen/",
+      "title": "Hakemiseen ja yhteishakuun liittyviä ohjeita - Savonia-AMK",
+      "covers": "Application instructions only; links to Opintopolku for results",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "No official Savonia publication of realised lowest accepted scores per hakukohde for certificate selection was found for 2024, 2025 or 2026, for either the spring or the autumn joint application. Savonia's page for guidance counsellors (tietoa-opinto-ohjaajille) explicitly sends readers to Vipunen for applicant statistics, which suggests Savonia does not publish its own. What I searched: WebSearch (several Finnish queries, including ones limited to savonia.fi), the savonia.fi sitemap (3,340 URLs), the WordPress search API on savonia.fi for posts and media (pisteraja, alin hyväksytty, alimmat, valintatilasto, hyväksytyt pisteet, pistemäärät, todistusvalinnan tulokset, opiskelupaikan sai), the hakeminen page, programme pages (e.g. muotoilija sisustusarkkitehtuuri) and the admission-news posts ('Joka viides hakija sai opiskelupaikan...', 'Noin joka kuudes Savoniaan hakeneista...'). None of them contain cutoffs. The only point figures found were on the old portal.savonia.fi site (2015 entrance-exam invitation cutoffs), which are outside scope."
+}

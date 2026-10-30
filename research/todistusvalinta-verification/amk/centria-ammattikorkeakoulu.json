@@ -1,0 +1,19 @@
+{
+  "amk": "Centria-ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://net.centria.fi/koulutus/tietoa-hakijalle/opiskelijavalinta/",
+      "title": "Opiskelijavalinta - Centria",
+      "covers": "Checked: selection methods and result dates only; no cutoff figures",
+      "retrieved": "2026-10-29"
+    },
+    {
+      "url": "https://net.centria.fi/centrian-todistusvalinnan-tulokset-on-julkaistu/",
+      "title": "Centrian todistusvalinnan tulokset on julkaistu (24.5.2022)",
+      "covers": "Checked: news item with counts only; no cutoffs",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "Centria does not appear to publish lowest-accepted-score statistics. Searched: WebSearch in Finnish (pisterajat, alin hyväksytty, alimmat pisteet, valintatilasto, with campus and field names), a scan of the full net.centria.fi sitemap (about 1,660 URLs) for piste/tilasto/alin/todistus/yhteishaku, and the Tietoa hakijalle, Opiskelijavalinta and hakuhelppi pages. None of them has cutoff figures, and Centria's pages do not even point to Vipunen. No 2024-2026 spring or autumn cutoff document was found."
+}

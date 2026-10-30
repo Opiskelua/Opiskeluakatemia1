@@ -6,7 +6,7 @@ import { Bullet, Button, Card, EmptyState, Field, ListRow, LoadingState, Notice,
 import { makeStyles, maxScale, radii, space, useTheme } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { completeTask, loadContent, type Topic } from '../lib/course';
-import { CATEGORY_LABELS, essayCounts, feedbackLines, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
+import { CATEGORY_LABELS, ESSAY_MAX_CHARS, ESSAY_MIN_CHARS, essayCounts, feedbackLines, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
 import { apiRequest, checkCourseAccess } from '../lib/api';
 import { ensureAiConsent } from '../lib/ai-consent';
 export default function Essays() {
@@ -91,7 +91,8 @@ export default function Essays() {
   }
   const refreshContent = content.refresh; const refreshList = list.refresh;
   const pull = usePullToRefresh(useCallback(() => Promise.all([refreshContent(), refreshList()]), [refreshContent, refreshList]));
-  const enough = counts.charCount >= 700;
+  const enough = counts.charCount >= ESSAY_MIN_CHARS;
+  const over = counts.charCount > ESSAY_MAX_CHARS;
   return <Screen {...(topic ? {} : pull)}>
     <PageHeader kicker="Kirjoittaminen" title="Löydä oma äänesi." intro="Verkkokurssin aiheet, luonnokset ja arvioinnit samalla tilillä." />
     {!!error && <Notice tone="error" message={error} />}
@@ -102,8 +103,10 @@ export default function Essays() {
       {!!topic.description && <Text style={type.body}>{topic.description}</Text>}
       <Field accessibilityLabel="Kirjoitelma" multiline style={styles.editor} placeholder="Write your essay here…" value={text} editable={!busy && !submitted} onChangeText={setText} autoCapitalize="sentences" />
       <View style={{ gap: space.xxs }}>
-        <Text style={[type.caption, enough && { color: colors.success }]}>{counts.charCount} merkkiä · {counts.wordCount} sanaa · arviointiin vähintään 700 merkkiä</Text>
-        <ProgressBar tone={enough ? 'success' : 'ink'} value={(counts.charCount / 700) * 100} label="Merkkimäärä suhteessa arvioinnin vähimmäismäärään" />
+        <Text style={[type.caption, enough && !over && { color: colors.success }, over && { color: colors.danger }]}>{counts.charCount} / {ESSAY_MAX_CHARS} merkkiä · {counts.wordCount} sanaa · vähintään {ESSAY_MIN_CHARS} merkkiä</Text>
+        <ProgressBar tone={enough && !over ? 'success' : 'ink'} value={(counts.charCount / ESSAY_MIN_CHARS) * 100} label="Merkkimäärä suhteessa arvioinnin vähimmäismäärään" />
+        <Text style={type.caption}>Merkkeihin lasketaan kaikki paitsi välilyönnit ja rivinvaihdot, kuten yo-kokeessa.</Text>
+        {over && <Text accessibilityRole="alert" style={[type.caption, { color: colors.danger }]}>Yli {ESSAY_MAX_CHARS} merkkiä. Yo-kokeessa ylityksestä vähennetään pisteitä, joten lyhennä tekstiä.</Text>}
       </View>
       {dirty && !busy && <Text style={type.caption}>Tallentamattomia muutoksia</Text>}
       {!evaluation && <Button title={busy ? 'Odota hetki…' : submitted ? 'Yritä arviointia uudelleen' : 'Palauta arvioitavaksi'} disabled={busy || !enough} onPress={() => void save(true)} />}

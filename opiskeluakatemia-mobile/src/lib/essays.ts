@@ -26,6 +26,10 @@ export function feedbackLines(value: unknown): string[] {
 export const loadEssays = async () => await apiRequest('/api/essays/list?limit=100') as { essays: Essay[]; hasMore: boolean };
 export const loadDrafts = async () => await apiRequest('/api/essays/draft') as { drafts: Draft[] };
 export const loadEvaluation = async (id: string) => await apiRequest(`/api/essays/${encodeURIComponent(id)}/evaluation`) as Evaluation;
+/** YO-koe essay limits: 700 recommended minimum, 1300 maximum (going over costs points). */
+export const ESSAY_MIN_CHARS = 700;
+export const ESSAY_MAX_CHARS = 1300;
+/** YTL counts every character except spaces and line breaks; punctuation counts (EA grading instructions). */
 export function essayCounts(content: string) {
-  return { charCount: content.replace(/[.,/#!$%\^&*;:{}=\-_`~()?\s\n]/g, '').length, wordCount: content.trim() ? content.trim().split(/\s+/).length : 0 };
+  return { charCount: content.replace(/\s/g, '').length, wordCount: content.trim() ? content.trim().split(/\s+/).length : 0 };
 }

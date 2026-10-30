@@ -1,0 +1,786 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034973",
+"name": "Tradenomi (AMK), hevosalan liiketoiminta, monimuotototeutus",
+"municipality": "Forssa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034977",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Forssa",
+"municipality": "Forssa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034981",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, monimuotototeutus",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034984",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034985",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034986",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuotototeutus",
+"municipality": "Valkeakoski"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043708",
+"name": "Agrologi (AMK), maaseutuelinkeinot, kevään yhteishaku",
+"municipality": "Tammela"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043709",
+"name": "Hortonomi (AMK), puutarhatalous, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043710",
+"name": "Hortonomi (AMK), rakennettu ympäristö, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043713",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043748",
+"name": "Insinööri (AMK), liikenneala, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043750",
+"name": "Insinööri (AMK), konetekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043752",
+"name": "Insinööri (AMK), liikenneala, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043755",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043759",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Valkeakoski"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043761",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, kiertotalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043762",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, kiertotalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043763",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000043764",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044394",
+"name": "Metsätalousinsinööri (AMK), metsätalous, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044398",
+"name": "Rakennusmestari (AMK), päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044400",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Forssa, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044403",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Hämeenlinna, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044408",
+"name": "Sosionomi (AMK), monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044409",
+"name": "Sosionomi (AMK), päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044410",
+"name": "Terveydenhoitaja (AMK), päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044412",
+"name": "Tradenomi (AMK), liiketalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044414",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044415",
+"name": "Tradenomi (AMK), tietojenkäsittely, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044416",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044419",
+"name": "Ympäristösuunnittelija (AMK), kestävä kehitys, monimuotototeutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044421",
+"name": "Ympäristösuunnittelija (AMK), kestävä kehitys, päivätoteutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045894",
+"name": "Insinööri (AMK), bio- ja elintarviketekniikka, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045901",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Hämeenlinna, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053259",
+"name": "Tradenomi (AMK), hevosalan liiketoiminta, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053261",
+"name": "Insinööri (AMK), konetekniikka, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053262",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053263",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Valkeakoski"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053264",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus, syksyn yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053266",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Valkeakoski, syksyn yhteishaku",
+"municipality": "Valkeakoski"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058020",
+"name": "Insinööri (AMK), bio- ja elintarviketekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058024",
+"name": "Insinööri (AMK), bio- ja elintarviketekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058557",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus, kevään yhteishaku",
+"municipality": "Tammela"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058566",
+"name": "Agrologi (AMK), maaseutuelinkeinot, päivätoteutus, kevään yhteishaku",
+"municipality": "Tammela"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058567",
+"name": "Hortonomi (AMK), puutarhatalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058571",
+"name": "Hortonomi (AMK), puutarhatalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058574",
+"name": "Hortonomi (AMK), rakennettu ympäristö, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058581",
+"name": "Hortonomi (AMK), rakennettu ympäristö, päivätoteutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058583",
+"name": "Metsätalousinsinööri (AMK), metsätalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000058586",
+"name": "Metsätalousinsinööri (AMK), metsätalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061533",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Forssa, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061534",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Hämeenlinna, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061535",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Hämeenlinna, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061536",
+"name": "Sosionomi (AMK), päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061537",
+"name": "Sosionomi (AMK), monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061538",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, kiertotalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061573",
+"name": "Insinööri (AMK), konetekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061575",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061579",
+"name": "Insinööri (AMK), liikenneala, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061580",
+"name": "Insinööri (AMK), liikenneala, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061587",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061589",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Valkeakoski"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061592",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061595",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061598",
+"name": "Rakennusmestari (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061606",
+"name": "Tradenomi (AMK), liiketalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061623",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061626",
+"name": "Tradenomi (AMK), tietojenkäsittely, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061629",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061642",
+"name": "Terveydenhoitaja (AMK), päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061647",
+"name": "Ympäristösuunnittelija (AMK), kestävä kehitys, monimuotototeutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061650",
+"name": "Ympäristösuunnittelija (AMK), kestävä kehitys, päivätoteutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071796",
+"name": "Tradenomi (AMK), hevosalan liiketoiminta, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071798",
+"name": "Insinööri (AMK), konetekniikka, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071799",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071804",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Hämeenlinna, syksyn yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071807",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Valkeakoski"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071808",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus, syksyn yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000073130",
+"name": "Rakennusmestari (AMK), rakennus- ja yhdyskuntatekniikka, monimuotototeutus, syksyn yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082269",
+"name": "Ympäristösuunnittelija (AMK), kestävä kehitys, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082273",
+"name": "Ympäristösuunnittelija (AMK), kestävä kehitys, monimuotototeutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082774",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus, kevään yhteishaku",
+"municipality": "Tammela"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082782",
+"name": "Agrologi (AMK), maaseutuelinkeinot, päivätoteutus, kevään yhteishaku",
+"municipality": "Tammela"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082788",
+"name": "Hortonomi (AMK), puutarhatalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082790",
+"name": "Hortonomi (AMK), puutarhatalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082792",
+"name": "Hortonomi (AMK), rakennettu ympäristö, päivätoteutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082794",
+"name": "Hortonomi (AMK), rakennettu ympäristö, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hattula"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082799",
+"name": "Insinööri (AMK), konetekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082801",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082825",
+"name": "Insinööri (AMK), liikenneala, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082826",
+"name": "Insinööri (AMK), liikenneala, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082827",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082828",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Valkeakoski"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082829",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, kiertotalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082830",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082831",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Riihimäki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082834",
+"name": "Metsätalousinsinööri (AMK), metsätalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082842",
+"name": "Metsätalousinsinööri (AMK), metsätalous, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082845",
+"name": "Sairaanhoitaja (AMK), yrittäjyyspainotteinen monimuotototeutus, Forssa, kevään yhteishaku",
+"municipality": "Forssa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082847",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Hämeenlinna, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082848",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Hämeenlinna, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082850",
+"name": "Sosionomi (AMK), päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082851",
+"name": "Sosionomi (AMK), monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082852",
+"name": "Terveydenhoitaja (AMK), päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082859",
+"name": "Rakennusmestari (AMK), rakennus- ja yhdyskuntatekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082870",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082872",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082873",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082874",
+"name": "Tradenomi (AMK), tietojenkäsittely, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083509",
+"name": "Insinööri (AMK), bio- ja elintarviketekniikka, päivätoteutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083510",
+"name": "Insinööri (AMK), bio- ja elintarviketekniikka, monimuotototeutus, kevään yhteishaku",
+"municipality": "Hämeenlinna"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083517",
+"name": "Sosionomi (AMK), yrittäjyyspainotteinen monimuotototeutus, Forssa, kevään yhteishaku",
+"municipality": "Forssa"
+}
+]

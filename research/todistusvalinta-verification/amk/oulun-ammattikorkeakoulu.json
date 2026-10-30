@@ -1,0 +1,13 @@
+{
+  "amk": "Oulun ammattikorkeakoulu",
+  "sources": [
+    {
+      "url": "https://oamk.fi/koulutus/ammattikorkeakoulututkinnot/nain-haet-amk-tutkintoihin/",
+      "title": "Näin haet AMK-tutkintoihin (section 'Hyväksyttyjen alimmat pistemäärät')",
+      "covers": "No cutoff data. The page refers applicants to Vipunen for lowest and highest accepted scores",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "Searched: WebSearch (Finnish queries for alin hyväksytty pistemäärä / pisterajat / alimmat pisteet / haun ja valinnan tilasto, incl. site: queries), the WordPress REST API of the AMK site (media library PDFs since 2023, pages and posts searched for alimmat, pisterajat, alin hyväksytty, tilastot, valintojen tulokset), the application pages and the spring 2025/2026 results news posts. Oamk publishes no cutoff table of its own for AMK degree programmes. Its 'Näin haet AMK-tutkintoihin' page explicitly sends applicants to Vipunen ('Korkeakoulujen yhteishauissa hyväksyttyjen alimmat ja ylimmät pistemäärät ovat nähtävissä Opetushallituksen tilastopalvelu Vipusesta'). I also checked the opopatio/koulutustarjonta PDFs from 2024, 2025 and 2026 and the 19.11.2025 and 5.5.2026 webinar decks: they contain only the SAT minimum of 400 per section and no todistusvalinta cutoffs. oamk.fi/tilastot-ja-usein-kysytyt-kysymykset lists cutoffs only for vocational teacher education, which is not YO todistusvalinta. No rows for 2024, 2025 or 2026."
+}

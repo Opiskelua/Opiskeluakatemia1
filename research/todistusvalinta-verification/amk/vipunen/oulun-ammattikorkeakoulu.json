@@ -1,0 +1,793 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035151",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035152",
+"name": "Rakennusmestari (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035153",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Oulainen",
+"municipality": "Oulainen"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035154",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus, Oulu",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035155",
+"name": "Sosionomi (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035156",
+"name": "Terveydenhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035157",
+"name": "Tradenomi (AMK), liiketalous, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035158",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035159",
+"name": "Tradenomi (AMK), tietojenkäsittely, verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035161",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036185",
+"name": "Bachelor of Engineering, Information Technology, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036186",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036187",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036243",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036245",
+"name": "Tradenomi (AMK), liiketalous, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036246",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036259",
+"name": "Bioanalyytikko (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036261",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036262",
+"name": "Fysioterapeutti (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036263",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036264",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Oulainen",
+"municipality": "Oulainen"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036265",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Oulu",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036266",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036267",
+"name": "Optometristi (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036268",
+"name": "Röntgenhoitaja (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036269",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036270",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036271",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036302",
+"name": "Bachelor of Engineering, Mechanical Engineering, Sustainable Product Development, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036305",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036306",
+"name": "Agrologi (AMK), maaseutuelinkeinot, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036307",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, yhdyskuntatekniikan suuntautumisvaihtoehto, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036308",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, talonrakennustekniikan suuntautumisvaihtoehto, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036310",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036313",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036316",
+"name": "Insinööri (AMK), talotekniikka, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000036318",
+"name": "Insinööri (AMK), talotekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000037451",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, energiatekniikan suuntautumisvaihtoehto, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000037452",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, kiertotalouden suuntautumisvaihtoehto, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052971",
+"name": "Tradenomi (AMK), tietojenkäsittely, verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052972",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052974",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Oulainen",
+"municipality": "Oulainen"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052975",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Oulu",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052976",
+"name": "Terveydenhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052977",
+"name": "Sosionomi (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052978",
+"name": "Rakennusmestari (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000053320",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054570",
+"name": "Bachelor of Engineering, Information Technology, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054613",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054628",
+"name": "Bachelor of Engineering, Mechanical Engineering, Sustainable Product Development, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054633",
+"name": "Bachelor of Engineering, Energy and Environmental Engineering, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054711",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054712",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054718",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054723",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054724",
+"name": "Agrologi (AMK), maaseutuelinkeinot, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054726",
+"name": "Bioanalyytikko (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054727",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054728",
+"name": "Fysioterapeutti (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054729",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054730",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus, Oulainen",
+"municipality": "Oulainen"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054731",
+"name": "Sairaanhoitaja (AMK), päivätoteutus, Oulu",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054734",
+"name": "Optometristi (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054735",
+"name": "Röntgenhoitaja (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054737",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054738",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054740",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054764",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, energiatekniikan suuntautumisvaihtoehto, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054766",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, kiertotalouden suuntautumisvaihtoehto, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054767",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054768",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, talonrakennustekniikan suuntautumisvaihtoehto, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054769",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, yhdyskuntatekniikan suuntautumisvaihtoehto, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054770",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054771",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054772",
+"name": "Insinööri (AMK), talotekniikka, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000054774",
+"name": "Insinööri (AMK), talotekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071082",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071083",
+"name": "Tradenomi (AMK), tietojenkäsittely, verkkototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071084",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071087",
+"name": "Terveydenhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071088",
+"name": "Rakennusmestari (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000071089",
+"name": "Sosionomi (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072239",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000072240",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073175",
+"name": "Bachelor of Business Administration, International Business, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073177",
+"name": "Bachelor of Engineering, Information Technology, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073178",
+"name": "Bachelor of Engineering, Mechanical Engineering, Sustainable Product Development, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073179",
+"name": "Bachelor of Engineering, Energy and Environmental Engineering, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073188",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073189",
+"name": "Tradenomi (AMK), tietojenkäsittely, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073198",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073204",
+"name": "Agrologi (AMK), maaseutuelinkeinot, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073206",
+"name": "Bioanalyytikko (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073207",
+"name": "Ensihoitaja (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073209",
+"name": "Fysioterapeutti (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073211",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073212",
+"name": "Sairaanhoitaja (AMK), verkkopainotteinen monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073214",
+"name": "Optometristi (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073215",
+"name": "Röntgenhoitaja (AMK), monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073216",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073219",
+"name": "Suuhygienisti (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073220",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus, Oulu",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073232",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073234",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073239",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073241",
+"name": "Rakennusarkkitehti (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073242",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, talonrakennustekniikan suuntautumisvaihtoehto, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073243",
+"name": "Insinööri (AMK), rakennus- ja yhdyskuntatekniikka, yhdyskuntatekniikan suuntautumisvaihtoehto, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073245",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073247",
+"name": "Insinööri (AMK), talotekniikka, monimuotototeutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000073248",
+"name": "Insinööri (AMK), talotekniikka, päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074014",
+"name": "Kätilö (AMK), päivätoteutus",
+"municipality": "Oulu"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074346",
+"name": "Toimintaterapeutti (AMK), monimuotototeutus, Rovaniemi",
+"municipality": "Oulu"
+}
+]

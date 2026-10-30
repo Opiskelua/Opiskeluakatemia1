@@ -1,0 +1,345 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035529",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035541",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042651",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042652",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042654",
+"name": "Insinööri (AMK), energiatekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042656",
+"name": "Insinööri (AMK), ympäristöteknologia, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042658",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042659",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042660",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuotototeutus, VAMK",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042661",
+"name": "Insinööri (AMK), tietotekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042662",
+"name": "Insinööri (AMK), tietotekniikka, monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042719",
+"name": "Tradenomi AMK, liiketalous, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042723",
+"name": "Tradenomi AMK, liiketalous, taloushallinto, verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000042725",
+"name": "Tradenomi AMK, tietojenkäsittely, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044856",
+"name": "Tradenomi AMK, oikeushallinto, päivätoteutus, VAMK",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052355",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052357",
+"name": "Sosionomi (AMK), verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057689",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057692",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057693",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057695",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057697",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057701",
+"name": "Insinööri (AMK), konetekniikka, monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057702",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057703",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057704",
+"name": "Insinööri (AMK), tietotekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057707",
+"name": "Tradenomi AMK, liiketalous, päivätoteutus, VAMK",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057708",
+"name": "Tradenomi AMK, liiketalous, kansainvälinen kauppa, verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057709",
+"name": "Tradenomi AMK, oikeushallinto, verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057710",
+"name": "Tradenomi AMK, tietojenkäsittely, verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061625",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070915",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070916",
+"name": "Sosionomi (AMK), verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074490",
+"name": "Sairaanhoitaja (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074493",
+"name": "Sairaanhoitaja (AMK), monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074495",
+"name": "Terveydenhoitaja (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074496",
+"name": "Sosionomi (AMK), päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074503",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074504",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074505",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuotototeutus, VAMK",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074506",
+"name": "Insinööri (AMK), tietotekniikka, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074507",
+"name": "Tradenomi AMK, liiketalous, päivätoteutus, VAMK",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074510",
+"name": "Tradenomi AMK, oikeushallinto, verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000074513",
+"name": "Tradenomi AMK, tietojenkäsittely, verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000079837",
+"name": "Tradenomi AMK, liiketalous, taloushallinto, verkkototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000082895",
+"name": "Insinööri (AMK), tuotantotalous, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000083572",
+"name": "Insinööri (AMK), tietotekniikka, monimuotototeutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000084800",
+"name": "Insinööri (AMK), ympäristöteknologia, päivätoteutus",
+"municipality": "Vaasa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000084801",
+"name": "Insinööri (AMK), energiatekniikka, päivätoteutus",
+"municipality": "Vaasa"
+}
+]

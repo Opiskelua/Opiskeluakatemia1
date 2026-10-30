@@ -1,0 +1,13 @@
+{
+  "amk": "Yrkeshögskolan Arcada",
+  "sources": [
+    {
+      "url": "https://www.arcada.fi/sv/studera-pa-arcada/ansokan/gemensam-ansokan/ansokningsstatistik",
+      "title": "Ansökningsstatistik (Arcada)",
+      "covers": "Antagningsstatistik 2022-2026: only first-preference applicants, all applicants and accepted-place counts per programme; no points",
+      "retrieved": "2026-10-29"
+    }
+  ],
+  "rows": [],
+  "notes": "Arcada publishes no lowest-accepted-points (lägsta antagna poäng) for betygsbaserad antagning. Its statistics page for 2022-2026 gives applicant and accepted counts only and refers to vipunen.fi for more. Programme admission pages (e.g. Socionom dagstudier) and the FAQ only describe the scoring rules. https://www.arcada.fi/sv/hur-kan-jag-bli-antagen returned HTTP 403 and could not be checked. Searches in Swedish and English found nothing else on arcada.fi."
+}

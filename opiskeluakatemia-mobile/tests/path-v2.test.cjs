@@ -30,7 +30,11 @@ test('mirrored contract keeps the server rules', () => {
   assert.equal(types.PATH_V2_RULES.passScore, 80);
   assert.equal(types.PATH_V2_RULES.dailyGoalXp, 20);
   assert.equal(types.PATH_V2_RULES.levels.length, 10);
-  const website = path.resolve(__dirname, '../../opiskeluakatemia/src/lib/learning-path-v2/types.ts');
+  // PATH_V2_WEBSITE_TYPES=/abs/path/to/types.ts compares against another website checkout
+  // (e.g. a feature worktree) instead; a set override must exist, so it cannot skip the check.
+  const override = process.env.PATH_V2_WEBSITE_TYPES;
+  const website = override ? path.resolve(override) : path.resolve(__dirname, '../../opiskeluakatemia/src/lib/learning-path-v2/types.ts');
+  if (override) assert.ok(fs.existsSync(website), `PATH_V2_WEBSITE_TYPES does not exist: ${website}`);
   if (fs.existsSync(website)) {
     const strip = text => text.replace(/^\/\/ Mirrored from[\s\S]*?\n\n/, '');
     assert.equal(strip(fs.readFileSync(path.resolve(__dirname, '../src/lib/path-v2-types.ts'), 'utf8')), fs.readFileSync(website, 'utf8'), 'path-v2-types.ts differs from the website contract');
@@ -144,4 +148,176 @@ test('Polku deep links open screens only, never a lesson', () => {
   assert.equal(sanitizeDeepLink('opiskeluakatemia://path-review'), '/path-review');
   assert.equal(sanitizeDeepLink('opiskeluakatemia://path-lesson?lessonId=articles-1'), '/path');
   assert.equal(sanitizeDeepLink('opiskeluakatemia://path-preview'), '/');
+});
+
+test('server error codes decide the failure, the HTTP status is the fallback', () => {
+  assert.equal(m.pathFailure(400, 'invalid_request'), 'invalid');
+  assert.equal(m.pathFailure(400, 'incomplete'), 'incomplete');
+  assert.equal(m.pathFailure(403, 'locked'), 'locked');
+  assert.equal(m.pathFailure(409, 'conflict'), 'conflict');
+  assert.equal(m.pathFailure(409, 'nothing_to_review'), 'conflict');
+  assert.equal(m.pathFailure(503, 'unavailable'), 'retry');
+  assert.equal(m.pathFailure(404, 'not_found'), 'invalid');
+  // The code wins over a status that would map differently.
+  assert.equal(m.pathFailure(400, 'locked'), 'locked');
+  // Unknown or missing codes fall back to the status.
+  assert.equal(m.pathFailure(409, 'something_new'), 'conflict');
+  assert.equal(m.pathFailure(403, undefined), 'locked');
+  assert.equal(m.pathFailure(500, 'toString'), 'retry');
+  for (const code of ['invalid_request', 'incomplete', 'locked', 'conflict', 'nothing_to_review', 'unavailable', 'not_found']) {
+    assert.match(m.pathErrorMessage(code), /\S/);
+  }
+  assert.equal(m.pathErrorMessage(undefined), undefined);
+  assert.equal(m.pathErrorMessage('constructor'), undefined);
+});
+
+test('API errors keep the server code from the JSON body', async () => {
+  const api = load('api.ts', { './config': { config: { apiUrl: '' } }, './supabase': { supabase: null } });
+  const body = value => ({ json: async () => value });
+  assert.equal(await api.errorCode(body({ error: 'Lukittu', code: 'locked' })), 'locked');
+  assert.equal(await api.errorCode(body({ error: 'Kurssioikeus puuttuu.' })), undefined);
+  assert.equal(await api.errorCode(body({ code: 7 })), undefined);
+  assert.equal(await api.errorCode(body({ code: '<script>' })), undefined);
+  assert.equal(await api.errorCode({ json: async () => { throw new SyntaxError('not json'); } }), undefined);
+  assert.equal(new api.RequestError('x', 409, 'conflict').code, 'conflict');
+});
+
+test('draft autosave runs only when the draft changed and nothing else is saving', () => {
+  const saved = m.draftKey(items, { 'l-q1': 1 });
+  assert.equal(m.draftKey(items, { 'l-q2': 'writes', 'l-q1': 1 }), m.draftKey(items, { 'l-q1': 1, 'l-q2': 'writes' }), 'key ignores property order');
+  assert.equal(m.draftKey(items, { 'l-q1': 1, 'l-q2': '  ', unknown: 3 }), saved, 'key ignores what a save would not send');
+  const current = m.draftKey(items, { 'l-q1': 1, 'l-q3': [2] });
+  assert.equal(m.shouldAutosaveDraft({ enabled: true, busy: false, current, saved }), true);
+  assert.equal(m.shouldAutosaveDraft({ enabled: true, busy: false, current: saved, saved }), false, 'unchanged');
+  assert.equal(m.shouldAutosaveDraft({ enabled: true, busy: true, current, saved }), false, 'manual save or submit running');
+  assert.equal(m.shouldAutosaveDraft({ enabled: false, busy: false, current, saved }), false, 'locked lesson or result view');
+  assert.equal(m.shouldAutosaveDraft({ enabled: true, busy: false, current: m.draftKey(items, {}), saved: m.draftKey(items, undefined) }), false, 'nothing answered yet');
+});
+
+function loadClient() {
+  globalThis.__DEV__ = false;
+  const calls = [];
+  const replies = [];
+  const state = () => ({ content: { units: [] }, level: { level: 1 }, progress: { n: calls.length } });
+  const api = {
+    RequestError: class extends Error {}, errorCode: async () => undefined,
+    apiRequest: async (url, options) => { calls.push({ url, method: options.method ?? 'GET' }); const next = replies.shift(); if (next instanceof Error) throw next; return next ?? state(); },
+  };
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: '' } }, './path-v2-types': types, './path-v2-model': m });
+  return { client, calls, replies };
+}
+
+test('the path cache serves fresh data for 60 s and drops it after any mutation', async t => {
+  let now = 1_000_000;
+  t.mock.method(Date, 'now', () => now);
+  const { client, calls, replies } = loadClient();
+  assert.equal(client.PATH_CACHE_TTL_MS, 60_000);
+  const first = await client.loadPath();
+  assert.equal(await client.loadPathCached(), first, 'reused right after the map loaded it');
+  now += 59_999;
+  assert.equal(await client.loadPathCached(), first);
+  assert.equal(calls.length, 1);
+  now += 1;
+  const second = await client.loadPathCached();
+  assert.notEqual(second, first, 'expired after 60 s');
+  assert.equal(calls.length, 2);
+  assert.equal(await client.loadPathCached(), second, 'a cached load refreshes the cache');
+
+  replies.push({ summary: {}, revision: 1 });
+  await client.saveLesson('save', 'articles-1', {}, 0);
+  await client.loadPathCached();
+  assert.equal(calls.filter(c => c.method === 'GET').length, 3, 'a lesson save invalidates');
+
+  replies.push({ result: {}, summary: {} });
+  await client.submitReview({}, 0);
+  await client.loadPathCached();
+  assert.equal(calls.filter(c => c.method === 'GET').length, 4, 'a review submit invalidates');
+
+  replies.push(new Error('offline'));
+  await assert.rejects(client.saveLesson('submit', 'articles-1', {}, 0));
+  await client.loadPathCached();
+  assert.equal(calls.filter(c => c.method === 'GET').length, 5, 'a failed mutation invalidates too');
+
+  client.clearPathCache();
+  await client.loadPathCached();
+  assert.equal(calls.filter(c => c.method === 'GET').length, 6, 'sign-in changes clear it');
+
+  // The clock moving backwards never serves an entry from the "future".
+  now -= 10_000;
+  await client.loadPathCached();
+  assert.equal(calls.filter(c => c.method === 'GET').length, 7);
+});
+
+test('a path load that races with a mutation is not cached', async () => {
+  const { client, calls, replies } = loadClient();
+  let release;
+  replies.push(new Promise(resolve => { release = resolve; }).then(() => ({ content: { units: [] }, level: {}, progress: { stale: true } })));
+  // apiRequest mock returns the promise itself; await it inside loadPath.
+  const pending = client.loadPath();
+  replies.push({ summary: {}, revision: 1 });
+  await client.saveLesson('save', 'articles-1', {}, 0);
+  release();
+  assert.equal((await pending).progress.stale, true);
+  const next = await client.loadPathCached();
+  assert.notEqual(next.progress.stale, true, 'the stale response was not cached');
+  assert.equal(calls.filter(c => c.method === 'GET').length, 2);
+});
+
+test('saving the target invalidates the cache and retries a 409 once with the reloaded revision', async () => {
+  globalThis.__DEV__ = false;
+  class RequestError extends Error { constructor(message, status, code) { super(message); this.status = status; this.code = code; } }
+  const calls = [];
+  const replies = [];
+  const api = {
+    RequestError, errorCode: async () => undefined,
+    apiRequest: async (url, options) => {
+      calls.push({ url, method: options.method ?? 'GET', body: options.body });
+      const next = replies.shift();
+      if (next instanceof Error) throw next;
+      return next ?? { content: { units: [] }, level: {}, progress: {}, targetRevision: 0 };
+    },
+  };
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: '' } }, './path-v2-types': types, './path-v2-model': m });
+  const body = { version: types.PATH_V2_VERSION, revision: 2, targetGrade: 'E', examSeason: 'K2027' };
+
+  await client.loadPath();
+  replies.push({ revision: 3, summary: { targetRevision: 3 } });
+  assert.equal((await client.saveTarget(body)).revision, 3);
+  assert.deepEqual(calls.at(-1), { url: '/api/abikurssi/path/target', method: 'POST', body });
+  await client.loadPathCached();
+  assert.equal(calls.filter(c => c.method === 'GET').length, 2, 'a target save invalidates the path cache');
+
+  calls.length = 0;
+  replies.push(new RequestError('x', 409, 'conflict'), { content: { units: [] }, level: {}, progress: {}, targetRevision: 5 }, { revision: 6, summary: {} });
+  assert.equal((await client.saveTarget(body)).revision, 6);
+  assert.deepEqual(calls.map(c => `${c.method} ${c.url}`), ['POST /api/abikurssi/path/target', 'GET /api/abikurssi/path', 'POST /api/abikurssi/path/target']);
+  assert.equal(calls[2].body.revision, 5, 'retried with the reloaded targetRevision');
+  assert.equal(calls[2].body.targetGrade, 'E');
+
+  calls.length = 0;
+  replies.push(new RequestError('x', 409, 'conflict'), { content: { units: [] }, level: {}, progress: {} }, new RequestError('x', 409, 'conflict'));
+  await assert.rejects(client.saveTarget(body), error => error.status === 409);
+  assert.equal(calls.length, 3, 'only one reload and retry');
+  assert.equal(calls[2].body.revision, 0, 'a reload without targetRevision means 0');
+
+  for (const [status, code] of [[400, 'invalid_request'], [503, 'unavailable']]) {
+    calls.length = 0;
+    replies.push(new RequestError('x', status, code));
+    await assert.rejects(client.saveTarget(body), error => error.code === code);
+    assert.equal(calls.length, 1, `${code} is not retried`);
+  }
+});
+
+test('saving the target uses the preview route in preview mode', async t => {
+  globalThis.__DEV__ = true;
+  const previous = process.env.EXPO_PUBLIC_PATH_PREVIEW;
+  process.env.EXPO_PUBLIC_PATH_PREVIEW = '1';
+  t.after(() => { globalThis.__DEV__ = false; if (previous === undefined) delete process.env.EXPO_PUBLIC_PATH_PREVIEW; else process.env.EXPO_PUBLIC_PATH_PREVIEW = previous; });
+  const urls = [];
+  t.mock.method(globalThis, 'fetch', async (url, init) => { urls.push(`${init.method} ${url}`); return { ok: true, json: async () => ({ revision: 1, summary: {} }) }; });
+  const api = { RequestError: class extends Error {}, errorCode: async () => undefined, apiRequest: async () => { throw new Error('not used in preview'); } };
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: 'http://dev' } }, './path-v2-types': types, './path-v2-model': m });
+  assert.equal(client.PATH_PREVIEW, true);
+  await client.saveTarget({ version: types.PATH_V2_VERSION, revision: 0, targetGrade: 'C', examSeason: null });
+  assert.deepEqual(urls, ['POST http://dev/api/abikurssi/path-preview/target?user=mobile']);
 });

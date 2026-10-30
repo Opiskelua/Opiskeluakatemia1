@@ -1,0 +1,1297 @@
+[
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034748",
+"name": "Bioanalyytikko (AMK), bioanalytiikka, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034758",
+"name": "Ensihoitaja, (AMK), ensihoito, monimuotototetus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034774",
+"name": "Fysioterapeutti (AMK), fysioterapia, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034775",
+"name": "Fysioterapeutti (AMK), fysioterapia, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034780",
+"name": "Optometristi (AMK), optometria, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034929",
+"name": "Kätilö, (AMK), kätilötyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034931",
+"name": "Röntgenhoitaja (AMK), radiografia ja sädehoito, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034997",
+"name": "Suuhygienisti (AMK), suun terveydenhuolto, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034998",
+"name": "Toimintaterapeutti (AMK), toimintaterapia, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000034999",
+"name": "Terveydenhoitaja (AMK), terveydenhoitotyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035001",
+"name": "Geronomi (AMK), vanhustyö, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035033",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035034",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035076",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035082",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, monimuotototeutus (verkko-opetuspainotteinen)",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035084",
+"name": "Sosionomi (AMK), sosiaaliala, varhaiskasvatus, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000035085",
+"name": "Sosionomi (AMK), sosiaaliala, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039502",
+"name": "Bachelor of Business Administration, European Business Administration, full-time studies",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000039507",
+"name": "Bachelor of Business Administration, International Business and Logistics, full-time studies",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044187",
+"name": "Insinööri (AMK), ajoneuvotekniikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044190",
+"name": "Insinööri (AMK), bio- ja kemiantekniikka, bio- ja elintarviketekniikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044194",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044195",
+"name": "Insinööri (AMK), konetekniikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044200",
+"name": "Laboratorioanalyytikko (AMK), laboratorioanalytiikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044203",
+"name": "Insinööri (AMK), maanmittaustekniikka, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044207",
+"name": "Insinööri (AMK), rakennustekniikka, infrarakentaminen, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044216",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044219",
+"name": "Insinööri (AMK), tuotantotalous, päivätoteutus",
+"municipality": "Espoo"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044327",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuotototeutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044331",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044338",
+"name": "Insinööri (AMK), talotekniikka, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044339",
+"name": "Insinööri (AMK), talotekniikka: LVI-suunnittelu, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044341",
+"name": "Insinööri (AMK), talotekniikka: kiinteistöjohtaminen, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044347",
+"name": "Rakennusarkkitehti (AMK), rakennusarkkitehtuuri, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044701",
+"name": "Insinööri (AMK), rakennustekniikka, rakentamisen projektinhallinta ja rakennetekniikka, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044705",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, LVI-tekniikka, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044710",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, rakennustekniikka, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044711",
+"name": "Tradenomi (AMK), liiketalous, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044722",
+"name": "Apuvälineteknikko (AMK), apuvälinetekniikka, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044724",
+"name": "Bioanalyytikko (AMK), bioanalytiikka, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044725",
+"name": "Ensihoitaja, (AMK), ensihoito, päivätotetus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044727",
+"name": "Fysioterapeutti (AMK), fysioterapia, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044729",
+"name": "Kätilö, (AMK), kätilötyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044730",
+"name": "Optometristi (AMK), optometria, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044733",
+"name": "Osteopaatti (AMK), osteopatia, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044735",
+"name": "Röntgenhoitaja (AMK), radiografia ja sädehoito, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044737",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044742",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, monimuotototeutus (verkko-opetuspainotteinen)",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044743",
+"name": "Suuhygienisti (AMK), suun terveydenhuolto, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044745",
+"name": "Geronomi (AMK), vanhustyö, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044747",
+"name": "Toimintaterapeutti (AMK), toimintaterapia, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044748",
+"name": "Terveydenhoitaja (AMK), terveydenhoitotyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044749",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, verkkototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044753",
+"name": "Sosionomi (AMK), sosiaaliala, varhaiskasvatus, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044757",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044947",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, rakennustekniikka, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000044951",
+"name": "Insinööri (AMK), bio- ja kemiantekniikka, puhtaat tuotantoteknologiat, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000045671",
+"name": "Tradenomi (AMK), liiketalous, verkkototeutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2024,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000047293",
+"name": "Jalkaterapeutti (AMK), jalkaterapia, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052618",
+"name": "Bioanalyytikko (AMK), bioanalytiikka, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052623",
+"name": "Ensihoitaja, (AMK), ensihoito, päivätotetus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052626",
+"name": "Fysioterapeutti (AMK), fysioterapia, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052627",
+"name": "Fysioterapeutti (AMK), fysioterapia, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052643",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, verkkototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052644",
+"name": "Geronomi (AMK), vanhustyö, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052645",
+"name": "Toimintaterapeutti (AMK), toimintaterapia, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052755",
+"name": "Optometristi (AMK), optometria, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052756",
+"name": "Röntgenhoitaja (AMK), radiografia ja sädehoito, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052759",
+"name": "Sosionomi (AMK), sosiaaliala, varhaiskasvatus, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052760",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052761",
+"name": "Suuhygienisti (AMK), suun terveydenhuolto, monimuotototeutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052762",
+"name": "Kätilö, (AMK), kätilötyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052763",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päivätoteutus",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052764",
+"name": "Terveydenhoitaja (AMK), terveydenhoitotyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052766",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päivätoteutus",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052878",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000052880",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, päivätoteutus",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057572",
+"name": "Bachelor of Business Administration, International Business and Analytics, daytime studies",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000057576",
+"name": "Bachelor of Business Administration, International Business and Logistics, daytime studies",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061522",
+"name": "Insinööri (AMK), ajoneuvotekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061523",
+"name": "Insinööri (AMK), ajoneuvotekniikka, materiaali- ja pinnoitetekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061525",
+"name": "Insinööri (AMK), bio- ja kemiantekniikka, bio- ja elintarviketekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061526",
+"name": "Insinööri (AMK), bio- ja kemiantekniikka, puhtaat tuotantoteknologiat, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061527",
+"name": "Bioanalyytikko (AMK), bioanalytiikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061568",
+"name": "Ensihoitaja, (AMK), ensihoito, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061578",
+"name": "Fysioterapeutti (AMK), fysioterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061581",
+"name": "Jalkaterapeutti (AMK), jalkaterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061584",
+"name": "Insinööri (AMK), konetekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061611",
+"name": "Kätilö, (AMK), kätilötyö, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061628",
+"name": "Laboratorioanalyytikko (AMK), laboratorioanalytiikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061645",
+"name": "Tradenomi (AMK), liiketalous, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061648",
+"name": "Insinööri (AMK), maanmittaustekniikka, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061662",
+"name": "Röntgenhoitaja (AMK), radiografia ja sädehoito, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061664",
+"name": "Rakennusarkkitehti (AMK), rakennusarkkitehtuuri, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061671",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061677",
+"name": "Insinööri (AMK), rakennustekniikka, infrarakentaminen, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061681",
+"name": "Insinööri (AMK), rakennustekniikka, rakentamisen projektinhallinta ja rakennetekniikka, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061682",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061688",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061695",
+"name": "Sosionomi (AMK), sosiaaliala, varhaiskasvatus, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061768",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061807",
+"name": "Suuhygienisti (AMK), suun terveydenhuolto, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061811",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061818",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061822",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päiväopinnot",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061826",
+"name": "Toimintaterapeutti (AMK), toimintaterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061827",
+"name": "Insinööri (AMK), tuotantotalous, päivä-opinnot",
+"municipality": "Espoo"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061835",
+"name": "Geronomi (AMK), monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061846",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061857",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061866",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, LVI-tekniikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061874",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, talonrakennustekniikka ja infrarakentaminen, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061885",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, talonrakennustekniikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061891",
+"name": "Insinööri (AMK), talotekniikka, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061902",
+"name": "Terveydenhoitaja (AMK), terveydenhoitotyö, päivä-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061908",
+"name": "Insinööri (AMK), talotekniikka: kiinteistöjohtaminen, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000061909",
+"name": "Insinööri (AMK), talotekniikka: LVI-suunnittelu, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000062478",
+"name": "Insinööri (AMK), konetekniikka, materiaali- ja pinnoitetekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064609",
+"name": "Osteopaatti (AMK), osteopatia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064610",
+"name": "Optometristi (AMK), optometria, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2025,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000064653",
+"name": "Apuvälineteknikko (AMK), apuvälinetekniikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070525",
+"name": "Bioanalyytikko (AMK), bioanalytiikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070528",
+"name": "Ensihoitaja, (AMK), ensihoito, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070531",
+"name": "Fysioterapeutti (AMK), fysioterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070534",
+"name": "Kätilö, (AMK), kätilötyö, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070539",
+"name": "Optometristi (AMK), optometria, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070541",
+"name": "Röntgenhoitaja (AMK), radiografia ja sädehoito, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070939",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070940",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070941",
+"name": "Sosionomi (AMK), sosiaaliala, varhaiskasvatus, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070942",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070943",
+"name": "Suuhygienisti (AMK), suun terveydenhuolto, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070944",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070945",
+"name": "Terveydenhoitaja (AMK), terveydenhoitotyö, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070946",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päiväopinnot",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070947",
+"name": "Toimintaterapeutti (AMK), toimintaterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070948",
+"name": "Geronomi (AMK), monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Kevät",
+"oid": "1.2.246.562.20.00000000000000070949",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000076933",
+"name": "Bachelor of Social Services, Social Services, daytime studies",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000077047",
+"name": "Bachelor of Construction Management, Construction Site Management, daytime studies",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078305",
+"name": "Bachelor of Business Administration, International Business and Analytics, daytime studies",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000078309",
+"name": "Bachelor of Business Administration, International Business and Logistics, daytime studies",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080779",
+"name": "Insinööri (AMK), ajoneuvotekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080780",
+"name": "Insinööri (AMK), ajoneuvotekniikka, materiaali- ja pinnoitetekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080781",
+"name": "Apuvälineteknikko (AMK), apuvälinetekniikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080784",
+"name": "Insinööri (AMK), bio- ja kemiantekniikka, puhtaat tuotantoteknologiat, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080799",
+"name": "Insinööri (AMK), bio- ja kemiantekniikka, bio- ja elintarviketekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080803",
+"name": "Bioanalyytikko (AMK), bioanalytiikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080806",
+"name": "Ensihoitaja, (AMK), ensihoito, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080807",
+"name": "Fysioterapeutti (AMK), fysioterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080809",
+"name": "Jalkaterapeutti (AMK), jalkaterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080836",
+"name": "Insinööri (AMK), konetekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080838",
+"name": "Insinööri (AMK), konetekniikka, materiaali- ja pinnoitetekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080842",
+"name": "Kätilö, (AMK), kätilötyö, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080845",
+"name": "Laboratorioanalyytikko (AMK), laboratorioanalytiikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080847",
+"name": "Tradenomi (AMK), liiketalous, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080873",
+"name": "Insinööri (AMK), maanmittaustekniikka, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080874",
+"name": "Optometristi (AMK), optometria, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080875",
+"name": "Osteopaatti (AMK), osteopatia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080876",
+"name": "Röntgenhoitaja (AMK), radiografia ja sädehoito, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080882",
+"name": "Rakennusarkkitehti (AMK), rakennusarkkitehtuuri, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080887",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080888",
+"name": "Sairaanhoitaja (AMK), sairaanhoitotyö, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080895",
+"name": "Insinööri (AMK), energia- ja ympäristötekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080898",
+"name": "Sosionomi (AMK), sosiaaliala, varhaiskasvatus, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080899",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080901",
+"name": "Suuhygienisti (AMK), suun terveydenhuolto, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080903",
+"name": "Terveydenhoitaja (AMK), terveydenhoitotyö, päivä-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080904",
+"name": "Toimintaterapeutti (AMK), toimintaterapia, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080905",
+"name": "Geronomi (AMK), monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080906",
+"name": "Sosionomi (AMK), sosiaaliala, sosiaaliohjaus, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080940",
+"name": "Insinööri (AMK), tieto- ja viestintätekniikka, päiväopinnot",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000080942",
+"name": "Insinööri (AMK), tuotantotalous, päiväopinnot",
+"municipality": "Espoo"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081178",
+"name": "Insinööri (AMK), rakennustekniikka, infrarakentaminen, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081230",
+"name": "Insinööri (AMK), rakennustekniikka, rakentamisen projektinhallinta ja rakennetekniikka, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081243",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, LVI-tekniikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081246",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, talonrakennustekniikka ja infrarakentaminen, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081284",
+"name": "Rakennusmestari (AMK), rakennusalan työnjohto, talonrakennustekniikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081288",
+"name": "Insinööri (AMK), talotekniikka, kiinteistöjohtaminen, monimuoto-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081290",
+"name": "Insinööri (AMK), talotekniikka, päiväopinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081535",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, monimuoto-opinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081536",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, automaatiotekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081537",
+"name": "Insinööri (AMK), sähkö- ja automaatiotekniikka, sähkötekniikka, päiväopinnot",
+"municipality": "Vantaa"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081831",
+"name": "Tradenomi (AMK), liiketalous, verkko-opinnot",
+"municipality": "Helsinki"
+},
+{
+"year": 2026,
+"season": "Syksy",
+"oid": "1.2.246.562.20.00000000000000081876",
+"name": "Insinööri (AMK), talotekniikka, LVI-tekniikka, monimuoto-opinnot",
+"municipality": "Helsinki"
+}
+]
