@@ -17,11 +17,8 @@ import { Button, Card, Chevron, Chip, ChipRow, Field, ListRow, LoadingState, Nav
 import { PathHomeCard } from './src/components/PathProgress';
 import { loadPath } from './src/lib/path-v2';
 import type { PathStateV2 } from './src/lib/path-v2-types';
-import { COURSE_IDS, COURSES, ownedCourses, type CourseId } from './src/lib/courses';
+import { accessFromChecks, CHECKING_ACCESS, COURSE_IDS, COURSES, ownedCourses, type CourseAccess, type CourseId } from './src/lib/courses';
 import { useCourse } from './src/providers/CourseProvider';
-
-type Access = 'loading' | 'active' | 'inactive' | 'error';
-const CHECKING: Record<CourseId, Access> = { en: 'loading', sv: 'loading' };
 
 const categoryLabel = { grammar: 'Kielioppi', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' } as const;
 const categoryBadge = { grammar: 'K', reading: 'L', listening: 'U' } as const;
@@ -66,7 +63,7 @@ function CourseSwitcher({ course, onChange }: { course: CourseId; onChange: (cou
 function CourseHome({ session }: { session: Session }) {
   const { course, info, owned, choose, reportAccess } = useCourse();
   const features = info.features;
-  const [accessByCourse, setAccessByCourse] = useState<Record<CourseId, Access>>(CHECKING);
+  const [accessByCourse, setAccessByCourse] = useState<Record<CourseId, CourseAccess>>(CHECKING_ACCESS);
   const [errors, setErrors] = useState<Partial<Record<CourseId, string>>>({});
   const [historyError, setHistoryError] = useState('');
   const historyRequest = useRef(0);
@@ -87,20 +84,15 @@ function CourseHome({ session }: { session: Session }) {
   const singleColumn = fontScale > 1.35 || width < 340;
   const refresh = useCallback(async () => {
     const current = ++request.current;
-    setAccessByCourse(CHECKING); setErrors({});
+    setAccessByCourse(CHECKING_ACCESS); setErrors({});
     // A linking problem must not prevent an already active course from opening.
     // The server still performs the authoritative access checks below.
     try { await courseRequest('link-purchases', 'POST'); } catch { /* Access is checked next. */ }
     // One check per course: a failing Swedish check never hides an active English course.
     const results = await Promise.allSettled(COURSE_IDS.map(id => checkCourseAccess(id)));
     if (current !== request.current) return;
-    const next = { ...CHECKING }; const messages: Partial<Record<CourseId, string>> = {}; const known: Partial<Record<CourseId, boolean>> = {};
-    COURSE_IDS.forEach((id, index) => {
-      const result = results[index];
-      if (result.status === 'fulfilled') { next[id] = result.value ? 'active' : 'inactive'; known[id] = result.value; }
-      else { next[id] = 'error'; messages[id] = result.reason instanceof Error ? result.reason.message : 'Yhteys ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.'; }
-    });
-    setAccessByCourse(next); setErrors(messages);
+    const { access, errors: messages, known } = accessFromChecks(results);
+    setAccessByCourse(access); setErrors(messages);
     reportAccess(userId, known);
   }, [reportAccess, userId]);
   const refreshHistory = useCallback(async () => {

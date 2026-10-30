@@ -139,3 +139,98 @@ export function resolveCourse(preferred: CourseId | null, owned: CourseOwnership
   if (preferred && owned[preferred] !== false) return preferred;
   return COURSE_IDS.find(id => owned[id] === true) ?? COURSE_IDS.find(id => owned[id] === null) ?? DEFAULT_COURSE;
 }
+
+/**
+ * What CourseProvider holds. It changes only through courseSelectionStep, so the order in which
+ * effects run can never apply one user's course or access to another.
+ */
+export interface CourseSelection {
+  /** The signed-in user the choice and access belong to; null when signed out. */
+  userId: string | null;
+  /** The stored course has been read (or the read failed, or the key was cleared). */
+  loaded: boolean;
+  /** The remembered or chosen course; null = none, the first owned course is used. */
+  preferred: CourseId | null;
+  /** What this device's storage holds, as far as the provider knows. */
+  stored: CourseId | null;
+  owned: CourseOwnership;
+}
+
+export type CourseSelectionAction =
+  /** The storage read finished; null when nothing (or nothing valid) was stored or the read failed. */
+  | { type: 'loaded'; course: CourseId | null }
+  /** The home switcher. */
+  | { type: 'chosen'; course: CourseId }
+  /** Access checks that succeeded, for the user they were made for. */
+  | { type: 'access'; userId: string; results: Partial<Record<CourseId, boolean>> };
+
+export interface CourseSelectionStep {
+  state: CourseSelection;
+  /** Storage write to make: a course to store, null to remove the key, undefined for none. */
+  write?: CourseId | null;
+}
+
+export const INITIAL_SELECTION: CourseSelection = { userId: null, loaded: false, preferred: null, stored: null, owned: UNKNOWN_OWNERSHIP };
+
+/**
+ * One provider transition: first the signed-in user, then the action, then remembering the
+ * course in use. Pure; returns the same state object when nothing changes.
+ */
+export function courseSelectionStep(state: CourseSelection, userId: string | null, action?: CourseSelectionAction): CourseSelectionStep {
+  let next = state;
+  let write: CourseId | null | undefined;
+  if (next.userId !== userId) {
+    // Sign-out or another account: the choice and access belong to the previous user. After a
+    // launch (or a sign-out) there is no previous user, and the stored course is the next user's.
+    if (next.userId === null) next = { ...next, userId };
+    else { next = { userId, loaded: true, preferred: null, stored: null, owned: UNKNOWN_OWNERSHIP }; write = null; }
+  }
+  if (action?.type === 'loaded') {
+    // A read finishing after a choice or a cleared key is stale; a choice made meanwhile wins.
+    if (!next.loaded) next = next.preferred === null ? { ...next, loaded: true, preferred: action.course, stored: action.course } : { ...next, loaded: true };
+  } else if (action?.type === 'chosen') {
+    next = { ...next, preferred: action.course, stored: action.course };
+    write = action.course;
+  } else if (action?.type === 'access' && action.userId === next.userId) {
+    next = { ...next, owned: mergeOwnership(next.owned, action.results) };
+  }
+  // Remember the course in use once access confirms it, so the next launch opens it directly (a
+  // Swedish-only owner does not start from English every time). Never before the stored course
+  // is read, which would overwrite it.
+  const course = resolveCourse(next.preferred, next.owned);
+  if (next.userId !== null && next.loaded && next.owned[course] === true && next.stored !== course) {
+    next = { ...next, preferred: course, stored: course };
+    write = course;
+  }
+  return { state: next, write };
+}
+
+// ---------------------------------------------------------------------------
+// Home screen access checks (App.tsx)
+// ---------------------------------------------------------------------------
+
+export type CourseAccess = 'loading' | 'active' | 'inactive' | 'error';
+export const CHECKING_ACCESS: Readonly<Record<CourseId, CourseAccess>> = { en: 'loading', sv: 'loading' };
+const ACCESS_CHECK_FAILED = 'Yhteys ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.';
+
+/**
+ * Maps one access check per course (Promise.allSettled in COURSE_IDS order) to the home screen
+ * state, the error message per failed course, and the results CourseProvider may trust: a failed
+ * check is left out, so it keeps the last known value.
+ */
+export function accessFromChecks(results: readonly PromiseSettledResult<boolean>[]) {
+  const access: Record<CourseId, CourseAccess> = { ...CHECKING_ACCESS };
+  const errors: Partial<Record<CourseId, string>> = {};
+  const known: Partial<Record<CourseId, boolean>> = {};
+  COURSE_IDS.forEach((id, index) => {
+    const result = results[index];
+    if (result?.status === 'fulfilled') {
+      access[id] = result.value ? 'active' : 'inactive';
+      known[id] = result.value;
+    } else {
+      access[id] = 'error';
+      errors[id] = result?.reason instanceof Error ? result.reason.message : ACCESS_CHECK_FAILED;
+    }
+  });
+  return { access, errors, known };
+}

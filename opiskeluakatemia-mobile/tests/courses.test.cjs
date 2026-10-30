@@ -11,7 +11,7 @@ function load(filename, mocks = {}) {
     throw new Error(`Unexpected import: ${id}`);
   };
   mod._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+    fileName: filename, compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX },
   }).outputText, filename);
   return mod.exports;
 }
@@ -140,4 +140,211 @@ test('the mascot intro is dismissed per course and English keeps its stored flag
   flags.dismissIntro('sv');
   assert.deepEqual(flags.useMascotFlags().introDismissed, { en: true, sv: true });
   assert.deepEqual(writes, [['mascot.introDismissed.sv', '1']]);
+});
+
+// Replays CourseProvider transitions: [signed-in user, action?] per step.
+function replay(steps, state = c.INITIAL_SELECTION) {
+  const writes = [];
+  for (const [userId, action] of steps) {
+    const step = c.courseSelectionStep(state, userId, action);
+    if (step.write !== undefined) writes.push(step.write);
+    state = step.state;
+  }
+  return { state, writes, course: c.resolveCourse(state.preferred, state.owned) };
+}
+const loaded = course => ({ type: 'loaded', course });
+const chosen = course => ({ type: 'chosen', course });
+const access = (userId, results) => ({ type: 'access', userId, results });
+const both = { en: true, sv: true };
+
+test('course selection: the stored course, access and the switcher', () => {
+  let r = replay([['A'], ['A', loaded('sv')], ['A', access('A', both)]]);
+  assert.equal(r.course, 'sv');
+  assert.deepEqual(r.writes, [], 'an owned stored course is not rewritten');
+  r = replay([['A'], ['A', loaded('sv')], ['A', access('A', { en: true, sv: false })]]);
+  assert.equal(r.course, 'en');
+  assert.deepEqual(r.writes, ['en'], 'a stored Swedish course without access falls back and is overwritten');
+  r = replay([['A'], ['A', loaded(null)], ['A', access('A', { en: false, sv: true })]]);
+  assert.equal(r.course, 'sv');
+  assert.deepEqual(r.writes, ['sv'], 'a Swedish-only owner is remembered once access confirms it');
+
+  r = replay([['A'], ['A', access('A', both)]]);
+  assert.deepEqual(r.writes, [], 'nothing is written before the stored course is read');
+  r = replay([['A', loaded('sv')]], r.state);
+  assert.equal(r.course, 'sv', 'a fast access check never overwrites the remembered course');
+  assert.deepEqual(r.writes, []);
+
+  r = replay([['A'], ['A', chosen('sv')], ['A', loaded('en')], ['A', access('A', both)]]);
+  assert.equal(r.course, 'sv', 'a choice made before the storage read finishes wins');
+  assert.deepEqual(r.writes, ['sv']);
+  r = replay([['A', access('A', {})]], r.state);
+  assert.equal(r.course, 'sv', 'a failed check keeps the last known access');
+  assert.deepEqual(r.writes, []);
+  r = replay([['A', chosen('en')]], r.state);
+  assert.equal(r.course, 'en');
+  assert.deepEqual(r.writes, ['en']);
+
+  r = replay([[null], [null, loaded('sv')], [null, access('A', both)]]);
+  assert.deepEqual(r.state.owned, c.UNKNOWN_OWNERSHIP, 'no access is taken while signed out');
+  assert.deepEqual(r.writes, [], 'a signed-out device stores nothing');
+
+  const settled = replay([['A'], ['A', loaded('sv')], ['A', access('A', both)]]).state;
+  assert.equal(c.courseSelectionStep(settled, 'A').state, settled, 'no change, same state: the provider does not re-render');
+  assert.equal(c.courseSelectionStep(settled, 'A', access('B', { sv: false })).state, settled, "another user's report is ignored");
+});
+
+test('course selection: sign-out and another account never keep or write the previous course', () => {
+  const settled = replay([['A'], ['A', loaded('sv')], ['A', access('A', both)]]).state;
+  let r = replay([[null]], settled);
+  assert.deepEqual(r.writes, [null], 'sign-out removes the stored course');
+  assert.equal(r.state.preferred, null);
+  assert.deepEqual(r.state.owned, c.UNKNOWN_OWNERSHIP);
+  r = replay([['B'], ['B', access('B', both)]], r.state);
+  assert.equal(r.course, 'en', "the next account starts from its own first owned course, not the previous user's");
+  assert.deepEqual(r.writes, ['en']);
+
+  // A direct account switch (no signed-out state in between).
+  r = replay([['B']], settled);
+  assert.deepEqual(r.writes, [null], "only a removal: the previous user's course is never written back");
+  assert.equal(r.course, 'en');
+  assert.deepEqual(r.state.owned, c.UNKNOWN_OWNERSHIP);
+  r = replay([['B', access('A', both)], ['B', loaded('sv')]], r.state);
+  assert.deepEqual(r.state.owned, c.UNKNOWN_OWNERSHIP, "a late report for the previous user is ignored");
+  assert.equal(r.state.preferred, null, 'a storage read finishing after the switch is ignored');
+  assert.deepEqual(r.writes, []);
+  // The switch while the stored course is still being read.
+  r = replay([['A'], ['B'], ['B', loaded('sv')], ['B', access('B', both)]]);
+  assert.equal(r.course, 'en');
+  assert.deepEqual(r.writes, [null, 'en']);
+});
+
+test('home access checks map per course; a failed check is left out of the trusted results', () => {
+  assert.deepEqual(c.CHECKING_ACCESS, { en: 'loading', sv: 'loading' });
+  let r = c.accessFromChecks([{ status: 'fulfilled', value: true }, { status: 'rejected', reason: new Error('Palvelin ei vastannut.') }]);
+  assert.deepEqual(r.access, { en: 'active', sv: 'error' }, 'a failing Swedish check never hides an active English course');
+  assert.deepEqual(r.errors, { sv: 'Palvelin ei vastannut.' });
+  assert.deepEqual(r.known, { en: true });
+  r = c.accessFromChecks([{ status: 'rejected', reason: 'offline' }, { status: 'fulfilled', value: false }]);
+  assert.deepEqual(r.access, { en: 'error', sv: 'inactive' });
+  assert.deepEqual(r.errors, { en: 'Yhteys ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.' });
+  assert.deepEqual(r.known, { sv: false });
+});
+
+test('the English exercise history reads only English attempts', async () => {
+  const calls = [];
+  let missingColumn = false;
+  let failure = null;
+  const from = table => {
+    const filters = [];
+    const query = {
+      select: () => query,
+      eq: (column, value) => { filters.push([column, value]); return query; },
+      order: () => query,
+      limit: async () => {
+        calls.push([table, filters]);
+        if (failure) return { data: null, error: failure };
+        if (missingColumn && filters.some(([column]) => column === 'course_type')) return { data: null, error: { code: '42703', message: `column ${table}.course_type does not exist` } };
+        return { data: [{ id: table, submitted_at: '2026-10-30T09:05:00Z', score_percentage: 70 }], error: null };
+      },
+    };
+    return query;
+  };
+  const supabase = { auth: { getSession: async () => ({ data: { session: { user: { id: 'u1' } } } }) }, from };
+  const exercises = load(lib('exercises.ts'), { './api': {}, './courses': c, './exercise-model': {}, './supabase': { supabase } });
+  const english = [['user_id', 'u1'], ['course_type', 'abikurssi']];
+  let rows = await exercises.loadHistory();
+  assert.deepEqual(calls, [['grammar_attempts', english], ['reading_attempts', english], ['listening_attempts', english]]);
+  assert.deepEqual(rows.map(row => row.category).sort(), ['grammar', 'listening', 'reading']);
+
+  // Before the course migration every attempt is English: the read is retried without the column.
+  missingColumn = true; calls.length = 0;
+  rows = await exercises.loadHistory();
+  assert.equal(rows.length, 3);
+  assert.deepEqual(calls.filter(([, filters]) => filters.length === 1).map(([table]) => table).sort(), ['grammar_attempts', 'listening_attempts', 'reading_attempts']);
+
+  failure = { code: 'PGRST301', message: 'JWT expired' };
+  await assert.rejects(exercises.loadHistory(), /Historiaa ei voitu hakea/, 'other errors still fail');
+});
+
+test('CourseProvider applies the stored course, choices and an account switch in order', async () => {
+  let session = { user: { id: 'A' } };
+  let finishRead;
+  const writes = [];
+  const AsyncStorage = {
+    getItem: () => new Promise(resolve => { finishRead = resolve; }),
+    setItem: async (key, value) => { writes.push([key, value]); },
+    removeItem: async key => { writes.push([key, null]); },
+  };
+  // A minimal hooks runtime for one component: state, refs, memos, and effects after each render.
+  const slots = [];
+  let index = 0;
+  let pending = [];
+  const same = (a, b) => a.length === b.length && a.every((value, i) => Object.is(value, b[i]));
+  const memo = (make, deps) => { const i = index++; if (!slots[i] || !same(slots[i].deps, deps)) slots[i] = { value: make(), deps }; return slots[i].value; };
+  const react = {
+    createContext: () => ({ Provider: 'Provider' }),
+    useContext: () => null,
+    useState: initial => { const i = index++; slots[i] ??= { value: initial }; const slot = slots[i]; return [slot.value, value => { slot.value = typeof value === 'function' ? value(slot.value) : value; }]; },
+    useRef: initial => { const i = index++; slots[i] ??= { current: initial }; return slots[i]; },
+    useMemo: memo,
+    useCallback: (fn, deps) => memo(() => fn, deps),
+    useEffect: (effect, deps) => {
+      const i = index++; const previous = slots[i];
+      if (previous && same(previous.deps, deps)) return;
+      const slot = slots[i] = { deps };
+      pending.push(() => { previous?.cleanup?.(); slot.cleanup = effect(); });
+    },
+  };
+  const { CourseProvider } = load(path.resolve(__dirname, '../src/providers/CourseProvider.tsx'), {
+    react, 'react/jsx-runtime': { jsx: (type, props) => ({ type, props }) },
+    '@react-native-async-storage/async-storage': { __esModule: true, default: AsyncStorage },
+    './SessionProvider': { useSession: () => ({ session }) }, '../lib/courses': c,
+  });
+  // One render and its effects; returns the context value that render provided.
+  const render = () => {
+    index = 0; pending = [];
+    const value = CourseProvider({ children: null }).props.value;
+    const effects = pending; pending = [];
+    for (const effect of effects) effect();
+    return value;
+  };
+  const settle = async () => { await new Promise(resolve => setImmediate(resolve)); render(); return render(); };
+
+  let value = render();
+  assert.equal(value.course, 'en');
+  finishRead('sv');
+  value = await settle();
+  assert.equal(value.course, 'sv', 'the remembered course opens');
+  value.reportAccess('A', both);
+  value = await settle();
+  assert.equal(value.course, 'sv');
+  assert.deepEqual(value.owned, both);
+  assert.deepEqual(writes, []);
+  value.reportAccess('B', { sv: false });
+  value.choose('en');
+  value = await settle();
+  assert.equal(value.course, 'en');
+  assert.deepEqual(value.owned, both, "another user's report is ignored");
+  value.choose('sv');
+  value = await settle();
+  assert.deepEqual(writes, [['oa.course.v1', 'en'], ['oa.course.v1', 'sv']]);
+
+  // Another account without signing out: the first render already shows the reset state, and
+  // the only write removes the previous user's course.
+  session = { user: { id: 'B' } };
+  value = render();
+  assert.equal(value.course, 'en');
+  assert.deepEqual(value.owned, c.UNKNOWN_OWNERSHIP);
+  value = await settle();
+  value.reportAccess('A', both);
+  value = await settle();
+  assert.deepEqual(value.owned, c.UNKNOWN_OWNERSHIP);
+  assert.deepEqual(writes.slice(2), [['oa.course.v1', null]]);
+  value.reportAccess('B', { en: false, sv: true });
+  value = await settle();
+  assert.equal(value.course, 'sv');
+  session = null;
+  value = await settle();
+  assert.deepEqual(writes.slice(2), [['oa.course.v1', null], ['oa.course.v1', 'sv'], ['oa.course.v1', null]], 'sign-out removes it again');
+  assert.deepEqual(value.owned, c.UNKNOWN_OWNERSHIP);
 });

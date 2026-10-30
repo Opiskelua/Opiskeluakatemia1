@@ -1,4 +1,5 @@
 import { apiRequest, checkCourseAccess } from './api';
+import { COURSES } from './courses';
 import { normalizeExercise, parseResult, submission, grammarScore, type Choice, type Difficulty, type Exercise, type Answers, type Category } from './exercise-model';
 import { supabase } from './supabase';
 
@@ -20,15 +21,26 @@ export async function submitExercise(exercise: Exercise, answers: Answers, clien
 export interface Attempt {
   id: string; exercise_id: string; exercise_title: string; total_score: number; max_score: number; score_percentage: number; submitted_at: string; category: Category;
 }
+/** Postgres undefined_column: the course_type migration is not applied yet, so every attempt is English. */
+const UNDEFINED_COLUMN = '42703';
+/**
+ * The English exercise history. Swedish attempts share these tables (course_type
+ * 'ruotsin-abikurssi', contract §3), so only English rows are read.
+ */
 export async function loadHistory(): Promise<Attempt[]> {
   if (!supabase) throw new Error('Yhteys puuttuu.');
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) throw new Error('Kirjaudu uudelleen.');
   const categories: Category[] = ['grammar', 'reading', 'listening'];
   const result = await Promise.all(categories.map(async category => {
-    const { data, error } = await supabase!.from(`${category}_attempts`)
-      .select('id,exercise_id,exercise_title,total_score,max_score,score_percentage,submitted_at')
-      .eq('user_id', session.user.id).order('submitted_at', { ascending: false }).limit(100);
+    const attempts = (english: boolean) => {
+      const query = supabase!.from(`${category}_attempts`)
+        .select('id,exercise_id,exercise_title,total_score,max_score,score_percentage,submitted_at')
+        .eq('user_id', session.user.id);
+      return (english ? query.eq('course_type', COURSES.en.courseType) : query).order('submitted_at', { ascending: false }).limit(100);
+    };
+    let { data, error } = await attempts(true);
+    if (error?.code === UNDEFINED_COLUMN) ({ data, error } = await attempts(false));
     if (error) throw new Error('Historiaa ei voitu hakea. Tarkista yhteys ja yritä uudelleen.');
     return (data ?? []).map(row => ({ ...row, category }) as Attempt);
   }));
