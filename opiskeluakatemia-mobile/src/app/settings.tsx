@@ -88,7 +88,7 @@ export default function Settings() {
       <Text accessibilityRole="header" style={type.subheading}>Tietosuoja ja ehdot</Text>
       <Text style={type.body}>Lue, miten käsittelemme tietojasi ja millä ehdoilla palvelua käytetään.</Text>
       <LegalLinks />
-      <Button title="Ota yhteyttä" accessibilityLabel={`Ota yhteyttä sähköpostilla: ${supportEmail}`} variant="ghost" onPress={() => openExternal(`mailto:${supportEmail}`)} />
+      <Button title="Ota yhteyttä" accessibilityLabel={`Ota yhteyttä sähköpostilla: ${supportEmail}`} variant="ghost" accessibilityRole="link" accessibilityHint="Avaa sähköpostisovelluksen" onPress={() => openExternal(`mailto:${supportEmail}`)} />
       <Text selectable style={[type.caption, { textAlign: 'center' }]}>{supportEmail}</Text>
     </Card>
 

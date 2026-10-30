@@ -4,17 +4,19 @@ import { disabledOpacity, layout, makeStyles, maxScale, pressedOpacity, radii, s
 
 type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'ghost';
 
-export function Button({ title, onPress, disabled = false, loading = false, variant = 'primary', secondary = false, accessibilityLabel, accessibilityHint, style }: {
+export function Button({ title, onPress, disabled = false, loading = false, variant = 'primary', secondary = false, accessibilityLabel, accessibilityHint, accessibilityRole = 'button', style }: {
   title: string; onPress: () => void; disabled?: boolean; loading?: boolean; variant?: ButtonVariant;
   /** Shorthand for variant="secondary". */
   secondary?: boolean; accessibilityLabel?: string; accessibilityHint?: string; style?: StyleProp<ViewStyle>;
+  /** "link" for buttons that leave the app (browser, mail). */
+  accessibilityRole?: 'button' | 'link';
 }) {
   const { colors, type } = useTheme();
   const ui = useStyles();
   const kind: ButtonVariant = secondary ? 'secondary' : variant;
   const inactive = disabled || loading;
   const textColor = kind === 'primary' ? colors.onPrimary : kind === 'destructive' ? colors.white : colors.ink;
-  return <Pressable accessibilityRole="button" accessibilityLabel={accessibilityLabel} accessibilityHint={accessibilityHint}
+  return <Pressable accessibilityRole={accessibilityRole} accessibilityLabel={accessibilityLabel} accessibilityHint={accessibilityHint}
     accessibilityState={{ disabled: inactive, busy: loading }} disabled={inactive} onPress={onPress}
     style={({ pressed }) => [ui.button, ui[kind], pressed && { opacity: pressedOpacity }, inactive && { opacity: disabledOpacity }, style]}>
     {loading && <ActivityIndicator color={textColor} />}

@@ -3,11 +3,24 @@ import { StyleSheet, Text, View } from 'react-native';
 import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 import { Button, Card, Notice, ProgressBar } from './ui';
 import { config } from '../lib/config';
+import { resolveMediaUrl } from '../lib/external-links';
 import { space, useTheme } from '../theme';
 const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
+const spoken = (seconds: number) => `${Math.floor(seconds / 60)} min ${Math.floor(seconds % 60)} s`;
+
+/** Listening material. Only HTTPS (or API-relative) audio URLs from the server are loaded. */
 export function ExerciseAudio({ url, splitTime }: { url: string; splitTime?: number }) {
   const { type } = useTheme();
-  const uri = url.startsWith('/') ? `${config.apiUrl}${url}` : url;
+  const uri = resolveMediaUrl(url, config.apiUrl, __DEV__);
+  if (!uri) return <Card>
+    <Text accessibilityRole="header" style={type.subheading}>Kuuntele aineisto</Text>
+    <Notice tone="error" message="Äänitiedostoa ei voitu avata. Yritä myöhemmin uudelleen tai valitse toinen harjoitus." />
+  </Card>;
+  return <AudioPlayer uri={uri} splitTime={splitTime} />;
+}
+
+function AudioPlayer({ uri, splitTime }: { uri: string; splitTime?: number }) {
+  const { type } = useTheme();
   const player = useAudioPlayer(uri);
   const status = useAudioPlayerStatus(player);
   const [error, setError] = useState('');
@@ -24,10 +37,13 @@ export function ExerciseAudio({ url, splitTime }: { url: string; splitTime?: num
   return <Card>
     <Text accessibilityRole="header" style={type.subheading}>Kuuntele aineisto</Text>
     <ProgressBar value={progress} label="Äänen toiston edistyminen" />
-    <Text style={[type.caption, styles.time]}>{status.isLoaded ? `${clock(status.currentTime)} / ${clock(status.duration)}` : 'Ladataan ääntä…'}</Text>
+    <Text style={[type.caption, styles.time]}
+      accessibilityLabel={status.isLoaded ? `Kohta ${spoken(status.currentTime)}, kesto ${spoken(status.duration)}` : undefined}>
+      {status.isLoaded ? `${clock(status.currentTime)} / ${clock(status.duration)}` : 'Ladataan ääntä…'}
+    </Text>
     <Button title={status.playing ? 'Keskeytä' : 'Kuuntele'} disabled={!status.isLoaded} onPress={() => status.playing ? player.pause() : void play()} />
     <View style={styles.row}>
-      <Button title="Alusta" secondary style={styles.item} disabled={!status.isLoaded} onPress={() => void play(0)} />
+      <Button title="Alusta" accessibilityLabel="Kuuntele alusta" secondary style={styles.item} disabled={!status.isLoaded} onPress={() => void play(0)} />
       {!!splitTime && <Button title="Toinen osio" accessibilityLabel="Jatka toisesta osiosta" secondary style={styles.item} disabled={!status.isLoaded} onPress={() => void play(splitTime)} />}
     </View>
     {!status.isLoaded && <Button title="Lataa ääni uudelleen" variant="ghost" onPress={() => { setError(''); player.replace(uri); }} />}

@@ -75,3 +75,32 @@ test('overlapping writes are serialized per key', async () => {
   await Promise.all([storage.setItem('k', 'x'.repeat(4000)), storage.setItem('k', 'y'), storage.removeItem('k'), storage.setItem('k', 'z'.repeat(1900))]);
   assert.equal(await storage.getItem('k'), 'z'.repeat(1900));
 });
+
+const { isAllowedExternalUrl, resolveMediaUrl } = load('external-links.ts');
+
+test('external links open only the website over HTTPS and the support address', () => {
+  const origins = ['https://opiskeluakatemia.fi'];
+  assert.equal(isAllowedExternalUrl('https://opiskeluakatemia.fi/kayttoehdot?app=1', origins), true);
+  assert.equal(isAllowedExternalUrl('mailto:support@opiskeluakatemia.fi', origins), true);
+  assert.equal(isAllowedExternalUrl('http://opiskeluakatemia.fi/kayttoehdot', origins), false);
+  assert.equal(isAllowedExternalUrl('https://opiskeluakatemia.fi.evil.example/', origins), false);
+  assert.equal(isAllowedExternalUrl('https://user:pw@opiskeluakatemia.fi/', origins), false);
+  assert.equal(isAllowedExternalUrl('mailto:someone@evil.example', origins), false);
+  assert.equal(isAllowedExternalUrl('mailto:support@opiskeluakatemia.fi?body=x', origins), false);
+  assert.equal(isAllowedExternalUrl('javascript:alert(1)', origins), false);
+  assert.equal(isAllowedExternalUrl('tel:+358000', origins), false);
+  assert.equal(isAllowedExternalUrl('', origins), false);
+});
+
+test('exercise audio loads only HTTPS or API-relative URLs', () => {
+  const api = 'https://opiskeluakatemia.fi';
+  assert.equal(resolveMediaUrl('/audio/a.mp3', api, false), 'https://opiskeluakatemia.fi/audio/a.mp3');
+  assert.equal(resolveMediaUrl('https://cdn.example/a.mp3', api, false), 'https://cdn.example/a.mp3');
+  assert.equal(resolveMediaUrl('//evil.example/a.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('/\\evil.example/a.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('http://cdn.example/a.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('http://192.168.1.2:3000/a.mp3', api, true), 'http://192.168.1.2:3000/a.mp3');
+  assert.equal(resolveMediaUrl('file:///etc/passwd', api, true), null);
+  assert.equal(resolveMediaUrl('https://u:p@cdn.example/a.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('/audio/a.mp3', '', false), null);
+});
