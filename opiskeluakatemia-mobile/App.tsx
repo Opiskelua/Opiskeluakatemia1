@@ -11,7 +11,7 @@ import { router, useFocusEffect, type Href } from 'expo-router';
 import { useSession } from './src/providers/SessionProvider';
 import { disabledOpacity, layout, makeStyles, maxScale, radii, space, useTheme } from './src/theme';
 import { LegalLinks } from './src/components/LegalLinks';
-import { useGutter } from './src/components/Screen';
+import { Ambient, useGutter } from './src/components/Screen';
 import { Glass } from './src/components/Glass';
 import { Button, Card, Chevron, Field, ListRow, LoadingState, NavCard, Notice, SectionTitle } from './src/components/ui';
 import { PathHomeCard } from './src/components/PathProgress';
@@ -243,7 +243,7 @@ export default function App() {
   const { session, loading } = useSession();
   const { type, scheme } = useTheme();
   const styles = useStyles();
-  return <SafeAreaProvider><SafeAreaView style={styles.safe} edges={session ? ['top', 'left', 'right'] : undefined}><StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
+  return <SafeAreaProvider><SafeAreaView style={styles.safe} edges={session ? ['top', 'left', 'right'] : undefined}><StatusBar style={scheme === 'dark' ? 'light' : 'dark'} /><Ambient />
     {!isConfigured ? <ScrollShell><Wordmark /><Card><Text style={type.heading}>{__DEV__ ? 'Yhteys odottaa määritystä' : 'Palveluun ei saada yhteyttä'}</Text><Text style={type.body}>{__DEV__ ? 'Lisää projektin .env.local-tiedostoon README-ohjeen mukaiset julkiset HTTPS-yhteysasetukset ja käynnistä sovellus uudelleen.' : 'Päivitä sovellus uusimpaan versioon tai yritä myöhemmin uudelleen.'}</Text></Card></ScrollShell>
       : loading ? <View style={styles.center}><LoadingState label="Ladataan tiliä" /></View>
       : session ? <CourseHome key={session.user.id} session={session} /> : <ScrollShell><Login /></ScrollShell>}

@@ -20,6 +20,15 @@ export function usePullToRefresh(refresh: () => Promise<unknown> | void) {
 }
 
 /**
+ * Static ambient backdrop (warm gradient + soft glows, see theme `ambient`), drawn once behind a
+ * screen's scroll view. A single native gradient layer: no blur, no animation, never re-rendered by scrolling.
+ */
+export function Ambient() {
+  const styles = useStyles();
+  return <View pointerEvents="none" importantForAccessibility="no-hide-descendants" accessibilityElementsHidden style={styles.ambient} />;
+}
+
+/**
  * Standard scrolling screen: safe areas, keyboard avoidance (offset by the stack header),
  * optional pull-to-refresh, responsive side gutters and a readable max width on large phones.
  */
@@ -31,6 +40,7 @@ export function Screen({ children, refreshing = false, onRefresh, edges = ['bott
   const { colors } = useTheme();
   const styles = useStyles();
   return <SafeAreaView style={styles.safe} edges={edges}>
+    <Ambient />
     <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={headerHeight}>
       <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled" keyboardDismissMode="interactive" contentInsetAdjustmentBehavior="never"
         contentContainerStyle={[styles.content, { paddingHorizontal: gutter }]}
@@ -54,6 +64,7 @@ export function ListScreen<T>({ data, renderItem, keyExtractor, header, empty, r
   const { colors } = useTheme();
   const styles = useStyles();
   return <SafeAreaView style={styles.safe} edges={edges}>
+    <Ambient />
     <FlatList data={data} renderItem={renderItem} keyExtractor={keyExtractor} contentInsetAdjustmentBehavior="never"
       ListHeaderComponent={header ? <View style={styles.listHeader}>{header}</View> : undefined} ListEmptyComponent={empty}
       ItemSeparatorComponent={Separator} initialNumToRender={12} windowSize={7} removeClippedSubviews={Platform.OS === 'android'}
@@ -68,6 +79,8 @@ function Separator() {
 
 const useStyles = makeStyles(({ colors }) => StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.canvas },
+  // Fills the whole screen, including the safe-area padding of the parent.
+  ambient: { ...StyleSheet.absoluteFill, backgroundImage: colors.ambient },
   flex: { flex: 1 },
   content: { paddingTop: space.xs, paddingBottom: space.xxxl, gap: space.md, width: '100%', maxWidth: layout.maxWidth, alignSelf: 'center', flexGrow: 1 },
   listContent: { paddingTop: space.xs, paddingBottom: space.xxxl, width: '100%', maxWidth: layout.maxWidth, alignSelf: 'center', flexGrow: 1 },
