@@ -206,3 +206,16 @@ test('report text is cut by code point and never makes encodeURIComponent throw'
   assert.ok(url.length < 2048, String(url.length));
   assert.equal(isAllowedExternalUrl(url, origins), true);
 });
+
+test('mail subject refuses control characters and Unicode line separators', () => {
+  const origins = ['https://opiskeluakatemia.fi'];
+  for (const code of ['%00', '%09', '%0B', '%0C', '%1B', '%1F', '%7F', '%C2%85', '%E2%80%A8', '%E2%80%A9']) {
+    assert.equal(safeExternalUrl(`mailto:support@opiskeluakatemia.fi?subject=a${code}Bcc:%20x@evil.com`, origins), null, code);
+  }
+  // The body may contain line breaks and tabs; that is where the description goes.
+  assert.equal(isAllowedExternalUrl('mailto:support@opiskeluakatemia.fi?subject=ok&body=a%0D%0A%09b%E2%80%A8c', origins), true);
+  // The builder flattens the same characters, so its output always passes.
+  const built = supportMailto('support@opiskeluakatemia.fi', 'a\u2028b\u0085c\td\u0000e', 'x');
+  assert.match(built, /subject=a%20b%20c%20d%20e&/);
+  assert.equal(isAllowedExternalUrl(built, origins), true);
+});
