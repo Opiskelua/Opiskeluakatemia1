@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { AccessibilityInfo, BackHandler, StyleSheet, Text, View, type TextInputInstance } from 'react-native';
+import { AccessibilityInfo, BackHandler, Platform, StyleSheet, Text, View, type TextInputInstance } from 'react-native';
 import { randomUUID } from 'expo-crypto';
 import { Stack, useFocusEffect } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
@@ -46,7 +46,10 @@ function Review({ deck, back }: { deck: Deck; back: () => void }) {
       <Text selectable accessibilityLiveRegion="polite" style={[type.title, styles.center]} maxFontSizeMultiplier={maxScale.title}>{flipped ? card.back : card.front}</Text>
       {flipped && <Text style={[type.caption, styles.center]}>{card.front}</Text>}
       <View style={styles.actions}>
-        {!flipped ? <Button title="Näytä vastaus" onPress={() => { setRevealedCardId(card.id); AccessibilityInfo.announceForAccessibility(`Vastaus: ${card.back}`); }} /> : <>
+        {!flipped ? <Button title="Näytä vastaus" onPress={() => { setRevealedCardId(card.id);
+          // Android reads the answer through the live region above; announcing too would read it twice.
+          if (Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(`Vastaus: ${card.back}`);
+        }} /> : <>
           <Text accessibilityRole="header" style={[type.label, styles.center]}>Kuinka hyvin muistit?</Text>
           <Button title={busy ? 'Tallennetaan…' : 'Osasin hyvin'} loading={busy} disabled={blocked} onPress={() => void review(5)} />
           <Button title="Muistin vaivoin" secondary disabled={blocked} onPress={() => void review(3)} />
@@ -55,7 +58,7 @@ function Review({ deck, back }: { deck: Deck; back: () => void }) {
       </View>
     </Card>}
     {data && !card && (data.cards.length
-      ? <EmptyState title="Kertaus valmis." message="Seuraava kertaus määräytyy osaamisesi mukaan. Edistyminen näkyy myös verkkopalvelussa." actionTitle="Takaisin pakkoihin" onAction={back} />
+      ? <EmptyState title="Kertaus valmis." message="Seuraava kertaus määräytyy osaamisesi mukaan. Edistyminen näkyy myös verkkopalvelussa." actionTitle="Takaisin pakkoihin" actionDisabled={busy} onAction={back} />
       : <EmptyState title="Pakka on tyhjä" message="Lisää ensimmäinen kortti alla olevalla lomakkeella." />)}
     <SectionTitle title="Lisää oma kortti" />
     <Card>
