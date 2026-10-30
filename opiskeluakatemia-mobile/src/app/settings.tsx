@@ -75,7 +75,7 @@ export default function Settings() {
   }
 
   return <Screen>
-    <PageHeader title="Asetukset" />
+    <PageHeader title="Tili" />
     <Card>
       <Text style={type.overline}>Kirjautuneena</Text>
       <Text selectable style={type.bodyStrong}>{session?.user.email ?? '—'}</Text>
