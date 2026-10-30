@@ -1,5 +1,5 @@
-import { useCallback, useContext, useState, type ReactNode, type Ref } from 'react';
-import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, StyleSheet, useWindowDimensions, type ScrollViewInstance } from 'react-native';
+import { useCallback, useContext, useState, type ReactElement, type ReactNode, type Ref } from 'react';
+import { FlatList, KeyboardAvoidingView, Platform, RefreshControl, ScrollView, StyleSheet, useWindowDimensions, View, type ListRenderItem, type ScrollViewInstance } from 'react-native';
 import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
 import { HeaderHeightContext } from 'expo-router/react-navigation';
 import { layout, makeStyles, space, useTheme } from '../theme';
@@ -41,8 +41,35 @@ export function Screen({ children, refreshing = false, onRefresh, edges = ['bott
   </SafeAreaView>;
 }
 
+/**
+ * Screen for long lists (e.g. history): the same safe areas, gutters and pull-to-refresh as Screen,
+ * but rows are virtualised with FlatList so hundreds of entries do not all render at once.
+ * `header` is rendered above the rows; `empty` replaces them when `data` is empty.
+ */
+export function ListScreen<T>({ data, renderItem, keyExtractor, header, empty, refreshing = false, onRefresh, edges = ['bottom', 'left', 'right'] }: {
+  data: readonly T[]; renderItem: ListRenderItem<T>; keyExtractor: (item: T) => string; header?: ReactElement; empty?: ReactElement;
+  refreshing?: boolean; onRefresh?: () => void; edges?: Edge[];
+}) {
+  const gutter = useGutter();
+  const { colors } = useTheme();
+  const styles = useStyles();
+  return <SafeAreaView style={styles.safe} edges={edges}>
+    <FlatList data={data} renderItem={renderItem} keyExtractor={keyExtractor} contentInsetAdjustmentBehavior="never"
+      ListHeaderComponent={header ? <View style={styles.listHeader}>{header}</View> : undefined} ListEmptyComponent={empty}
+      ItemSeparatorComponent={Separator} initialNumToRender={12} windowSize={7} removeClippedSubviews={Platform.OS === 'android'}
+      contentContainerStyle={[styles.listContent, { paddingHorizontal: gutter }]}
+      refreshControl={onRefresh ? <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.ink} colors={[colors.ink]} /> : undefined} />
+  </SafeAreaView>;
+}
+
+function Separator() {
+  return <View style={{ height: space.sm }} />;
+}
+
 const useStyles = makeStyles(({ colors }) => StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.canvas },
   flex: { flex: 1 },
   content: { paddingTop: space.xs, paddingBottom: space.xxxl, gap: space.md, width: '100%', maxWidth: layout.maxWidth, alignSelf: 'center', flexGrow: 1 },
+  listContent: { paddingTop: space.xs, paddingBottom: space.xxxl, width: '100%', maxWidth: layout.maxWidth, alignSelf: 'center', flexGrow: 1 },
+  listHeader: { gap: space.md, marginBottom: space.md },
 }));
