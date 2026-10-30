@@ -2,7 +2,7 @@
   "expo": {
     "name": "Opiskeluakatemia",
     "slug": "opiskeluakatemia-mobile",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "owner": "opiskeluakatemias-team",
     "updates": {
       "url": "https://u.expo.dev/54f701b7-84fd-499a-b8ce-a5f676b9a615"
@@ -143,10 +143,10 @@
           "image": "./assets/splash-icon.png",
           "imageWidth": 160,
           "resizeMode": "contain",
-          "backgroundColor": "#F5F5F7",
+          "backgroundColor": "#F2F1EE",
           "dark": {
             "image": "./assets/splash-icon.png",
-            "backgroundColor": "#161616"
+            "backgroundColor": "#141413"
           }
         }
       ],

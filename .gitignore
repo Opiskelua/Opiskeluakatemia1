@@ -4,6 +4,7 @@
 # Website worktrees (branches polku-content and target-grade of the opiskeluakatemia repo)
 /opiskeluakatemia-content/
 /opiskeluakatemia-mascot/
+/opiskeluakatemia-glass/
 
 # Local secrets backups and large mascot source art (Blender, GLB)
 .env*.bak*

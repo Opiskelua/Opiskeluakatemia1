@@ -12,6 +12,7 @@ import { useSession } from './src/providers/SessionProvider';
 import { disabledOpacity, layout, makeStyles, maxScale, radii, space, useTheme } from './src/theme';
 import { LegalLinks } from './src/components/LegalLinks';
 import { useGutter } from './src/components/Screen';
+import { Glass } from './src/components/Glass';
 import { Button, Card, Chevron, Field, ListRow, LoadingState, NavCard, Notice, SectionTitle } from './src/components/ui';
 import { PathHomeCard } from './src/components/PathProgress';
 import { loadPath } from './src/lib/path-v2';
@@ -123,9 +124,10 @@ function CourseHome({ session }: { session: Session }) {
         <Text style={type.caption}>Tervetuloa takaisin</Text>
         <Text accessibilityRole="header" style={type.title} maxFontSizeMultiplier={maxScale.title} numberOfLines={2}>Hei, {name}</Text>
       </View>
-      <Pressable accessibilityRole="button" accessibilityLabel="Tili ja asetukset" accessibilityHint="Kirjaudu ulos, lue ehdot tai poista tili" onPress={go('/settings')} hitSlop={6}
-        style={({ pressed }) => [styles.avatar, pressed && { backgroundColor: colors.surfacePressed }]}>
-        <Text style={styles.avatarText} maxFontSizeMultiplier={1.2}>{name.charAt(0)}</Text>
+      <Pressable accessibilityRole="button" accessibilityLabel="Tili ja asetukset" accessibilityHint="Kirjaudu ulos, lue ehdot tai poista tili" onPress={go('/settings')} hitSlop={6} style={styles.avatarShell}>
+        {({ pressed }) => <Glass interactive style={styles.avatar} scrim={pressed ? colors.surfacePressed : undefined} fallbackColor={pressed ? colors.surfacePressed : colors.cardGlass}>
+          <Text style={styles.avatarText} maxFontSizeMultiplier={1.2}>{name.charAt(0)}</Text>
+        </Glass>}
       </Pressable>
     </View>
 
@@ -248,7 +250,7 @@ export default function App() {
   </SafeAreaView></SafeAreaProvider>;
 }
 
-const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
+const useStyles = makeStyles(({ colors, glass }) => StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.canvas },
   flex: { flex: 1, minWidth: 0 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
@@ -256,16 +258,17 @@ const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   homeContent: { paddingTop: space.md, gap: space.sm, width: '100%', maxWidth: layout.maxWidth, alignSelf: 'center' },
   header: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   headerText: { flex: 1, minWidth: 0, gap: 2 },
-  avatar: { width: 48, height: 48, borderRadius: radii.pill, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : 1, borderColor: colors.line, alignItems: 'center', justifyContent: 'center', flexShrink: 0, ...shadow.card },
+  avatar: { width: 48, height: 48, borderRadius: radii.pill, alignItems: 'center', justifyContent: 'center' },
+  avatarShell: { borderRadius: radii.pill, flexShrink: 0 },
   avatarText: { fontSize: 19, fontWeight: '700', color: colors.ink },
   status: { flexDirection: 'row', alignItems: 'center', gap: space.xs, minHeight: 24 },
   statusDot: { width: 8, height: 8, borderRadius: radii.pill },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
   gridSingle: { flexDirection: 'column', flexWrap: 'nowrap' },
-  tile: { flexGrow: 1, flexBasis: '45%', minHeight: 132, padding: space.lg, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.xxs, ...shadow.card },
-  tileBadge: { width: 36, height: 36, borderRadius: radii.md, backgroundColor: colors.surfaceMuted, alignItems: 'center', justifyContent: 'center', marginBottom: space.xs },
+  tile: { flexGrow: 1, flexBasis: '45%', minHeight: 132, padding: space.lg, borderRadius: radii.xl, gap: space.xxs, ...glass.card },
+  tileBadge: { width: 36, height: 36, borderRadius: radii.pill, backgroundColor: colors.surfaceMuted, alignItems: 'center', justifyContent: 'center', marginBottom: space.xs },
   tileBadgeText: { fontSize: 15, fontWeight: '700', color: colors.ink },
-  statsCard: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, ...shadow.card },
+  statsCard: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, borderRadius: radii.xl, ...glass.card },
   bars: { height: 40, flexDirection: 'row', alignItems: 'flex-end', gap: 4 },
   bar: { width: 6, borderRadius: radii.pill },
   brand: { flexDirection: 'row', alignItems: 'center', gap: space.xs, marginTop: space.xs },

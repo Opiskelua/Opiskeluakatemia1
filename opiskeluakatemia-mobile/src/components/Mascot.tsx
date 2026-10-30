@@ -44,7 +44,7 @@ export function Mascot({ pose, size = 'md', decorative = false, animateIn = fals
 export function MascotLine({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
-  return <View style={[styles.bubble, dark && { backgroundColor: colors.heroTrack, borderColor: colors.heroTrack }]}>
+  return <View style={[styles.bubble, dark && { backgroundColor: colors.heroTrack, borderColor: colors.heroTrack, borderTopColor: colors.heroTrack }]}>
     <Text style={[type.body, styles.bubbleText, dark && { color: colors.onHero }]}>{children}</Text>
   </View>;
 }
@@ -61,6 +61,6 @@ export function MascotRow({ pose, line, size = 'md', dark = false, animateIn = f
 const useStyles = makeStyles(({ colors }) => StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
-  bubble: { alignSelf: 'flex-start', maxWidth: '100%', paddingHorizontal: space.sm, paddingVertical: space.xs, borderRadius: radii.lg, borderBottomLeftRadius: radii.sm / 2, backgroundColor: colors.surfaceMuted, borderWidth: StyleSheet.hairlineWidth, borderColor: colors.line },
+  bubble: { alignSelf: 'flex-start', maxWidth: '100%', paddingHorizontal: space.sm, paddingVertical: space.xs, borderRadius: radii.lg, borderBottomLeftRadius: radii.sm / 2, backgroundColor: colors.surfaceMuted, borderWidth: 1, borderColor: colors.glassEdge, borderTopColor: colors.glassHighlight },
   bubbleText: { fontSize: 15, lineHeight: 21, color: colors.ink },
 }));

@@ -247,16 +247,16 @@ export default function PathScreen() {
   </Screen>;
 }
 
-const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
+const useStyles = makeStyles(({ colors, glass, scheme }) => StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
   centerText: { textAlign: 'center' },
-  // Outlined in light mode; in dark mode cards separate by colour alone.
-  nextCard: { padding: space.lg, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : 1, borderColor: colors.ink, gap: space.xs, ...shadow.card },
-  unit: { marginTop: space.md, padding: space.md, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.md, ...shadow.card },
-  unitLocked: { backgroundColor: colors.surfaceMuted, borderColor: colors.surfaceMuted, shadowOpacity: 0, elevation: 0 },
+  // Outlined in ink in light mode; a stronger rim in dark mode.
+  nextCard: { padding: space.lg, borderRadius: radii.xl, gap: space.xs, ...glass.card, borderColor: scheme === 'dark' ? colors.lineStrong : colors.ink, borderTopColor: scheme === 'dark' ? colors.lineStrong : colors.ink },
+  unit: { marginTop: space.md, padding: space.md, borderRadius: radii.xl, gap: space.md, ...glass.card },
+  unitLocked: { backgroundColor: colors.surfaceMuted, borderColor: colors.glassEdge, borderTopColor: colors.glassEdge, shadowOpacity: 0, elevation: 0 },
   unitHeader: { gap: space.xxs },
   unitTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
-  soon: { backgroundColor: colors.surfaceMuted, borderStyle: 'dashed', borderWidth: 1, borderColor: colors.lineStrong, shadowOpacity: 0, elevation: 0 },
+  soon: { backgroundColor: colors.surfaceMuted, borderStyle: 'dashed', borderWidth: 1, borderColor: colors.lineStrong, borderTopColor: colors.lineStrong, shadowOpacity: 0, elevation: 0 },
   soonTitle: { flexDirection: 'row', alignItems: 'center', gap: space.xs },
   planned: { flexDirection: 'row', alignItems: 'center', gap: space.xs },
   plannedDot: { width: 8, height: 8, borderRadius: 4, borderWidth: 1.5, borderColor: colors.placeholder },
@@ -278,7 +278,7 @@ const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   ring: { position: 'absolute', width: NODE + 14, height: NODE + 14, borderRadius: (NODE + 14) / 2, borderWidth: 3, borderColor: colors.accent },
   ringCheckpoint: { position: 'absolute', width: NODE + 10, height: NODE + 10, borderRadius: radii.lg, borderWidth: 3, borderColor: colors.accent, transform: [{ rotate: '45deg' }] },
   nodeGlyph: { fontSize: 24, lineHeight: 28, fontWeight: '700' },
-  progressDot: { position: 'absolute', right: 6, top: 6, width: 16, height: 16, borderRadius: 8, backgroundColor: colors.accentInk, borderWidth: 2, borderColor: colors.surface },
+  progressDot: { position: 'absolute', right: 6, top: 6, width: 16, height: 16, borderRadius: 8, backgroundColor: colors.accentInk, borderWidth: 2, borderColor: colors.cardGlass },
   nodeCopy: { gap: 2, alignItems: 'center', width: '100%' },
   // Gold-on-black tag in light mode; on the dark card a near-black pill would vanish, so it uses the gold surface.
   youAreHere: { backgroundColor: scheme === 'dark' ? colors.accentSurface : colors.black, borderRadius: radii.pill, paddingHorizontal: space.sm, paddingVertical: 3 },

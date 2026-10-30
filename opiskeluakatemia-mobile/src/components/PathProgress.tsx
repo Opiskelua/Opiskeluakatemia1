@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { disabledOpacity, makeStyles, maxScale, radii, space, useTheme } from '../theme';
 import { Button, Card, Chevron, ProgressBar } from './ui';
+import { Glass } from './Glass';
 import { Mascot, MascotRow, useMascotUserId } from './Mascot';
 import { useReduceMotion } from '../hooks/useReduceMotion';
 import { addCelebration, celebrationsOn, dismissIntro, useMascotFlags } from '../hooks/useMascotFlags';
@@ -73,7 +74,10 @@ function PathHomeButton({ state, error, disabled, onPress }: { state: PathStateV
   const title = next ? (state?.nextLessonId ? `Seuraavaksi: ${next.title}` : next.title) : error ? 'Avaa oppimispolku' : 'Ladataan polkua…';
   const detail = state ? `${streakLabel(state.streak)} · Tänään ${dailyGoalLabel(state.dailyGoal)}` : error ? 'Tilannetta ei saatu juuri nyt. Avaa polku yrittääksesi uudelleen.' : 'Oppitunnit, välietapit ja kertaus.';
   return <Pressable accessibilityRole="button" accessibilityLabel={`${kicker}. ${title}. ${detail}`} accessibilityHint="Avaa oppimispolun" accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
-    style={({ pressed }) => [styles.home, pressed && { opacity: 0.85 }, disabled && { opacity: disabledOpacity }]}>
+    style={[styles.homeShell, disabled && { opacity: disabledOpacity }]}>
+    {/* Real glass under a graphite scrim (contrast holds whatever is behind). Pressed darkens the scrim
+        instead of lowering opacity, and disabled goes solid, because Liquid Glass stops rendering below opacity 1. */}
+    {({ pressed }) => <Glass solid={disabled} interactive style={styles.home} scrim={pressed ? colors.heroGlassPressed : colors.heroGlass} fallbackColor={pressed ? colors.heroTrack : colors.hero}>
     <View style={styles.homeTop}>
       <View style={styles.flex}>
         <Text style={[type.overline, { color: colors.accent }]} numberOfLines={2}>{kicker}</Text>
@@ -83,6 +87,7 @@ function PathHomeButton({ state, error, disabled, onPress }: { state: PathStateV
       <Chevron light />
     </View>
     {state && <ProgressBar dark value={percent(dailyGoalFraction(state.dailyGoal))} label="Päivän XP-tavoite" />}
+    </Glass>}
   </Pressable>;
 }
 
@@ -216,9 +221,10 @@ export function usePulse() {
   return value;
 }
 
-const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
+const useStyles = makeStyles(({ colors, shadow, glass }) => StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
-  career: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, ...shadow.raised },
+  // Hero cards: graphite with a faint lighter top rim (faux glass); the home entry below uses real glass.
+  career: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, borderWidth: 1, borderColor: colors.hero, borderTopColor: colors.heroTrack, ...shadow.raised },
   careerCompact: { padding: space.md, gap: space.sm, borderRadius: radii.xl },
   careerTop: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   levelBadge: { width: 64, height: 64, borderRadius: radii.lg, borderWidth: 2, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
@@ -226,15 +232,16 @@ const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   levelNumber: { color: colors.onHero, fontSize: 28, lineHeight: 32, fontWeight: '700' },
   introTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   careerFoot: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
-  home: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.sm, minHeight: 72, ...shadow.card },
+  home: { borderRadius: radii.xl, padding: space.lg, gap: space.sm, minHeight: 72 },
+  homeShell: { borderRadius: radii.xl, ...shadow.raised },
   homeTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   tiles: { flexDirection: 'row', gap: space.sm },
-  tile: { flex: 1, minWidth: 0, padding: space.md, borderRadius: radii.xl, backgroundColor: colors.surface, borderWidth: scheme === 'dark' ? 0 : StyleSheet.hairlineWidth, borderColor: colors.line, gap: space.xs, ...shadow.card },
+  tile: { flex: 1, minWidth: 0, padding: space.md, borderRadius: radii.xl, gap: space.xs, ...glass.card },
   streakRow: { flexDirection: 'row', alignItems: 'center', gap: space.xs },
   streakDot: { width: 12, height: 12, borderRadius: 6, borderWidth: 2, borderColor: colors.accentInk },
   streakDotOn: { backgroundColor: colors.accentInk },
   score: { fontSize: 48, lineHeight: 56 },
-  reward: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, ...shadow.raised },
+  reward: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, borderWidth: 1, borderColor: colors.hero, borderTopColor: colors.heroTrack, ...shadow.raised },
   rewardTop: { gap: 2 },
   rewardXp: { color: colors.onHero, fontSize: 40, lineHeight: 46, fontWeight: '700', letterSpacing: -1 },
   rewardLine: { flexDirection: 'row', alignItems: 'flex-start', gap: space.sm },
