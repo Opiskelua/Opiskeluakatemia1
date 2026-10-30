@@ -21,7 +21,6 @@
     "scheme": "opiskeluakatemia",
     "ios": {
       "bundleIdentifier": "fi.opiskeluakatemia.app",
-      "buildNumber": "1",
       "supportsTablet": false,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
@@ -94,7 +93,6 @@
     },
     "android": {
       "package": "fi.opiskeluakatemia.app",
-      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF",
         "foregroundImage": "./assets/android-icon-foreground.png",

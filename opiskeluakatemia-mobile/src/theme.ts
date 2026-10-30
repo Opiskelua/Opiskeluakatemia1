@@ -17,9 +17,10 @@ const light = {
   ink: '#111111',
   inkSecondary: '#4A4A4F', // body copy, ~8.6:1 on white
   muted: '#6B6B70', // captions, ~5.3:1 on white (WCAG AA)
-  placeholder: '#8A8A8F',
+  placeholder: '#6E6E73', // ~5:1 on white, so hint text in empty fields stays readable
   line: '#E5E5EA',
   lineStrong: '#D1D1D6',
+  control: '#86868B', // input and radio outlines, >=3:1 on surface and canvas (WCAG 1.4.11)
   white: '#FFFFFF',
   black: '#111111',
   primary: '#111111', // primary pill buttons and selected chips
@@ -52,9 +53,10 @@ const dark: Colors = {
   ink: '#F5F5F5',
   inkSecondary: '#C7C7CC', // ~10:1 on surface
   muted: '#9A9AA0', // ~5.6:1 on surface
-  placeholder: '#7C7C82',
+  placeholder: '#8E8E93', // ~4.8:1 on surface
   line: '#2F2F32',
   lineStrong: '#3A3A3D',
+  control: '#7C7C82', // input and radio outlines, >=3:1 on surface, canvas and surfaceMuted
   white: '#FFFFFF',
   black: '#111111',
   primary: '#F5F5F5', // white pill buttons on dark, as in the reference design

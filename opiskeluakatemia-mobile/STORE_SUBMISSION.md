@@ -10,7 +10,7 @@ Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store rele
 | iOS bundle identifier | `fi.opiskeluakatemia.app` | `app.json` → `ios.bundleIdentifier` |
 | Android package | `fi.opiskeluakatemia.app` | `app.json` → `android.package` |
 | Marketing version | 1.0.0 | `app.json` → `version` |
-| Build number / versionCode | 1 / 1 at first build, then incremented remotely by EAS | `eas.json` → `cli.appVersionSource: "remote"`, `production.autoIncrement` |
+| Build number / versionCode | Managed remotely by EAS (not set in `app.json`); starts at 1 and auto-increments on production builds | `eas.json` → `cli.appVersionSource: "remote"`, `production.autoIncrement` |
 | Deep-link scheme | `opiskeluakatemia://` | `app.json` → `scheme` |
 
 The identifier `fi.opiskeluakatemia.app` is final (confirmed 29.10.2026). Do not change it: it cannot be changed after the app exists in App Store Connect or Play Console.
@@ -35,8 +35,12 @@ Release builds enforce the following:
 
 > Opiskeluakatemia is the companion app for an existing Finnish English-course web service (Englannin abikurssi). Users sign in with an account created on opiskeluakatemia.fi. The app does not sell anything: there are no purchases, prices or links to purchase pages. Accounts without course access see neutral "no active course access" copy (guideline 3.1.3(b), multiplatform services).
 > Demo account: test@example.com / (password in the owner's password manager, not in the repo) — has active course access until 22.3.2027.
+
+> **⚠ OPEN DECISION (owner, before submitting): guideline 3.1.3(b).** The justification above relies on 3.1.3(b) "Multiplatform Services". Apple's current 3.1.3(b) lets an app give access to content bought elsewhere only if those items are **also available as in-app purchases** in the app. This app offers no IAP, so as written it may be rejected. Choose one before submitting: (a) add the course as an in-app purchase; (b) distribute under Apple's EU alternative business terms; or (c) give the app a meaningful free tier so it does not depend only on web-bought access. Verify against the current guideline text when deciding. The strategy text above is unchanged until that decision is made.
+
+> **⚠ Replace the demo account.** `test@example.com` is a placeholder (here and in section 6, "App access"). Create a real review account on opiskeluakatemia.fi with active course access and sample data, and enter its email and password in App Store Connect and Play Console. Never put the password in the repo.
 > Legal pages (privacy policy, terms) open in the browser with ?app=1, which hides all purchase links on those pages.
-> Account deletion: Koti → "Tili" (top right) → Poista tili. Deletion requires the password and typing POISTA, and it permanently removes the account on the server.
+> Account deletion: tap the round avatar (initial) in the top-right of the home screen → scroll down → Poista tili…. Deletion requires the password and typing POISTA, and it permanently removes the account on the server.
 > Essays and open answers are graded by AI (Google Gemini) via our server. The user is asked for consent before the first upload.
 
 ## 4. Apple App Privacy ("nutrition label") answers
@@ -101,7 +105,7 @@ Android permissions in the release manifest:
 | Section | Answer |
 | --- | --- |
 | Privacy policy | `https://opiskeluakatemia.fi/tietosuojakaytanto` |
-| App access | "All or some functionality is restricted" → add the demo account (test@example.com + password), instructions: "Sign in with these credentials. The account has active course access." |
+| App access | "All or some functionality is restricted" → add the demo account (**⚠ replace the placeholder test@example.com with the real review account, see section 3**), instructions: "Sign in with these credentials. The account has active course access." |
 | Ads | No, the app contains no ads |
 | Content rating | IARC questionnaire as above (Education) |
 | Target audience | 16–17 and 18+ |
@@ -123,6 +127,7 @@ Android permissions in the release manifest:
   - Flow: Tili → Poista tili → password + type POISTA → native destructive confirmation.
   - The app calls `POST /api/account/delete`, then signs out locally.
 - **5.1.2(i) third-party AI:** a one-time consent dialog appears before essays or open answers are sent for AI grading. Declining keeps the text unsent.
+- **Google Play AI-generated content:** generated exercises have an "Ilmoita ongelmasta" link that opens an email to support@opiskeluakatemia.fi (subject "Ilmoitus tehtävästä", exercise id and category prefilled).
 - **Privacy policy and terms links:** on the sign-in screen and in Tili. They open `https://opiskeluakatemia.fi/tietosuojakaytanto` and `/kayttoehdot`.
 - **Removed "coming later" copy:** the Google sign-in placeholder text is gone (guideline 2.1 / 2.3).
 
@@ -131,12 +136,12 @@ Android permissions in the release manifest:
 1. **Identifiers:** `fi.opiskeluakatemia.app` is confirmed as final. Nothing to do.
 2. **Accounts:** set up an Apple Developer Program membership (organisation, D-U-N-S for Y-tunnus 3302177-2) and a Google Play Console developer account. Google requires identity verification and, for new personal accounts, closed testing with 12 testers for 14 days before production.
 3. **EAS project:**
-   - Run `npx eas-cli@latest login`, then `npx eas-cli@latest init` (adds `extra.eas.projectId` and `owner` to `app.json`).
+   - ✅ Done: `eas init` has run (`extra.eas.projectId` and `owner` are in `app.json`), and `update:configure` has set `updates.url`.
+   - Log in with `npx eas-cli@latest login` on the machine that builds.
    - Create the environment variables for the `preview` and `production` environments (visibility "plain text" is fine, these are public):
      - `npx eas-cli@latest env:create --name EXPO_PUBLIC_SUPABASE_URL --value https://<ref>.supabase.co --environment production --environment preview --visibility plaintext`
      - `npx eas-cli@latest env:create --name EXPO_PUBLIC_SUPABASE_ANON_KEY --value <anon key> --environment production --environment preview --visibility plaintext`
      - `npx eas-cli@latest env:create --name EXPO_PUBLIC_API_URL --value https://opiskeluakatemia.fi --environment production --environment preview --visibility plaintext` (builds get this from `eas.json`, but `eas update` does not read build-profile `env`; see section 10).
-   - Run `npx eas-cli@latest update:configure` **before the first store build**, so the update URL is compiled into the binary (section 10).
 4. **Deploy the website first.**
    - Ship these to production:
      - `src/app/api/account/delete/route.ts`
@@ -154,12 +159,7 @@ Android permissions in the release manifest:
    - the date.
 
    Consider a web "Poista tili" button on `/settings` that uses the same endpoint, to serve as Google Play's deletion URL.
-7. **Artwork:** `assets/icon.png`, `assets/splash-icon.png` and `assets/android-icon-*.png` are still Expo placeholders. Replace them with final artwork using the same file names and sizes:
-   - icon: 1024×1024, no transparency, no rounded corners;
-   - Android adaptive foreground/background: 512×512 (432×432 monochrome);
-   - splash: 1024×1024 on transparent background, shown at 160 pt on `#F5F5F7`.
-
-   Update `android.adaptiveIcon.backgroundColor` to the brand colour.
+7. **Artwork:** ✅ Done: the Expo placeholder icons and splash image have been replaced with final artwork. If they change again, keep the file names and sizes (icon 1024×1024 without transparency; Android adaptive 512×512, monochrome 432×432; splash 1024×1024 on transparent, shown at 160 pt).
 8. **Builds:** run `npx eas-cli@latest build --profile production --platform all`. Let EAS manage signing: it creates the iOS distribution certificate and provisioning profile, and the Android upload keystore. Back up the keystore credentials from `eas credentials`.
 9. **Device testing (preview build on a physical iPhone and Android phone):**
    - sign in with the demo account; wrong password shows a Finnish error; password reset email opens `https://opiskeluakatemia.fi/reset-password` (outside the launch code gate) and works;
@@ -188,15 +188,15 @@ Android permissions in the release manifest:
 
 ## 10. Over-the-air updates (EAS Update)
 
-`expo-updates` is installed and prepared, but it is inactive until the EAS project exists:
+`expo-updates` is installed and configured:
 - `app.json` → `runtimeVersion: { "policy": "appVersion" }`. The runtime version equals the marketing version (`1.0.0`), so an update only reaches builds with the same `version`.
 - `eas.json` → `build.preview.channel: "preview"`, `build.production.channel: "production"`. The `development` profiles have no channel (the dev client loads from Metro).
-- `updates.url` is **not** set, because it contains the EAS `projectId`, which only exists after `eas init`. Without it, release builds have updates disabled (`EXUpdatesEnabled=false`) and always run the JS bundle embedded in the binary. Development, Expo Go, `npm test` and `npx expo export` work unchanged; the app code does not import `expo-updates`.
+- `app.json` → `updates.url` is set (`https://u.expo.dev/<projectId>`, matching `extra.eas.projectId`), so store builds made from now on can receive updates on their channel. The app code does not import `expo-updates`.
 - `expo-updates` is a native module. A development client built before it was added still runs the app, but rebuild it (`--profile development`) to test update behaviour.
 
-### Steps after `eas init`
+### Before publishing updates
 
-1. `npx eas-cli@latest update:configure`. It adds `updates.url: "https://u.expo.dev/<projectId>"` to `app.json`, keeps the existing `runtimeVersion` policy and the channels in `eas.json`. Review and commit the change.
+1. ✅ Done: `eas init` and `update:configure` (`updates.url` is in `app.json`).
 2. Make sure the EAS environment variables exist for the target environment (section 8 step 3), including `EXPO_PUBLIC_API_URL`. `eas update` bundles the JavaScript **on your machine** and does not use the `env` block of `eas.json`. Values from the git-ignored `.env.local` are also loaded, and that file points `EXPO_PUBLIC_API_URL` at `http://localhost:3000`. Always pass `--environment` so the EAS values take precedence, and check that every `EXPO_PUBLIC_*` name in `.env.local` also exists in that EAS environment. An update that points at localhost would leave every installed app unable to reach the server.
 3. Build and submit the store binaries **after** step 1 (section 8 steps 8 and 11). Only builds that contain `updates.url` and a channel can receive updates; builds made earlier never do.
 

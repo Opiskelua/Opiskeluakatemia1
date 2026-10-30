@@ -15,7 +15,9 @@ export function record(value: unknown): Record<string, unknown> {
 const str = (value: unknown) => typeof value === 'string' ? value : '';
 export function plainText(value: unknown): string {
   return str(value).replace(/<\/(p|div|h[1-6])>/gi, '\n\n').replace(/<br\s*\/?\s*>/gi, '\n').replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\*\*/g, '').trim();
+    .replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\*\*/g, '')
+    // &amp; last, so an escaped entity such as "&amp;lt;" shows as "&lt;" instead of being decoded twice.
+    .replace(/&amp;/g, '&').trim();
 }
 export function normalizeExercise(value: unknown, choice: Choice): Exercise {
   let raw = record(value);

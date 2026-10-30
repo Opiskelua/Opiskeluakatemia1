@@ -1,20 +1,22 @@
-import type { ReactNode } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View, type StyleProp, type TextInputProps, type ViewStyle } from 'react-native';
+import type { ReactNode, Ref } from 'react';
+import { ActivityIndicator, Platform, Pressable, StyleSheet, Text, TextInput, View, type StyleProp, type TextInputInstance, type TextInputProps, type ViewStyle } from 'react-native';
 import { disabledOpacity, layout, makeStyles, maxScale, pressedOpacity, radii, space, useTheme } from '../theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'ghost';
 
-export function Button({ title, onPress, disabled = false, loading = false, variant = 'primary', secondary = false, accessibilityLabel, accessibilityHint, style }: {
+export function Button({ title, onPress, disabled = false, loading = false, variant = 'primary', secondary = false, accessibilityLabel, accessibilityHint, accessibilityRole = 'button', style }: {
   title: string; onPress: () => void; disabled?: boolean; loading?: boolean; variant?: ButtonVariant;
   /** Shorthand for variant="secondary". */
   secondary?: boolean; accessibilityLabel?: string; accessibilityHint?: string; style?: StyleProp<ViewStyle>;
+  /** "link" for buttons that leave the app (browser, mail). */
+  accessibilityRole?: 'button' | 'link';
 }) {
   const { colors, type } = useTheme();
   const ui = useStyles();
   const kind: ButtonVariant = secondary ? 'secondary' : variant;
   const inactive = disabled || loading;
   const textColor = kind === 'primary' ? colors.onPrimary : kind === 'destructive' ? colors.white : colors.ink;
-  return <Pressable accessibilityRole="button" accessibilityLabel={accessibilityLabel} accessibilityHint={accessibilityHint}
+  return <Pressable accessibilityRole={accessibilityRole} accessibilityLabel={accessibilityLabel} accessibilityHint={accessibilityHint}
     accessibilityState={{ disabled: inactive, busy: loading }} disabled={inactive} onPress={onPress}
     style={({ pressed }) => [ui.button, ui[kind], pressed && { opacity: pressedOpacity }, inactive && { opacity: disabledOpacity }, style]}>
     {loading && <ActivityIndicator color={textColor} />}
@@ -97,7 +99,8 @@ export function OptionGroup<T extends string>({ options, value, onChange, access
   return <View accessibilityRole="radiogroup" accessibilityLabel={accessibilityLabel} style={ui.group}>
     {options.map((option, i) => {
       const selected = option.value === value;
-      return <Pressable key={option.value} accessibilityRole="radio" accessibilityState={{ selected }} accessibilityLabel={option.label}
+      // TalkBack reads `checked` on radios; VoiceOver reads `selected` and is verbose with both.
+      return <Pressable key={option.value} accessibilityRole="radio" accessibilityState={Platform.OS === 'android' ? { checked: selected } : { selected }} accessibilityLabel={option.label}
         onPress={() => onChange(option.value)}
         style={({ pressed }) => [ui.option, i > 0 && ui.optionDivider, pressed && { backgroundColor: colors.surfacePressed }]}>
         {!!option.icon && <Text style={ui.optionIcon} importantForAccessibility="no">{option.icon}</Text>}
@@ -108,15 +111,16 @@ export function OptionGroup<T extends string>({ options, value, onChange, access
   </View>;
 }
 
-export function Field({ label, hint, style, multiline, ...props }: TextInputProps & { label?: string; hint?: string }) {
+/** Labelled text input. `hint` is shown below the field and read as the accessibility hint. Pass `ref` to move focus between fields. */
+export function Field({ label, hint, style, multiline, ref, ...props }: TextInputProps & { label?: string; hint?: string; ref?: Ref<TextInputInstance> }) {
   const { colors, type, scheme } = useTheme();
   const ui = useStyles();
   return <View style={ui.field}>
     {!!label && <Text style={type.label}>{label}</Text>}
-    <TextInput placeholderTextColor={colors.placeholder} keyboardAppearance={scheme} accessibilityLabel={props.accessibilityLabel ?? label} multiline={multiline}
+    <TextInput ref={ref} placeholderTextColor={colors.placeholder} keyboardAppearance={scheme} accessibilityLabel={props.accessibilityLabel ?? label} accessibilityHint={props.accessibilityHint ?? hint} multiline={multiline}
       textAlignVertical={multiline ? 'top' : 'center'} {...props}
       style={[ui.input, multiline && ui.inputMultiline, props.editable === false && { opacity: 0.6 }, style]} />
-    {!!hint && <Text style={type.caption}>{hint}</Text>}
+    {!!hint && <Text style={type.caption} importantForAccessibility="no" accessibilityElementsHidden>{hint}</Text>}
   </View>;
 }
 
@@ -170,13 +174,13 @@ export function LoadingState({ label }: { label: string }) {
   </View>;
 }
 
-export function EmptyState({ title, message, actionTitle, onAction }: { title: string; message?: string; actionTitle?: string; onAction?: () => void }) {
+export function EmptyState({ title, message, actionTitle, onAction, actionDisabled }: { title: string; message?: string; actionTitle?: string; onAction?: () => void; actionDisabled?: boolean }) {
   const { type } = useTheme();
   const ui = useStyles();
   return <View style={[ui.card, ui.empty]}>
-    <Text style={[type.subheading, ui.center]}>{title}</Text>
+    <Text accessibilityRole="header" style={[type.subheading, ui.center]}>{title}</Text>
     {!!message && <Text style={[type.body, ui.center]}>{message}</Text>}
-    {!!actionTitle && !!onAction && <Button title={actionTitle} secondary onPress={onAction} />}
+    {!!actionTitle && !!onAction && <Button title={actionTitle} secondary disabled={actionDisabled} onPress={onAction} />}
   </View>;
 }
 
@@ -240,11 +244,11 @@ const useStyles = makeStyles(({ colors, shadow, scheme }) => StyleSheet.create({
   option: { flexDirection: 'row', alignItems: 'center', gap: space.sm, paddingHorizontal: space.lg, minHeight: 60 },
   optionDivider: { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line },
   optionIcon: { fontSize: 20, width: 28, textAlign: 'center', color: colors.ink },
-  radio: { width: 24, height: 24, borderRadius: 12, borderWidth: 2, borderColor: colors.lineStrong, alignItems: 'center', justifyContent: 'center' },
+  radio: { width: 24, height: 24, borderRadius: 12, borderWidth: 2, borderColor: colors.control, alignItems: 'center', justifyContent: 'center' },
   radioOn: { borderColor: colors.primary, backgroundColor: colors.primary },
   radioDot: { width: 9, height: 9, borderRadius: 5, backgroundColor: colors.onPrimary },
   field: { gap: space.xs },
-  input: { borderWidth: 1, borderColor: colors.lineStrong, backgroundColor: colors.surface, borderRadius: radii.md, paddingHorizontal: space.md, paddingVertical: space.sm, fontSize: 16, lineHeight: 22, color: colors.ink, minHeight: layout.controlHeight },
+  input: { borderWidth: 1, borderColor: colors.control, backgroundColor: colors.surface, borderRadius: radii.md, paddingHorizontal: space.md, paddingVertical: space.sm, fontSize: 16, lineHeight: 22, color: colors.ink, minHeight: layout.controlHeight },
   inputMultiline: { minHeight: 120, paddingTop: space.sm },
   pageHeader: { gap: space.xs, marginBottom: space.xxs },
   sectionTitle: { flexDirection: 'row', alignItems: 'flex-end', gap: space.sm, marginTop: space.sm },

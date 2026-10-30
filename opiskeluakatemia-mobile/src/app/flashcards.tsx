@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { BackHandler, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useMemo, useRef, useState } from 'react';
+import { AccessibilityInfo, BackHandler, Platform, StyleSheet, Text, View, type TextInputInstance } from 'react-native';
 import { randomUUID } from 'expo-crypto';
 import { Stack, useFocusEffect } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
@@ -13,10 +13,12 @@ function Review({ deck, back }: { deck: Deck; back: () => void }) {
   const { data, loading, error, refresh } = useSyncedResource(load);
   const [revealedCardId, setRevealedCardId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [adding, setAdding] = useState(false);
   const [saveError, setSaveError] = useState('');
   const [front, setFront] = useState(''); const [answer, setAnswer] = useState('');
   const [requestId, setRequestId] = useState(randomUUID);
-  const due = data?.cards.filter(c => !c.next_review_at || Date.parse(c.next_review_at) <= data.loadedAt) ?? [];
+  const due = useMemo(() => data?.cards.filter(c => !c.next_review_at || Date.parse(c.next_review_at) <= data.loadedAt) ?? [], [data]);
+  const answerField = useRef<TextInputInstance>(null);
   const card = due[0];
   const flipped = !!card && revealedCardId === card.id;
   async function review(quality: number) {
@@ -44,21 +46,26 @@ function Review({ deck, back }: { deck: Deck; back: () => void }) {
       <Text selectable accessibilityLiveRegion="polite" style={[type.title, styles.center]} maxFontSizeMultiplier={maxScale.title}>{flipped ? card.back : card.front}</Text>
       {flipped && <Text style={[type.caption, styles.center]}>{card.front}</Text>}
       <View style={styles.actions}>
-        {!flipped ? <Button title="Näytä vastaus" onPress={() => setRevealedCardId(card.id)} /> : <>
-          <Text style={[type.label, styles.center]}>Kuinka hyvin muistit?</Text>
+        {!flipped ? <Button title="Näytä vastaus" onPress={() => { setRevealedCardId(card.id);
+          // Android reads the answer through the live region above; announcing too would read it twice.
+          if (Platform.OS === 'ios') AccessibilityInfo.announceForAccessibility(`Vastaus: ${card.back}`);
+        }} /> : <>
+          <Text accessibilityRole="header" style={[type.label, styles.center]}>Kuinka hyvin muistit?</Text>
           <Button title={busy ? 'Tallennetaan…' : 'Osasin hyvin'} loading={busy} disabled={blocked} onPress={() => void review(5)} />
           <Button title="Muistin vaivoin" secondary disabled={blocked} onPress={() => void review(3)} />
           <Button title="Kertaa uudelleen" secondary disabled={blocked} onPress={() => void review(1)} />
         </>}
       </View>
     </Card>}
-    {data && !card && <EmptyState title="Kertaus valmis." message="Seuraava kertaus määräytyy osaamisesi mukaan. Edistyminen näkyy myös verkkopalvelussa." />}
+    {data && !card && (data.cards.length
+      ? <EmptyState title="Kertaus valmis." message="Seuraava kertaus määräytyy osaamisesi mukaan. Edistyminen näkyy myös verkkopalvelussa." actionTitle="Takaisin pakkoihin" actionDisabled={busy} onAction={back} />
+      : <EmptyState title="Pakka on tyhjä" message="Lisää ensimmäinen kortti alla olevalla lomakkeella." />)}
     <SectionTitle title="Lisää oma kortti" />
     <Card>
-      <Field label="Etupuoli" accessibilityLabel="Kortin etupuoli" placeholder="Englanniksi" maxLength={500} value={front} editable={!busy} onChangeText={setFront} autoCapitalize="none" returnKeyType="next" />
-      <Field label="Vastaus" accessibilityLabel="Kortin vastaus" placeholder="Suomeksi" maxLength={500} value={answer} editable={!busy} onChangeText={setAnswer} />
-      <Button title="Tallenna kortti" disabled={busy || !front.trim() || !answer.trim()} onPress={() => {
-        setBusy(true); setSaveError(''); void updateFlashcards({ action: 'add-card', deckId: deck.id, front, back: answer, requestId }).then(async () => { setFront(''); setAnswer(''); setRequestId(randomUUID()); await refresh(); }).catch(() => setSaveError('Korttia ei voitu tallentaa. Yritä uudelleen.')).finally(() => setBusy(false));
+      <Field label="Etupuoli" accessibilityLabel="Kortin etupuoli" placeholder="Englanniksi" maxLength={500} value={front} editable={!busy} onChangeText={setFront} autoCapitalize="none" returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => answerField.current?.focus()} />
+      <Field ref={answerField} label="Vastaus" accessibilityLabel="Kortin vastaus" placeholder="Suomeksi" maxLength={500} value={answer} editable={!busy} onChangeText={setAnswer} returnKeyType="done" />
+      <Button title="Tallenna kortti" loading={adding} disabled={busy || !front.trim() || !answer.trim()} onPress={() => {
+        setBusy(true); setAdding(true); setSaveError(''); void updateFlashcards({ action: 'add-card', deckId: deck.id, front, back: answer, requestId }).then(async () => { setFront(''); setAnswer(''); setRequestId(randomUUID()); await refresh(); }).catch(() => setSaveError('Korttia ei voitu tallentaa. Yritä uudelleen.')).finally(() => { setBusy(false); setAdding(false); });
       }} />
     </Card>
   </Screen>;
@@ -83,12 +90,12 @@ export default function Flashcards() {
     {data?.decks.map(d => <NavCard key={d.id} title={d.title} description="Kertaa erääntyneet kortit" accessibilityHint="Avaa pakan kertauksen" onPress={() => setDeck(d)} />)}
     <Card>
       <Text accessibilityRole="header" style={type.subheading}>Luo oma pakka</Text>
-      <Field label="Pakan nimi" placeholder="Esim. Phrasal verbs" maxLength={200} value={title} editable={!busy} onChangeText={setTitle} />
+      <Field label="Pakan nimi" placeholder="Esim. Phrasal verbs" maxLength={200} value={title} editable={!busy} onChangeText={setTitle} returnKeyType="done" />
       <Button title="Luo pakka" loading={busy && !!title.trim()} disabled={busy || !title.trim()} onPress={() => void install({ action: 'create', title, requestId })} />
     </Card>
     {data && <SectionTitle title="Kurssin sanastot" />}
     {data?.catalogue.map(d => <Card key={d.id}>
-      <Text style={type.subheading}>{d.title}</Text>
+      <Text accessibilityRole="header" style={type.subheading}>{d.title}</Text>
       <Text style={type.caption}>{d.description} · {d.cardCount} korttia</Text>
       <Button title={data.decks.some(x => x.source_text === `abikurssi:${d.id}`) ? 'Täydennä kurssin kortit' : 'Lisää omiin pakkoihin'} secondary disabled={busy} onPress={() => void install({ action: 'install', templateId: d.id })} />
     </Card>)}

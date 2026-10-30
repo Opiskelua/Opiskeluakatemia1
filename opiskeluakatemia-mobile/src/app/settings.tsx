@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Alert, Platform, Text } from 'react-native';
+import { useRef, useState } from 'react';
+import { Alert, Platform, Text, type TextInputInstance } from 'react-native';
 import { Screen } from '../components/Screen';
 import { Button, Card, Field, Notice, OptionGroup, PageHeader, SectionTitle } from '../components/ui';
 import { useSession } from '../providers/SessionProvider';
@@ -39,6 +39,7 @@ export default function Settings() {
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const ready = !!password && confirmation.trim().toUpperCase() === CONFIRM_WORD;
+  const confirmField = useRef<TextInputInstance>(null);
 
   async function signOut() {
     setBusy(true); setError('');
@@ -74,7 +75,7 @@ export default function Settings() {
   }
 
   return <Screen>
-    <PageHeader title="Asetukset" />
+    <PageHeader title="Tili" />
     <Card>
       <Text style={type.overline}>Kirjautuneena</Text>
       <Text selectable style={type.bodyStrong}>{session?.user.email ?? '—'}</Text>
@@ -88,7 +89,7 @@ export default function Settings() {
       <Text accessibilityRole="header" style={type.subheading}>Tietosuoja ja ehdot</Text>
       <Text style={type.body}>Lue, miten käsittelemme tietojasi ja millä ehdoilla palvelua käytetään.</Text>
       <LegalLinks />
-      <Button title="Ota yhteyttä" accessibilityLabel={`Ota yhteyttä sähköpostilla: ${supportEmail}`} variant="ghost" onPress={() => openExternal(`mailto:${supportEmail}`)} />
+      <Button title="Ota yhteyttä" accessibilityLabel={`Ota yhteyttä sähköpostilla: ${supportEmail}`} variant="ghost" accessibilityRole="link" accessibilityHint="Avaa sähköpostisovelluksen" onPress={() => openExternal(`mailto:${supportEmail}`)} />
       <Text selectable style={[type.caption, { textAlign: 'center' }]}>{supportEmail}</Text>
     </Card>
 
@@ -97,9 +98,9 @@ export default function Settings() {
     <Card tone="danger">
       <Text accessibilityRole="header" style={[type.subheading, { color: colors.danger }]}>Poista tili</Text>
       <Text style={type.body}>Tilin poistaminen poistaa pysyvästi kirjautumistietosi sekä harjoitushistoriasi, kirjoitelmasi, muistikorttisi ja edistymistietosi. Poisto koskee sekä sovellusta että verkkopalvelua, ja tiliin liitetty kurssioikeus poistuu samalla. Poistoa ei voi perua.</Text>
-      {!deleting ? <Button title="Poista tili…" secondary disabled={busy} onPress={() => { setDeleting(true); setError(''); }} /> : <>
-        <Field label="Salasana" accessibilityLabel="Salasana tilin poiston vahvistamiseen" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Nykyinen salasanasi" editable={!busy} />
-        <Field label={`Kirjoita ${CONFIRM_WORD} vahvistaaksesi`} value={confirmation} onChangeText={setConfirmation} autoCapitalize="characters" autoCorrect={false} placeholder={CONFIRM_WORD} editable={!busy} />
+      {!deleting ? <Button title="Poista tili…" secondary disabled={busy} accessibilityHint="Näyttää vahvistuksen. Tiliä ei poisteta vielä." onPress={() => { setDeleting(true); setError(''); }} /> : <>
+        <Field label="Salasana" accessibilityLabel="Salasana tilin poiston vahvistamiseen" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Nykyinen salasanasi" editable={!busy} returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => confirmField.current?.focus()} />
+        <Field ref={confirmField} label={`Kirjoita ${CONFIRM_WORD} vahvistaaksesi`} value={confirmation} onChangeText={setConfirmation} autoCapitalize="characters" autoCorrect={false} autoComplete="off" placeholder={CONFIRM_WORD} editable={!busy} returnKeyType="done" onSubmitEditing={confirmRemove} />
         <Button title={busy ? 'Poistetaan…' : 'Poista tili pysyvästi'} variant="destructive" loading={busy} disabled={!ready} onPress={confirmRemove} />
         <Button title="Peruuta" secondary disabled={busy} onPress={() => { setDeleting(false); setPassword(''); setConfirmation(''); setError(''); }} />
       </>}
