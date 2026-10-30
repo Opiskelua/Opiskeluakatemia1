@@ -1,5 +1,5 @@
 import type { ReactNode, Ref } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View, type StyleProp, type TextInputInstance, type TextInputProps, type ViewStyle } from 'react-native';
+import { ActivityIndicator, Platform, Pressable, StyleSheet, Text, TextInput, View, type StyleProp, type TextInputInstance, type TextInputProps, type ViewStyle } from 'react-native';
 import { disabledOpacity, layout, makeStyles, maxScale, pressedOpacity, radii, space, useTheme } from '../theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'ghost';
@@ -99,7 +99,8 @@ export function OptionGroup<T extends string>({ options, value, onChange, access
   return <View accessibilityRole="radiogroup" accessibilityLabel={accessibilityLabel} style={ui.group}>
     {options.map((option, i) => {
       const selected = option.value === value;
-      return <Pressable key={option.value} accessibilityRole="radio" accessibilityState={{ checked: selected, selected }} accessibilityLabel={option.label}
+      // TalkBack reads `checked` on radios; VoiceOver reads `selected` and is verbose with both.
+      return <Pressable key={option.value} accessibilityRole="radio" accessibilityState={Platform.OS === 'android' ? { checked: selected } : { selected }} accessibilityLabel={option.label}
         onPress={() => onChange(option.value)}
         style={({ pressed }) => [ui.option, i > 0 && ui.optionDivider, pressed && { backgroundColor: colors.surfacePressed }]}>
         {!!option.icon && <Text style={ui.optionIcon} importantForAccessibility="no">{option.icon}</Text>}
@@ -173,13 +174,13 @@ export function LoadingState({ label }: { label: string }) {
   </View>;
 }
 
-export function EmptyState({ title, message, actionTitle, onAction }: { title: string; message?: string; actionTitle?: string; onAction?: () => void }) {
+export function EmptyState({ title, message, actionTitle, onAction, actionDisabled }: { title: string; message?: string; actionTitle?: string; onAction?: () => void; actionDisabled?: boolean }) {
   const { type } = useTheme();
   const ui = useStyles();
   return <View style={[ui.card, ui.empty]}>
     <Text accessibilityRole="header" style={[type.subheading, ui.center]}>{title}</Text>
     {!!message && <Text style={[type.body, ui.center]}>{message}</Text>}
-    {!!actionTitle && !!onAction && <Button title={actionTitle} secondary onPress={onAction} />}
+    {!!actionTitle && !!onAction && <Button title={actionTitle} secondary disabled={actionDisabled} onPress={onAction} />}
   </View>;
 }
 
