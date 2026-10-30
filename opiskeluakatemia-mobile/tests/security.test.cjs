@@ -76,7 +76,7 @@ test('overlapping writes are serialized per key', async () => {
   assert.equal(await storage.getItem('k'), 'z'.repeat(1900));
 });
 
-const { isAllowedExternalUrl, resolveMediaUrl } = load('external-links.ts');
+const { isAllowedExternalUrl, safeExternalUrl, resolveMediaUrl } = load('external-links.ts');
 
 test('external links open only the website over HTTPS and the support address', () => {
   const origins = ['https://opiskeluakatemia.fi'];
@@ -103,4 +103,51 @@ test('exercise audio loads only HTTPS or API-relative URLs', () => {
   assert.equal(resolveMediaUrl('file:///etc/passwd', api, true), null);
   assert.equal(resolveMediaUrl('https://u:p@cdn.example/a.mp3', api, false), null);
   assert.equal(resolveMediaUrl('/audio/a.mp3', '', false), null);
+});
+
+test('external links survive userinfo, case, port and parser-differential tricks', () => {
+  const origins = ['https://opiskeluakatemia.fi'];
+  // Userinfo: the real host is after the @.
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi@evil.com/', origins), null);
+  assert.equal(safeExternalUrl('https://evil.com@opiskeluakatemia.fi/', origins), null);
+  // Case and default port are canonicalised; the canonical form is what gets opened.
+  assert.equal(safeExternalUrl('HTTPS://OPISKELUAKATEMIA.FI/Kayttoehdot', origins), 'https://opiskeluakatemia.fi/Kayttoehdot');
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi:443/x', origins), 'https://opiskeluakatemia.fi/x');
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi:8443/x', origins), null);
+  // Trailing-dot FQDN and look-alike hosts are different origins.
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi./x', origins), null);
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi.evil.com/', origins), null);
+  // Inputs the WHATWG parser "repairs" but native parsers may read differently.
+  assert.equal(safeExternalUrl(' https://opiskeluakatemia.fi/', origins), null);
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi\\@evil.com', origins), null);
+  assert.equal(safeExternalUrl('https:opiskeluakatemia.fi/x', origins), null);
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi/\nx', origins), null);
+  assert.equal(safeExternalUrl('https://opiskeluakatemia.fi/\tx', origins), null);
+  // Script and data schemes, in any case.
+  for (const url of ['javascript:alert(1)', 'JavaScript://opiskeluakatemia.fi/%0aalert(1)', 'data:text/html,<script>alert(1)</script>', 'vbscript:x', 'intent://opiskeluakatemia.fi#Intent;end', 'file:///etc/hosts']) {
+    assert.equal(safeExternalUrl(url, origins), null, url);
+  }
+  // Mail: only one @opiskeluakatemia.fi recipient, no header injection, canonical lower case.
+  assert.equal(safeExternalUrl('MAILTO:Support@OPISKELUAKATEMIA.FI', origins), 'mailto:support@opiskeluakatemia.fi');
+  assert.equal(safeExternalUrl('mailto:support@opiskeluakatemia.fi%0d%0abcc:x@evil.com', origins), null);
+  assert.equal(safeExternalUrl('mailto:a@evil.com,support@opiskeluakatemia.fi', origins), null);
+  assert.equal(safeExternalUrl('mailto:support@opiskeluakatemia.fi.evil.com', origins), null);
+  // Oversized and non-string input.
+  assert.equal(safeExternalUrl(`https://opiskeluakatemia.fi/${'a'.repeat(2100)}`, origins), null);
+  assert.equal(safeExternalUrl(undefined, origins), null);
+  assert.equal(isAllowedExternalUrl('https://opiskeluakatemia.fi/', []), false);
+});
+
+test('media URLs stay on the API origin when relative and are returned canonical', () => {
+  const api = 'https://opiskeluakatemia.fi';
+  assert.equal(resolveMediaUrl('/audio/a b.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('/audio/a%20b.mp3', api, false), 'https://opiskeluakatemia.fi/audio/a%20b.mp3');
+  assert.equal(resolveMediaUrl('/\t/evil.example', api, false), null);
+  assert.equal(resolveMediaUrl(' /a.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('HTTPS://CDN.EXAMPLE/a.mp3', api, false), 'https://cdn.example/a.mp3');
+  assert.equal(resolveMediaUrl('https:cdn.example/a.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('https://opiskeluakatemia.fi@evil.example/a.mp3', api, false), null);
+  assert.equal(resolveMediaUrl('data:audio/mpeg;base64,AAAA', api, false), null);
+  assert.equal(resolveMediaUrl('javascript:alert(1)', api, true), null);
+  assert.equal(resolveMediaUrl('/a.mp3', 'not a url', false), null);
 });
