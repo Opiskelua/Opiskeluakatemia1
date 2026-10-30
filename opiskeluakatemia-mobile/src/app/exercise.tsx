@@ -13,7 +13,7 @@ import { loadExercise, submitExercise } from '../lib/exercises';
 import { ensureAiConsent } from '../lib/ai-consent';
 import { openExternal } from '../components/LegalLinks';
 import { supportEmail } from '../lib/config';
-import { supportMailto } from '../lib/external-links';
+import { supportMailto, truncateText } from '../lib/external-links';
 
 const categoryLabel = { grammar: 'Kielioppi ja sanasto', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' } as const;
 
@@ -133,10 +133,16 @@ export default function ExerciseScreen() {
     {/* Generated (AI) exercises can be reported, as required by Google Play's AI-generated content policy. */}
     {!choice.path && <Button title="Ilmoita ongelmasta" variant="ghost" accessibilityRole="link"
       accessibilityLabel="Ilmoita ongelmasta tehtävässä" accessibilityHint="Avaa sähköpostin tukeen. Kerro, mikä tehtävässä oli virheellistä tai sopimatonta."
-      onPress={() => openExternal(supportMailto(supportEmail, 'Ilmoitus tehtävästä', [
-        `Tehtävä: ${exercise.title.slice(0, 120)}`, `Tunniste: ${exercise.id.slice(0, 120)}`, `Osa-alue: ${categoryLabel[exercise.category]}`,
-        `Vaikeustaso: ${exercise.difficulty}`, `Harjoitus: ${choice.id}`, '', 'Kuvaa ongelma lyhyesti:', '',
-      ].join('\n')))} />}
+      onPress={() => {
+        try {
+          openExternal(supportMailto(supportEmail, 'Ilmoitus tehtävästä', [
+            `Tehtävä: ${truncateText(exercise.title, 120)}`, `Tunniste: ${truncateText(exercise.id, 120)}`, `Osa-alue: ${categoryLabel[exercise.category]}`,
+            `Vaikeustaso: ${truncateText(exercise.difficulty, 40)}`, `Harjoitus: ${choice.id}`, '', 'Kuvaa ongelma lyhyesti:', '',
+          ].join('\n')));
+        } catch {
+          Alert.alert('Sähköpostia ei voitu avata', `Lähetä ilmoitus osoitteeseen ${supportEmail} ja mainitse tehtävän nimi.`);
+        }
+      }} />}
   </Screen>;
 }
 

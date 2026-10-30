@@ -50,9 +50,21 @@ function safeMailto(address: string, query: string | undefined): string | null {
   return `${base}?${parts.join('&')}`;
 }
 
-/** Build a mailto: for reporting a problem; the subject is kept to one line. */
+/** Drop lone UTF-16 surrogates, which make encodeURIComponent throw a URIError. */
+export function wellFormed(value: string): string {
+  return Array.from(value).filter(char => char.length > 1 || char < '\uD800' || char > '\uDFFF').join('');
+}
+
+/** Cut to at most `max` code points (never inside an emoji's surrogate pair), adding "…" when cut. */
+export function truncateText(value: unknown, max: number): string {
+  const chars = Array.from(wellFormed(typeof value === 'string' ? value : String(value ?? '')));
+  return chars.length > max ? `${chars.slice(0, max).join('')}…` : chars.join('');
+}
+
+/** Build a mailto: for reporting a problem; the subject is kept to one line. Never throws on odd text. */
 export function supportMailto(address: string, subject: string, body: string): string {
-  const oneLine = subject.replace(/[\r\n]+/g, ' ').trim();
+  const oneLine = wellFormed(subject).replace(/[\r\n]+/g, ' ').trim();
+  body = wellFormed(body);
   return `mailto:${address}?subject=${encodeURIComponent(oneLine)}&body=${encodeURIComponent(body.replace(/\r?\n/g, '\r\n'))}`;
 }
 

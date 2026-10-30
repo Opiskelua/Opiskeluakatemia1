@@ -183,3 +183,26 @@ test('support mail may carry one subject and body but no extra headers', () => {
   // Body line breaks are fine; keys are case-insensitive and output is canonical.
   assert.equal(safeExternalUrl('MAILTO:Support@Opiskeluakatemia.fi?Body=a%0D%0Ab&SUBJECT=x', origins), 'mailto:support@opiskeluakatemia.fi?subject=x&body=a%0D%0Ab');
 });
+
+const { truncateText, wellFormed } = load('external-links.ts');
+
+test('report text is cut by code point and never makes encodeURIComponent throw', () => {
+  const origins = ['https://opiskeluakatemia.fi'];
+  // Emoji (a surrogate pair) straddling index 119/120: .slice(0, 120) would keep half of it.
+  const title = `${'a'.repeat(119)}😀tail`;
+  assert.throws(() => encodeURIComponent(title.slice(0, 120)), URIError);
+  assert.equal(truncateText(title, 120), `${'a'.repeat(119)}😀…`);
+  assert.equal(truncateText('short', 120), 'short');
+  assert.equal(truncateText(undefined, 5), '');
+  // Lone surrogates are dropped, valid pairs kept.
+  assert.equal(wellFormed('a\uD800b\uDC00c😀'), 'abc😀');
+  assert.equal(truncateText('x\uDBFFy', 10), 'xy');
+  const lone = supportMailto('support@opiskeluakatemia.fi', 'S\uD800', 'Tehtävä: \uDC00 ok 😀');
+  assert.equal(isAllowedExternalUrl(lone, origins), true);
+  assert.match(lone, /%F0%9F%98%80/);
+  // A huge difficulty value is capped, so the mail still fits the 2048-character limit.
+  const body = [`Tehtävä: ${truncateText('ä'.repeat(500), 120)}`, `Tunniste: ${truncateText('i'.repeat(500), 120)}`, `Vaikeustaso: ${truncateText('ö'.repeat(5000), 40)}`].join('\n');
+  const url = supportMailto('support@opiskeluakatemia.fi', 'Ilmoitus tehtävästä', body);
+  assert.ok(url.length < 2048, String(url.length));
+  assert.equal(isAllowedExternalUrl(url, origins), true);
+});
