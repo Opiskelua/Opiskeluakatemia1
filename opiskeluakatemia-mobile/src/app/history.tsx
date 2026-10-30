@@ -5,11 +5,7 @@ import { ListScreen, usePullToRefresh } from '../components/Screen';
 import { Card, EmptyState, ListRow, LoadingState, Notice, PageHeader, ProgressBar } from '../components/ui';
 import { maxScale, useTheme } from '../theme';
 import { loadHistory, type Attempt } from '../lib/exercises';
-const labels = { grammar: 'Kielioppi', reading: 'Luetunymmärtäminen', listening: 'Kuuntelu' };
-const badge = { grammar: 'K', reading: 'L', listening: 'U' } as const;
-const dateFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-interface Row { key: string; badge: string; title: string; subtitle: string; trailing: string; label: string }
-
+import { averagePercentage, historyRow, type HistoryRow } from '../lib/history-rows';
 export default function History() {
   const { type } = useTheme();
   const [attempts, setAttempts] = useState<Attempt[]>([]);
@@ -27,18 +23,10 @@ export default function History() {
   useFocusEffect(useCallback(() => { void refresh(); return () => { sequence.current++; }; }, [refresh]));
   useEffect(() => { const listener = AppState.addEventListener('change', state => { if (state === 'active') void refresh(); }); return () => listener.remove(); }, [refresh]);
   // Up to 300 rows: format dates once per load, not on every render.
-  const rows = useMemo<Row[]>(() => attempts.map(a => {
-    const title = a.exercise_title || a.exercise_id;
-    return {
-      key: `${a.category}-${a.id}`, badge: badge[a.category], title,
-      subtitle: `${labels[a.category]} · ${new Date(a.submitted_at).toLocaleString('fi-FI', dateFormat)}`,
-      trailing: `${a.total_score}/${a.max_score}`,
-      label: `${title}, ${labels[a.category]}, ${a.total_score} / ${a.max_score} pistettä`,
-    };
-  }), [attempts]);
-  const average = useMemo(() => attempts.length ? attempts.reduce((sum, a) => sum + (Number(a.score_percentage) || 0), 0) / attempts.length : 0, [attempts]);
+  const rows = useMemo(() => attempts.map(a => historyRow(a)), [attempts]);
+  const average = useMemo(() => averagePercentage(attempts), [attempts]);
   const pull = usePullToRefresh(refresh);
-  const renderItem = useCallback(({ item }: { item: Row }) => <ListRow badge={item.badge} title={item.title} subtitle={item.subtitle} trailing={item.trailing} accessibilityLabel={item.label} />, []);
+  const renderItem = useCallback(({ item }: { item: HistoryRow }) => <ListRow badge={item.badge} title={item.title} subtitle={item.subtitle} trailing={item.trailing} accessibilityLabel={item.label} />, []);
   const header = <>
     <PageHeader kicker="Edistyminen" title="Harjoitushistoria" intro="Saman tilin verkossa ja puhelimessa tallennetut harjoitukset. Näytetään enintään 100 viimeisintä suoritusta kustakin osa-alueesta." />
     {!!error && <Notice tone="error" title="Historiaa ei voitu päivittää" message={error} actionTitle="Yritä uudelleen" actionDisabled={loading} onAction={() => void refresh()} />}
