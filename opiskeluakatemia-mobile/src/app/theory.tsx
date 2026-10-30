@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
@@ -15,13 +15,19 @@ export default function Theory() {
   // Optional section to open first (from a Polku "Muista sääntö" link).
   const { section } = useLocalSearchParams<{ section?: string }>();
   const [expanded, setExpanded] = useState<string | null>(typeof section === 'string' && /^[a-z0-9-]{1,80}$/i.test(section) ? section : null);
-  const sections = data?.theory.filter(s => `${s.title} ${s.content.description}`.toLocaleLowerCase('fi').includes(search.toLocaleLowerCase('fi'))) ?? [];
+  const sections = useMemo(() => {
+    const query = search.trim().toLocaleLowerCase('fi');
+    return data?.theory.filter(s => !query || `${s.title} ${s.category} ${s.content.description}`.toLocaleLowerCase('fi').includes(query)) ?? [];
+  }, [data, search]);
   return <Screen {...pull}>
     <PageHeader kicker="Kurssikirjasto" title="Kielioppi selkeäksi." intro="Samat säännöt, esimerkit ja yo-vinkit kuin verkkokurssilla." />
-    <Field accessibilityLabel="Hae teoriaa" placeholder="Hae aihetta…" value={search} onChangeText={setSearch} returnKeyType="search" clearButtonMode="while-editing" autoCorrect={false} />
+    <Field accessibilityLabel="Hae teoriaa" accessibilityRole="search" placeholder="Hae aihetta…" value={search} onChangeText={setSearch} returnKeyType="search" clearButtonMode="while-editing" autoCorrect={false} autoCapitalize="none" />
+    {!!search.trim() && !!data && <Text style={type.caption} accessibilityLiveRegion="polite">{sections.length ? `Löytyi ${sections.length} ${sections.length === 1 ? 'aihe' : 'aihetta'}` : 'Ei osumia'}</Text>}
     {loading && !data && <LoadingState label="Ladataan teoriaa…" />}
     {!!error && <Notice tone="error" title="Teoriaa ei voitu ladata" message={error} actionTitle="Yritä uudelleen" actionDisabled={loading} onAction={() => void refresh()} />}
-    {data && !sections.length && <EmptyState title="Ei hakutuloksia" message="Hakua vastaavia aiheita ei löytynyt. Kokeile toista hakusanaa." />}
+    {data && !sections.length && (search.trim()
+      ? <EmptyState title="Ei hakutuloksia" message="Hakua vastaavia aiheita ei löytynyt. Kokeile toista hakusanaa." actionTitle="Tyhjennä haku" onAction={() => setSearch('')} />
+      : <EmptyState title="Teoriaa ei vielä ole" message="Kurssin teoriaosiot näkyvät täällä, kun ne on julkaistu. Vedä alas päivittääksesi." />)}
     {sections.map(s => {
       const open = expanded === s.id;
       return <Card key={s.id} style={styles.section}>
@@ -31,7 +37,7 @@ export default function Theory() {
             <Text style={type.overline}>{s.category}</Text>
             <Text style={type.subheading}>{s.title}</Text>
           </View>
-          <Text style={styles.icon} importantForAccessibility="no">{open ? '−' : '+'}</Text>
+          <Text style={styles.icon} importantForAccessibility="no" accessibilityElementsHidden>{open ? '−' : '+'}</Text>
         </Pressable>
         {open && <View style={styles.body}>
           <Text selectable style={type.body}>{s.content.description}</Text>

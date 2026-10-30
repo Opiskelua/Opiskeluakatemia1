@@ -18,7 +18,7 @@ export default function Progress() {
     {grade.data && <>
       <Card>
         <Text style={type.overline}>Suuntaa antava arvosana</Text>
-        <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat}>{grade.data.estimation.estimatedGrade}</Text>
+        <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat} accessibilityLabel={`Arvosana-arvio ${grade.data.estimation.estimatedGrade}`}>{grade.data.estimation.estimatedGrade}</Text>
         <Text style={type.body}>{Math.round(grade.data.estimation.totalEstimatedPoints)} / 299 pistettä</Text>
         <ProgressBar value={(grade.data.estimation.totalEstimatedPoints / 299) * 100} label="Arvioidut pisteet" />
         <Text style={type.caption}>Harjoitteluun perustuva arvio ei takaa koetulosta. Arvio tarkentuu eri osa-alueiden suoritusten myötä.</Text>
@@ -38,7 +38,7 @@ export default function Progress() {
       {items.length ? items.map(item => <View key={item.skill} style={{ gap: space.xxs }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: space.xs }}>
           <Text style={[type.body, { flex: 1 }]}>{item.label}</Text>
-          <Text style={type.label}>{Math.round(item.level)} %</Text>
+          <Text style={[type.label, { flexShrink: 0 }]}>{Math.round(item.level)} %</Text>
         </View>
         <ProgressBar value={item.level} label={`${item.label}, taso`} />
       </View>) : <Text style={type.body}>Taidot tarkentuvat, kun teet lisää harjoituksia.</Text>}

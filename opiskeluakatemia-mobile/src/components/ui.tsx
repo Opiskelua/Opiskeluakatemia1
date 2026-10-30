@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View, type StyleProp, type TextInputProps, type ViewStyle } from 'react-native';
+import type { ReactNode, Ref } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View, type StyleProp, type TextInputInstance, type TextInputProps, type ViewStyle } from 'react-native';
 import { disabledOpacity, layout, makeStyles, maxScale, pressedOpacity, radii, space, useTheme } from '../theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'ghost';
@@ -99,7 +99,7 @@ export function OptionGroup<T extends string>({ options, value, onChange, access
   return <View accessibilityRole="radiogroup" accessibilityLabel={accessibilityLabel} style={ui.group}>
     {options.map((option, i) => {
       const selected = option.value === value;
-      return <Pressable key={option.value} accessibilityRole="radio" accessibilityState={{ selected }} accessibilityLabel={option.label}
+      return <Pressable key={option.value} accessibilityRole="radio" accessibilityState={{ checked: selected, selected }} accessibilityLabel={option.label}
         onPress={() => onChange(option.value)}
         style={({ pressed }) => [ui.option, i > 0 && ui.optionDivider, pressed && { backgroundColor: colors.surfacePressed }]}>
         {!!option.icon && <Text style={ui.optionIcon} importantForAccessibility="no">{option.icon}</Text>}
@@ -110,15 +110,16 @@ export function OptionGroup<T extends string>({ options, value, onChange, access
   </View>;
 }
 
-export function Field({ label, hint, style, multiline, ...props }: TextInputProps & { label?: string; hint?: string }) {
+/** Labelled text input. `hint` is shown below the field and read as the accessibility hint. Pass `ref` to move focus between fields. */
+export function Field({ label, hint, style, multiline, ref, ...props }: TextInputProps & { label?: string; hint?: string; ref?: Ref<TextInputInstance> }) {
   const { colors, type, scheme } = useTheme();
   const ui = useStyles();
   return <View style={ui.field}>
     {!!label && <Text style={type.label}>{label}</Text>}
-    <TextInput placeholderTextColor={colors.placeholder} keyboardAppearance={scheme} accessibilityLabel={props.accessibilityLabel ?? label} multiline={multiline}
+    <TextInput ref={ref} placeholderTextColor={colors.placeholder} keyboardAppearance={scheme} accessibilityLabel={props.accessibilityLabel ?? label} accessibilityHint={props.accessibilityHint ?? hint} multiline={multiline}
       textAlignVertical={multiline ? 'top' : 'center'} {...props}
       style={[ui.input, multiline && ui.inputMultiline, props.editable === false && { opacity: 0.6 }, style]} />
-    {!!hint && <Text style={type.caption}>{hint}</Text>}
+    {!!hint && <Text style={type.caption} importantForAccessibility="no" accessibilityElementsHidden>{hint}</Text>}
   </View>;
 }
 
@@ -176,7 +177,7 @@ export function EmptyState({ title, message, actionTitle, onAction }: { title: s
   const { type } = useTheme();
   const ui = useStyles();
   return <View style={[ui.card, ui.empty]}>
-    <Text style={[type.subheading, ui.center]}>{title}</Text>
+    <Text accessibilityRole="header" style={[type.subheading, ui.center]}>{title}</Text>
     {!!message && <Text style={[type.body, ui.center]}>{message}</Text>}
     {!!actionTitle && !!onAction && <Button title={actionTitle} secondary onPress={onAction} />}
   </View>;

@@ -1,10 +1,10 @@
 import { Stack, type ErrorBoundaryProps } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SessionProvider, useSession } from '../providers/SessionProvider';
 import { Button, LoadingState } from '../components/ui';
-import { space, ThemeProvider, useTheme } from '../theme';
+import { maxScale, space, ThemeProvider, useTheme } from '../theme';
 import { PATH_PREVIEW } from '../lib/path-v2';
 function Navigation() {
   const { session, loading } = useSession();
@@ -44,12 +44,13 @@ function Navigation() {
 // Shown instead of a blank screen if rendering fails. Internal details are only visible in development.
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   const { colors, type } = useTheme();
-  return <View style={{ flex: 1, justifyContent: 'center', padding: space.xl, gap: space.md, backgroundColor: colors.canvas }}>
-    <Text accessibilityRole="header" style={type.title}>Jokin meni pieleen</Text>
+  // Scrolls so the retry button stays reachable with the largest text sizes.
+  return <ScrollView style={{ backgroundColor: colors.canvas }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: space.xl, paddingVertical: space.xxxl, gap: space.md }}>
+    <Text accessibilityRole="header" style={type.title} maxFontSizeMultiplier={maxScale.title}>Jokin meni pieleen</Text>
     <Text style={type.body}>Näkymää ei voitu näyttää. Tallennetut suorituksesi ovat tallessa. Yritä uudelleen, tai sulje ja avaa sovellus.</Text>
     {__DEV__ && <Text selectable style={[type.caption, { color: colors.danger }]}>{error.message}</Text>}
     <Button title="Yritä uudelleen" onPress={() => void retry()} />
-  </View>;
+  </ScrollView>;
 }
 export default function RootLayout() {
   return <SafeAreaProvider><ThemeProvider><SessionProvider><Navigation /></SessionProvider></ThemeProvider></SafeAreaProvider>;
