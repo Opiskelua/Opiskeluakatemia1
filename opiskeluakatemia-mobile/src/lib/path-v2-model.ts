@@ -1,4 +1,5 @@
 // Pure helpers for the Polku v2 screens (no React Native imports, unit-tested in tests/path-v2.test.cjs).
+import type { CourseFeatures } from './courses';
 import type {
   AnswerValue, Answers, DailyGoalInfo, ItemFeedback, LessonProgressV2, LevelInfo, PathErrorCode, PathStateV2, PathSummaryV2,
   PublicItem, PublicLessonV2, PublicUnitV2, ResourceLink, SkillArea, StreakInfo,
@@ -169,11 +170,15 @@ export function mergeSummary(state: PathStateV2, summary: PathSummaryV2): PathSt
   return { ...state, ...summary, content: state.content, rules: state.rules };
 }
 
-/** Lesson-friendly status line for the home card and the path header. */
-export function nextStepLabel(state: Pick<PathStateV2, 'nextLessonId' | 'content' | 'review'>) {
+/**
+ * Lesson-friendly status line for the home card and the path header. `flashcards` is false for a
+ * course without flashcards in the app, so the finished state does not point to cards.
+ */
+export function nextStepLabel(state: Pick<PathStateV2, 'nextLessonId' | 'content' | 'review'>, flashcards = true) {
   const next = state.nextLessonId ? findLesson(state.content.units, state.nextLessonId) : null;
   if (next) return { title: next.lesson.title, detail: `${next.unit.title} · ${next.lesson.kind === 'checkpoint' ? 'Välietappi' : `Oppitunti ${next.lesson.order}`}` };
   if (state.review.pendingItems > 0) return { title: 'Kertaa virheesi', detail: `${state.review.pendingItems} kerrattavaa kohtaa` };
+  if (!flashcards) return { title: 'Kaikki tehty', detail: 'Voit tehdä oppitunteja uudelleen ja kerrata teoriaa.' };
   return { title: 'Kaikki tehty – kertaa korteilla', detail: 'Uusia osia on tulossa.' };
 }
 
@@ -233,6 +238,13 @@ export function shouldAutosaveDraft(input: { enabled: boolean; busy: boolean; cu
  * matching ready-made catalogue exercise when one exists, otherwise the exercise menu.
  */
 export type ResourceRoute = { pathname: '/theory' | '/exercise' | '/exercises' | '/essays' | '/flashcards'; params?: Record<string, string> };
+/** Whether a unit resource has a screen in the course: resourceRoute opens the English exercise, essay and flashcard screens. */
+export function resourceAvailable(resource: Pick<ResourceLink, 'kind'>, features: CourseFeatures): boolean {
+  if (resource.kind === 'theory') return features.theory;
+  if (resource.kind === 'essay') return features.essays;
+  if (resource.kind === 'flashcards') return features.flashcards;
+  return features.exercises;
+}
 export function resourceRoute(resource: ResourceLink, catalogue: { id: string; category: string; path?: string; multipleChoiceOnly?: boolean }[]): ResourceRoute {
   if (resource.kind === 'theory') return resource.id ? { pathname: '/theory', params: { section: resource.id } } : { pathname: '/theory' };
   if (resource.kind === 'essay') return { pathname: '/essays' };

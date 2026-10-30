@@ -1,4 +1,5 @@
 import { config } from './config';
+import { accessCheckUrl, type CourseId } from './courses';
 import { supabase } from './supabase';
 
 export class RequestError extends Error {
@@ -55,8 +56,9 @@ export async function apiRequest(path: string, options: { method?: string; body?
   } finally { clearTimeout(timeout); options.signal?.removeEventListener('abort', abort); }
 }
 export function courseRequest(path: string, method = 'GET') { return apiRequest(`/api/courses/${path}`, { method }); }
-export async function checkCourseAccess(): Promise<boolean> {
-  const result = await courseRequest('check-access?courseType=abikurssi');
+/** Server-checked access to one course (the course type goes in ?courseType=, so the bundle counts for both). */
+export async function checkCourseAccess(course: CourseId): Promise<boolean> {
+  const result = await apiRequest(accessCheckUrl(course));
   if (typeof result !== 'object' || result === null || !('hasAccess' in result) || typeof result.hasAccess !== 'boolean') throw new Error('Palvelimen vastausta ei voitu lukea.');
   return result.hasAccess;
 }

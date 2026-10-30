@@ -1,11 +1,13 @@
 import { apiRequest } from './api';
+import { contentUrl, type CourseId } from './courses';
 export interface TheorySection {
   id: string; title: string; category: string;
   content: { description: string; rules: string[]; examples: { correct: string; incorrect?: string; explanation: string }[]; commonMistakes?: string[]; yoExamTips?: string };
 }
 export interface Topic { id: string; title: string; description: string }
 export interface CourseContent { theory: TheorySection[]; topics: Topic[] }
-export const loadContent = async () => await apiRequest('/api/abikurssi/content') as CourseContent;
+/** Theory for the course; essay topics are English only (Swedish writing prompts come from the essay APIs). */
+export const loadContent = async (course: CourseId) => await apiRequest(contentUrl(course)) as CourseContent;
 export interface DailyTask {
   id: string; taskType: string; taskSubtype: string; exerciseId?: string; difficulty: string; isCompleted: boolean; reason: string;
   displayInfo: { title: string; description: string; estimatedTime: string };

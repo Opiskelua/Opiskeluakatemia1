@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SessionProvider, useSession } from '../providers/SessionProvider';
+import { CourseProvider } from '../providers/CourseProvider';
 import { Button, LoadingState } from '../components/ui';
 import { maxScale, space, ThemeProvider, useTheme } from '../theme';
 import { PATH_PREVIEW } from '../lib/path-v2';
@@ -53,5 +54,5 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   </ScrollView>;
 }
 export default function RootLayout() {
-  return <SafeAreaProvider><ThemeProvider><SessionProvider><Navigation /></SessionProvider></ThemeProvider></SafeAreaProvider>;
+  return <SafeAreaProvider><ThemeProvider><SessionProvider><CourseProvider><Navigation /></CourseProvider></SessionProvider></ThemeProvider></SafeAreaProvider>;
 }

@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
@@ -7,12 +8,15 @@ import { taskChoice } from '../lib/daily-task-choice';
 import { loadPathCached } from '../lib/path-v2';
 import { findLesson } from '../lib/path-v2-model';
 import { useSyncedResource } from '../hooks/useSyncedResource';
+import { useCourse } from '../providers/CourseProvider';
 import { space, useTheme } from '../theme';
 
 /** Same rule as the website's Päivän tehtävät card: next Polku lesson, else Kertaus when items are pending, else nothing. */
 function PolkuRow() {
   const { type } = useTheme();
-  const { data } = useSyncedResource(loadPathCached);
+  // The selected course, because the lesson screen opens that course's lesson.
+  const { course } = useCourse();
+  const { data } = useSyncedResource(useCallback(() => loadPathCached(course), [course]));
   if (!data) return null;
   const next = data.nextLessonId ? findLesson(data.content.units, data.nextLessonId) : null;
   if (next) return <Card>

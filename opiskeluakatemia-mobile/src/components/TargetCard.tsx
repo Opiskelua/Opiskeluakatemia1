@@ -5,9 +5,10 @@ import { Button, Card, Chevron, ProgressBar } from './ui';
 import { TargetPicker } from './TargetPicker';
 import { layout, makeStyles, pressedOpacity, radii, space, useTheme } from '../theme';
 import { findLesson, mergeSummary } from '../lib/path-v2-model';
+import type { CourseId } from '../lib/courses';
 import type { PathStateV2, PathSummaryV2 } from '../lib/path-v2-types';
 import {
-  currentTarget, estimateLine, paceLine, raiseRowLabel, supportsTarget, TARGET_COPY, targetEyebrow, targetPercent, targetTitle,
+  currentTarget, estimateLine, paceLine, raiseRowLabel, supportsTarget, TARGET_COPY, TARGET_COURSE_COPY, targetEyebrow, targetPercent, targetTitle,
 } from '../lib/target-grade';
 
 /**
@@ -15,7 +16,7 @@ import {
  * set, progress toward it once it is. Renders nothing when the server does not support targets.
  * `onSaved` lets the screen reload; until it does, the card shows the summary the save returned.
  */
-export function TargetCard({ state, onSaved }: { state: PathStateV2; onSaved?: () => void }) {
+export function TargetCard({ state, course, onSaved }: { state: PathStateV2; course: CourseId; onSaved?: () => void }) {
   const { type } = useTheme();
   const styles = useStyles();
   const [editing, setEditing] = useState(false);
@@ -33,7 +34,7 @@ export function TargetCard({ state, onSaved }: { state: PathStateV2; onSaved?: (
       <Text accessibilityRole="header" style={type.subheading}>{TARGET_COPY.pickerTitle}</Text>
       <Text style={type.caption}>{TARGET_COPY.pickerIntro}</Text>
       {!target && !open && <Button title={TARGET_COPY.choose} secondary onPress={() => setOpen(true)} />}
-      {(open || editing) && <TargetPicker state={view} onSaved={done} onCancel={close} />}
+      {(open || editing) && <TargetPicker state={view} course={course} onSaved={done} onCancel={close} />}
     </Card>;
   }
 
@@ -56,11 +57,11 @@ export function TargetCard({ state, onSaved }: { state: PathStateV2; onSaved?: (
       <Text style={type.overline}>{TARGET_COPY.paceLabel}</Text>
       <Text style={type.body}>{paceLine(target)}</Text>
     </View>
-    <View accessible accessibilityLabel={`${TARGET_COPY.estimateLabel}: ${estimateLine(target)}`} style={styles.fact}>
+    <View accessible accessibilityLabel={`${TARGET_COPY.estimateLabel}: ${estimateLine(target, course)}`} style={styles.fact}>
       <Text style={type.overline}>{TARGET_COPY.estimateLabel}</Text>
-      <Text style={type.body}>{estimateLine(target)}</Text>
+      <Text style={type.body}>{estimateLine(target, course)}</Text>
     </View>
-    <Text style={type.caption}>{TARGET_COPY.coverage}</Text>
+    <Text style={type.caption}>{TARGET_COURSE_COPY[course].coverage}</Text>
     {/* TODO(mascot): targetReached / behindPace moments go here once their copy exists in mascot-states.json. */}
     {target.belowTarget.length > 0 && <View style={styles.raise}>
       <Text accessibilityRole="header" style={type.label}>{TARGET_COPY.raiseTitle}</Text>

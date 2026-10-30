@@ -1,19 +1,40 @@
 // Polku target grade (opiskeluakatemia-content/docs/POLKU_TARGET_GRADE_AND_GUARANTEE.md §2).
 // Pure logic for src/components/TargetCard.tsx; copy matches the website's
-// src/components/course/path-v2/TargetCard.tsx and format.ts on the target-grade branch.
+// src/components/course/path-v2/TargetCard.tsx, target-grades.ts and format.ts.
 // TODO(mascot): targetReached / behindPace moments have no copy yet; add them with the
 // mascot-states.json update, not here.
+import type { CourseId } from './courses';
 import { PATH_V2_VERSION, type PathSummaryV2, type TargetGrade, type TargetProgressV2, type TargetRequestV2 } from './path-v2-types';
 
 /** Same pattern the server validates examSeason against. */
 export const EXAM_SEASON = /^[KS]20\d{2}$/;
 
+export interface TargetGradeOption {
+  grade: TargetGrade;
+  label: string;
+  /** Points out of 299; must equal the server's target points for the course. */
+  points: number;
+  /** Share of candidates at this grade or better; left out where no YTL distribution backs it. */
+  share?: string;
+}
+
 /** Shares of EA candidates at each level or better, YTL arvosanajakaumat K2024–K2026 (all candidates). */
-export const TARGET_GRADE_OPTIONS: readonly { grade: TargetGrade; label: string; points: number; share: string }[] = [
+export const TARGET_GRADE_OPTIONS: readonly TargetGradeOption[] = [
   { grade: 'C', label: 'Cum laude', points: 218, share: 'noin kaksi kolmesta saa C:n tai paremman' },
   { grade: 'M', label: 'Magna', points: 241, share: 'noin 45 % saa M:n tai paremman' },
   { grade: 'E', label: 'Eximia', points: 259, share: 'noin joka viides saa E:n tai L:n' },
   { grade: 'L', label: 'Laudatur', points: 278, share: 'noin 5 % saa L:n' },
+];
+
+/**
+ * RB "safe" minimums: the highest YTL boundary of K2023–K2026 (build contract §4), the same
+ * points as the server's RB target. There is no RB grade distribution, so no shares.
+ */
+export const SV_TARGET_GRADE_OPTIONS: readonly TargetGradeOption[] = [
+  { grade: 'C', label: 'Cum laude', points: 156 },
+  { grade: 'M', label: 'Magna', points: 189 },
+  { grade: 'E', label: 'Eximia', points: 221 },
+  { grade: 'L', label: 'Laudatur', points: 255 },
 ];
 
 export const TARGET_COPY = {
@@ -35,6 +56,35 @@ export const TARGET_COPY = {
   raiseTitle: 'Nosta tavoitetasolle',
 } as const;
 
+/** The course-specific part of the target copy. English equals TARGET_COPY; Swedish matches the web's target-grades.ts. */
+export interface TargetCourseCopy {
+  options: readonly TargetGradeOption[];
+  /** Small print under the picker: where the points (and shares) come from. */
+  sourceNote: string;
+  /** Small print under the progress: what Polku covers. */
+  coverage: string;
+  /** "Pistearvio" when the server has no estimate for the course. */
+  noEstimate: (targetPoints: number) => string;
+}
+
+export const TARGET_COURSE_COPY: Readonly<Record<CourseId, TargetCourseCopy>> = {
+  en: {
+    options: TARGET_GRADE_OPTIONS,
+    sourceNote: TARGET_COPY.sourceNote,
+    coverage: TARGET_COPY.coverage,
+    noEstimate: () => 'Tee vielä lukemisen ja kuuntelun tehtäviä, jotta arvio tarkentuu.',
+  },
+  sv: {
+    options: SV_TARGET_GRADE_OPTIONS,
+    sourceNote: 'Pisteet: YTL:n korkein pisteraja kevät 2023 – kevät 2026, ruotsi, keskipitkä oppimäärä.',
+    coverage: 'Polku kattaa rakenteet ja sanaston, noin 10–12 % kokeen pisteistä, sekä luetun ja kuullun ymmärtämisen ja kirjoittamisen strategiat.',
+    noEstimate: targetPoints => `Ruotsin pistearvio ei ole vielä käytössä. Tavoite ${targetPoints} / 299 p.`,
+  },
+};
+
+/** Accessibility label of a grade option, e.g. "E, Eximia, 259 pistettä. noin joka viides saa E:n tai L:n". */
+export const gradeOptionLabel = (option: TargetGradeOption) => `${option.grade}, ${option.label}, ${option.points} pistettä.${option.share ? ` ${option.share}` : ''}`;
+
 /**
  * Feature detection: the picker and the card appear only when the server sends `targetRevision`.
  * An older server omits all target fields, and the app ships over the air, so it may meet one.
@@ -54,7 +104,7 @@ export const currentTarget = (summary: Pick<PathSummaryV2, 'target'>): TargetPro
 export const currentTargetGrade = (summary: Pick<PathSummaryV2, 'targetGrade'>): TargetGrade | null => summary.targetGrade ?? null;
 
 /**
- * The next `count` EA exam seasons from a Helsinki date (YYYY-MM-DD): K = spring (March),
+ * The next `count` exam seasons (EA and RB alike) from a Helsinki date (YYYY-MM-DD): K = spring (March),
  * S = autumn (September). A season stays listed until the end of its exam month.
  */
 export function upcomingExamSeasons(today: string, count = 3): string[] {
@@ -99,10 +149,10 @@ export function paceLine(target: Pick<TargetProgressV2, 'lessonsPerWeek' | 'week
   return `${target.lessonsPerWeek} ${target.lessonsPerWeek === 1 ? 'oppitunti' : 'oppituntia'} viikossa · ${target.weeksLeft} vk kokeeseen`;
 }
 
-export function estimateLine(target: Pick<TargetProgressV2, 'estimate' | 'targetPoints'>): string {
+export function estimateLine(target: Pick<TargetProgressV2, 'estimate' | 'targetPoints'>, course: CourseId = 'en'): string {
   return target.estimate
     ? `${target.estimate.points} p (${target.estimate.grade}) · tavoite ${target.targetPoints} p`
-    : 'Tee vielä lukemisen ja kuuntelun tehtäviä, jotta arvio tarkentuu.';
+    : TARGET_COURSE_COPY[course].noEstimate(target.targetPoints);
 }
 
 /** "Nosta tavoitetasolle" row, e.g. "Artikkelit 1 · paras 82 %". Unknown ids fall back to the id. */

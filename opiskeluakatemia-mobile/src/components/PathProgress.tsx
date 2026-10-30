@@ -7,6 +7,7 @@ import { Mascot, MascotRow, useMascotUserId } from './Mascot';
 import { useReduceMotion } from '../hooks/useReduceMotion';
 import { addCelebration, celebrationsOn, dismissIntro, useMascotFlags } from '../hooks/useMascotFlags';
 import { isBigCelebration, moment, momentForResult, pickLine, poseFor, showOnboarding, type ResultMoment } from '../lib/mascot';
+import { COURSES, type CourseId } from '../lib/courses';
 import type { DailyGoalInfo, GradeResult, LevelInfo, PathStateV2, PathSummaryV2, RewardSummary, StreakInfo } from '../lib/path-v2-types';
 import { dailyGoalFraction, dailyGoalLabel, dayCount, formatXp, levelRemainingLabel, levelSpanLabel, nextStepLabel, percent, streakHint, streakLabel } from '../lib/path-v2-model';
 
@@ -37,8 +38,8 @@ export function CareerCard({ level, compact = false }: { level: LevelInfo; compa
   </View>;
 }
 
-/** Abi's first-time intro (moments.onboarding). "Ohita" hides it for good on this device. */
-export function MascotIntro({ onStart }: { onStart: () => void }) {
+/** Abi's first-time intro (moments.onboarding). "Ohita" hides it for good on this device, for this course. */
+export function MascotIntro({ course, onStart }: { course: CourseId; onStart: () => void }) {
   const { type } = useTheme();
   const styles = useStyles();
   const intro = moment('onboarding');
@@ -49,27 +50,28 @@ export function MascotIntro({ onStart }: { onStart: () => void }) {
     </View>
     {intro.lines.map(line => <Text key={line} style={type.body}>{line}</Text>)}
     <Button title={intro.cta ?? ''} onPress={onStart} />
-    <Button title={intro.dismiss ?? ''} variant="ghost" onPress={dismissIntro} accessibilityHint="Piilottaa esittelyn" />
+    <Button title={intro.dismiss ?? ''} variant="ghost" onPress={() => dismissIntro(course)} accessibilityHint="Piilottaa esittelyn" />
   </Card>;
 }
 
 /** Home screen entry to Polku: level, streak, today's goal and the next lesson. */
-export function PathHomeCard({ state, error, disabled, onPress, onStart }: {
+export function PathHomeCard({ course, state, error, disabled, onPress, onStart }: {
+  /** The course `state` belongs to. */ course: CourseId;
   state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void;
   /** Onboarding "Aloitetaan"; defaults to onPress. */ onStart?: () => void;
 }) {
   const mascot = useMascotFlags();
-  const intro = !!state && !disabled && mascot.ready && showOnboarding(state, mascot.introDismissed);
+  const intro = !!state && !disabled && mascot.ready && showOnboarding(state, mascot.introDismissed[course]);
   return <>
-    {intro && <MascotIntro onStart={onStart ?? onPress} />}
-    <PathHomeButton state={state} error={error} disabled={disabled} onPress={onPress} />
+    {intro && <MascotIntro course={course} onStart={onStart ?? onPress} />}
+    <PathHomeButton course={course} state={state} error={error} disabled={disabled} onPress={onPress} />
   </>;
 }
 
-function PathHomeButton({ state, error, disabled, onPress }: { state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void }) {
+function PathHomeButton({ course, state, error, disabled, onPress }: { course: CourseId; state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
-  const next = state ? nextStepLabel(state) : null;
+  const next = state ? nextStepLabel(state, COURSES[course].features.flashcards) : null;
   const kicker = state ? `Polku · Taso ${state.level.level} · ${state.level.title}` : 'Polku';
   const title = next ? (state?.nextLessonId ? `Seuraavaksi: ${next.title}` : next.title) : error ? 'Avaa oppimispolku' : 'Ladataan polkua…';
   const detail = state ? `${streakLabel(state.streak)} · Tänään ${dailyGoalLabel(state.dailyGoal)}` : error ? 'Tilannetta ei saatu juuri nyt. Avaa polku yrittääksesi uudelleen.' : 'Oppitunnit, välietapit ja kertaus.';

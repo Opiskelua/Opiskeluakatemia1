@@ -3,14 +3,15 @@ import { normalizeExercise, parseResult, submission, grammarScore, type Choice, 
 import { supabase } from './supabase';
 
 export async function loadExercise(choice: Choice, difficulty: Difficulty, signal?: AbortSignal) {
-  if (!await checkCourseAccess()) throw new Error('Tarvitset aktiivisen kurssioikeuden.');
+  // The exercise catalogue is English.
+  if (!await checkCourseAccess('en')) throw new Error('Tarvitset aktiivisen kurssioikeuden.');
   const value = choice.path ? await apiRequest(choice.path, { signal }) : await apiRequest(`/api/${choice.category}/${choice.category === 'grammar' ? 'generate-exercise' : 'generate'}`, {
     method: 'POST', body: { exerciseType: choice.type, difficulty }, signal, timeout: 120000,
   });
   return normalizeExercise(value, choice);
 }
 export async function submitExercise(exercise: Exercise, answers: Answers, clientAttemptId: string) {
-  if (!await checkCourseAccess()) throw new Error('Kurssioikeutesi ei ole aktiivinen. Vastauksia ei tallennettu.');
+  if (!await checkCourseAccess('en')) throw new Error('Kurssioikeutesi ei ole aktiivinen. Vastauksia ei tallennettu.');
   const request = submission(exercise, answers);
   const result = parseResult(await apiRequest(request.path, { method: 'POST', body: { ...request.body, clientAttemptId }, timeout: 180000 }));
   if (exercise.category === 'grammar' && !exercise.serverGraded) result.evaluations = grammarScore(exercise, answers).evaluations;

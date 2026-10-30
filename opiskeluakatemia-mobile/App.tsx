@@ -13,12 +13,15 @@ import { disabledOpacity, layout, makeStyles, maxScale, radii, space, useTheme }
 import { LegalLinks } from './src/components/LegalLinks';
 import { Ambient, useGutter } from './src/components/Screen';
 import { Glass } from './src/components/Glass';
-import { Button, Card, Chevron, Field, ListRow, LoadingState, NavCard, Notice, SectionTitle } from './src/components/ui';
+import { Button, Card, Chevron, Chip, ChipRow, Field, ListRow, LoadingState, NavCard, Notice, SectionTitle } from './src/components/ui';
 import { PathHomeCard } from './src/components/PathProgress';
 import { loadPath } from './src/lib/path-v2';
 import type { PathStateV2 } from './src/lib/path-v2-types';
+import { COURSE_IDS, COURSES, ownedCourses, type CourseId } from './src/lib/courses';
+import { useCourse } from './src/providers/CourseProvider';
 
 type Access = 'loading' | 'active' | 'inactive' | 'error';
+const CHECKING: Record<CourseId, Access> = { en: 'loading', sv: 'loading' };
 
 const categoryLabel = { grammar: 'Kielioppi', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' } as const;
 const categoryBadge = { grammar: 'K', reading: 'L', listening: 'U' } as const;
@@ -55,17 +58,26 @@ function AreaTile({ badge, title, description, onPress, disabled }: { badge: str
   </Pressable>;
 }
 
+/** Shown only to owners of both courses; nothing hints at a course the student does not own. */
+function CourseSwitcher({ course, onChange }: { course: CourseId; onChange: (course: CourseId) => void }) {
+  return <ChipRow>{COURSE_IDS.map(id => <Chip key={id} label={COURSES[id].shortLabel} selected={id === course} onPress={() => onChange(id)} />)}</ChipRow>;
+}
+
 function CourseHome({ session }: { session: Session }) {
-  const [access, setAccess] = useState<Access>('loading');
-  const [error, setError] = useState('');
+  const { course, info, owned, choose, reportAccess } = useCourse();
+  const features = info.features;
+  const [accessByCourse, setAccessByCourse] = useState<Record<CourseId, Access>>(CHECKING);
+  const [errors, setErrors] = useState<Partial<Record<CourseId, string>>>({});
   const [historyError, setHistoryError] = useState('');
   const historyRequest = useRef(0);
   const [recent, setRecent] = useState<Attempt[] | null>(null);
   const [pulling, setPulling] = useState(false);
-  const [path, setPath] = useState<PathStateV2 | null>(null);
-  const [pathError, setPathError] = useState(false);
+  // The loaded path and a failed load are tagged with their course, so a switch never shows the other course's Polku.
+  const [path, setPath] = useState<{ course: CourseId; state: PathStateV2 } | null>(null);
+  const [pathError, setPathError] = useState<CourseId | null>(null);
   const pathRequest = useRef(0);
   const request = useRef(0);
+  const userId = session.user.id;
   const { colors, type } = useTheme();
   const styles = useStyles();
   const name = accountName(session);
@@ -75,36 +87,44 @@ function CourseHome({ session }: { session: Session }) {
   const singleColumn = fontScale > 1.35 || width < 340;
   const refresh = useCallback(async () => {
     const current = ++request.current;
-    setAccess('loading'); setError('');
-    try {
-      // A linking problem must not prevent an already active course from opening.
-      // The server still performs the authoritative access check below.
-      try { await courseRequest('link-purchases', 'POST'); } catch { /* Access is checked next. */ }
-      const active = await checkCourseAccess();
-      if (current === request.current) setAccess(active ? 'active' : 'inactive');
-    } catch (cause) {
-      if (current === request.current) {
-        setAccess('error');
-        setError(cause instanceof Error ? cause.message : 'Yhteys ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.');
-      }
-    }
-  }, []);
+    setAccessByCourse(CHECKING); setErrors({});
+    // A linking problem must not prevent an already active course from opening.
+    // The server still performs the authoritative access checks below.
+    try { await courseRequest('link-purchases', 'POST'); } catch { /* Access is checked next. */ }
+    // One check per course: a failing Swedish check never hides an active English course.
+    const results = await Promise.allSettled(COURSE_IDS.map(id => checkCourseAccess(id)));
+    if (current !== request.current) return;
+    const next = { ...CHECKING }; const messages: Partial<Record<CourseId, string>> = {}; const known: Partial<Record<CourseId, boolean>> = {};
+    COURSE_IDS.forEach((id, index) => {
+      const result = results[index];
+      if (result.status === 'fulfilled') { next[id] = result.value ? 'active' : 'inactive'; known[id] = result.value; }
+      else { next[id] = 'error'; messages[id] = result.reason instanceof Error ? result.reason.message : 'Yhteys ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.'; }
+    });
+    setAccessByCourse(next); setErrors(messages);
+    reportAccess(userId, known);
+  }, [reportAccess, userId]);
   const refreshHistory = useCallback(async () => {
+    // Exercise history is English; a course without exercises shows none.
+    if (!features.exercises) return;
     const current = ++historyRequest.current;
     try { const rows = await loadHistory(); if (current === historyRequest.current) { setRecent(rows); setHistoryError(''); } }
     catch { if (current === historyRequest.current) setHistoryError('Suorituksia ei voitu päivittää. Yritä uudelleen.'); }
-  }, []);
+  }, [features.exercises]);
   const refreshPath = useCallback(async () => {
     const current = ++pathRequest.current;
-    try { const value = await loadPath(); if (current === pathRequest.current) { setPath(value); setPathError(false); } }
-    catch { if (current === pathRequest.current) setPathError(true); }
-  }, []);
+    try { const value = await loadPath(course); if (current === pathRequest.current) { setPath({ course, state: value }); setPathError(null); } }
+    catch { if (current === pathRequest.current) setPathError(course); }
+  }, [course]);
   useFocusEffect(useCallback(() => {
     void refresh();
+    return () => { request.current++; };
+  }, [refresh]));
+  // Separate from the access check, so switching course reloads only the course's own content.
+  useFocusEffect(useCallback(() => {
     void refreshHistory();
     void refreshPath();
-    return () => { request.current++; historyRequest.current++; pathRequest.current++; };
-  }, [refresh, refreshHistory, refreshPath]));
+    return () => { historyRequest.current++; pathRequest.current++; };
+  }, [refreshHistory, refreshPath]));
   useEffect(() => {
     const subscription = AppState.addEventListener('change', state => { if (state === 'active') { void refresh(); void refreshHistory(); void refreshPath(); } });
     return () => subscription.remove();
@@ -114,7 +134,10 @@ function CourseHome({ session }: { session: Session }) {
   const last = rows[0];
   const scores = rows.slice(0, 8).reverse().map(item => Number(item.score_percentage) || 0);
   const average = rows.length ? Math.round(rows.reduce((sum, item) => sum + Number(item.score_percentage), 0) / rows.length) : 0;
+  const access = accessByCourse[course];
+  const error = errors[course] ?? '';
   const active = access === 'active';
+  const shownPath = path?.course === course ? path.state : null;
   const go = (path: Href) => () => router.push(path);
   return <ScrollView
     refreshControl={<RefreshControl refreshing={pulling} tintColor={colors.ink} colors={[colors.ink]} onRefresh={() => { setPulling(true); void Promise.all([refresh(), refreshHistory(), refreshPath()]).finally(() => setPulling(false)); }} />}
@@ -131,30 +154,35 @@ function CourseHome({ session }: { session: Session }) {
       </Pressable>
     </View>
 
-    <View accessible accessibilityLabel={`Englannin abikurssi. ${access === 'active' ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia'}`} style={styles.status}>
+    {ownedCourses(owned).length > 1 && <CourseSwitcher course={course} onChange={choose} />}
+
+    <View accessible accessibilityLabel={`${info.label}. ${access === 'active' ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia'}`} style={styles.status}>
       <View style={[styles.statusDot, { backgroundColor: active ? colors.success : access === 'loading' ? colors.placeholder : colors.danger }]} />
-      <Text style={[type.caption, styles.flex]} numberOfLines={2}>Englannin abikurssi · {active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…'}</Text>
+      <Text style={[type.caption, styles.flex]} numberOfLines={2}>{info.label} · {active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…'}</Text>
     </View>
 
     {access === 'error' && <Notice tone="error" title="Kurssioikeutta ei voitu tarkistaa" message={error} actionTitle="Yritä uudelleen" onAction={() => void refresh()} />}
     {access === 'inactive' && <Notice title="Kurssioikeutta ei löytynyt" message="Tälle tilille ei löytynyt aktiivista kurssioikeutta. Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä." actionTitle="Tarkista uudelleen" onAction={() => void refresh()} />}
 
     <SectionTitle title="Tänään" />
-    <PathHomeCard state={active ? path : null} error={pathError} disabled={!active} onPress={go('/path')}
-      onStart={path?.nextLessonId ? () => router.push({ pathname: '/path-lesson', params: { lessonId: path.nextLessonId! } }) : go('/path')} />
-    <NavCard kicker="Päivän suunnitelma" title="Päivän tehtävät" description="Sinulle valitut tehtävät taitoprofiilisi perusteella." disabled={!active} onPress={go('/daily')} />
-    <NavCard kicker={last ? 'Jatka siitä mihin jäit' : 'Aloita tästä'} title={last ? (last.exercise_title || last.exercise_id) : 'Aloita harjoittelu'}
+    <PathHomeCard course={course} state={active ? shownPath : null} error={pathError === course} disabled={!active} onPress={go('/path')}
+      onStart={shownPath?.nextLessonId ? () => router.push({ pathname: '/path-lesson', params: { lessonId: shownPath.nextLessonId! } }) : go('/path')} />
+    {features.daily && <NavCard kicker="Päivän suunnitelma" title="Päivän tehtävät" description="Sinulle valitut tehtävät taitoprofiilisi perusteella." disabled={!active} onPress={go('/daily')} />}
+    {features.exercises && <NavCard kicker={last ? 'Jatka siitä mihin jäit' : 'Aloita tästä'} title={last ? (last.exercise_title || last.exercise_id) : 'Aloita harjoittelu'}
       description={last ? `Viimeksi ${categoryLabel[last.category].toLocaleLowerCase('fi-FI')} · ${Math.round(Number(last.score_percentage))} %` : 'Kielioppi, luetun- ja kuullunymmärtäminen.'}
-      disabled={!active} onPress={go('/exercises')} accessibilityHint="Avaa harjoitusvalikon" />
+      disabled={!active} onPress={go('/exercises')} accessibilityHint="Avaa harjoitusvalikon" />}
 
     <SectionTitle title="Harjoittele" />
     <View style={[styles.grid, singleColumn && styles.gridSingle]}>
-      <AreaTile badge="H" title="Harjoitukset" description="Kielioppi, luetun ja kuullun ymmärrys" disabled={!active} onPress={go('/exercises')} />
-      <AreaTile badge="T" title="Teoria" description="Säännöt, esimerkit ja yo-vinkit" disabled={!active} onPress={go('/theory')} />
-      <AreaTile badge="E" title="Kirjoitelmat" description="Aiheet, luonnokset ja arvioinnit" disabled={!active} onPress={go('/essays')} />
-      <AreaTile badge="M" title="Muistikortit" description="Sanaston kertaus omaan tahtiin" disabled={!active} onPress={go('/flashcards')} />
+      {features.exercises && <AreaTile badge="H" title="Harjoitukset" description="Kielioppi, luetun ja kuullun ymmärrys" disabled={!active} onPress={go('/exercises')} />}
+      {features.theory && <AreaTile badge="T" title="Teoria" description="Säännöt, esimerkit ja yo-vinkit" disabled={!active} onPress={go('/theory')} />}
+      {features.essays && <AreaTile badge="E" title="Kirjoitelmat" description="Aiheet, luonnokset ja arvioinnit" disabled={!active} onPress={go('/essays')} />}
+      {features.flashcards && <AreaTile badge="M" title="Muistikortit" description="Sanaston kertaus omaan tahtiin" disabled={!active} onPress={go('/flashcards')} />}
     </View>
+    {!!info.homeNote && <Text style={type.caption}>{info.homeNote}</Text>}
 
+    {/* Statistics and recent rows come from the English exercise history. */}
+    {features.exercises && <>
     <SectionTitle title="Edistyminen" />
     <Pressable accessibilityRole="button" accessibilityLabel={recent ? `Suoritukset: ${rows.length}. ${rows.length ? `Keskiarvo ${average} prosenttia.` : 'Ei vielä tuloksia.'} Avaa harjoitushistoria.` : 'Haetaan suorituksia. Avaa harjoitushistoria.'}
       onPress={go('/history')} style={({ pressed }) => [styles.statsCard, pressed && { backgroundColor: colors.surfacePressed }]}>
@@ -166,7 +194,7 @@ function CourseHome({ session }: { session: Session }) {
       {scores.length > 0 && <Bars values={scores} />}
       <Chevron />
     </Pressable>
-    <NavCard title="Arvosana-arvio ja taitoprofiili" description="Vahvuudet ja seuraavaksi harjoiteltavat taidot" disabled={!active} onPress={go('/progress')} />
+    {features.progress && <NavCard title="Arvosana-arvio ja taitoprofiili" description="Vahvuudet ja seuraavaksi harjoiteltavat taidot" disabled={!active} onPress={go('/progress')} />}
 
     <SectionTitle title="Viimeisimmät" detail={recent ? `${rows.length} suoritusta` : undefined} action={{ label: 'Kaikki', accessibilityLabel: 'Avaa koko harjoitushistoria', onPress: go('/history') }} />
     {!!historyError && <Notice tone="error" message={historyError} actionTitle="Päivitä suoritukset" onAction={() => void refreshHistory()} />}
@@ -175,6 +203,7 @@ function CourseHome({ session }: { session: Session }) {
     {latest.map(item => <ListRow key={`${item.category}-${item.id}`} badge={categoryBadge[item.category]} title={item.exercise_title || item.exercise_id}
       subtitle={`${categoryLabel[item.category]} · ${new Date(item.submitted_at).toLocaleDateString('fi-FI', { weekday: 'short', day: 'numeric', month: 'numeric' })}`}
       trailing={`${Math.round(Number(item.score_percentage))} %`} onPress={go('/history')} />)}
+    </>}
   </ScrollView>;
 }
 
@@ -214,7 +243,7 @@ function Login() {
   return <>
     <Wordmark />
     <View style={styles.hero}>
-      <Text style={type.overline}>Englannin abikurssi</Text>
+      <Text style={type.overline}>Abikurssit</Text>
       <Text accessibilityRole="header" style={type.display} maxFontSizeMultiplier={maxScale.display}>Oma tahti.{'\n'}Selkeä suunta.</Text>
       <Text style={type.body}>Kirjaudu Opiskeluakatemian tunnuksillasi. Kurssioikeutesi kulkee mukanasi.</Text>
     </View>

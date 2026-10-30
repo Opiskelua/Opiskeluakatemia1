@@ -5,14 +5,16 @@ import { layout, makeStyles, pressedOpacity, radii, space, useTheme } from '../t
 import { RequestError } from '../lib/api';
 import { saveTarget } from '../lib/path-v2';
 import { pathFailure } from '../lib/path-v2-model';
+import type { CourseId } from '../lib/courses';
 import type { PathStateV2, PathSummaryV2, TargetGrade } from '../lib/path-v2-types';
 import {
-  buildTargetRequest, currentTarget, currentTargetGrade, seasonLabel, seasonOptions, TARGET_COPY, TARGET_GRADE_OPTIONS, targetErrorMessage,
+  buildTargetRequest, currentTarget, currentTargetGrade, gradeOptionLabel, seasonLabel, seasonOptions, TARGET_COPY, TARGET_COURSE_COPY, targetErrorMessage,
 } from '../lib/target-grade';
 
 /** Target grade form: C/M/E/L, exam season, save / cancel / clear. Copy matches the web TargetForm. */
-export function TargetPicker({ state, onSaved, onCancel }: {
-  state: PathStateV2; onSaved: (summary: PathSummaryV2) => void; onCancel?: () => void;
+export function TargetPicker({ state, course, onSaved, onCancel }: {
+  /** The course `state` was loaded for: its grade points and its target endpoint. */
+  state: PathStateV2; course: CourseId; onSaved: (summary: PathSummaryV2) => void; onCancel?: () => void;
 }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
@@ -23,12 +25,13 @@ export function TargetPicker({ state, onSaved, onCancel }: {
   const mounted = useRef(true);
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   const seasons = seasonOptions(state.today, season);
+  const copy = TARGET_COURSE_COPY[course];
 
   async function save(targetGrade: TargetGrade | null) {
     setBusy(true);
     setError(null);
     try {
-      const response = await saveTarget(buildTargetRequest(state, targetGrade, season));
+      const response = await saveTarget(course, buildTargetRequest(state, targetGrade, season));
       if (mounted.current) onSaved(response.summary);
     } catch (e) {
       if (!mounted.current) return;
@@ -40,10 +43,10 @@ export function TargetPicker({ state, onSaved, onCancel }: {
   return <View style={styles.form}>
     <Text style={type.label} accessibilityRole="header">{TARGET_COPY.gradeLegend}</Text>
     <View accessibilityRole="radiogroup" accessibilityLabel={TARGET_COPY.gradeLegend} style={styles.grades}>
-      {TARGET_GRADE_OPTIONS.map(option => {
+      {copy.options.map(option => {
         const on = grade === option.grade;
         return <Pressable key={option.grade} accessibilityRole="radio" accessibilityState={{ checked: on, disabled: busy }} disabled={busy}
-          accessibilityLabel={`${option.grade}, ${option.label}, ${option.points} pistettä. ${option.share}`}
+          accessibilityLabel={gradeOptionLabel(option)}
           onPress={() => setGrade(option.grade)}
           style={({ pressed }) => [styles.grade, on && styles.gradeOn, pressed && { opacity: pressedOpacity }]}>
           <View style={[styles.letter, on && styles.letterOn]}>
@@ -51,7 +54,7 @@ export function TargetPicker({ state, onSaved, onCancel }: {
           </View>
           <View style={styles.flex}>
             <Text style={type.label}>{option.label} · {option.points} p</Text>
-            <Text style={type.caption}>{option.share}</Text>
+            {!!option.share && <Text style={type.caption}>{option.share}</Text>}
           </View>
         </Pressable>;
       })}
@@ -65,7 +68,7 @@ export function TargetPicker({ state, onSaved, onCancel }: {
     <Button title={TARGET_COPY.save} loading={busy} disabled={!grade} onPress={() => { if (grade) void save(grade); }} />
     {onCancel && <Button title={TARGET_COPY.cancel} secondary disabled={busy} onPress={onCancel} />}
     {currentTargetGrade(state) && <Button title={TARGET_COPY.clear} variant="ghost" disabled={busy} onPress={() => void save(null)} />}
-    <Text style={type.caption}>{TARGET_COPY.sourceNote}</Text>
+    <Text style={type.caption}>{copy.sourceNote}</Text>
   </View>;
 }
 

@@ -4,6 +4,7 @@ import { RequestError } from '../lib/api';
 import { loadPath, saveLesson } from '../lib/path-v2';
 import { draftKey, pathFailure, sanitizeDraft, shouldAutosaveDraft } from '../lib/path-v2-model';
 import type { Answers, LessonMutationResponseV2, PathStateV2, PublicItem } from '../lib/path-v2-types';
+import type { CourseId } from '../lib/courses';
 
 export type AutosaveStatus = 'idle' | 'saving' | 'saved' | 'error';
 export const AUTOSAVE_DELAY_MS = 600;
@@ -17,6 +18,8 @@ export const AUTOSAVE_DELAY_MS = 600;
  * `settle()` resolves when the current one has finished so a manual action can run after it.
  */
 export function useDraftAutosave(options: {
+  /** The course the lesson belongs to; saves and reloads go to its path. */
+  course: CourseId;
   lessonId: string;
   items: PublicItem[];
   answers: Answers;
@@ -48,14 +51,14 @@ export function useDraftAutosave(options: {
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
 
   const attempt = useCallback(async () => {
-    const { lessonId, items: currentItems, answers, enabled, busy } = latest.current;
+    const { course, lessonId, items: currentItems, answers, enabled, busy } = latest.current;
     const key = draftKey(currentItems, answers);
     if (!shouldAutosaveDraft({ enabled, busy: !!busy.current, current: key, saved: savedKey.current })) return;
     const body = sanitizeDraft(currentItems, answers);
     if (mounted.current) setStatus('saving');
     for (let tries = 0; tries < 2; tries++) {
       try {
-        const response = await saveLesson('save', lessonId, body, revisionRef.current);
+        const response = await saveLesson(course, 'save', lessonId, body, revisionRef.current);
         savedKey.current = key;
         revisionRef.current = response.revision;
         if (!mounted.current) return;
@@ -67,7 +70,7 @@ export function useDraftAutosave(options: {
         if (failure !== 'conflict' || tries > 0) break;
         // Another device saved this lesson: take its revision, keep the local answers, save again.
         try {
-          const fresh = await loadPath();
+          const fresh = await loadPath(course);
           revisionRef.current = fresh.progress[lessonId]?.revision ?? 0;
           if (mounted.current) latest.current.onReload(fresh);
         } catch { break; }

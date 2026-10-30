@@ -11,10 +11,12 @@ import { useReduceMotion } from '../hooks/useReduceMotion';
 import { layout, makeStyles, maxScale, radii, space, useTheme } from '../theme';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { choices } from '../lib/catalogue';
+import { COURSE_IDS, COURSES, type CourseFeatures, type CourseId } from '../lib/courses';
 import { loadPath, PATH_PREVIEW, type PreviewScenario } from '../lib/path-v2';
 import type { LessonProgressV2, PathStateV2, PublicLessonV2, PublicUnitV2, UnitProgressV2 } from '../lib/path-v2-types';
-import { lessonState, nextStepLabel, resourceRoute, skillLabel, windingOffset, type NodeState } from '../lib/path-v2-model';
+import { lessonState, nextStepLabel, resourceAvailable, resourceRoute, skillLabel, windingOffset, type NodeState } from '../lib/path-v2-model';
 import { allDone, pickLine, poseFor, showOnboarding, streakAtRisk, type MascotPose } from '../lib/mascot';
+import { useCourse } from '../providers/CourseProvider';
 
 const SCENARIOS: PreviewScenario[] = ['fresh', 'midway', 'complete'];
 const NODE = 64;
@@ -114,9 +116,11 @@ function UnitHeader({ unit, progress }: { unit: PublicUnitV2; progress?: UnitPro
   </View>;
 }
 
-function ComingSoonUnit({ unit }: { unit: PublicUnitV2 }) {
+function ComingSoonUnit({ unit, features }: { unit: PublicUnitV2; features: CourseFeatures }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
+  // Only resources with a screen in this course; the rest open English screens.
+  const resources = unit.resources.filter(resource => resourceAvailable(resource, features));
   return <View style={[styles.unit, styles.soon]}>
     <View accessible accessibilityLabel={`Osa ${unit.order}: ${unit.title}. Tulossa. ${unit.subtitle}. Suunnitellut oppitunnit: ${unit.plannedLessons.join(', ')}.`} style={{ gap: space.xs }}>
       <View style={styles.unitTop}>
@@ -127,18 +131,18 @@ function ComingSoonUnit({ unit }: { unit: PublicUnitV2 }) {
       <Text style={type.caption}>{unit.subtitle}</Text>
       {unit.plannedLessons.map(title => <View key={title} style={styles.planned}><View style={styles.plannedDot} /><Text style={[type.caption, styles.flex]}>{title}</Text></View>)}
     </View>
-    {unit.resources.length > 0 && <View style={{ gap: space.xs }}>
+    {resources.length > 0 && <View style={{ gap: space.xs }}>
       <Text style={type.label}>Harjoittele jo nyt</Text>
-      <ChipRow>{unit.resources.map(resource => <Chip key={`${resource.kind}-${resource.id}-${resource.label}`} label={resource.label} onPress={() => router.push(resourceRoute(resource, choices))} />)}</ChipRow>
+      <ChipRow>{resources.map(resource => <Chip key={`${resource.kind}-${resource.id}-${resource.label}`} label={resource.label} onPress={() => router.push(resourceRoute(resource, choices))} />)}</ChipRow>
     </View>}
   </View>;
 }
 
-function UnitSection({ unit, state, amplitude, nextRef, onNextLayout }: { unit: PublicUnitV2; state: PathStateV2; amplitude: number; nextRef: Ref<HostInstance>; onNextLayout: () => void }) {
+function UnitSection({ unit, state, features, amplitude, nextRef, onNextLayout }: { unit: PublicUnitV2; state: PathStateV2; features: CourseFeatures; amplitude: number; nextRef: Ref<HostInstance>; onNextLayout: () => void }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
   const progress = state.units.find(entry => entry.unitId === unit.id);
-  if (unit.comingSoon) return <ComingSoonUnit unit={unit} />;
+  if (unit.comingSoon) return <ComingSoonUnit unit={unit} features={features} />;
   // A locked unit is a compact preview: the full trail appears once it opens.
   if (progress?.status === 'locked' || !progress) return <View style={[styles.unit, styles.unitLocked]}>
     <UnitHeader unit={unit} progress={progress} />
@@ -167,19 +171,27 @@ function UnitSection({ unit, state, amplitude, nextRef, onNextLayout }: { unit: 
 }
 
 export default function PathScreen() {
+  const { course } = useCourse();
+  // A course switch (only possible in the dev preview while this screen is open) starts the map over.
+  return <PathMap key={course} course={course} />;
+}
+
+function PathMap({ course }: { course: CourseId }) {
   const { type } = useTheme();
   const styles = useStyles();
+  const { choose } = useCourse();
+  const { features } = COURSES[course];
   const { previewScenario } = useLocalSearchParams<{ previewScenario?: string }>();
   // Dev preview only: reset the in-memory preview user once, on the first load.
   const pendingScenario = useRef<PreviewScenario | undefined>(PATH_PREVIEW && SCENARIOS.includes(previewScenario as PreviewScenario) ? previewScenario as PreviewScenario : undefined);
-  const load = useCallback(() => { const scenario = pendingScenario.current; pendingScenario.current = undefined; return loadPath(scenario); }, []);
+  const load = useCallback(() => { const scenario = pendingScenario.current; pendingScenario.current = undefined; return loadPath(course, scenario); }, [course]);
   const { data, loading, error, refresh } = useSyncedResource(load);
   const pull = usePullToRefresh(refresh);
   const { width, height, fontScale } = useWindowDimensions();
   const userId = useMascotUserId();
   const mascot = useMascotFlags();
   const reduce = useReduceMotion();
-  const intro = !!data && mascot.ready && showOnboarding(data, mascot.introDismissed);
+  const intro = !!data && mascot.ready && showOnboarding(data, mascot.introDismissed[course]);
   // moments.nextUpDaily: greet on the first open of the (Helsinki) day, idle afterwards. Decided
   // once per screen visit so marking the greeting does not swap the pose under the user.
   const [greetPose, setGreetPose] = useState<MascotPose | null>(null);
@@ -208,7 +220,7 @@ export default function PathScreen() {
   const content = Math.min(width, layout.maxWidth) - gutter * 2 - space.md * 2;
   // The path straightens at large text sizes so labels keep their full width.
   const amplitude = largeText ? 0 : Math.max(0, Math.min(72, (content - LABEL_WIDTH) / 2));
-  const next = data ? nextStepLabel(data) : null;
+  const next = data ? nextStepLabel(data, features.flashcards) : null;
   const atRiskLine = data && streakAtRisk(data, new Date()) ? pickLine('streakAtRisk', data.today, userId, { streak: data.streak.current }) : null;
   const nextLine = data && next && data.nextLessonId ? pickLine('nextUpDaily', data.today, userId, { lesson: next.title }) : null;
   const doneLine = data && allDone(data) ? pickLine('allDone', data.today, userId) : null;
@@ -217,13 +229,14 @@ export default function PathScreen() {
     {PATH_PREVIEW && <View style={{ gap: space.xs }}>
       <Notice title="Esikatselutila (vain kehitys)" message="Tiedot tulevat verkkosivun esikatselu-API:sta ilman kirjautumista." />
       <ChipRow>{SCENARIOS.map(scenario => <Chip key={scenario} label={scenario} onPress={() => { pendingScenario.current = scenario; void refresh(); }} />)}</ChipRow>
+      <ChipRow>{COURSE_IDS.map(id => <Chip key={id} label={COURSES[id].shortLabel} selected={id === course} onPress={() => choose(id)} />)}</ChipRow>
     </View>}
     {loading && !data && <LoadingState label="Ladataan polkua…" />}
     {!!error && <Notice tone="error" title="Polkua ei voitu päivittää" message={error} actionTitle="Yritä uudelleen" actionDisabled={loading} onAction={() => void refresh()} />}
     {data && <>
-      {intro && <MascotIntro onStart={() => data.nextLessonId ? router.push({ pathname: '/path-lesson', params: { lessonId: data.nextLessonId } }) : dismissIntro()} />}
+      {intro && <MascotIntro course={course} onStart={() => data.nextLessonId ? router.push({ pathname: '/path-lesson', params: { lessonId: data.nextLessonId } }) : dismissIntro(course)} />}
       {/* Target grade: an optional step right after the onboarding intro, otherwise under "Seuraavaksi". */}
-      {intro && <TargetCard state={data} onSaved={() => void refresh()} />}
+      {intro && <TargetCard state={data} course={course} onSaved={() => void refresh()} />}
       <CareerCard level={data.level} />
       <GoalStreak goal={data.dailyGoal} streak={data.streak} stacked={largeText || width < 340} atRiskLine={atRiskLine} />
       {next && <View style={styles.nextCard}>
@@ -235,14 +248,15 @@ export default function PathScreen() {
         {data.nextLessonId ? <Button title={data.progress[data.nextLessonId]?.status === 'in_progress' ? 'Jatka oppituntia' : 'Aloita oppitunti'}
           onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: data.nextLessonId! } })} />
           : data.review.pendingItems > 0 ? <Button title="Aloita kertaus" onPress={() => router.push('/path-review')} />
-            : <Button title="Avaa muistikortit" secondary onPress={() => router.push('/flashcards')} />}
+            : features.flashcards ? <Button title="Avaa muistikortit" secondary onPress={() => router.push('/flashcards')} />
+              : features.theory ? <Button title="Avaa teoria" secondary onPress={() => router.push('/theory')} /> : null}
       </View>}
-      {!intro && <TargetCard state={data} onSaved={() => void refresh()} />}
+      {!intro && <TargetCard state={data} course={course} onSaved={() => void refresh()} />}
       {/* Improvement 4: always visible; an empty queue reads as an achievement (moments.reviewEmpty). */}
       <NavCard kicker="Kertaus" title={data.review.pendingItems > 0 ? `${data.review.pendingItems} kerrattavaa kohtaa` : reviewEmptyLine ?? 'Ei kerrattavia virheitä'}
-        description={[data.review.pendingItems > 0 ? `Istunnossa ${data.review.sessionSize} kohtaa omista virheistäsi` : null, data.review.dueFlashcards ? `${data.review.dueFlashcards} muistikorttia erääntynyt` : null].filter(Boolean).join(' · ')}
+        description={[data.review.pendingItems > 0 ? `Istunnossa ${data.review.sessionSize} kohtaa omista virheistäsi` : null, features.flashcards && data.review.dueFlashcards ? `${data.review.dueFlashcards} muistikorttia erääntynyt` : null].filter(Boolean).join(' · ')}
         onPress={() => router.push('/path-review')} />
-      {data.content.units.map(unit => <UnitSection key={unit.id} unit={unit} state={data} amplitude={amplitude} nextRef={nextNode} onNextLayout={scrollToNext} />)}
+      {data.content.units.map(unit => <UnitSection key={unit.id} unit={unit} state={data} features={features} amplitude={amplitude} nextRef={nextNode} onNextLayout={scrollToNext} />)}
     </>}
   </Screen>;
 }
