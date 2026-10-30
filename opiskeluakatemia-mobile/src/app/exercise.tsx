@@ -11,6 +11,9 @@ import { choices } from '../lib/catalogue';
 import { allAnswered, usesAiGrading, type Answers, type Exercise, type Result } from '../lib/exercise-model';
 import { loadExercise, submitExercise } from '../lib/exercises';
 import { ensureAiConsent } from '../lib/ai-consent';
+import { openExternal } from '../components/LegalLinks';
+import { supportEmail } from '../lib/config';
+import { supportMailto } from '../lib/external-links';
 
 const categoryLabel = { grammar: 'Kielioppi ja sanasto', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' } as const;
 
@@ -127,6 +130,13 @@ export default function ExerciseScreen() {
     </View>}
     {!!(result?.transcript || (result && exercise.transcript)) && <Card><Text accessibilityRole="header" style={type.subheading}>Kuuntelun teksti</Text><Text selectable style={type.body}>{result?.transcript || exercise.transcript}</Text></Card>}
     {result && <Button title="Takaisin harjoituksiin" secondary onPress={() => router.back()} />}
+    {/* Generated (AI) exercises can be reported, as required by Google Play's AI-generated content policy. */}
+    {!choice.path && <Button title="Ilmoita ongelmasta" variant="ghost" accessibilityRole="link"
+      accessibilityLabel="Ilmoita ongelmasta tehtävässä" accessibilityHint="Avaa sähköpostin tukeen. Kerro, mikä tehtävässä oli virheellistä tai sopimatonta."
+      onPress={() => openExternal(supportMailto(supportEmail, 'Ilmoitus tehtävästä', [
+        `Tehtävä: ${exercise.title.slice(0, 120)}`, `Tunniste: ${exercise.id.slice(0, 120)}`, `Osa-alue: ${categoryLabel[exercise.category]}`,
+        `Vaikeustaso: ${exercise.difficulty}`, `Harjoitus: ${choice.id}`, '', 'Kuvaa ongelma lyhyesti:', '',
+      ].join('\n')))} />}
   </Screen>;
 }
 

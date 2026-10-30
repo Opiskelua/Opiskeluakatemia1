@@ -1,9 +1,12 @@
 // Pure URL checks (no React Native imports) so they can be unit tested in Node.
 
-const SUPPORT_MAIL = /^mailto:[a-z0-9._%+-]{1,64}@opiskeluakatemia\.fi$/i;
+// One @opiskeluakatemia.fi recipient, optionally followed by a query. No % in the local part (no encoded @ or comma).
+const SUPPORT_MAIL = /^mailto:([a-z0-9._+-]{1,64}@opiskeluakatemia\.fi)(?:\?(.*))?$/i;
+// Query values must already be percent-encoded: no raw &, =, # or spaces inside a value.
+const ENCODED_VALUE = /^[A-Za-z0-9\-_.!~*'()%]*$/;
 // Whitespace, control characters and backslashes are normalised differently by the WHATWG parser
 // and by iOS/Android URL parsers; refuse them instead of guessing which reading wins.
-const UNSAFE_CHARS = /[\u0000- \u007f\\]/;
+const UNSAFE_CHARS = /[\u0000-\u0020\u007f\\]/;
 
 /**
  * Only URLs on this allowlist may leave the app through Linking.openURL: HTTPS pages on the
@@ -14,7 +17,8 @@ const UNSAFE_CHARS = /[\u0000- \u007f\\]/;
  */
 export function safeExternalUrl(raw: string, allowedOrigins: readonly string[]): string | null {
   if (typeof raw !== 'string' || !raw || raw.length > 2048 || UNSAFE_CHARS.test(raw)) return null;
-  if (SUPPORT_MAIL.test(raw)) return `mailto:${raw.slice(7).toLowerCase()}`;
+  const mail = SUPPORT_MAIL.exec(raw);
+  if (mail) return safeMailto(mail[1], mail[2]);
   try {
     const url = new URL(raw);
     if (url.protocol !== 'https:' || url.username || url.password) return null;
@@ -22,6 +26,34 @@ export function safeExternalUrl(raw: string, allowedOrigins: readonly string[]):
     if (!/^https:\/\//i.test(raw)) return null;
     return allowedOrigins.includes(url.origin) ? url.href : null;
   } catch { return null; }
+}
+
+/**
+ * Rebuild a support mailto: with at most one subject and one body. Any other header (to, cc, bcc,
+ * from…), a repeated key, malformed percent-encoding or a line break in the subject is refused.
+ * Line breaks are allowed in the body (RFC 6068 encodes them as %0D%0A).
+ */
+function safeMailto(address: string, query: string | undefined): string | null {
+  const base = `mailto:${address.toLowerCase()}`;
+  if (query === undefined || query === '') return query === undefined ? base : null;
+  const fields: Record<string, string> = {};
+  for (const pair of query.split('&')) {
+    const eq = pair.indexOf('=');
+    if (eq < 1) return null;
+    const key = pair.slice(0, eq).toLowerCase();
+    const value = pair.slice(eq + 1);
+    if ((key !== 'subject' && key !== 'body') || key in fields || !ENCODED_VALUE.test(value)) return null;
+    try { fields[key] = decodeURIComponent(value); } catch { return null; }
+  }
+  if (/[\r\n]/.test(fields.subject ?? '')) return null;
+  const parts = (['subject', 'body'] as const).filter(key => key in fields).map(key => `${key}=${encodeURIComponent(fields[key])}`);
+  return `${base}?${parts.join('&')}`;
+}
+
+/** Build a mailto: for reporting a problem; the subject is kept to one line. */
+export function supportMailto(address: string, subject: string, body: string): string {
+  const oneLine = subject.replace(/[\r\n]+/g, ' ').trim();
+  return `mailto:${address}?subject=${encodeURIComponent(oneLine)}&body=${encodeURIComponent(body.replace(/\r?\n/g, '\r\n'))}`;
 }
 
 export function isAllowedExternalUrl(raw: string, allowedOrigins: readonly string[]): boolean {

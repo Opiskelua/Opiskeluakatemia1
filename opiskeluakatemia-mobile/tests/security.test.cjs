@@ -86,7 +86,7 @@ test('external links open only the website over HTTPS and the support address', 
   assert.equal(isAllowedExternalUrl('https://opiskeluakatemia.fi.evil.example/', origins), false);
   assert.equal(isAllowedExternalUrl('https://user:pw@opiskeluakatemia.fi/', origins), false);
   assert.equal(isAllowedExternalUrl('mailto:someone@evil.example', origins), false);
-  assert.equal(isAllowedExternalUrl('mailto:support@opiskeluakatemia.fi?body=x', origins), false);
+  assert.equal(isAllowedExternalUrl('mailto:support@opiskeluakatemia.fi?bcc=x@evil.com', origins), false);
   assert.equal(isAllowedExternalUrl('javascript:alert(1)', origins), false);
   assert.equal(isAllowedExternalUrl('tel:+358000', origins), false);
   assert.equal(isAllowedExternalUrl('', origins), false);
@@ -150,4 +150,36 @@ test('media URLs stay on the API origin when relative and are returned canonical
   assert.equal(resolveMediaUrl('data:audio/mpeg;base64,AAAA', api, false), null);
   assert.equal(resolveMediaUrl('javascript:alert(1)', api, true), null);
   assert.equal(resolveMediaUrl('/a.mp3', 'not a url', false), null);
+});
+
+const { supportMailto } = load('external-links.ts');
+
+test('support mail may carry one subject and body but no extra headers', () => {
+  const origins = ['https://opiskeluakatemia.fi'];
+  const built = supportMailto('support@opiskeluakatemia.fi', 'Ilmoitus tehtävästä', 'Tehtävä: Äö & "x" = y?\nTunniste: g-1\n\nKuvaa ongelma:');
+  assert.equal(safeExternalUrl(built, origins), built);
+  assert.match(built, /^mailto:support@opiskeluakatemia\.fi\?subject=Ilmoitus%20teht%C3%A4v%C3%A4st%C3%A4&body=/);
+  assert.match(built, /%0D%0ATunniste/);
+  // A long generated title still fits under the 2048-character cap once truncated to 120 chars.
+  const long = supportMailto('support@opiskeluakatemia.fi', 'Ilmoitus tehtävästä', `Tehtävä: ${'ä'.repeat(120)}\nTunniste: ${'a'.repeat(120)}`);
+  assert.ok(long.length < 2048 && isAllowedExternalUrl(long, origins));
+  // Subject newlines are flattened by the builder and refused by the checker.
+  assert.equal(supportMailto('support@opiskeluakatemia.fi', 'a\r\nBcc: x@evil.com', '').includes('%0D'), false);
+  for (const url of [
+    'mailto:support@opiskeluakatemia.fi?subject=a%0D%0ABcc:%20x@evil.com',
+    'mailto:support@opiskeluakatemia.fi?subject=a%0Abcc=x',
+    'mailto:support@opiskeluakatemia.fi?bcc=x@evil.com',
+    'mailto:support@opiskeluakatemia.fi?cc=x@evil.com&subject=a',
+    'mailto:support@opiskeluakatemia.fi?to=x@evil.com',
+    'mailto:support@opiskeluakatemia.fi?subject=a&subject=b',
+    'mailto:support@opiskeluakatemia.fi?subject=a&body=b&body=c',
+    'mailto:support@opiskeluakatemia.fi?subject=%E0%A4%A',
+    'mailto:support@opiskeluakatemia.fi?subject=a=b',
+    'mailto:support@opiskeluakatemia.fi?subject',
+    'mailto:support@opiskeluakatemia.fi?',
+    'mailto:support@opiskeluakatemia.fi?subject=a#frag',
+    'mailto:support%40evil.com@opiskeluakatemia.fi',
+  ]) assert.equal(safeExternalUrl(url, origins), null, url);
+  // Body line breaks are fine; keys are case-insensitive and output is canonical.
+  assert.equal(safeExternalUrl('MAILTO:Support@Opiskeluakatemia.fi?Body=a%0D%0Ab&SUBJECT=x', origins), 'mailto:support@opiskeluakatemia.fi?subject=x&body=a%0D%0Ab');
 });
