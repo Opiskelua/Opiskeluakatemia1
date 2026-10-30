@@ -135,7 +135,7 @@ const useStyles = makeStyles(({ colors, scheme }) => StyleSheet.create({
   choiceCorrect: { borderColor: colors.success, borderWidth: 1.5, backgroundColor: colors.successSurface },
   choiceWrong: { borderColor: colors.danger, borderWidth: 1.5, backgroundColor: colors.dangerSurface },
   choiceText: { flex: 1, minWidth: 0 },
-  letter: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, borderColor: colors.lineStrong, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  letter: { width: 30, height: 30, borderRadius: 15, borderWidth: 1.5, borderColor: colors.control, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   letterOn: { backgroundColor: colors.primary, borderColor: colors.primary },
   letterText: { fontSize: 13, fontWeight: '700', color: colors.ink },
   feedback: { gap: space.xxs, padding: space.sm, borderRadius: radii.lg, borderWidth: 1 },

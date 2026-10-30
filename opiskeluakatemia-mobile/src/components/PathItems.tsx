@@ -28,7 +28,7 @@ function ChoiceItem({ item, value, onChange, disabled }: { item: Extract<PublicI
   const selected = typeof value === 'number' ? value : -1;
   return <>
     <Sentence prompt={item.prompt} fill={selected >= 0 ? item.options[selected] : undefined} />
-    <View accessibilityRole="radiogroup" style={styles.options}>
+    <View accessibilityRole="radiogroup" accessibilityLabel="Vastausvaihtoehdot" style={styles.options}>
       {item.options.map((option, index) => {
         const on = selected === index;
         const letter = String.fromCharCode(65 + index);
@@ -228,7 +228,7 @@ const useStyles = makeStyles(({ colors, scheme }) => StyleSheet.create({
   option: { flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: layout.minTouch + 8, paddingVertical: space.sm, paddingHorizontal: space.sm, borderRadius: radii.lg, borderWidth: 1,
     borderColor: scheme === 'dark' ? colors.surfaceMuted : colors.line, backgroundColor: scheme === 'dark' ? colors.surfaceMuted : colors.surface },
   optionOn: { borderColor: colors.ink, borderWidth: 1.5, backgroundColor: scheme === 'dark' ? colors.surfacePressed : colors.surfaceMuted },
-  letter: { width: 30, height: 30, borderRadius: 15, borderWidth: 1, borderColor: colors.lineStrong, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  letter: { width: 30, height: 30, borderRadius: 15, borderWidth: 1.5, borderColor: colors.control, alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   letterOn: { backgroundColor: colors.primary, borderColor: colors.primary },
   letterText: { fontSize: 13, fontWeight: '700', color: colors.ink },
   hintRow: { flexDirection: 'row', alignItems: 'center', gap: space.xs, flexWrap: 'wrap' },
@@ -237,7 +237,7 @@ const useStyles = makeStyles(({ colors, scheme }) => StyleSheet.create({
   answerArea: { minHeight: 64, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: space.xs, padding: space.sm, borderRadius: radii.lg, borderWidth: 1.5, borderStyle: 'dashed', borderColor: scheme === 'dark' ? colors.placeholder : colors.lineStrong },
   answerAreaFilled: { borderStyle: 'solid', borderColor: colors.ink },
   tokenBank: { flexDirection: 'row', flexWrap: 'wrap', gap: space.xs },
-  token: { minHeight: layout.minTouch, minWidth: layout.minTouch, paddingHorizontal: space.sm, paddingVertical: space.xs, borderRadius: radii.md, borderWidth: 1, borderColor: colors.lineStrong, borderBottomWidth: 3,
+  token: { minHeight: layout.minTouch, minWidth: layout.minTouch, paddingHorizontal: space.sm, paddingVertical: space.xs, borderRadius: radii.md, borderWidth: 1, borderColor: colors.control, borderBottomWidth: 3,
     backgroundColor: scheme === 'dark' ? colors.surfaceMuted : colors.surface, alignItems: 'center', justifyContent: 'center' },
   tokenPlaced: { backgroundColor: colors.primary, borderColor: colors.primary },
   tokenText: { fontSize: 17, lineHeight: 22, fontWeight: '600', color: colors.ink },
