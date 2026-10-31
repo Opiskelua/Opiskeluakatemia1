@@ -5,6 +5,7 @@
 /opiskeluakatemia-content/
 /opiskeluakatemia-mascot/
 /opiskeluakatemia-glass/
+/opiskeluakatemia-harjoituskoe/
 
 # Local secrets backups and large mascot source art (Blender, GLB)
 .env*.bak*
