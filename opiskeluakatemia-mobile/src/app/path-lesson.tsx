@@ -9,21 +9,25 @@ import { space, useTheme } from '../theme';
 import { RequestError } from '../lib/api';
 import { loadPath, loadPathCached, saveLesson } from '../lib/path-v2';
 import { useDraftAutosave } from '../hooks/useDraftAutosave';
+import { useCourse } from '../providers/CourseProvider';
+import type { CourseId } from '../lib/courses';
 import type { AnswerValue, Answers, LessonMutationResponseV2, PathStateV2 } from '../lib/path-v2-types';
-import { allAnswered, answersForSubmit, findLesson, firstUnanswered, lessonState, mergeSummary, pathErrorMessage, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
+import { allAnswered, answersForSubmit, checkpointGoal, findLesson, firstUnanswered, lessonState, mergeSummary, pathErrorMessage, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
 
 const LESSON_ID = /^[a-z0-9-]{1,80}$/;
 
 export default function PathLessonScreen() {
   const { lessonId } = useLocalSearchParams<{ lessonId?: string }>();
+  const { course } = useCourse();
   const id = typeof lessonId === 'string' && LESSON_ID.test(lessonId) ? lessonId : null;
-  // Remount per lesson so "next lesson" starts from a clean state.
-  return id ? <LessonPlayer key={id} lessonId={id} /> : <Screen><EmptyState title="Oppituntia ei löytynyt." message="Valitse oppitunti polulta." actionTitle="Takaisin polulle" onAction={() => router.back()} /></Screen>;
+  // Remount per lesson so "next lesson" starts from a clean state. The course is fixed for the
+  // player's lifetime, so no save can reach the other course's path.
+  return id ? <LessonPlayer key={`${course}-${id}`} course={course} lessonId={id} /> : <Screen><EmptyState title="Oppituntia ei löytynyt." message="Valitse oppitunti polulta." actionTitle="Takaisin polulle" onAction={() => router.back()} /></Screen>;
 }
 
 type Busy = 'save' | 'submit' | null;
 
-function LessonPlayer({ lessonId }: { lessonId: string }) {
+function LessonPlayer({ course, lessonId }: { course: CourseId; lessonId: string }) {
   const { type } = useTheme();
   const [state, setState] = useState<PathStateV2 | null>(null);
   const [loadError, setLoadError] = useState('');
@@ -45,7 +49,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
   useEffect(() => {
     const controller = { cancelled: false };
     // Reuses the map screen's path when it was loaded within the last minute.
-    (reload ? loadPath() : loadPathCached()).then(value => {
+    (reload ? loadPath(course) : loadPathCached(course)).then(value => {
       if (controller.cancelled) return;
       setState(value);
       const entry = findLesson(value.content.units, lessonId);
@@ -56,7 +60,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
       }
     }).catch(e => { if (!controller.cancelled) setLoadError(e instanceof Error ? e.message : 'Oppitunnin lataus epäonnistui.'); });
     return () => { controller.cancelled = true; };
-  }, [lessonId, reload]);
+  }, [course, lessonId, reload]);
 
   const entry = state ? findLesson(state.content.units, lessonId) : null;
   const progress = state?.progress[lessonId];
@@ -68,7 +72,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
   }, []);
 
   const autosave = useDraftAutosave({
-    lessonId, items, answers, index, busy: inFlight,
+    course, lessonId, items, answers, index, busy: inFlight,
     enabled: !!entry && !outcome && !blocked && lessonState(progress) !== 'locked',
     savedDraft: progress?.draft, revision: progress?.revision ?? 0,
     onSaved: (response, current) => { setState(previous => previous ? mergeSummary(previous, response.summary) : previous); if (current) setDirty(false); },
@@ -85,7 +89,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
     try {
       for (let attempt = 0; ; attempt++) {
         try {
-          const response = await saveLesson(action, lessonId, body, revision);
+          const response = await saveLesson(course, action, lessonId, body, revision);
           if (!mounted.current) return true;
           setState(previous => previous ? mergeSummary(previous, response.summary) : previous);
           setDirty(false);
@@ -96,7 +100,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
           const failure = e instanceof RequestError ? pathFailure(e.status, e.code) : 'retry';
           if (failure === 'conflict' && attempt === 0) {
             // Another tab or device saved this lesson: take its new revision and keep our answers.
-            const fresh = await loadPath();
+            const fresh = await loadPath(course);
             if (!mounted.current) return false;
             setState(fresh);
             revision = fresh.progress[lessonId]?.revision ?? 0;
@@ -111,7 +115,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
       if (failure === 'locked') {
         // 403 is either a locked lesson or missing course access; a reload tells which.
         try {
-          const fresh = await loadPath();
+          const fresh = await loadPath(course);
           if (mounted.current) { setState(fresh); setBlocked(true); setError({ message: 'Tämä oppitunti on lukittu. Suorita ensin edelliset oppitunnit polulla.', action: 'back' }); }
         } catch (reloadError) { if (mounted.current) setError({ message: reloadError instanceof Error ? reloadError.message : 'Kurssioikeus puuttuu.', action: 'back' }); }
       } else if (failure === 'conflict') {
@@ -132,7 +136,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
   async function reloadKeepingAnswers() {
     setError(null);
     try {
-      const fresh = await loadPath();
+      const fresh = await loadPath(course);
       if (!mounted.current) return;
       setState(fresh);
       const found = findLesson(fresh.content.units, lessonId);
@@ -198,7 +202,7 @@ function LessonPlayer({ lessonId }: { lessonId: string }) {
         <Pill label={progress?.status === 'completed' ? `Suoritettu · paras ${progress.bestScore ?? 0} %` : `Jopa ${lesson.maxXp} XP`} tone={progress?.status === 'completed' ? 'success' : 'accent'} />
       </View>
     </View>
-    {checkpoint && <Notice title="Välietappi" message={`Läpäise vähintään ${state.rules.passScore} %, niin seuraava osa avautuu. Jos et läpäise, näet mitkä kohdat menivät väärin, mutta et oikeita vastauksia.`} />}
+    {checkpoint && <Notice title="Välietappi" message={`Läpäise vähintään ${state.rules.passScore} %, niin ${checkpointGoal(state.content.units, unit.id)}. Jos et läpäise, näet mitkä kohdat menivät väärin, mutta et oikeita vastauksia.`} />}
     {locked && <Notice tone="error" title="Oppitunti on lukittu" message="Suorita ensin polun edelliset oppitunnit." actionTitle="Takaisin polulle" onAction={() => router.back()} />}
     {!!info && <Notice tone="success" message={info} />}
     {!!lesson.guide && <GuidePanel guide={lesson.guide} initiallyOpen={!progress?.attempts && !Object.keys(answers).length} />}

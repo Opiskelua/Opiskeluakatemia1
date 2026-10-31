@@ -147,3 +147,10 @@ test('mascot copy never guilts', () => {
   const text = Object.values(spec.moments).flatMap(entry => [entry.title ?? '', ...entry.lines]).join(' ').toLowerCase();
   for (const word of ['harmi', 'pettymys', 'surullinen', 'menetät', 'epäonnistuit']) assert.ok(!text.includes(word), word);
 });
+
+test('onboarding fits every course and is dismissed per course', () => {
+  const onboarding = [spec.moments.onboarding.title, ...spec.moments.onboarding.lines].join(' ');
+  assert.ok(!/englan|ruots/i.test(onboarding), 'the shared intro names no course');
+  assert.equal(m.introDismissedKey('en'), 'mascot.introDismissed', 'English keeps the flag earlier builds wrote');
+  assert.equal(m.introDismissedKey('sv'), 'mascot.introDismissed.sv');
+});

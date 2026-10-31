@@ -102,10 +102,34 @@ test('copy is taken from the web target card', () => {
     : path.resolve(__dirname, '../../opiskeluakatemia/src/components/course/path-v2');
   const card = path.join(web, 'TargetCard.tsx');
   if (!fs.existsSync(card)) return;
-  const source = fs.readFileSync(card, 'utf8');
+  // With two courses the web keeps the per-course grades and notes in target-grades.ts next to the card.
+  const grades = path.join(web, 'target-grades.ts');
+  const perCourse = fs.existsSync(grades);
+  const source = fs.readFileSync(card, 'utf8') + (perCourse ? fs.readFileSync(grades, 'utf8') : '');
   for (const text of Object.values(tg.TARGET_COPY)) assert.ok(source.includes(text), `missing from the web card: ${text}`);
   for (const g of tg.TARGET_GRADE_OPTIONS) assert.ok(source.includes(`share: '${g.share}'`), `share differs: ${g.share}`);
   for (const line of ['Koepäivää ei vielä tiedetä.', 'Valitse koekerta, niin näet tahdin.', 'Kaikki tavoitteen oppitunnit tehty.', 'Tee vielä lukemisen ja kuuntelun tehtäviä, jotta arvio tarkentuu.']) {
     assert.ok(source.includes(line), `missing from the web card: ${line}`);
   }
+  if (!perCourse) return;
+  const sv = tg.TARGET_COURSE_COPY.sv;
+  for (const text of [sv.sourceNote, sv.coverage, 'Ruotsin pistearvio ei ole vielä käytössä.']) assert.ok(source.includes(text), `missing from the web target copy: ${text}`);
+  for (const g of sv.options) assert.ok(new RegExp(`grade: '${g.grade}', label: '${g.label}', points: ${g.points}\\b`).test(source), `RB points differ: ${g.grade} ${g.points}`);
+});
+
+test('Swedish targets use the RB boundaries and invent no candidate shares', () => {
+  assert.deepEqual(tg.SV_TARGET_GRADE_OPTIONS.map(g => `${g.grade} ${g.label} ${g.points}`), ['C Cum laude 156', 'M Magna 189', 'E Eximia 221', 'L Laudatur 255']);
+  assert.ok(tg.SV_TARGET_GRADE_OPTIONS.every(g => g.share === undefined));
+  assert.equal(tg.TARGET_COURSE_COPY.sv.options, tg.SV_TARGET_GRADE_OPTIONS);
+  assert.equal(tg.TARGET_COURSE_COPY.en.options, tg.TARGET_GRADE_OPTIONS);
+  assert.equal(tg.TARGET_COURSE_COPY.en.sourceNote, tg.TARGET_COPY.sourceNote);
+  assert.equal(tg.TARGET_COURSE_COPY.en.coverage, tg.TARGET_COPY.coverage);
+  assert.ok(!/englanti/i.test(tg.TARGET_COURSE_COPY.sv.sourceNote + tg.TARGET_COURSE_COPY.sv.coverage));
+
+  assert.equal(tg.estimateLine({ ...target, estimate: null }, 'en'), 'Tee vielä lukemisen ja kuuntelun tehtäviä, jotta arvio tarkentuu.');
+  assert.equal(tg.estimateLine({ ...target, estimate: null, targetPoints: 221 }, 'sv'), 'Ruotsin pistearvio ei ole vielä käytössä. Tavoite 221 / 299 p.');
+  assert.equal(tg.estimateLine({ ...target, targetPoints: 221 }, 'sv'), '244 p (M) · tavoite 221 p');
+
+  assert.equal(tg.gradeOptionLabel(tg.TARGET_GRADE_OPTIONS[2]), 'E, Eximia, 259 pistettä. noin joka viides saa E:n tai L:n', 'English label unchanged');
+  assert.equal(tg.gradeOptionLabel(tg.SV_TARGET_GRADE_OPTIONS[2]), 'E, Eximia, 221 pistettä.');
 });

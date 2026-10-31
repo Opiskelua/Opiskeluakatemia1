@@ -12,6 +12,8 @@ import { loadReview, submitReview } from '../lib/path-v2';
 import type { AnswerValue, Answers, ReviewSessionV2, ReviewSubmitResponseV2 } from '../lib/path-v2-types';
 import { answeredCount, answersForSubmit, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
 import { helsinkiDate, pickLine, poseFor } from '../lib/mascot';
+import { COURSES } from '../lib/courses';
+import { useCourse } from '../providers/CourseProvider';
 
 function FlashcardsCard({ due }: { due: number | null }) {
   if (due === null) return <NavCard kicker="Muistikortit" title="Kertaa sanastoa" description="Erääntyneiden korttien määrää ei saatu juuri nyt." onPress={() => router.push('/flashcards')} />;
@@ -32,7 +34,16 @@ function ReviewEmpty() {
 }
 
 export default function PathReviewScreen() {
+  const { course } = useCourse();
+  // Remount on a course switch so a session never submits to the other course.
+  return <ReviewSession key={course} />;
+}
+
+function ReviewSession() {
   const { type } = useTheme();
+  const { course } = useCourse();
+  // Flashcards are linked only where the course has them in the app.
+  const flashcards = COURSES[course].features.flashcards;
   const [session, setSession] = useState<ReviewSessionV2 | null>(null);
   const [loadError, setLoadError] = useState('');
   const [answers, setAnswers] = useState<Answers>({});
@@ -51,19 +62,19 @@ export default function PathReviewScreen() {
   const fetchSession = useCallback(async () => {
     setLoadError('');
     try {
-      const next = await loadReview();
+      const next = await loadReview(course);
       if (!mounted.current) return;
       setSession(next);
       setAnswers(previous => sanitizeDraft(next.items, previous));
       setIndex(0);
     } catch (e) { if (mounted.current) setLoadError(e instanceof Error ? e.message : 'Kertausta ei voitu ladata.'); }
-  }, []);
+  }, [course]);
   useEffect(() => {
     let cancelled = false;
-    loadReview().then(next => { if (!cancelled) setSession(next); })
+    loadReview(course).then(next => { if (!cancelled) setSession(next); })
       .catch(e => { if (!cancelled) setLoadError(e instanceof Error ? e.message : 'Kertausta ei voitu ladata.'); });
     return () => { cancelled = true; };
-  }, []);
+  }, [course]);
 
   const items = session?.items ?? [];
   const answered = answeredCount(items, answers);
@@ -75,7 +86,7 @@ export default function PathReviewScreen() {
     inFlight.current = true; setBusy(true); setError(''); setInfo('');
     const sent = answersForSubmit(items, answers);
     try {
-      const response = await submitReview(sent, session.revision);
+      const response = await submitReview(course, sent, session.revision);
       if (!mounted.current) return;
       setOutcome({ response, answers: sent, session });
       scroll.current?.scrollTo({ y: 0, animated: false });
@@ -108,7 +119,7 @@ export default function PathReviewScreen() {
       <WrongList items={outcome.session.items} answers={outcome.answers} result={result} />
       <View style={{ gap: space.sm }}>
         {summary.review.pendingItems > 0 && <Button title={`Uusi kertaus (${summary.review.pendingItems} jäljellä)`} onPress={() => { setOutcome(null); setAnswers({}); setSession(null); void fetchSession(); }} />}
-        <FlashcardsCard due={summary.review.dueFlashcards} />
+        {flashcards && <FlashcardsCard due={summary.review.dueFlashcards} />}
         <Button title="Takaisin polulle" variant="ghost" onPress={() => router.back()} />
       </View>
     </Screen>;
@@ -120,7 +131,7 @@ export default function PathReviewScreen() {
     {!!loadError && <Notice tone="error" title="Kertausta ei voitu ladata" message={loadError} actionTitle="Yritä uudelleen" onAction={() => void fetchSession()} />}
     {session && !items.length && <>
       <ReviewEmpty />
-      <FlashcardsCard due={session.dueFlashcards} />
+      {flashcards && <FlashcardsCard due={session.dueFlashcards} />}
     </>}
     {session && items.length > 0 && <>
       <Text style={type.caption}>{session.pendingTotal > items.length ? `Tässä istunnossa ${items.length} / ${session.pendingTotal} kerrattavasta kohdasta.` : `${items.length} kerrattavaa kohtaa.`} Voit lähettää myös osan vastauksista.</Text>
@@ -129,7 +140,7 @@ export default function PathReviewScreen() {
         contextFor={item => 'lessonTitle' in item ? String(item.lessonTitle) : undefined}
         finish={<Button title={busy ? 'Tarkistetaan…' : `Tarkista ${answered} / ${items.length}`} loading={busy} disabled={busy || !answered} onPress={() => void submit()} />} />
       {!!error && <Notice tone="error" message={error} />}
-      <FlashcardsCard due={session.dueFlashcards} />
+      {flashcards && <FlashcardsCard due={session.dueFlashcards} />}
     </>}
   </Screen>;
 }

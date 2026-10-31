@@ -19,6 +19,7 @@ function load(file, mocks = {}) {
 const types = load('path-v2-types.ts');
 const m = load('path-v2-model.ts', { './path-v2-types': types });
 const { sanitizeDeepLink } = load('deep-link.ts');
+const courses = load('courses.ts');
 
 const choice = { id: 'l-q1', kind: 'choice', instruction: '', prompt: 'I saw ___ owl.', options: ['a', 'an', 'the'] };
 const gap = { id: 'l-q2', kind: 'gap', instruction: '', prompt: 'She ___ (write) daily.', hint: 'write', maxLength: 80 };
@@ -121,6 +122,12 @@ test('lesson states, next step and failure mapping', () => {
   assert.equal(m.nextStepLabel({ nextLessonId: null, content: { units }, review: { pendingItems: 3 } }).title, 'Kertaa virheesi');
   assert.equal(m.nextStepLabel({ nextLessonId: null, content: { units }, review: { pendingItems: 0 } }).title, 'Kaikki tehty – kertaa korteilla');
   assert.equal(m.findLesson(units, 'nope'), null);
+  // A checkpoint promises the next part only when a unit follows it; the last unit's ends the path.
+  const path = [{ id: 'sv-pronomen' }, { id: 'sv-ordforrad' }, { id: 'sv-ordkunskap' }];
+  assert.equal(m.checkpointGoal(path, 'sv-ordforrad'), 'seuraava osa avautuu');
+  assert.equal(m.checkpointGoal(path, 'sv-ordkunskap'), 'suoritat koko polun');
+  assert.equal(m.checkpointGoal([...path, { id: 'planned', comingSoon: true }], 'sv-ordkunskap'), 'seuraava osa avautuu', 'a coming-soon unit still follows (English)');
+  assert.equal(m.checkpointGoal(path, 'nope'), 'seuraava osa avautuu');
   assert.equal(m.pathFailure(409), 'conflict');
   assert.equal(m.pathFailure(403), 'locked');
   assert.equal(m.pathFailure(400), 'invalid');
@@ -172,7 +179,7 @@ test('server error codes decide the failure, the HTTP status is the fallback', (
 });
 
 test('API errors keep the server code from the JSON body', async () => {
-  const api = load('api.ts', { './config': { config: { apiUrl: '' } }, './supabase': { supabase: null } });
+  const api = load('api.ts', { './config': { config: { apiUrl: '' } }, './courses': courses, './supabase': { supabase: null } });
   const body = value => ({ json: async () => value });
   assert.equal(await api.errorCode(body({ error: 'Lukittu', code: 'locked' })), 'locked');
   assert.equal(await api.errorCode(body({ error: 'Kurssioikeus puuttuu.' })), undefined);
@@ -203,7 +210,7 @@ function loadClient() {
     RequestError: class extends Error {}, errorCode: async () => undefined,
     apiRequest: async (url, options) => { calls.push({ url, method: options.method ?? 'GET' }); const next = replies.shift(); if (next instanceof Error) throw next; return next ?? state(); },
   };
-  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: '' } }, './path-v2-types': types, './path-v2-model': m });
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: '' } }, './courses': courses, './path-v2-types': types, './path-v2-model': m });
   return { client, calls, replies };
 }
 
@@ -212,40 +219,41 @@ test('the path cache serves fresh data for 60 s and drops it after any mutation'
   t.mock.method(Date, 'now', () => now);
   const { client, calls, replies } = loadClient();
   assert.equal(client.PATH_CACHE_TTL_MS, 60_000);
-  const first = await client.loadPath();
-  assert.equal(await client.loadPathCached(), first, 'reused right after the map loaded it');
+  const first = await client.loadPath('en');
+  assert.equal(await client.loadPathCached('en'), first, 'reused right after the map loaded it');
   now += 59_999;
-  assert.equal(await client.loadPathCached(), first);
+  assert.equal(await client.loadPathCached('en'), first);
   assert.equal(calls.length, 1);
   now += 1;
-  const second = await client.loadPathCached();
+  const second = await client.loadPathCached('en');
   assert.notEqual(second, first, 'expired after 60 s');
   assert.equal(calls.length, 2);
-  assert.equal(await client.loadPathCached(), second, 'a cached load refreshes the cache');
+  assert.equal(await client.loadPathCached('en'), second, 'a cached load refreshes the cache');
 
   replies.push({ summary: {}, revision: 1 });
-  await client.saveLesson('save', 'articles-1', {}, 0);
-  await client.loadPathCached();
+  await client.saveLesson('en', 'save', 'articles-1', {}, 0);
+  await client.loadPathCached('en');
   assert.equal(calls.filter(c => c.method === 'GET').length, 3, 'a lesson save invalidates');
 
   replies.push({ result: {}, summary: {} });
-  await client.submitReview({}, 0);
-  await client.loadPathCached();
+  await client.submitReview('en', {}, 0);
+  await client.loadPathCached('en');
   assert.equal(calls.filter(c => c.method === 'GET').length, 4, 'a review submit invalidates');
 
   replies.push(new Error('offline'));
-  await assert.rejects(client.saveLesson('submit', 'articles-1', {}, 0));
-  await client.loadPathCached();
+  await assert.rejects(client.saveLesson('en', 'submit', 'articles-1', {}, 0));
+  await client.loadPathCached('en');
   assert.equal(calls.filter(c => c.method === 'GET').length, 5, 'a failed mutation invalidates too');
 
   client.clearPathCache();
-  await client.loadPathCached();
+  await client.loadPathCached('en');
   assert.equal(calls.filter(c => c.method === 'GET').length, 6, 'sign-in changes clear it');
 
   // The clock moving backwards never serves an entry from the "future".
   now -= 10_000;
-  await client.loadPathCached();
+  await client.loadPathCached('en');
   assert.equal(calls.filter(c => c.method === 'GET').length, 7);
+  assert.deepEqual([...new Set(calls.map(c => c.url))], ['/api/abikurssi/path', '/api/abikurssi/path/review'], 'English stays on the English routes');
 });
 
 test('a path load that races with a mutation is not cached', async () => {
@@ -253,12 +261,12 @@ test('a path load that races with a mutation is not cached', async () => {
   let release;
   replies.push(new Promise(resolve => { release = resolve; }).then(() => ({ content: { units: [] }, level: {}, progress: { stale: true } })));
   // apiRequest mock returns the promise itself; await it inside loadPath.
-  const pending = client.loadPath();
+  const pending = client.loadPath('en');
   replies.push({ summary: {}, revision: 1 });
-  await client.saveLesson('save', 'articles-1', {}, 0);
+  await client.saveLesson('en', 'save', 'articles-1', {}, 0);
   release();
   assert.equal((await pending).progress.stale, true);
-  const next = await client.loadPathCached();
+  const next = await client.loadPathCached('en');
   assert.notEqual(next.progress.stale, true, 'the stale response was not cached');
   assert.equal(calls.filter(c => c.method === 'GET').length, 2);
 });
@@ -277,33 +285,33 @@ test('saving the target invalidates the cache and retries a 409 once with the re
       return next ?? { content: { units: [] }, level: {}, progress: {}, targetRevision: 0 };
     },
   };
-  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: '' } }, './path-v2-types': types, './path-v2-model': m });
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: '' } }, './courses': courses, './path-v2-types': types, './path-v2-model': m });
   const body = { version: types.PATH_V2_VERSION, revision: 2, targetGrade: 'E', examSeason: 'K2027' };
 
-  await client.loadPath();
+  await client.loadPath('en');
   replies.push({ revision: 3, summary: { targetRevision: 3 } });
-  assert.equal((await client.saveTarget(body)).revision, 3);
+  assert.equal((await client.saveTarget('en', body)).revision, 3);
   assert.deepEqual(calls.at(-1), { url: '/api/abikurssi/path/target', method: 'POST', body });
-  await client.loadPathCached();
+  await client.loadPathCached('en');
   assert.equal(calls.filter(c => c.method === 'GET').length, 2, 'a target save invalidates the path cache');
 
   calls.length = 0;
   replies.push(new RequestError('x', 409, 'conflict'), { content: { units: [] }, level: {}, progress: {}, targetRevision: 5 }, { revision: 6, summary: {} });
-  assert.equal((await client.saveTarget(body)).revision, 6);
+  assert.equal((await client.saveTarget('en', body)).revision, 6);
   assert.deepEqual(calls.map(c => `${c.method} ${c.url}`), ['POST /api/abikurssi/path/target', 'GET /api/abikurssi/path', 'POST /api/abikurssi/path/target']);
   assert.equal(calls[2].body.revision, 5, 'retried with the reloaded targetRevision');
   assert.equal(calls[2].body.targetGrade, 'E');
 
   calls.length = 0;
   replies.push(new RequestError('x', 409, 'conflict'), { content: { units: [] }, level: {}, progress: {} }, new RequestError('x', 409, 'conflict'));
-  await assert.rejects(client.saveTarget(body), error => error.status === 409);
+  await assert.rejects(client.saveTarget('en', body), error => error.status === 409);
   assert.equal(calls.length, 3, 'only one reload and retry');
   assert.equal(calls[2].body.revision, 0, 'a reload without targetRevision means 0');
 
   for (const [status, code] of [[400, 'invalid_request'], [503, 'unavailable']]) {
     calls.length = 0;
     replies.push(new RequestError('x', status, code));
-    await assert.rejects(client.saveTarget(body), error => error.code === code);
+    await assert.rejects(client.saveTarget('en', body), error => error.code === code);
     assert.equal(calls.length, 1, `${code} is not retried`);
   }
 });
@@ -316,8 +324,125 @@ test('saving the target uses the preview route in preview mode', async t => {
   const urls = [];
   t.mock.method(globalThis, 'fetch', async (url, init) => { urls.push(`${init.method} ${url}`); return { ok: true, json: async () => ({ revision: 1, summary: {} }) }; });
   const api = { RequestError: class extends Error {}, errorCode: async () => undefined, apiRequest: async () => { throw new Error('not used in preview'); } };
-  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: 'http://dev' } }, './path-v2-types': types, './path-v2-model': m });
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: 'http://dev' } }, './courses': courses, './path-v2-types': types, './path-v2-model': m });
   assert.equal(client.PATH_PREVIEW, true);
-  await client.saveTarget({ version: types.PATH_V2_VERSION, revision: 0, targetGrade: 'C', examSeason: null });
+  await client.saveTarget('en', { version: types.PATH_V2_VERSION, revision: 0, targetGrade: 'C', examSeason: null });
   assert.deepEqual(urls, ['POST http://dev/api/abikurssi/path-preview/target?user=mobile']);
+});
+
+// ---------------------------------------------------------------------------
+// Courses: Ruotsin abikurssi uses its own Polku routes with the same contract.
+// ---------------------------------------------------------------------------
+
+function loadCourseClient() {
+  globalThis.__DEV__ = false;
+  class RequestError extends Error { constructor(message, status, code) { super(message); this.status = status; this.code = code; } }
+  const calls = [];
+  const replies = [];
+  const api = {
+    RequestError, errorCode: async () => undefined,
+    apiRequest: async (url, options) => {
+      calls.push({ url, method: options.method ?? 'GET', body: options.body });
+      const next = replies.shift();
+      if (next instanceof Error) throw next;
+      return next ?? { content: { units: [] }, level: {}, progress: {}, items: [], targetRevision: 0, n: calls.length };
+    },
+  };
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: '' } }, './courses': courses, './path-v2-types': types, './path-v2-model': m });
+  return { client, calls, replies, RequestError };
+}
+
+test('Swedish Polku calls use /api/abikurssi/ruotsi/path* and keep the contract version', async () => {
+  const { client, calls, replies, RequestError } = loadCourseClient();
+  await client.loadPath('sv');
+  replies.push({ summary: {}, revision: 1 });
+  await client.saveLesson('sv', 'submit', 'sv-verb-1', { 'sv-verb-1-q1': 0 }, 0);
+  await client.loadReview('sv');
+  replies.push({ result: {}, summary: {} });
+  await client.submitReview('sv', { 'sv-verb-1-q1': 1 }, 3);
+  const target = { version: types.PATH_V2_VERSION, revision: 0, targetGrade: 'M', examSeason: 'S2027' };
+  replies.push(new RequestError('x', 409, 'conflict'), { content: { units: [] }, level: {}, progress: {}, targetRevision: 4 }, { revision: 5, summary: {} });
+  await client.saveTarget('sv', target);
+  assert.deepEqual(calls.map(c => `${c.method} ${c.url}`), [
+    'GET /api/abikurssi/ruotsi/path',
+    'POST /api/abikurssi/ruotsi/path',
+    'GET /api/abikurssi/ruotsi/path/review',
+    'POST /api/abikurssi/ruotsi/path/review',
+    'POST /api/abikurssi/ruotsi/path/target',
+    'GET /api/abikurssi/ruotsi/path',
+    'POST /api/abikurssi/ruotsi/path/target',
+  ], 'the 409 retry reloads the same course');
+  for (const call of calls.filter(c => c.method === 'POST')) assert.equal(call.body.version, 'v2-2026', 'the server keeps courses apart by route, not by version');
+  assert.deepEqual(calls[1].body, { action: 'submit', version: 'v2-2026', lessonId: 'sv-verb-1', answers: { 'sv-verb-1-q1': 0 }, revision: 0 });
+  assert.equal(calls.at(-1).body.revision, 4);
+});
+
+test('the path cache is kept per course and any mutation drops every course', async t => {
+  const now = 2_000_000;
+  t.mock.method(Date, 'now', () => now);
+  const { client, calls, replies } = loadCourseClient();
+  const en = await client.loadPath('en');
+  const sv = await client.loadPathCached('sv');
+  assert.notEqual(sv, en, 'a Swedish load never returns the English path');
+  assert.equal(await client.loadPathCached('en'), en);
+  assert.equal(await client.loadPathCached('sv'), sv);
+  assert.deepEqual(calls.map(c => c.url), ['/api/abikurssi/path', '/api/abikurssi/ruotsi/path']);
+
+  // The streak is shared across courses, so a Swedish lesson also makes the English copy stale.
+  replies.push({ summary: {}, revision: 1 });
+  await client.saveLesson('sv', 'submit', 'sv-verb-1', {}, 0);
+  await client.loadPathCached('en');
+  await client.loadPathCached('sv');
+  assert.deepEqual(calls.filter(c => c.method === 'GET').map(c => c.url).slice(2), ['/api/abikurssi/path', '/api/abikurssi/ruotsi/path']);
+
+  client.clearPathCache();
+  await client.loadPathCached('sv');
+  assert.equal(calls.at(-1).url, '/api/abikurssi/ruotsi/path', 'sign-in changes clear every course');
+});
+
+test('preview mode maps each course explicitly to the preview endpoint', async t => {
+  globalThis.__DEV__ = true;
+  const previous = process.env.EXPO_PUBLIC_PATH_PREVIEW;
+  process.env.EXPO_PUBLIC_PATH_PREVIEW = '1';
+  t.after(() => { globalThis.__DEV__ = false; if (previous === undefined) delete process.env.EXPO_PUBLIC_PATH_PREVIEW; else process.env.EXPO_PUBLIC_PATH_PREVIEW = previous; });
+  const urls = [];
+  t.mock.method(globalThis, 'fetch', async (url, init) => {
+    urls.push(`${init.method} ${url}`);
+    return { ok: true, json: async () => ({ content: { units: [] }, level: {}, progress: {}, items: [], revision: 1, summary: {}, result: {} }) };
+  });
+  const api = { RequestError: class extends Error {}, errorCode: async () => undefined, apiRequest: async () => { throw new Error('a preview call reached the production API'); } };
+  const client = load('path-v2.ts', { './api': api, './config': { config: { apiUrl: 'http://dev' } }, './courses': courses, './path-v2-types': types, './path-v2-model': m });
+  await client.loadPath('en', 'fresh');
+  await client.loadPath('sv', 'midway');
+  await client.loadPath('sv');
+  await client.saveLesson('sv', 'save', 'sv-verb-1', {}, 0);
+  await client.loadReview('sv');
+  await client.submitReview('sv', {}, 0);
+  await client.saveTarget('sv', { version: types.PATH_V2_VERSION, revision: 0, targetGrade: 'E', examSeason: null });
+  assert.deepEqual(urls, [
+    'GET http://dev/api/abikurssi/path-preview?scenario=fresh&user=mobile',
+    'GET http://dev/api/abikurssi/path-preview?course=sv&scenario=midway&user=mobile',
+    'GET http://dev/api/abikurssi/path-preview?course=sv&user=mobile',
+    'POST http://dev/api/abikurssi/path-preview?course=sv&user=mobile',
+    'GET http://dev/api/abikurssi/path-preview/review?course=sv&user=mobile',
+    'POST http://dev/api/abikurssi/path-preview/review?course=sv&user=mobile',
+    'POST http://dev/api/abikurssi/path-preview/target?course=sv&user=mobile',
+  ]);
+  assert.ok(urls.every(url => !url.includes('/ruotsi/')), 'the Swedish production base is never rewritten into a preview path');
+});
+
+test('a course without flashcards in the app never points to cards', () => {
+  const lesson = { id: 'sv-verb-1', unitId: 'sv-verb', kind: 'lesson', order: 1, title: 'Preesens', subtitle: '', estimatedMinutes: 4, maxXp: 15, guide: null, items: [] };
+  const units = [{ id: 'sv-verb', order: 1, title: 'Verbit', subtitle: '', skill: 'grammar', comingSoon: false, plannedLessons: [], lessons: [lesson], resources: [] }];
+  const done = { nextLessonId: null, content: { units }, review: { pendingItems: 0 } };
+  assert.equal(m.nextStepLabel(done).title, 'Kaikki tehty – kertaa korteilla', 'English keeps its copy');
+  assert.deepEqual(m.nextStepLabel(done, false), { title: 'Kaikki tehty', detail: 'Voit tehdä oppitunteja uudelleen ja kerrata teoriaa.' });
+  assert.equal(m.nextStepLabel({ ...done, review: { pendingItems: 2 } }, false).title, 'Kertaa virheesi');
+  assert.equal(m.nextStepLabel({ ...done, nextLessonId: 'sv-verb-1' }, false).title, 'Preesens');
+
+  const sv = courses.COURSES.sv.features;
+  const en = courses.COURSES.en.features;
+  for (const kind of ['theory', 'reading', 'listening', 'listening-mc', 'grammar', 'flashcards', 'essay']) assert.equal(m.resourceAvailable({ kind }, en), true, kind);
+  assert.equal(m.resourceAvailable({ kind: 'theory' }, sv), true);
+  for (const kind of ['reading', 'listening', 'listening-mc', 'grammar', 'flashcards', 'essay']) assert.equal(m.resourceAvailable({ kind }, sv), false, `${kind} would open an English screen`);
 });

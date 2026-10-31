@@ -1,6 +1,11 @@
 # Store listing texts (Finnish)
 
-Listing copy for App Store Connect and Google Play Console, version 1.0.0. Character counts are Unicode characters (NFC), which is how both consoles count them. The copy follows Apple guideline 3.1.3(b): it describes the app as the companion app for an existing opiskeluakatemia.fi account and never mentions prices, buying or purchase links. It avoids unverifiable claims (no "best", no grade promises, no review numbers). The grade estimate is described as indicative, matching the in-app disclaimer.
+Listing copy for App Store Connect and Google Play Console, app version 1.1.0 (`app.json`). Character counts are Unicode characters (NFC), which is how both consoles count them. The copy follows Apple guideline 3.1.3(b): it describes the app as the companion app for an existing opiskeluakatemia.fi account and never mentions prices, buying or purchase links. It avoids unverifiable claims (no "best", no grade promises, no review numbers). The grade estimate is described as indicative, matching the in-app disclaimer.
+
+The app serves both courses: Englannin abikurssi (pitkä englanti) and Ruotsin abikurssi (keskipitkä ruotsi).
+- For Swedish the app offers the learning path (Polku with Kertaus) and the theory. Swedish exercises, writing and flashcards are on the website. The app says so on the Swedish home screen (`homeNote` in `src/lib/courses.ts`).
+- The copy marks the English-only sections with "(ENGLANTI)" so that a Swedish-only student is not promised features the app does not have for Swedish.
+- It names the website only as the place where those features are, never as a place to buy.
 
 Category: **Education** (App Store primary category "Education"; Google Play category "Education"). Optional App Store secondary category: Reference.
 
@@ -18,35 +23,40 @@ Other listing fields (from STORE_SUBMISSION.md):
 Opiskeluakatemia
 ```
 
-### App Store: alaotsikko (subtitle) (26/30 merkkiä)
+### App Store: alaotsikko (subtitle) (30/30 merkkiä)
 
 ```text
-Englannin abikurssi mukana
+Englannin ja ruotsin abikurssi
 ```
 
-### App Store: mainosteksti (promotional text) (143/170 merkkiä)
+### App Store: mainosteksti (promotional text) (151/170 merkkiä)
 
 ```text
-Oppimispolku, kertaus, harjoitukset, kirjoitelmien tekoälypalaute ja muistikortit. Englannin abikurssi samalla tilillä puhelimessa ja verkossa.
+Oppimispolku, kertaus ja teoria englannin ja ruotsin abikurssille. Englannin kurssilla myös harjoitukset, kirjoitelmien tekoälypalaute ja muistikortit.
 ```
 
-### App Store: avainsanat (keywords) (96/100 merkkiä)
+### App Store: avainsanat (keywords) (92/100 merkkiä)
 
 ```text
-englanti,yo-koe,ylioppilaskoe,lukio,abi,kielioppi,sanasto,muistikortit,kuullunymmärtäminen,essee
+englanti,ruotsi,yo-koe,ylioppilaskoe,lukio,abi,kielioppi,sanasto,muistikortit,essee,kuuntelu
 ```
 
 Keywords are comma-separated with no spaces and do not repeat words from the name or subtitle (Apple already indexes those).
 
-### App Store: kuvaus (description) (2741/4000 merkkiä)
+### App Store: kuvaus (description) (3310/4000 merkkiä)
 
 ```text
-Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun Englannin abikurssin mobiilisovellus. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
+Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun mobiilisovellus Englannin abikurssille ja Ruotsin abikurssille. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
 
 Sovelluksen käyttö edellyttää olemassa olevaa opiskeluakatemia.fi-tiliä, jolla on aktiivinen kurssioikeus. Sovelluksessa ei luoda uusia tilejä.
 
+KAKSI KURSSIA
+• Englannin abikurssi (pitkä englanti): oppimispolku, kertaus, harjoitukset, kirjoitelmat, muistikortit, päivän tehtävät, edistyminen ja teoria.
+• Ruotsin abikurssi (keskipitkä ruotsi): oppimispolku, kertaus ja teoria. Ruotsin kurssin harjoitukset, kirjoitustehtävät ja muistikortit ovat verkkopalvelussa.
+• Sovellus näyttää kurssit, joihin tililläsi on kurssioikeus. Jos sinulla on molemmat, vaihdat kurssia kotinäkymässä.
+
 OPPIMISPOLKU
-• Etene oppitunti kerrallaan polulla, jonka osat avautuvat järjestyksessä.
+• Etene oppitunti kerrallaan polulla, jonka osat avautuvat järjestyksessä. Kummallakin kurssilla on oma polkunsa.
 • Oppitunneilla valitaan oikea vaihtoehto, täydennetään puuttuva kohta ja kootaan lauseita napauttamalla sanoja oikeaan järjestykseen.
 • Jokaisen tehtävän jälkeen näet, mikä meni oikein ja mikä väärin. Säännön ja esimerkit saa näkyviin kesken oppitunnin.
 • Osan lopussa on välietappi. Kun läpäiset sen, seuraava osa avautuu.
@@ -57,27 +67,27 @@ KERTAUS
 • Oppitunneilla väärin menneet kohdat kootaan Kertaus-listalle.
 • Kun vastaat kohtaan oikein, se poistuu listalta.
 
-HARJOITUKSET
+HARJOITUKSET (ENGLANTI)
 • Kielioppi ja sanasto, luetunymmärtäminen ja kuullunymmärtäminen.
 • Valitse verkkokurssin valmis tehtävä tai luo uusi harjoitus ja valitse sen vaikeustaso: helppo, keskitaso tai haastava.
 • Kuullunymmärtämisen äänite toistetaan suoraan sovelluksessa.
 • Tulokset tallentuvat harjoitushistoriaan ja näkyvät myös verkkopalvelussa.
 
-KIRJOITELMAT JA TEKOÄLYPALAUTE
+KIRJOITELMAT JA TEKOÄLYPALAUTE (ENGLANTI)
 • Kirjoita kirjoitelmia verkkokurssin aiheista ja tallenna luonnoksia. Voit jatkaa luonnosta myös verkossa.
 • Palauta teksti arvioitavaksi, niin saat pistearvion, vahvuudet ja kehitettävät kohdat.
 • Kirjoitelmat ja avoimet vastaukset arvioi tekoäly (Google Gemini) Opiskeluakatemian palvelimen kautta. Sovellus pyytää suostumuksesi ennen ensimmäistä lähetystä.
 
-MUISTIKORTIT
+MUISTIKORTIT (ENGLANTI)
 • Kertaa kurssin sanastopakkoja ja luo omia pakkoja ja kortteja.
 • Kerro, kuinka hyvin muistit. Seuraavan kertauksen ajankohta määräytyy sen mukaan.
 
-PÄIVÄN TEHTÄVÄT JA EDISTYMINEN
+PÄIVÄN TEHTÄVÄT JA EDISTYMINEN (ENGLANTI)
 • Päivän tehtävät valitaan taitoprofiilisi perusteella.
 • Edistyminen-näkymä näyttää taitoprofiilin, vahvuudet, seuraavaksi harjoiteltavat taidot ja suuntaa antavan arvosana-arvion. Arvio perustuu tekemiisi harjoituksiin, eikä se takaa koetulosta.
 
 TEORIA
-• Kieliopin säännöt, esimerkit ja yo-vinkit samoina kuin verkkokurssilla. Aiheita voi hakea hakusanalla.
+• Englannin ja ruotsin kieliopin säännöt, esimerkit ja yo-vinkit samoina kuin verkkokurssilla. Aiheita voi hakea hakusanalla.
 
 TIETOSUOJA
 • Sovelluksessa ei ole mainoksia eikä seurantaa.
@@ -99,20 +109,25 @@ Opiskeluakatemia
 ### Google Play: lyhyt kuvaus (short description) (76/80 merkkiä)
 
 ```text
-Englannin abikurssin oppimispolku, harjoitukset ja muistikortit puhelimessa.
+Englannin ja ruotsin abikurssi puhelimessa: oppimispolku, kertaus ja teoria.
 ```
 
 The full description is the same text as the App Store description.
 
-### Google Play: koko kuvaus (full description) (2741/4000 merkkiä)
+### Google Play: koko kuvaus (full description) (3310/4000 merkkiä)
 
 ```text
-Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun Englannin abikurssin mobiilisovellus. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
+Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun mobiilisovellus Englannin abikurssille ja Ruotsin abikurssille. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
 
 Sovelluksen käyttö edellyttää olemassa olevaa opiskeluakatemia.fi-tiliä, jolla on aktiivinen kurssioikeus. Sovelluksessa ei luoda uusia tilejä.
 
+KAKSI KURSSIA
+• Englannin abikurssi (pitkä englanti): oppimispolku, kertaus, harjoitukset, kirjoitelmat, muistikortit, päivän tehtävät, edistyminen ja teoria.
+• Ruotsin abikurssi (keskipitkä ruotsi): oppimispolku, kertaus ja teoria. Ruotsin kurssin harjoitukset, kirjoitustehtävät ja muistikortit ovat verkkopalvelussa.
+• Sovellus näyttää kurssit, joihin tililläsi on kurssioikeus. Jos sinulla on molemmat, vaihdat kurssia kotinäkymässä.
+
 OPPIMISPOLKU
-• Etene oppitunti kerrallaan polulla, jonka osat avautuvat järjestyksessä.
+• Etene oppitunti kerrallaan polulla, jonka osat avautuvat järjestyksessä. Kummallakin kurssilla on oma polkunsa.
 • Oppitunneilla valitaan oikea vaihtoehto, täydennetään puuttuva kohta ja kootaan lauseita napauttamalla sanoja oikeaan järjestykseen.
 • Jokaisen tehtävän jälkeen näet, mikä meni oikein ja mikä väärin. Säännön ja esimerkit saa näkyviin kesken oppitunnin.
 • Osan lopussa on välietappi. Kun läpäiset sen, seuraava osa avautuu.
@@ -123,27 +138,27 @@ KERTAUS
 • Oppitunneilla väärin menneet kohdat kootaan Kertaus-listalle.
 • Kun vastaat kohtaan oikein, se poistuu listalta.
 
-HARJOITUKSET
+HARJOITUKSET (ENGLANTI)
 • Kielioppi ja sanasto, luetunymmärtäminen ja kuullunymmärtäminen.
 • Valitse verkkokurssin valmis tehtävä tai luo uusi harjoitus ja valitse sen vaikeustaso: helppo, keskitaso tai haastava.
 • Kuullunymmärtämisen äänite toistetaan suoraan sovelluksessa.
 • Tulokset tallentuvat harjoitushistoriaan ja näkyvät myös verkkopalvelussa.
 
-KIRJOITELMAT JA TEKOÄLYPALAUTE
+KIRJOITELMAT JA TEKOÄLYPALAUTE (ENGLANTI)
 • Kirjoita kirjoitelmia verkkokurssin aiheista ja tallenna luonnoksia. Voit jatkaa luonnosta myös verkossa.
 • Palauta teksti arvioitavaksi, niin saat pistearvion, vahvuudet ja kehitettävät kohdat.
 • Kirjoitelmat ja avoimet vastaukset arvioi tekoäly (Google Gemini) Opiskeluakatemian palvelimen kautta. Sovellus pyytää suostumuksesi ennen ensimmäistä lähetystä.
 
-MUISTIKORTIT
+MUISTIKORTIT (ENGLANTI)
 • Kertaa kurssin sanastopakkoja ja luo omia pakkoja ja kortteja.
 • Kerro, kuinka hyvin muistit. Seuraavan kertauksen ajankohta määräytyy sen mukaan.
 
-PÄIVÄN TEHTÄVÄT JA EDISTYMINEN
+PÄIVÄN TEHTÄVÄT JA EDISTYMINEN (ENGLANTI)
 • Päivän tehtävät valitaan taitoprofiilisi perusteella.
 • Edistyminen-näkymä näyttää taitoprofiilin, vahvuudet, seuraavaksi harjoiteltavat taidot ja suuntaa antavan arvosana-arvion. Arvio perustuu tekemiisi harjoituksiin, eikä se takaa koetulosta.
 
 TEORIA
-• Kieliopin säännöt, esimerkit ja yo-vinkit samoina kuin verkkokurssilla. Aiheita voi hakea hakusanalla.
+• Englannin ja ruotsin kieliopin säännöt, esimerkit ja yo-vinkit samoina kuin verkkokurssilla. Aiheita voi hakea hakusanalla.
 
 TIETOSUOJA
 • Sovelluksessa ei ole mainoksia eikä seurantaa.
@@ -156,7 +171,7 @@ Tuki: https://opiskeluakatemia.fi/ota-yhteytta
 
 ## Suggested screenshots
 
-Capture on a release (preview) build signed in with the demo account, so that no personal email address, draft text or real name is visible. Do not show the "Kurssioikeutta ei löytynyt" state, the sign-in screen's password field with content, or anything that refers to buying. Sizes: iPhone 6.9" (1320×2868) and 6.5" (1284×2778); Android phone (for example 1080×1920 or larger, 9:16). Google Play also needs a 1024×500 feature graphic.
+Capture on a release (preview) build signed in with the demo account (it should own both courses, so the course switcher shows), so that no personal email address, draft text or real name is visible. Do not show the "Kurssioikeutta ei löytynyt" state, the sign-in screen's password field with content, or anything that refers to buying. Sizes: iPhone 6.9" (1320×2868) and 6.5" (1284×2778); Android phone (for example 1080×1920 or larger, 9:16). Google Play also needs a 1024×500 feature graphic.
 
 | # | Screen (route) | What to show | Caption |
 | --- | --- | --- | --- |
@@ -168,5 +183,6 @@ Capture on a release (preview) build signed in with the demo account, so that no
 | 6 | Muistikortit (`/flashcards`) | A card with the answer revealed and the "Kuinka hyvin muistit?" buttons | Kertaa sanastoa muistikorteilla omaan tahtiin. |
 | 7 | Edistyminen (`/progress`) | Skill profile with strengths and next skills to practise | Näe vahvuutesi ja mitä kannattaa harjoitella seuraavaksi. |
 | 8 | Koti (`/`) | Home screen with the path card, daily tasks and recent results (signed in, course active) | Sama tili puhelimessa ja verkossa. |
+| 9 | Polku, Ruotsin abikurssi (`/path` after switching to Ruotsi on the home screen) | The Swedish path map, or a Swedish lesson mid-way | Ruotsin abikurssin polku ja teoria samassa sovelluksessa. |
 
 If the grade estimate is visible in screenshot 7, keep the disclaimer ("ei takaa koetulosta") in the frame or crop the estimate out, so the screenshot does not read as a grade promise.

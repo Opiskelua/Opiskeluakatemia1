@@ -57,7 +57,16 @@ JavaScript export checks are not native builds or device testing. Verify on devi
 Requests send `Authorization: Bearer <Supabase access token>` to the existing Next.js server:
 
 - `POST /api/courses/link-purchases` associates matching purchases with the signed-in account, as the website does.
-- `GET /api/courses/check-access?courseType=abikurssi` returns `{ hasAccess: boolean, courseType: string }`.
+- `GET /api/courses/check-access?courseType=abikurssi` (and `?courseType=ruotsin-abikurssi`) returns `{ hasAccess: boolean, courseType: string }`. The home screen checks each course separately.
+
+## Courses
+
+The app serves Englannin abikurssi (`en`) and Ruotsin abikurssi (`sv`). `src/lib/courses.ts` holds the identifiers (from the website's `docs/RUOTSIN_ABIKURSSI.md`), the URLs and what each course offers in the app; `src/providers/CourseProvider.tsx` holds the selected course (AsyncStorage `oa.course.v1`, cleared on sign-out, else the first owned course, English first). The home screen shows a course switcher only to owners of both courses and never mentions a course the student does not own.
+
+- Polku: English `/api/abikurssi/path`, `/path/review`, `/path/target`; Swedish `/api/abikurssi/ruotsi/path`, `/ruotsi/path/review`, `/ruotsi/path/target`. Both send `version: 'v2-2026'` (`path-v2-types.ts` stays a byte mirror of the website). The dev preview uses `/api/abikurssi/path-preview` for both, plus `course=sv` for Swedish. The path cache is per course and every mutation drops all of it (the study streak is shared).
+- Theory: `/api/abikurssi/content` (English) and `/api/abikurssi/content?course=sv`.
+- Swedish in the app is Polku and theory only. Exercises, essays, flashcards, daily tasks and the grade estimate stay English; their home entries and the Polku flashcard links are hidden in the Swedish course. Swedish attempts share the Supabase attempt tables, so the exercise history reads only `course_type = 'abikurssi'` rows (unfiltered while the course migration is not applied). The target grade uses the RB points (C 156, M 189, E 221, L 255) without candidate shares.
+- The mascot intro is dismissed per course (`mascot.introDismissed`, `mascot.introDismissed.sv`).
 
 The server verifies the user and evaluates course access. A local UI state never grants access to protected course material. Supabase public keys are expected to be visible in a client app; server service-role keys, Stripe secrets and AI keys must never be included. The Supabase session is stored in the iOS Keychain / Android Keystore through `expo-secure-store` (chunked, `src/lib/chunked-storage.ts`); a session saved in AsyncStorage by an earlier build is migrated on first launch. The web preview still uses AsyncStorage.
 

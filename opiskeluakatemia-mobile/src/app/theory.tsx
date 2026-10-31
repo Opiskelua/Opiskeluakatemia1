@@ -1,15 +1,18 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { Screen, usePullToRefresh } from '../components/Screen';
 import { Bullet, Card, EmptyState, Field, LoadingState, Notice, PageHeader } from '../components/ui';
 import { loadContent } from '../lib/course';
 import { useSyncedResource } from '../hooks/useSyncedResource';
+import { useCourse } from '../providers/CourseProvider';
 import { layout, makeStyles, radii, space, useTheme } from '../theme';
 export default function Theory() {
   const { colors, type } = useTheme();
   const styles = useStyles();
-  const { data, loading, error, refresh } = useSyncedResource(loadContent);
+  // The selected course's theory; Polku guides link here with a section id of the same course.
+  const { course, info } = useCourse();
+  const { data, loading, error, refresh } = useSyncedResource(useCallback(() => loadContent(course), [course]));
   const pull = usePullToRefresh(refresh);
   const [search, setSearch] = useState('');
   // Optional section to open first (from a Polku "Muista sääntö" link).
@@ -20,7 +23,7 @@ export default function Theory() {
     return data?.theory.filter(s => !query || `${s.title} ${s.category} ${s.content.description}`.toLocaleLowerCase('fi').includes(query)) ?? [];
   }, [data, search]);
   return <Screen {...pull}>
-    <PageHeader kicker="Kurssikirjasto" title="Kielioppi selkeäksi." intro="Samat säännöt, esimerkit ja yo-vinkit kuin verkkokurssilla." />
+    <PageHeader kicker={course === 'en' ? 'Kurssikirjasto' : `${info.label} · kurssikirjasto`} title="Kielioppi selkeäksi." intro="Samat säännöt, esimerkit ja yo-vinkit kuin verkkokurssilla." />
     <Field accessibilityLabel="Hae teoriaa" accessibilityRole="search" placeholder="Hae aihetta…" value={search} onChangeText={setSearch} returnKeyType="search" clearButtonMode="while-editing" autoCorrect={false} autoCapitalize="none" />
     {!!search.trim() && !!data && <Text style={type.caption} accessibilityLiveRegion="polite">{sections.length ? `Löytyi ${sections.length} ${sections.length === 1 ? 'aihe' : 'aihetta'}` : 'Ei osumia'}</Text>}
     {loading && !data && <LoadingState label="Ladataan teoriaa…" />}

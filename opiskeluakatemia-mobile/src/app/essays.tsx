@@ -9,11 +9,13 @@ import { completeTask, loadContent, type Topic } from '../lib/course';
 import { CATEGORY_LABELS, ESSAY_MAX_CHARS, ESSAY_MIN_CHARS, essayCounts, feedbackLines, loadDrafts, loadEssays, loadEvaluation, type Essay, type Evaluation } from '../lib/essays';
 import { apiRequest, checkCourseAccess } from '../lib/api';
 import { ensureAiConsent } from '../lib/ai-consent';
+// Essays and their topics are English (Swedish writing is on the website for now).
+const loadTopics = () => loadContent('en');
 export default function Essays() {
   const { taskId } = useLocalSearchParams<{ taskId?: string }>();
   const { colors, type } = useTheme();
   const styles = useStyles();
-  const content = useSyncedResource(loadContent);
+  const content = useSyncedResource(loadTopics);
   const list = useSyncedResource(loadEssays);
   const [topic, setTopic] = useState<Topic | null>(null);
   const [text, setText] = useState('');
@@ -69,7 +71,7 @@ export default function Essays() {
     inFlight.current = true; setBusy(true); setError(''); setNotice('');
     let id = essayId;
     try {
-      if (!await checkCourseAccess()) throw new Error('Tarvitset aktiivisen kurssioikeuden.');
+      if (!await checkCourseAccess('en')) throw new Error('Tarvitset aktiivisen kurssioikeuden.');
       const body = { topicId: topic.id, topicTitle: topic.title, content: text, ...counts };
       // Persist the ID before grading, so retrying never creates another essay.
       if (!submitted) {

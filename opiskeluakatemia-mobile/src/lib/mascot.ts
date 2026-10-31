@@ -3,6 +3,7 @@
 // shared with the website (tests/mascot.test.cjs checks for drift). pickLine, momentForResult and
 // streakAtRisk follow the definitions in the spec's `rules` so both apps pick the same lines.
 import spec from './mascot-states.json';
+import type { CourseId } from './courses';
 import type { GradeResult, PathSummaryV2, RewardSummary } from './path-v2-types';
 
 export type MascotPose = 'idle' | 'greet' | 'think' | 'relax' | 'celebrate' | 'cheer';
@@ -130,6 +131,12 @@ export function allDone(state: { nextLessonId: string | null; content: { units: 
 
 /** Onboarding card: no XP yet and the intro has not been dismissed. */
 export const showOnboarding = (summary: Pick<PathSummaryV2, 'xp'>, introDismissed: boolean) => summary.xp.total === 0 && !introDismissed;
+
+/**
+ * Device flag for a dismissed intro, per course, so a Swedish beginner still meets Abi after
+ * skipping the English intro. English keeps the key it had before there were courses.
+ */
+export const introDismissedKey = (course: CourseId) => (course === 'en' ? 'mascot.introDismissed' : `mascot.introDismissed.${course}`);
 
 // ---------------------------------------------------------------------------
 // Assets

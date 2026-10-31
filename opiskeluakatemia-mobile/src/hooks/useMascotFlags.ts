@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { COURSE_IDS, type CourseId } from '../lib/courses';
+import { introDismissedKey } from '../lib/mascot';
 
 // Device-local mascot flags (spec: mascot.introDismissed, mascot.greetedOn, daily big-celebration
 // count). Kept in AsyncStorage like the theme setting; a shared in-memory copy keeps the home card
-// and the Polku screens in sync without re-reading storage.
+// and the Polku screens in sync without re-reading storage. The intro flag is per course (each
+// course has its own first lesson); the greeting and the celebration cap are per device.
 
 export interface MascotFlags {
-  introDismissed: boolean;
+  introDismissed: Record<CourseId, boolean>;
   /** Helsinki date (YYYY-MM-DD) of the last daily greeting. */
   greetedOn: string | null;
   /** Big celebrations (unitCompleted / levelUp) shown on `date`. */
   celebrations: { date: string; count: number };
 }
 
-const KEYS = { introDismissed: 'mascot.introDismissed', greetedOn: 'mascot.greetedOn', celebrations: 'mascot.bigCelebrations' } as const;
+const KEYS = { greetedOn: 'mascot.greetedOn', celebrations: 'mascot.bigCelebrations' } as const;
 
-let flags: MascotFlags = { introDismissed: false, greetedOn: null, celebrations: { date: '', count: 0 } };
+let flags: MascotFlags = { introDismissed: { en: false, sv: false }, greetedOn: null, celebrations: { date: '', count: 0 } };
 let loaded = false;
 let loading: Promise<void> | null = null;
 const listeners = new Set<() => void>();
@@ -30,10 +33,12 @@ function parseCelebrations(raw: string | null): MascotFlags['celebrations'] {
 }
 
 function load() {
-  loading ??= AsyncStorage.multiGet(Object.values(KEYS)).then(entries => {
+  loading ??= AsyncStorage.multiGet([...COURSE_IDS.map(introDismissedKey), ...Object.values(KEYS)]).then(entries => {
     const read = Object.fromEntries(entries);
+    const introDismissed = { ...flags.introDismissed };
+    for (const id of COURSE_IDS) introDismissed[id] = read[introDismissedKey(id)] === '1' || flags.introDismissed[id];
     flags = {
-      introDismissed: read[KEYS.introDismissed] === '1' || flags.introDismissed,
+      introDismissed,
       greetedOn: flags.greetedOn ?? read[KEYS.greetedOn] ?? null,
       celebrations: flags.celebrations.date ? flags.celebrations : parseCelebrations(read[KEYS.celebrations] ?? null),
     };
@@ -41,20 +46,19 @@ function load() {
   return loading;
 }
 
-function update(next: Partial<MascotFlags>) {
+function update(next: Partial<MascotFlags>, writes: [string, string][]) {
   flags = { ...flags, ...next };
   emit();
-  const writes: [string, string][] = [];
-  if (next.introDismissed !== undefined) writes.push([KEYS.introDismissed, next.introDismissed ? '1' : '0']);
-  if (next.greetedOn) writes.push([KEYS.greetedOn, next.greetedOn]);
-  if (next.celebrations) writes.push([KEYS.celebrations, JSON.stringify(next.celebrations)]);
-  if (writes.length) AsyncStorage.multiSet(writes).catch(() => undefined);
+  AsyncStorage.multiSet(writes).catch(() => undefined);
 }
 
-export const dismissIntro = () => update({ introDismissed: true });
-export const markGreeted = (date: string) => { if (flags.greetedOn !== date) update({ greetedOn: date }); };
+export const dismissIntro = (course: CourseId) => update({ introDismissed: { ...flags.introDismissed, [course]: true } }, [[introDismissedKey(course), '1']]);
+export const markGreeted = (date: string) => { if (flags.greetedOn !== date) update({ greetedOn: date }, [[KEYS.greetedOn, date]]); };
 export const celebrationsOn = (date: string) => (flags.celebrations.date === date ? flags.celebrations.count : 0);
-export const addCelebration = (date: string) => update({ celebrations: { date, count: celebrationsOn(date) + 1 } });
+export const addCelebration = (date: string) => {
+  const celebrations = { date, count: celebrationsOn(date) + 1 };
+  update({ celebrations }, [[KEYS.celebrations, JSON.stringify(celebrations)]]);
+};
 
 /** Current flags; `ready` is false until storage has been read once. */
 export function useMascotFlags() {
