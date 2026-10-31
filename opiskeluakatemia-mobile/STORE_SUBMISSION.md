@@ -1,6 +1,6 @@
 # App Store / Google Play submission
 
-Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store release, version 1.0.0.
+Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store release, version 1.1.0 (`app.json`). The app serves two courses: Englannin abikurssi (everything) and Ruotsin abikurssi (Polku and theory; see the website's `docs/RUOTSIN_ABIKURSSI.md` and this app's README, "Courses").
 
 ## 1. Identifiers and versions
 
@@ -9,7 +9,7 @@ Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store rele
 | App name | Opiskeluakatemia | `app.json` → `expo.name` |
 | iOS bundle identifier | `fi.opiskeluakatemia.app` | `app.json` → `ios.bundleIdentifier` |
 | Android package | `fi.opiskeluakatemia.app` | `app.json` → `android.package` |
-| Marketing version | 1.0.0 | `app.json` → `version` |
+| Marketing version | 1.1.0 | `app.json` → `version` |
 | Build number / versionCode | Managed remotely by EAS (not set in `app.json`); starts at 1 and auto-increments on production builds | `eas.json` → `cli.appVersionSource: "remote"`, `production.autoIncrement` |
 | Deep-link scheme | `opiskeluakatemia://` | `app.json` → `scheme` |
 
@@ -33,12 +33,12 @@ Release builds enforce the following:
 
 ## 3. Apple review notes (paste into App Store Connect → App Review Information)
 
-> Opiskeluakatemia is the companion app for an existing Finnish English-course web service (Englannin abikurssi). Users sign in with an account created on opiskeluakatemia.fi. The app does not sell anything: there are no purchases, prices or links to purchase pages. Accounts without course access see neutral "no active course access" copy (guideline 3.1.3(b), multiplatform services).
-> Demo account: test@example.com / (password in the owner's password manager, not in the repo) — has active course access until 22.3.2027.
+> Opiskeluakatemia is the companion app for an existing Finnish web service for matriculation exam courses: Englannin abikurssi (English) and Ruotsin abikurssi (Swedish). Users sign in with an account created on opiskeluakatemia.fi. The app does not sell anything: there are no purchases, prices or links to purchase pages. The app shows only the courses the account has access to; owners of both switch course on the home screen. For the Swedish course the app offers the learning path and theory, and the home screen says that Swedish exercises, writing and flashcards are on the website (no purchase wording). Accounts without course access see neutral "no active course access" copy (guideline 3.1.3(b), multiplatform services).
+> Demo account: test@example.com / (password in the owner's password manager, not in the repo) — has active access to both courses.
 
 > **⚠ OPEN DECISION (owner, before submitting): guideline 3.1.3(b).** The justification above relies on 3.1.3(b) "Multiplatform Services". Apple's current 3.1.3(b) lets an app give access to content bought elsewhere only if those items are **also available as in-app purchases** in the app. This app offers no IAP, so as written it may be rejected. Choose one before submitting: (a) add the course as an in-app purchase; (b) distribute under Apple's EU alternative business terms; or (c) give the app a meaningful free tier so it does not depend only on web-bought access. Verify against the current guideline text when deciding. The strategy text above is unchanged until that decision is made.
 
-> **⚠ Replace the demo account.** `test@example.com` is a placeholder (here and in section 6, "App access"). Create a real review account on opiskeluakatemia.fi with active course access and sample data, and enter its email and password in App Store Connect and Play Console. Never put the password in the repo.
+> **⚠ Replace the demo account.** `test@example.com` is a placeholder (here and in section 6, "App access"). Create a real review account on opiskeluakatemia.fi with active access to both courses (for example the bundle, access until 27.9.2027) and sample data, and enter its email and password in App Store Connect and Play Console. Never put the password in the repo.
 > Legal pages (privacy policy, terms) open in the browser with ?app=1, which hides all purchase links on those pages.
 > Account deletion: tap the round avatar (initial) in the top-right of the home screen → scroll down → Poista tili…. Deletion requires the password and typing POISTA, and it permanently removes the account on the server.
 > Essays and open answers are graded by AI (Google Gemini) via our server. The user is asked for consent before the first upload.
@@ -105,7 +105,7 @@ Android permissions in the release manifest:
 | Section | Answer |
 | --- | --- |
 | Privacy policy | `https://opiskeluakatemia.fi/tietosuojakaytanto` |
-| App access | "All or some functionality is restricted" → add the demo account (**⚠ replace the placeholder test@example.com with the real review account, see section 3**), instructions: "Sign in with these credentials. The account has active course access." |
+| App access | "All or some functionality is restricted" → add the demo account (**⚠ replace the placeholder test@example.com with the real review account, see section 3**), instructions: "Sign in with these credentials. The account has active access to both courses; switch course on the home screen." |
 | Ads | No, the app contains no ads |
 | Content rating | IARC questionnaire as above (Education) |
 | Target audience | 16–17 and 18+ |
@@ -146,11 +146,12 @@ Android permissions in the release manifest:
    - Ship these to production:
      - `src/app/api/account/delete/route.ts`
      - `src/lib/account-deletion.ts`
-     - the earlier mobile routes (`src/lib/mobile-attempt.ts` etc., see README).
+     - the earlier mobile routes (`src/lib/mobile-attempt.ts` etc., see README);
+     - the Swedish course (website branch `ruotsin-abikurssi`, after its two migrations; launch checklist in the website's `docs/RUOTSIN_ABIKURSSI.md` §6).
    - Confirm `SUPABASE_SERVICE_ROLE_KEY` is set in Vercel.
    - Test deletion with a throwaway account on staging or production: the account should disappear from Supabase Auth, and its attempts, essays and flashcards should be gone.
 5. **Supabase Auth settings:** add `https://opiskeluakatemia.fi/reset-password` to the allowed redirect URLs.
-6. **Privacy policy update** (website text, legal decision). Add:
+6. **Privacy policy update:** ✅ Done. The policy was published on 29.10.2026; its 31.10.2026 revision names both courses and goes live with the Swedish branch. It added:
    - the mobile app;
    - AI grading by Google Gemini;
    - sub-processors (Supabase, Vercel, Google, Stripe, Resend);
@@ -158,7 +159,7 @@ Android permissions in the release manifest:
    - retention: Stripe keeps payment records for bookkeeping;
    - the date.
 
-   Consider a web "Poista tili" button on `/settings` that uses the same endpoint, to serve as Google Play's deletion URL.
+   The web "Poista tili" (Asetukset → Poista tili on `/settings`) uses the same endpoint. Play's deletion URL is `/poista-tili` (section 5).
 7. **Artwork:** ✅ Done: the Expo placeholder icons and splash image have been replaced with final artwork. If they change again, keep the file names and sizes (icon 1024×1024 without transparency; Android adaptive 512×512, monochrome 432×432; splash 1024×1024 on transparent, shown at 160 pt).
 8. **Builds:** run `npx eas-cli@latest build --profile production --platform all`. Let EAS manage signing: it creates the iOS distribution certificate and provisioning profile, and the Android upload keystore. Back up the keystore credentials from `eas credentials`.
 9. **Device testing (preview build on a physical iPhone and Android phone):**
@@ -168,6 +169,7 @@ Android permissions in the release manifest:
    - exercises load through `/api/abikurssi/course-exercises` (reading, listening incl. audio playback, listening MC, grammar sets) and are graded by the server; results and explanations show after submitting;
    - essay: the AI consent dialog appears once; grading returns feedback;
    - flashcards, daily tasks, path lessons and review, history, progress;
+   - Swedish course: an account with only Ruotsin abikurssi sees the Swedish Polku (lessons, Kertaus, target grade) and theory, no exercise, essay, flashcard or daily-task entries, and the website note on the home screen; an account with both courses gets the Englanti/Ruotsi switcher and keeps the chosen course after a restart;
    - Tili → Tietosuojakäytäntö / Käyttöehdot open the site with `?app=1`: no "Osta kurssi", no sales links in the header or footer;
    - offline (airplane mode): Finnish error and retry;
    - deep link `opiskeluakatemia://history`;
@@ -184,12 +186,13 @@ Android permissions in the release manifest:
 - Deletion refuses automatically (409, user is told to contact support) if a legacy recurring Stripe subscription is active. Cancel it in Stripe, then delete.
 - The `user_course_purchases` rows follow the database's `ON DELETE CASCADE`. Stripe retains the payment records required by Finnish bookkeeping law.
 - `npm audit` reports advisories in Expo CLI build tooling (not shipped in the app bundle). The automatic fix downgrades Expo, so it was not applied.
-- Google sign-in, sign-up, offline study and push notifications are not in 1.0.0.
+- Google sign-in, sign-up, offline study and push notifications are not in 1.1.0.
+- Ruotsin abikurssi in the app is Polku and theory only; Swedish exercises, writing and flashcards are on the website.
 
 ## 10. Over-the-air updates (EAS Update)
 
 `expo-updates` is installed and configured:
-- `app.json` → `runtimeVersion: { "policy": "appVersion" }`. The runtime version equals the marketing version (`1.0.0`), so an update only reaches builds with the same `version`.
+- `app.json` → `runtimeVersion: { "policy": "appVersion" }`. The runtime version equals the marketing version (`1.1.0`), so an update only reaches builds with the same `version`. Builds made with an earlier version never receive the Swedish course update.
 - `eas.json` → `build.preview.channel: "preview"`, `build.production.channel: "production"`. The `development` profiles have no channel (the dev client loads from Metro).
 - `app.json` → `updates.url` is set (`https://u.expo.dev/<projectId>`, matching `extra.eas.projectId`), so store builds made from now on can receive updates on their channel. The app code does not import `expo-updates`.
 - `expo-updates` is a native module. A development client built before it was added still runs the app, but rebuild it (`--profile development`) to test update behaviour.
@@ -228,5 +231,5 @@ Needs a new store build (and review):
 - changing `version` (with the `appVersion` policy this creates a new runtime version, so existing builds stop receiving updates published from it);
 - anything Apple or Google must review as a new feature or a change of the app's purpose. Updates must stay within App Store guideline 2.5.2 and Google Play's policy: bug fixes and improvements to the reviewed app, not a different app or new purchase flows.
 
-When native code changes, bump `version` (for example to `1.0.1`), build, submit, and publish later updates against that new runtime version.
+When native code changes, bump `version` (for example to `1.1.1`), build, submit, and publish later updates against that new runtime version.
 
