@@ -159,6 +159,16 @@ export function findLesson(units: PublicUnitV2[], lessonId: string): { unit: Pub
   return null;
 }
 
+/**
+ * What passing a unit's checkpoint leads to, as the end of "Läpäise …, niin …". Any unit after it
+ * (built or coming soon, so every English checkpoint) keeps the next-part promise. The last unit's
+ * checkpoint (Swedish sv-ordkunskap-cp) ends the path. Same rule as checkpointGoal on the website.
+ */
+export function checkpointGoal(units: Pick<PublicUnitV2, 'id'>[], unitId: string): string {
+  const index = units.findIndex(unit => unit.id === unitId);
+  return index >= 0 && index === units.length - 1 ? 'suoritat koko polun' : 'seuraava osa avautuu';
+}
+
 /** Horizontal position of node n on the winding path, from -1 (left) to 1 (right). */
 export function windingOffset(index: number) {
   const pattern = [0, 0.75, 1, 0.75, 0, -0.75, -1, -0.75];

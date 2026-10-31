@@ -122,6 +122,12 @@ test('lesson states, next step and failure mapping', () => {
   assert.equal(m.nextStepLabel({ nextLessonId: null, content: { units }, review: { pendingItems: 3 } }).title, 'Kertaa virheesi');
   assert.equal(m.nextStepLabel({ nextLessonId: null, content: { units }, review: { pendingItems: 0 } }).title, 'Kaikki tehty – kertaa korteilla');
   assert.equal(m.findLesson(units, 'nope'), null);
+  // A checkpoint promises the next part only when a unit follows it; the last unit's ends the path.
+  const path = [{ id: 'sv-pronomen' }, { id: 'sv-ordforrad' }, { id: 'sv-ordkunskap' }];
+  assert.equal(m.checkpointGoal(path, 'sv-ordforrad'), 'seuraava osa avautuu');
+  assert.equal(m.checkpointGoal(path, 'sv-ordkunskap'), 'suoritat koko polun');
+  assert.equal(m.checkpointGoal([...path, { id: 'planned', comingSoon: true }], 'sv-ordkunskap'), 'seuraava osa avautuu', 'a coming-soon unit still follows (English)');
+  assert.equal(m.checkpointGoal(path, 'nope'), 'seuraava osa avautuu');
   assert.equal(m.pathFailure(409), 'conflict');
   assert.equal(m.pathFailure(403), 'locked');
   assert.equal(m.pathFailure(400), 'invalid');

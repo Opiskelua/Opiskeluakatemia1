@@ -12,7 +12,7 @@ import { useDraftAutosave } from '../hooks/useDraftAutosave';
 import { useCourse } from '../providers/CourseProvider';
 import type { CourseId } from '../lib/courses';
 import type { AnswerValue, Answers, LessonMutationResponseV2, PathStateV2 } from '../lib/path-v2-types';
-import { allAnswered, answersForSubmit, findLesson, firstUnanswered, lessonState, mergeSummary, pathErrorMessage, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
+import { allAnswered, answersForSubmit, checkpointGoal, findLesson, firstUnanswered, lessonState, mergeSummary, pathErrorMessage, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
 
 const LESSON_ID = /^[a-z0-9-]{1,80}$/;
 
@@ -202,7 +202,7 @@ function LessonPlayer({ course, lessonId }: { course: CourseId; lessonId: string
         <Pill label={progress?.status === 'completed' ? `Suoritettu · paras ${progress.bestScore ?? 0} %` : `Jopa ${lesson.maxXp} XP`} tone={progress?.status === 'completed' ? 'success' : 'accent'} />
       </View>
     </View>
-    {checkpoint && <Notice title="Välietappi" message={`Läpäise vähintään ${state.rules.passScore} %, niin seuraava osa avautuu. Jos et läpäise, näet mitkä kohdat menivät väärin, mutta et oikeita vastauksia.`} />}
+    {checkpoint && <Notice title="Välietappi" message={`Läpäise vähintään ${state.rules.passScore} %, niin ${checkpointGoal(state.content.units, unit.id)}. Jos et läpäise, näet mitkä kohdat menivät väärin, mutta et oikeita vastauksia.`} />}
     {locked && <Notice tone="error" title="Oppitunti on lukittu" message="Suorita ensin polun edelliset oppitunnit." actionTitle="Takaisin polulle" onAction={() => router.back()} />}
     {!!info && <Notice tone="success" message={info} />}
     {!!lesson.guide && <GuidePanel guide={lesson.guide} initiallyOpen={!progress?.attempts && !Object.keys(answers).length} />}
