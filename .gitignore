@@ -6,7 +6,9 @@
 /opiskeluakatemia-mascot/
 /opiskeluakatemia-glass/
 /opiskeluakatemia-harjoituskoe/
+/opiskeluakatemia-svtasks/
 
 # Local secrets backups and large mascot source art (Blender, GLB)
 .env*.bak*
 /assets/mascot/source/
+/opiskeluakatemia-programme-info/
