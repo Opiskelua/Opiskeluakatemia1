@@ -1,0 +1,4853 @@
+[
+ {
+  "sv": "egentligen",
+  "fi": "oikeastaan, itse asiassa",
+  "category": "adverb",
+  "deckCount": 6,
+  "authorCount": 6,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "undvika",
+  "fi": "välttää",
+  "category": "verb",
+  "deckCount": 5,
+  "authorCount": 5,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ofta",
+  "fi": "usein",
+  "category": "adverb",
+  "deckCount": 7,
+  "authorCount": 4,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "läsa",
+  "fi": "lukea; opiskella (läsa till)",
+  "category": "verb",
+  "deckCount": 6,
+  "authorCount": 4,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bra",
+  "fi": "hyvä",
+  "category": "adj",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "core adjectives",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "bo",
+  "fi": "asua",
+  "category": "verb",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studentbostad",
+  "fi": "opiskelija-asunto",
+  "category": "noun",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "lugn",
+  "fi": "rauhallinen",
+  "category": "adj",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "personality",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "vänlig",
+  "fi": "ystävällinen",
+  "category": "adj",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "personality",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "ärlig",
+  "fi": "rehellinen",
+  "category": "adj",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ta studenten",
+  "fi": "valmistua ylioppilaaksi",
+  "category": "fixed phrase",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "school & studies",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "cykla",
+  "fi": "pyöräillä",
+  "category": "verb",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "religiös",
+  "fi": "uskonnollinen",
+  "category": "adj",
+  "deckCount": 5,
+  "authorCount": 4,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "jobbig",
+  "fi": "rasittava, hankala",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "först",
+  "fi": "ensin, ensimmäiseksi",
+  "category": "adverb",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "snart",
+  "fi": "pian",
+  "category": "adverb",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bostad",
+  "fi": "asunto",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bygga",
+  "fi": "rakentaa",
+  "category": "verb",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "flytta",
+  "fi": "muuttaa (asuntoa)",
+  "category": "verb",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "ljus",
+  "fi": "valoisa; vaalea",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "möbel",
+  "fi": "huonekalu",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "omgivning",
+  "fi": "(lähi)ympäristö",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vardagsrum",
+  "fi": "olohuone",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tävla",
+  "fi": "kilpailla",
+  "category": "verb",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "religion",
+  "fi": "uskonto",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 4,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "acceptera",
+  "fi": "hyväksyä",
+  "category": "verb",
+  "deckCount": 6,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "diskriminera",
+  "fi": "syrjiä",
+  "category": "verb",
+  "deckCount": 5,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "jämlik",
+  "fi": "tasa-arvoinen",
+  "category": "adj",
+  "deckCount": 5,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bastu",
+  "fi": "sauna",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gemensam",
+  "fi": "yhteinen",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trevlig",
+  "fi": "mukava",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "trygg",
+  "fi": "turvallinen",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "dessutom",
+  "fi": "lisäksi, sitä paitsi",
+  "category": "connector",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ganska",
+  "fi": "melko, aika",
+  "category": "adverb",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "till och med",
+  "fi": "jopa",
+  "category": "adverb",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tänka",
+  "fi": "ajatella; aikoa",
+  "category": "verb",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "diskriminering",
+  "fi": "syrjintä",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "utländsk",
+  "fi": "ulkomainen, ulkomaalainen",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "äkta",
+  "fi": "aito; äkta par = aviopari",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hemifrån",
+  "fi": "kotoa",
+  "category": "adverb",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "studentlya",
+  "fi": "opiskelijakämppä",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "inkomst",
+  "fi": "tulo(t)",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "termin",
+  "fi": "lukukausi",
+  "category": "noun",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "rättvis",
+  "fi": "oikeudenmukainen, reilu",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 3,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fira",
+  "fi": "juhlia, viettää (juhlaa)",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "jul",
+  "fi": "joulu",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "midsommar",
+  "fi": "juhannus",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "nyår",
+  "fi": "uusivuosi",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "påsk",
+  "fi": "pääsiäinen",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "spela boboll",
+  "fi": "pelata pesäpalloa",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "traditionell",
+  "fi": "perinteinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "klä på sig",
+  "fi": "pukeutua",
+  "category": "particle verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "annan",
+  "fi": "toinen, muu",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ny",
+  "fi": "uusi",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "onödig",
+  "fi": "tarpeeton",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "rätt",
+  "fi": "oikea; oikeus (ha rätt = olla oikeassa)",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "säker",
+  "fi": "varma; turvallinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "viktig",
+  "fi": "tärkeä",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adjectives",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "förstås",
+  "fi": "tietysti",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "helt",
+  "fi": "täysin, kokonaan",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kanske",
+  "fi": "ehkä",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "nästan",
+  "fi": "melkein",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "redan",
+  "fi": "jo",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sedan",
+  "fi": "sitten; jälkeen",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "säkert",
+  "fi": "varmasti",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "väldigt",
+  "fi": "tosi, erittäin",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ändå",
+  "fi": "silti, kuitenkin",
+  "category": "connector",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ännu",
+  "fi": "vielä",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "beskriva",
+  "fi": "kuvailla",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "förlora",
+  "fi": "hävitä, menettää",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "höra",
+  "fi": "kuulla",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "känna",
+  "fi": "tuntea",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "löpa",
+  "fi": "juosta, kulkea (löpa ut = umpeutua)",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skicka",
+  "fi": "lähettää",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sköta",
+  "fi": "hoitaa",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "visa",
+  "fi": "näyttää",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "annorlunda",
+  "fi": "erilainen, eri tavalla",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "anpassa sig till",
+  "fi": "sopeutua johonkin",
+  "category": "particle verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "attityd",
+  "fi": "asenne",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "avvika",
+  "fi": "poiketa",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "etnisk",
+  "fi": "etninen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "främlingsfientlighet",
+  "fi": "muukalaisviha",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "främmande",
+  "fi": "vieras",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "integration",
+  "fi": "kotoutuminen",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "invandring",
+  "fi": "maahanmuutto",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "jämlikhet",
+  "fi": "tasa-arvo",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kulturskillnad",
+  "fi": "kulttuuriero",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "majoritet",
+  "fi": "enemmistö",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "minoritet",
+  "fi": "vähemmistö",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mångkulturell",
+  "fi": "monikulttuurinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "olik",
+  "fi": "erilainen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "rasism",
+  "fi": "rasismi",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "global",
+  "fi": "maailmanlaajuinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "environment",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "slänga",
+  "fi": "heittää (pois)",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "handla",
+  "fi": "käydä kaupassa, ostaa",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "everyday & shopping",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "förlåta",
+  "fi": "antaa anteeksi",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "family & relationships",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "ha gemensamt",
+  "fi": "olla yhteistä",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "stötta",
+  "fi": "tukea",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "family & relationships",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "trösta",
+  "fi": "lohduttaa",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "umgås",
+  "fi": "viettää aikaa (yhdessä), seurustella",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kvällsmat",
+  "fi": "iltaruoka",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mat",
+  "fi": "ruoka",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "food",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "måltid",
+  "fi": "ateria",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "food",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "smaka",
+  "fi": "maistua; maistaa",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bli sjuk",
+  "fi": "sairastua",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hälsosam",
+  "fi": "terveellinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "health",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "motionera",
+  "fi": "liikkua, kuntoilla",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "health",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "badrum",
+  "fi": "kylpyhuone",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "balkong",
+  "fi": "parveke",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "dörr",
+  "fi": "ovi",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "etta",
+  "fi": "yksiö",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fåtölj",
+  "fi": "nojatuoli",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "garage",
+  "fi": "autotalli",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gardin",
+  "fi": "verho",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "golv",
+  "fi": "lattia",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hemort",
+  "fi": "kotipaikkakunta",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hyreslägenhet",
+  "fi": "vuokra-asunto",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "höghus",
+  "fi": "kerrostalo",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "inredning",
+  "fi": "sisustus",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "lampa",
+  "fi": "lamppu",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "matta",
+  "fi": "matto",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "rymlig",
+  "fi": "tilava",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skåp",
+  "fi": "kaappi",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "soffa",
+  "fi": "sohva",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sovrum",
+  "fi": "makuuhuone",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "stol",
+  "fi": "tuoli",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "säng",
+  "fi": "sänky",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tak",
+  "fi": "katto",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tavla",
+  "fi": "taulu",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "toalett",
+  "fi": "vessa",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trivsam",
+  "fi": "viihtyisä",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trädgård",
+  "fi": "puutarha",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trång",
+  "fi": "ahdas",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tvåa",
+  "fi": "kaksio",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "villa",
+  "fi": "omakotitalo",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vägg",
+  "fi": "seinä",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "våning",
+  "fi": "kerros",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fest",
+  "fi": "juhlat, bileet",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "simma",
+  "fi": "uida",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "underhålla",
+  "fi": "viihdyttää; ylläpitää",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kanal",
+  "fi": "kanava",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "serie",
+  "fi": "sarja",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "begagnad",
+  "fi": "käytetty",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ifrågasätta",
+  "fi": "kyseenalaistaa",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "opinions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mening",
+  "fi": "mielipide; tarkoitus; lause",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "opinions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tillägga",
+  "fi": "lisätä (sanoa vielä)",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "opinions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ansvarsfull",
+  "fi": "vastuullinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "artig",
+  "fi": "kohtelias",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "oärlig",
+  "fi": "epärehellinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "avlägga examen",
+  "fi": "suorittaa tutkinto",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "biämne",
+  "fi": "sivuaine",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "examen",
+  "fi": "tutkinto",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "fakultet",
+  "fi": "tiedekunta",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "föreläsning",
+  "fi": "luento",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "godkänd",
+  "fi": "hyväksytty",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå ut gymnasiet",
+  "fi": "valmistua lukiosta",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "huvudämne",
+  "fi": "pääaine",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "inträdesprov",
+  "fi": "pääsykoe",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mobba",
+  "fi": "kiusata",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studentmössa",
+  "fi": "ylioppilaslakki",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studielån",
+  "fi": "opintolaina",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studiepoäng",
+  "fi": "opintopiste",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studier",
+  "fi": "opinnot",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studiestöd",
+  "fi": "opintotuki",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ta sabbatsår",
+  "fi": "pitää välivuosi",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tenta",
+  "fi": "tentti",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "underkänd",
+  "fi": "hylätty",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "undervisning",
+  "fi": "opetus",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "urvalsprov",
+  "fi": "valintakoe",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "valfri",
+  "fi": "valinnainen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "yrkesskola",
+  "fi": "ammattikoulu",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fordon",
+  "fi": "ajoneuvo",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kyrka",
+  "fi": "kirkko",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "värdering",
+  "fi": "arvo (arvostus)",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bransch",
+  "fi": "ala",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "distansarbete",
+  "fi": "etätyö",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "work",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "heltidsjobb",
+  "fi": "kokoaikatyö",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "krävande",
+  "fi": "vaativa",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "strejk",
+  "fi": "lakko",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 3,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "social",
+  "fi": "sosiaalinen",
+  "category": "adj",
+  "deckCount": 5,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "ibland",
+  "fi": "joskus",
+  "category": "adverb",
+  "deckCount": 4,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "överallt",
+  "fi": "kaikkialla",
+  "category": "adverb",
+  "deckCount": 4,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "enligt",
+  "fi": "jonkin mukaan",
+  "category": "connector",
+  "deckCount": 4,
+  "authorCount": 2,
+  "theme": "opinions",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "inhemsk",
+  "fi": "kotimainen",
+  "category": "adj",
+  "deckCount": 4,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "farlig",
+  "fi": "vaarallinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "glad",
+  "fi": "iloinen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sann",
+  "fi": "tosi, totuudenmukainen",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sliten",
+  "fi": "kulunut; uupunut",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ständig",
+  "fi": "jatkuva",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "viss",
+  "fi": "tietty",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adjectives",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "alltid",
+  "fi": "aina",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fastän",
+  "fi": "vaikka",
+  "category": "connector",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "samtidigt",
+  "fi": "samaan aikaan; toisaalta",
+  "category": "connector",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sällan",
+  "fi": "harvoin",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "överhuvudtaget",
+  "fi": "ylipäätään",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bruka",
+  "fi": "olla tapana",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "böter",
+  "fi": "sakko",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "crime & law",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "rågbröd",
+  "fi": "ruisleipä",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bli skadad",
+  "fi": "loukkaantua",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hemma",
+  "fi": "kotona",
+  "category": "adverb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "musik",
+  "fi": "musiikki",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tycka",
+  "fi": "olla mieltä (jag tycker att …)",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "opinions",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "hjälpsam",
+  "fi": "avulias",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hänsynslös",
+  "fi": "häikäilemätön, piittaamaton",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "läsår",
+  "fi": "lukuvuosi",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studentskrivning",
+  "fi": "ylioppilaskirjoitukset",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "studera på distans",
+  "fi": "opiskella etänä",
+  "category": "fixed phrase",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fred",
+  "fi": "rauha",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mänsklig rättighet",
+  "fi": "ihmisoikeus",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "styra",
+  "fi": "ohjata, hallita",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "svälta",
+  "fi": "nähdä nälkää",
+  "category": "verb",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hal",
+  "fi": "liukas",
+  "category": "adj",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "religionsfrihet",
+  "fi": "uskonnonvapaus",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "övertygelse",
+  "fi": "vakaumus",
+  "category": "noun",
+  "deckCount": 3,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fira midsommar",
+  "fi": "viettää juhannusta",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "första maj",
+  "fi": "vappu (vapunpäivä)",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "julafton",
+  "fi": "jouluaatto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "lagom",
+  "fi": "sopiva(sti), juuri sopivasti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "midsommarafton",
+  "fi": "juhannusaatto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mysig",
+  "fi": "kodikas, mukava",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "nyårsafton",
+  "fi": "uudenvuodenaatto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "plocka bär",
+  "fi": "poimia marjoja",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "plocka svamp",
+  "fi": "sienestää",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sed och bruk",
+  "fi": "tavat ja tottumukset",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "semla",
+  "fi": "laskiaispulla",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skärgård",
+  "fi": "saaristo",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "valborgsmässoafton",
+  "fi": "vappuaatto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vinterbada",
+  "fi": "avantouida",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "Finland & traditions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "färggrann",
+  "fi": "värikäs",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mönstrad",
+  "fi": "kuviollinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "plagg",
+  "fi": "vaatekappale",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "randig",
+  "fi": "raidallinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "rutig",
+  "fi": "ruudullinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "snygg",
+  "fi": "hyvännäköinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tröja",
+  "fi": "paita, pusero",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vara klädd i",
+  "fi": "olla pukeutunut johonkin",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "appearance & clothes",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "absolut",
+  "fi": "ehdottomasti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "alltså",
+  "fi": "siis",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "annars",
+  "fi": "muuten",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "antagligen",
+  "fi": "luultavasti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "både och",
+  "fi": "sekä … että",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "däremot",
+  "fi": "sen sijaan, sitä vastoin",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "faktiskt",
+  "fi": "itse asiassa, todellakin",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fast",
+  "fi": "vaikka (konj.)",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fortfarande",
+  "fi": "yhä, edelleen",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "före",
+  "fi": "ennen",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "förmodligen",
+  "fi": "luultavasti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "genast",
+  "fi": "heti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hellre",
+  "fi": "mieluummin",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ifall",
+  "fi": "jos, siltä varalta että",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "inte längre",
+  "fi": "ei enää",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "lyckligtvis",
+  "fi": "onneksi",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "medan",
+  "fi": "sillä aikaa kun; kun taas",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "möjligen",
+  "fi": "mahdollisesti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "nog",
+  "fi": "kai, varmaankin; tarpeeksi",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "nuförtiden",
+  "fi": "nykyään",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "numera",
+  "fi": "nykyään",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "någon gång",
+  "fi": "joskus, joskus vielä",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "någonstans",
+  "fi": "jossakin",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sent",
+  "fi": "myöhään",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "slutligen",
+  "fi": "lopuksi, lopulta",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "troligen",
+  "fi": "todennäköisesti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tyvärr",
+  "fi": "valitettavasti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ungefär",
+  "fi": "noin, suunnilleen",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vanligen",
+  "fi": "tavallisesti",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "verkligen",
+  "fi": "todella",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "äntligen",
+  "fi": "vihdoin",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "även",
+  "fi": "myös, jopa",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "även om",
+  "fi": "vaikka",
+  "category": "connector",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "åtminstone",
+  "fi": "ainakin",
+  "category": "adverb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core adverbs & connectors",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "del",
+  "fi": "osa",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core nouns",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fall",
+  "fi": "tapaus (i alla fall = joka tapauksessa)",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core nouns",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "regel",
+  "fi": "sääntö",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core nouns",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sak",
+  "fi": "asia",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core nouns",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sätt",
+  "fi": "tapa",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core nouns",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "uppgift",
+  "fi": "tehtävä; tieto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core nouns",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "avbryta",
+  "fi": "keskeyttää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "befinna sig",
+  "fi": "olla, sijaita jossakin",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "behålla",
+  "fi": "säilyttää, pitää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "behöva",
+  "fi": "tarvita",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "besöka",
+  "fi": "vierailla",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "erbjuda",
+  "fi": "tarjota",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ersätta",
+  "fi": "korvata",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fixa",
+  "fi": "järjestää, hoitaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "förbjuda",
+  "fi": "kieltää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "föredra",
+  "fi": "pitää parempana",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "försöka",
+  "fi": "yrittää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gälla",
+  "fi": "koskea; olla voimassa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ha bråttom",
+  "fi": "olla kiire",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "innehålla",
+  "fi": "sisältää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "inse",
+  "fi": "tajuta, oivaltaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kräva",
+  "fi": "vaatia",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "pågå",
+  "fi": "olla käynnissä, kestää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "se upp",
+  "fi": "varoa",
+  "category": "particle verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sluta",
+  "fi": "lopettaa; loppua",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tillåta",
+  "fi": "sallia",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trivas",
+  "fi": "viihtyä",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tåla",
+  "fi": "sietää, kestää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "uppstå",
+  "fi": "syntyä, ilmetä",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "upptäcka",
+  "fi": "huomata, löytää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "översätta",
+  "fi": "kääntää (kieltä)",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "core verbs",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "våld",
+  "fi": "väkivalta",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "crime & law",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "anpassning",
+  "fi": "sopeutuminen",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bakgrund",
+  "fi": "tausta",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fördom",
+  "fi": "ennakkoluulo",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fördomsfri",
+  "fi": "ennakkoluuloton",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fördomsfull",
+  "fi": "ennakkoluuloinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hemland",
+  "fi": "kotimaa",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "integrera sig i",
+  "fi": "kotoutua, integroitua",
+  "category": "particle verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "invandra",
+  "fi": "muuttaa maahan",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kulturell mångfald",
+  "fi": "kulttuurinen monimuotoisuus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kulturkrock",
+  "fi": "kulttuurien törmäys",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "känna sig utanför",
+  "fi": "tuntea itsensä ulkopuoliseksi",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mångspråkig",
+  "fi": "monikielinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "nationalitet",
+  "fi": "kansallisuus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "språkbarriär",
+  "fi": "kielimuuri",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tolerans",
+  "fi": "suvaitsevaisuus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tolerant",
+  "fi": "suvaitsevainen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ursprung",
+  "fi": "alkuperä",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "utlänning",
+  "fi": "ulkomaalainen",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "utvandra",
+  "fi": "muuttaa maasta",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "diversity",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "avfall",
+  "fi": "jäte",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "avgas",
+  "fi": "pakokaasu",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "dö ut",
+  "fi": "kuolla sukupuuttoon",
+  "category": "particle verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ekologisk",
+  "fi": "ekologinen; luomu-",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "energikälla",
+  "fi": "energianlähde",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "förorening",
+  "fi": "saaste",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hota",
+  "fi": "uhata",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "konsekvens",
+  "fi": "seuraus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "miljömedveten",
+  "fi": "ympäristötietoinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "odla",
+  "fi": "viljellä, kasvattaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skräp",
+  "fi": "roska(t)",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "återvinning",
+  "fi": "kierrätys",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "environment",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "loppis",
+  "fi": "kirpputori",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "everyday & shopping",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "begravning",
+  "fi": "hautajaiset",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bilda familj",
+  "fi": "perustaa perhe",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bonusfamilj",
+  "fi": "uusperhe",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "farbror",
+  "fi": "setä",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "faster",
+  "fi": "täti (isän sisar)",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "halvbror",
+  "fi": "velipuoli",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kusin",
+  "fi": "serkku",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kärnfamilj",
+  "fi": "ydinperhe",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "morbror",
+  "fi": "eno",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "moster",
+  "fi": "täti (äidin sisar)",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skvallra",
+  "fi": "juoruta",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ställa upp",
+  "fi": "olla tukena, auttaa; osallistua",
+  "category": "particle verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "svika",
+  "fi": "pettää (luottamus)",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "såra",
+  "fi": "loukata, haavoittaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trogen",
+  "fi": "uskollinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tvilling",
+  "fi": "kaksonen",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "umgås med kompis",
+  "fi": "viettää aikaa kavereiden kanssa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "uppmuntra",
+  "fi": "rohkaista, kannustaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "uppskatta",
+  "fi": "arvostaa; arvioida",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vara sambo",
+  "fi": "asua avoliitossa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "family & relationships",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "frukost",
+  "fi": "aamiainen",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "färsk",
+  "fi": "tuore",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hungrig",
+  "fi": "nälkäinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "lunch",
+  "fi": "lounas",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "läcker",
+  "fi": "herkullinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mellanmål",
+  "fi": "välipala",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "middag",
+  "fi": "päivällinen",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "mätt",
+  "fi": "kylläinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "närproducerad",
+  "fi": "lähellä tuotettu (lähiruoka)",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tårta",
+  "fi": "kakku, täytekakku",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "törstig",
+  "fi": "janoinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vegan",
+  "fi": "vegaani",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "food",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "använda droger",
+  "fi": "käyttää huumeita",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bli frisk",
+  "fi": "parantua",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bli förkyld",
+  "fi": "vilustua",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "bryta benet",
+  "fi": "murtaa jalkansa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "dricka alkohol",
+  "fi": "juoda alkoholia",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "försova sig",
+  "fi": "nukkua pommiin",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå ner i vikt",
+  "fi": "laihtua",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå till skolsköterska",
+  "fi": "mennä terveydenhoitajalle",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå upp i vikt",
+  "fi": "lihoa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ha hosta",
+  "fi": "olla yskää",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ha huvudvärk",
+  "fi": "olla päänsärkyä",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ha ont i halsen",
+  "fi": "kurkkua särkee",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "ha ont i magen",
+  "fi": "vatsaa särkee",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "ha snuva",
+  "fi": "olla nuhaa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ha sömnproblem",
+  "fi": "olla univaikeuksia",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ha tandvärk",
+  "fi": "olla hammassärkyä",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "känna sig stressad",
+  "fi": "tuntea itsensä stressaantuneeksi",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "känna sig trött",
+  "fi": "tuntea itsensä väsyneeksi",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "må illa",
+  "fi": "voida pahoin (pahoinvointi)",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "nysa",
+  "fi": "aivastaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "orka",
+  "fi": "jaksaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "pigg",
+  "fi": "virkeä",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "röka",
+  "fi": "tupakoida",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skadlig",
+  "fi": "haitallinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "somna",
+  "fi": "nukahtaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sova för lite",
+  "fi": "nukkua liian vähän",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sova tillräckligt",
+  "fi": "nukkua tarpeeksi",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vara sjukskriven",
+  "fi": "olla sairauslomalla",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "varva ner",
+  "fi": "rauhoittua, hidastaa tahtia",
+  "category": "particle verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "äta ohälsosamt",
+  "fi": "syödä epäterveellisesti",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "äta regelbundet",
+  "fi": "syödä säännöllisesti",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "återhämta sig",
+  "fi": "toipua, palautua",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "health",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bekväm",
+  "fi": "mukava (käyttää), kätevä",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bo ensam",
+  "fi": "asua yksin",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bondgård",
+  "fi": "maatila",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bosätta sig",
+  "fi": "asettua asumaan",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "egnahemshus",
+  "fi": "omakotitalo",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hall",
+  "fi": "eteinen",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hemtrevlig",
+  "fi": "kodikas",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hylla",
+  "fi": "hylly",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hyresbostad",
+  "fi": "vuokra-asunto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "i centrum",
+  "fi": "keskustassa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "i förort",
+  "fi": "lähiössä",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "inreda",
+  "fi": "sisustaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "möblerad",
+  "fi": "kalustettu",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "område",
+  "fi": "alue",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "parhus",
+  "fi": "paritalo",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "radhus",
+  "fi": "rivitalo",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trea",
+  "fi": "kolmio",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "housing",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "dansa",
+  "fi": "tanssia",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "evenemang",
+  "fi": "tapahtuma",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fiska",
+  "fi": "kalastaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå på gym",
+  "fi": "käydä salilla",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå på konsert",
+  "fi": "mennä konserttiin",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "jogga",
+  "fi": "hölkätä",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "spela brädspel",
+  "fi": "pelata lautapelejä",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "spela innebandy",
+  "fi": "pelata salibandya",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "spela ishockey",
+  "fi": "pelata jääkiekkoa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "åka skidor",
+  "fi": "hiihtää",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "åka skridskor",
+  "fi": "luistella",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "leisure",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "avsnitt",
+  "fi": "jakso",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "insändare",
+  "fi": "mielipidekirjoitus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kommentera",
+  "fi": "kommentoida",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "recension",
+  "fi": "arvostelu",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sprida",
+  "fi": "levittää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "surfa",
+  "fi": "surffata (netissä)",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tidskrift",
+  "fi": "aikakauslehti",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "titta på serie",
+  "fi": "katsoa sarjaa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tittare",
+  "fi": "katsoja",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "underhållande",
+  "fi": "viihdyttävä",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "underhållning",
+  "fi": "viihde",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "videoklipp",
+  "fi": "videoleike",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "media",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bankkonto",
+  "fi": "pankkitili",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "betala skatt",
+  "fi": "maksaa veroa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "betalkort",
+  "fi": "maksukortti",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "dyr",
+  "fi": "kallis",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "konsument",
+  "fi": "kuluttaja",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kosta",
+  "fi": "maksaa (hinta)",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "lån",
+  "fi": "laina",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "pengar",
+  "fi": "raha(t)",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "ränta",
+  "fi": "korko",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "snabblån",
+  "fi": "pikavippi",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "money",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "försvara",
+  "fi": "puolustaa",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "opinions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "påstå",
+  "fi": "väittää",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "opinions",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "blyg",
+  "fi": "ujo",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "elak",
+  "fi": "ilkeä",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "flexibel",
+  "fi": "joustava",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "flitig",
+  "fi": "ahkera",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "förstående",
+  "fi": "ymmärtäväinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "initiativrik",
+  "fi": "aloitteellinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "klok",
+  "fi": "viisas, järkevä",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "pratsam",
+  "fi": "puhelias",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "punktlig",
+  "fi": "täsmällinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "schyst",
+  "fi": "reilu, mukava",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "självisk",
+  "fi": "itsekäs",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "självständig",
+  "fi": "itsenäinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tystlåten",
+  "fi": "hiljainen, vähäpuheinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "tålmodig",
+  "fi": "kärsivällinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "personality",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "avgångsbetyg",
+  "fi": "päästötodistus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "betygsantagning",
+  "fi": "todistusvalinta",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bli mobbad",
+  "fi": "joutua kiusatuksi",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gemensam ansökan",
+  "fi": "yhteishaku",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå prepkurs",
+  "fi": "käydä valmennuskurssi",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "högskoleexamen",
+  "fi": "korkeakoulututkinto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "obligatorisk",
+  "fi": "pakollinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skolka",
+  "fi": "lintsata",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "slutbetyg",
+  "fi": "päättötodistus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "studiehandledare",
+  "fi": "opinto-ohjaaja",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ta mellanår",
+  "fi": "pitää välivuosi",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ta studielån",
+  "fi": "ottaa opintolainaa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "uppsats",
+  "fi": "aine, tutkielma",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "vit mössa",
+  "fi": "ylioppilaslakki",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "yrkesutbildning",
+  "fi": "ammatillinen koulutus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "school & studies",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "befolkning",
+  "fi": "väestö",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "frihet",
+  "fi": "vapaus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "förtryck",
+  "fi": "sorto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "invånare",
+  "fi": "asukas",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ledare",
+  "fi": "johtaja",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "makt",
+  "fi": "valta",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "rättvisa",
+  "fi": "oikeudenmukaisuus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "society",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bilist",
+  "fi": "autoilija",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "cykelhjälm",
+  "fi": "pyöräilykypärä",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "cyklist",
+  "fi": "pyöräilijä",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fotgängare",
+  "fi": "jalankulkija",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "hastighet",
+  "fi": "nopeus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kollektivtrafik",
+  "fi": "joukkoliikenne",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "korsning",
+  "fi": "risteys",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "krocka",
+  "fi": "törmätä",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "köra bil",
+  "fi": "ajaa autoa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "köra för fort",
+  "fi": "ajaa ylinopeutta",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "köra om",
+  "fi": "ohittaa (autolla)",
+  "category": "particle verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "körkort",
+  "fi": "ajokortti",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "moped",
+  "fi": "mopo",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "parkera",
+  "fi": "pysäköidä",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "passagerare",
+  "fi": "matkustaja",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "rusningstid",
+  "fi": "ruuhka-aika",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "spårvagn",
+  "fi": "raitiovaunu",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trafikljus",
+  "fi": "liikennevalot",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trafikolycka",
+  "fi": "liikenneonnettomuus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "trottoar",
+  "fi": "jalkakäytävä",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "uppkörning",
+  "fi": "ajokoe",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "övergångsställe",
+  "fi": "suojatie",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "övningsköra",
+  "fi": "harjoitella ajamista (ajo-opetus)",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "traffic",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "fjäll",
+  "fi": "tunturi",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "travel",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "ateist",
+  "fi": "ateisti",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "bli konfirmerad",
+  "fi": "päästä ripille",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "etik",
+  "fi": "etiikka",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "församling",
+  "fi": "seurakunta",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gud",
+  "fi": "jumala",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "gå i kyrkan",
+  "fi": "käydä kirkossa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "kristen",
+  "fi": "kristitty",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "livsåskådning",
+  "fi": "elämänkatsomus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "lycklig",
+  "fi": "onnellinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "meningsfull",
+  "fi": "merkityksellinen",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "moral",
+  "fi": "moraali",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "muslim",
+  "fi": "muslimi",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "präst",
+  "fi": "pappi",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "samvete",
+  "fi": "omatunto",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sanning",
+  "fi": "totuus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "troende",
+  "fi": "uskova",
+  "category": "adj",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "världsbild",
+  "fi": "maailmankuva",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "values & religion",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "anställningsintervju",
+  "fi": "työhaastattelu",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "arbetskamrat",
+  "fi": "työtoveri",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "arbetsmarknad",
+  "fi": "työmarkkinat",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "arbetsuppgift",
+  "fi": "työtehtävä",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "deltidsarbete",
+  "fi": "osa-aikatyö",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "extraknäck",
+  "fi": "sivutyö, keikkatyö",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "få sparken",
+  "fi": "saada potkut",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": true
+ },
+ {
+  "sv": "göra karriär",
+  "fi": "luoda uraa",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "meritförteckning",
+  "fi": "ansioluettelo, CV",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "platsannons",
+  "fi": "työpaikkailmoitus",
+  "category": "noun",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "skaffa sig yrke",
+  "fi": "hankkia ammatti",
+  "category": "fixed phrase",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ },
+ {
+  "sv": "sommarjobba",
+  "fi": "olla kesätöissä",
+  "category": "verb",
+  "deckCount": 2,
+  "authorCount": 2,
+  "theme": "work",
+  "partiallyCovered": false
+ }
+]
