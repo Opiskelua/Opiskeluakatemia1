@@ -9,6 +9,11 @@ const MESSAGE = 'Kirjoitelmat ja avoimet vastaukset arvioidaan tekoälyllä. Arv
  * App Store guideline 5.1.2(i): ask before personal content is sent to a third-party AI service.
  * The answer is remembered on this device; declining keeps the text unsent.
  */
+/** Consent belongs to the person, not the phone: forget it on sign-out so the next account is asked again. */
+export function clearAiConsent(): Promise<void> {
+  return AsyncStorage.removeItem(KEY).catch(() => undefined);
+}
+
 export async function ensureAiConsent(): Promise<boolean> {
   try { if (await AsyncStorage.getItem(KEY) === 'yes') return true; } catch { /* Ask again below. */ }
   const accepted = Platform.OS === 'web'

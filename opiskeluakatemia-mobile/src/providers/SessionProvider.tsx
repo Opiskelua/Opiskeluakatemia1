@@ -4,6 +4,7 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { isConfigured } from '../lib/config';
 import { clearPathCache } from '../lib/path-v2';
+import { clearAiConsent } from '../lib/ai-consent';
 
 const Context = createContext<{ session: Session | null; loading: boolean }>({ session: null, loading: true });
 export function SessionProvider({ children }: { children: ReactNode }) {
@@ -16,6 +17,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       changed = true;
       // The cached Polku belongs to the previous account.
       if (event === 'SIGNED_OUT' || event === 'SIGNED_IN') clearPathCache();
+      // AI-grading consent (guideline 5.1.2(i)) was given by the previous account's owner.
+      if (event === 'SIGNED_OUT') void clearAiConsent();
       if (mounted) { setSession(value); setLoading(false); }
     });
     supabase.auth.getSession().then(({ data }) => {
