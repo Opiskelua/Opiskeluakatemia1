@@ -92,13 +92,12 @@ test('pickLine rotates daily, is stable, and fills placeholders', () => {
   assert.ok(all.has('4 päivän putki jatkuu, kun teet tänään yhden oppitunnin.'));
 });
 
-test('momentForResult order and the daily big-celebration cap', () => {
+test('momentForResult order and the daily big-celebration cap; XP moments are paused', () => {
   const pass = { score: 90, passed: true };
   const none = { unitCompleted: null, leveledUp: false, dailyGoalReached: false };
   assert.equal(m.momentForResult({ score: 50, passed: false }, { ...none, unitCompleted: 'u', leveledUp: true, dailyGoalReached: true }, 0), 'lessonFailed');
   assert.equal(m.momentForResult(pass, { ...none, unitCompleted: 'u', leveledUp: true }, 0), 'unitCompleted');
-  assert.equal(m.momentForResult(pass, { ...none, leveledUp: true, dailyGoalReached: true }, 1), 'levelUp');
-  assert.equal(m.momentForResult(pass, { ...none, leveledUp: true, dailyGoalReached: true }, 2), 'dailyGoalReached', 'over the cap falls through');
+  assert.equal(m.momentForResult(pass, { ...none, leveledUp: true, dailyGoalReached: true }, 1), 'lessonPassed', 'levelUp and dailyGoalReached are paused');
   assert.equal(m.momentForResult({ score: 100, passed: true }, { ...none, unitCompleted: 'u' }, 2), 'lessonPerfect');
   assert.equal(m.momentForResult(pass, { ...none, unitCompleted: 'u' }, 5), 'lessonPassed');
   assert.equal(m.momentForResult({ score: 100, passed: true }, none, 0), 'lessonPerfect');
@@ -138,9 +137,9 @@ test('allDone and onboarding conditions', () => {
   assert.equal(m.allDone({ nextLessonId: null, content: { units: [{ comingSoon: false }, { comingSoon: true }] } }), true);
   assert.equal(m.allDone({ nextLessonId: 'x', content: { units: [{ comingSoon: true }] } }), false);
   assert.equal(m.allDone({ nextLessonId: null, content: { units: [{ comingSoon: false }] } }), false);
-  assert.equal(m.showOnboarding({ xp: { total: 0, today: 0 } }, false), true);
-  assert.equal(m.showOnboarding({ xp: { total: 0, today: 0 } }, true), false);
-  assert.equal(m.showOnboarding({ xp: { total: 10, today: 0 } }, false), false);
+  assert.equal(m.showOnboarding({ progress: { a: { status: 'available' } } }, false), true);
+  assert.equal(m.showOnboarding({ progress: {} }, true), false);
+  assert.equal(m.showOnboarding({ progress: { a: { status: 'completed' } } }, false), false);
 });
 
 test('mascot copy never guilts', () => {

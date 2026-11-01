@@ -1,7 +1,3 @@
-// Mirrored from the website repo: ../opiskeluakatemia/src/lib/learning-path-v2/types.ts
-// (Polku v2 API contract, website branch target-grade, commit b426491). Keep this copy identical in substance;
-// when the website contract changes, copy the file again. See ../opiskeluakatemia/docs/LEARNING_PATH_V2.md.
-
 // Polku v2 — shared API contract.
 //
 // This file is intentionally dependency-free so the mobile app can copy it
@@ -15,6 +11,10 @@ export type PathV2Version = typeof PATH_V2_VERSION;
 // ---------------------------------------------------------------------------
 // Gamification rules (also returned as `rules` in GET /api/abikurssi/path so
 // clients never hard-code numbers).
+//
+// XP, levels and the XP daily goal are paused (2026-11-01): the server still computes and
+// returns them so older app builds keep working, but clients no longer show them. The streak,
+// mastery, unlocks and the target grade are the visible progress.
 // ---------------------------------------------------------------------------
 
 export interface PathLevelDefinition { level: number; minXp: number; title: string }
@@ -118,7 +118,25 @@ export interface LessonGuide {
   theory: ResourceLink | null;
 }
 
-export type LessonKind = 'lesson' | 'checkpoint';
+/**
+ * 'task' is a real exam-style exercise (reading text, listening clip, essay) placed on the path.
+ * It has no items and cannot be submitted to /path: it completes when the student submits that
+ * exercise in the course. Clients that do not know 'task' must not open the lesson player for it.
+ */
+export type LessonKind = 'lesson' | 'checkpoint' | 'task';
+
+/** Which course exercise a task step opens. */
+export type PathTaskKind = 'reading' | 'listening' | 'listening-mc' | 'essay';
+
+export interface PathTaskV2 {
+  exercise: PathTaskKind;
+  /** Reading/listening exercise id, or essay topic id. */
+  exerciseId: string;
+  /** Finnish instructions: what to do and what to focus on. */
+  brief: string;
+  /** Where the exercise opens on the website (kind = exercise, id = exerciseId). Mobile maps (kind, id) to its own screens. */
+  link: ResourceLink;
+}
 
 export interface PublicLessonV2 {
   id: string;
@@ -132,10 +150,14 @@ export interface PublicLessonV2 {
   /** Maximum XP this lesson can award (completion + perfect bonus). */
   maxXp: number;
   guide: LessonGuide | null;
+  /** Empty for tasks. */
   items: PublicItem[];
+  /** Present (non-null) exactly when kind is 'task'. Optional: older servers omit it. */
+  task?: PathTaskV2 | null;
 }
 
-export type SkillArea = 'grammar' | 'vocabulary' | 'reading' | 'listening' | 'writing';
+/** 'exam' = mixed exam practice (real exercises from every section plus a mixed structure test). */
+export type SkillArea = 'grammar' | 'vocabulary' | 'reading' | 'listening' | 'writing' | 'exam';
 
 export interface PublicUnitV2 {
   id: string;
@@ -162,7 +184,7 @@ export type LessonStatus = 'locked' | 'available' | 'in_progress' | 'completed';
 export interface LessonProgressV2 {
   lessonId: string;
   status: LessonStatus;
-  /** Best graded score 0–100, null if never submitted. */
+  /** Best graded score 0–100, null if never submitted. Tasks: best exercise score in percent (null for essays). */
   bestScore: number | null;
   /** Score of the most recent graded attempt. */
   lastScore: number | null;
@@ -182,7 +204,7 @@ export interface UnitProgressV2 {
   unitId: string;
   status: UnitStatus;
   lessonsCompleted: number;
-  /** Normal lessons only (checkpoint excluded). */
+  /** Lessons and tasks (checkpoint excluded). */
   lessonsTotal: number;
   checkpointPassed: boolean;
   /** 0–100, see docs (best scores, checkpoint weighted ×2). */

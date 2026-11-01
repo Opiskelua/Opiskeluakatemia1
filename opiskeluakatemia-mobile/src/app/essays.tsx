@@ -12,7 +12,7 @@ import { ensureAiConsent } from '../lib/ai-consent';
 // Essays and their topics are English (Swedish writing is on the website for now).
 const loadTopics = () => loadContent('en');
 export default function Essays() {
-  const { taskId } = useLocalSearchParams<{ taskId?: string }>();
+  const { taskId, topic: topicParam } = useLocalSearchParams<{ taskId?: string; topic?: string }>();
   const { colors, type } = useTheme();
   const styles = useStyles();
   const content = useSyncedResource(loadTopics);
@@ -33,6 +33,13 @@ export default function Essays() {
     mounted.current = true;
     return () => { mounted.current = false; };
   }, []);
+  // ?topic=<id> (Polku writing tasks): open the editor on that topic once the topics have loaded.
+  const [topicApplied, setTopicApplied] = useState(false);
+  if (!topicApplied && topicParam && content.data) {
+    setTopicApplied(true);
+    const found = content.data.topics.find(t => t.id === topicParam);
+    if (found) setTopic(found);
+  }
   const dirty = text !== savedText;
   usePreventRemove(dirty || busy, ({ repeat }) => {
     if (busy) { Alert.alert('Tallennetaan', 'Odota tallennuksen valmistumista.'); return; }

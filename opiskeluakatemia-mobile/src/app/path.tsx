@@ -3,7 +3,7 @@ import { Animated, Pressable, StyleSheet, Text, useWindowDimensions, View, type 
 import { router, useLocalSearchParams } from 'expo-router';
 import { Screen, useGutter, usePullToRefresh } from '../components/Screen';
 import { Button, Chip, ChipRow, LoadingState, NavCard, Notice, Pill, ProgressBar } from '../components/ui';
-import { CareerCard, GoalStreak, MascotIntro, usePulse } from '../components/PathProgress';
+import { MascotIntro, StepsStreak, usePulse } from '../components/PathProgress';
 import { Mascot, MascotRow, useMascotUserId } from '../components/Mascot';
 import { TargetCard } from '../components/TargetCard';
 import { dismissIntro, markGreeted, useMascotFlags } from '../hooks/useMascotFlags';
@@ -14,7 +14,7 @@ import { choices } from '../lib/catalogue';
 import { COURSE_IDS, COURSES, type CourseFeatures, type CourseId } from '../lib/courses';
 import { loadPath, PATH_PREVIEW, type PreviewScenario } from '../lib/path-v2';
 import type { LessonProgressV2, PathStateV2, PublicLessonV2, PublicUnitV2, UnitProgressV2 } from '../lib/path-v2-types';
-import { lessonState, nextStepLabel, resourceAvailable, resourceRoute, skillLabel, windingOffset, type NodeState } from '../lib/path-v2-model';
+import { lessonState, nextStepLabel, resourceAvailable, resourceRoute, skillLabel, taskGlyph, taskKicker, windingOffset, type NodeState } from '../lib/path-v2-model';
 import { allDone, pickLine, poseFor, showOnboarding, streakAtRisk, type MascotPose } from '../lib/mascot';
 import { useCourse } from '../providers/CourseProvider';
 
@@ -33,10 +33,15 @@ function LockGlyph({ color }: { color?: string }) {
 }
 
 function nodeCaption(lesson: PublicLessonV2, progress: LessonProgressV2 | undefined, state: NodeState) {
+  if (lesson.kind === 'task') {
+    if (state === 'completed') return progress?.bestScore == null ? 'Palautettu' : `Tehty · paras ${progress.bestScore} %`;
+    if (state === 'locked') return 'Lukittu';
+    return `${lesson.estimatedMinutes} min · oikea koetehtävä`;
+  }
   if (state === 'completed') return `Valmis · paras ${progress?.bestScore ?? 0} %`;
   if (state === 'in_progress') return progress?.attempts ? `Kesken · viimeksi ${progress.lastScore ?? 0} %` : 'Kesken · luonnos tallessa';
-  if (state === 'locked') return lesson.kind === 'checkpoint' ? 'Avautuu, kun oppitunnit on tehty' : 'Lukittu';
-  return `${lesson.estimatedMinutes} min · ${lesson.maxXp} XP`;
+  if (state === 'locked') return lesson.kind === 'checkpoint' ? 'Avautuu, kun osan muut askeleet on tehty' : 'Lukittu';
+  return `${lesson.estimatedMinutes} min`;
 }
 
 function LessonNode({ lesson, progress, isNext, offset, nodeRef, onLayout }: {
@@ -48,17 +53,18 @@ function LessonNode({ lesson, progress, isNext, offset, nodeRef, onLayout }: {
   const state = lessonState(progress);
   const pulse = usePulse();
   const checkpoint = lesson.kind === 'checkpoint';
+  const task = lesson.kind === 'task';
   const locked = state === 'locked';
   const done = state === 'completed';
   const perfect = done && progress?.bestScore === 100;
   const statusText = { locked: 'lukittu', available: 'avoinna', in_progress: 'kesken', completed: 'suoritettu' }[state];
-  const label = `${checkpoint ? 'Välietappi' : `Oppitunti ${lesson.order}`}: ${lesson.title}. ${statusText}. ${nodeCaption(lesson, progress, state)}${isNext ? '. Seuraavana vuorossa' : ''}`;
+  const label = `${checkpoint ? 'Välietappi' : task ? taskKicker(lesson.task) : `Oppitunti ${lesson.order}`}: ${lesson.title}. ${statusText}. ${nodeCaption(lesson, progress, state)}${isNext ? '. Seuraavana vuorossa' : ''}`;
   const ring = isNext && !locked ? <Animated.View pointerEvents="none" style={[checkpoint ? styles.ringCheckpoint : styles.ring, {
     opacity: pulse.interpolate({ inputRange: [0, 1], outputRange: [0.35, 0.9] }),
     transform: [{ scale: pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] }) }],
   }]} /> : null;
   return <Pressable ref={nodeRef} onLayout={onLayout} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: locked }}
-    accessibilityHint={locked ? undefined : done ? 'Avaa oppitunnin uudelleen' : 'Avaa oppitunnin'} disabled={locked}
+    accessibilityHint={locked ? undefined : task ? 'Avaa tehtävänannon' : done ? 'Avaa oppitunnin uudelleen' : 'Avaa oppitunnin'} disabled={locked}
     onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: lesson.id } })}
     style={({ pressed }) => [styles.node, { transform: [{ translateX: offset }] }, pressed && { opacity: 0.75 }]}>
     {isNext && !locked && <View style={styles.youAreHere}><Text style={styles.youAreHereText} maxFontSizeMultiplier={1.3}>{state === 'in_progress' ? 'JATKA' : 'ALOITA'}</Text></View>}
@@ -70,7 +76,7 @@ function LessonNode({ lesson, progress, isNext, offset, nodeRef, onLayout }: {
         <View style={checkpoint ? styles.unrotate : undefined}>
           {locked ? <LockGlyph />
             : done ? <Text style={[styles.nodeGlyph, { color: perfect && scheme === 'light' ? colors.accent : colors.onPrimary }]} maxFontSizeMultiplier={1.2}>{perfect ? '★' : '✓'}</Text>
-              : <Text style={[styles.nodeGlyph, { color: colors.ink }]} maxFontSizeMultiplier={1.2}>{checkpoint ? '⚑' : lesson.order}</Text>}
+              : <Text style={[styles.nodeGlyph, { color: colors.ink }]} maxFontSizeMultiplier={1.2}>{checkpoint ? '⚑' : task ? taskGlyph(lesson.task) : lesson.order}</Text>}
         </View>
       </View>
       {state === 'in_progress' && <View style={styles.progressDot} />}
@@ -79,6 +85,7 @@ function LessonNode({ lesson, progress, isNext, offset, nodeRef, onLayout }: {
     </View>
     <View style={styles.nodeCopy}>
       {checkpoint && <Text style={[type.overline, { textAlign: 'center' }]}>Välietappi</Text>}
+      {task && <Text style={[type.overline, { textAlign: 'center' }]}>{taskKicker(lesson.task)}</Text>}
       <Text style={[type.label, styles.centerText, locked && { color: colors.muted }]} numberOfLines={3}>{lesson.title}</Text>
       <Text style={[type.caption, styles.centerText]} numberOfLines={2}>{nodeCaption(lesson, progress, state)}</Text>
     </View>
@@ -108,7 +115,7 @@ function UnitHeader({ unit, progress }: { unit: PublicUnitV2; progress?: UnitPro
     {progress && <View style={{ gap: space.xs, marginTop: space.xxs }}>
       <View style={styles.unitTop}>
         <Text style={[type.label, styles.flex]}>Hallinta {progress.mastery} % · {progress.masteryLabel}</Text>
-        <Text style={type.caption}>{progress.lessonsCompleted}/{progress.lessonsTotal} oppituntia{progress.checkpointPassed ? ' · ✓ välietappi' : ''}</Text>
+        <Text style={type.caption}>{progress.lessonsCompleted}/{progress.lessonsTotal} askelta{progress.checkpointPassed ? ' · ✓ välietappi' : ''}</Text>
       </View>
       <ProgressBar value={progress.mastery} tone={progress.mastery >= 80 ? 'success' : 'ink'} label={`Osan ${unit.order} hallinta: ${progress.mastery} prosenttia, ${progress.masteryLabel}`} />
     </View>}
@@ -149,7 +156,7 @@ function UnitSection({ unit, state, features, amplitude, nextRef, onNextLayout }
     <View accessible accessibilityLabel={`Oppitunnit: ${unit.lessons.map(l => l.title).join(', ')}`} style={{ gap: space.xxs }}>
       {unit.lessons.map(lesson => <View key={lesson.id} style={styles.planned}>
         <LockGlyph color={colors.placeholder} />
-        <Text style={[type.caption, styles.flex]}>{lesson.kind === 'checkpoint' ? 'Välietappi' : lesson.title}</Text>
+        <Text style={[type.caption, styles.flex]}>{lesson.kind === 'checkpoint' ? 'Välietappi' : lesson.kind === 'task' ? `${taskKicker(lesson.task)}: ${lesson.title}` : lesson.title}</Text>
       </View>)}
     </View>
   </View>;
@@ -225,6 +232,7 @@ function PathMap({ course }: { course: CourseId }) {
   const nextLine = data && next && data.nextLessonId ? pickLine('nextUpDaily', data.today, userId, { lesson: next.title }) : null;
   const doneLine = data && allDone(data) ? pickLine('allDone', data.today, userId) : null;
   const reviewEmptyLine = data ? pickLine('reviewEmpty', data.today, userId) : null;
+  const nextIsTask = !!data?.nextLessonId && data.content.units.some(unit => unit.lessons.some(lesson => lesson.id === data.nextLessonId && lesson.kind === 'task'));
   return <Screen {...pull} scrollRef={scroll}>
     {PATH_PREVIEW && <View style={{ gap: space.xs }}>
       <Notice title="Esikatselutila (vain kehitys)" message="Tiedot tulevat verkkosivun esikatselu-API:sta ilman kirjautumista." />
@@ -237,15 +245,14 @@ function PathMap({ course }: { course: CourseId }) {
       {intro && <MascotIntro course={course} onStart={() => data.nextLessonId ? router.push({ pathname: '/path-lesson', params: { lessonId: data.nextLessonId } }) : dismissIntro(course)} />}
       {/* Target grade: an optional step right after the onboarding intro, otherwise under "Seuraavaksi". */}
       {intro && <TargetCard state={data} course={course} onSaved={() => void refresh()} />}
-      <CareerCard level={data.level} />
-      <GoalStreak goal={data.dailyGoal} streak={data.streak} stacked={largeText || width < 340} atRiskLine={atRiskLine} />
+      <StepsStreak summary={data} streak={data.streak} stacked={largeText || width < 340} atRiskLine={atRiskLine} />
       {next && <View style={styles.nextCard}>
         <Text style={type.overline}>{data.nextLessonId ? 'Seuraavaksi' : 'Tilanne'}</Text>
         <Text style={type.subheading}>{next.title}</Text>
         <Text style={type.caption}>{next.detail}</Text>
         {!intro && nextLine && <MascotRow pose={greetPose ?? 'idle'} size="sm" line={nextLine} animateIn={greetPose === 'greet'} />}
         {doneLine && <MascotRow pose={poseFor('allDone')} size="md" line={doneLine} />}
-        {data.nextLessonId ? <Button title={data.progress[data.nextLessonId]?.status === 'in_progress' ? 'Jatka oppituntia' : 'Aloita oppitunti'}
+        {data.nextLessonId ? <Button title={nextIsTask ? 'Avaa tehtävä' : data.progress[data.nextLessonId]?.status === 'in_progress' ? 'Jatka oppituntia' : 'Aloita oppitunti'}
           onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: data.nextLessonId! } })} />
           : data.review.pendingItems > 0 ? <Button title="Aloita kertaus" onPress={() => router.push('/path-review')} />
             : features.flashcards ? <Button title="Avaa muistikortit" secondary onPress={() => router.push('/flashcards')} />

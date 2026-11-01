@@ -8,35 +8,10 @@ import { useReduceMotion } from '../hooks/useReduceMotion';
 import { addCelebration, celebrationsOn, dismissIntro, useMascotFlags } from '../hooks/useMascotFlags';
 import { isBigCelebration, moment, momentForResult, pickLine, poseFor, showOnboarding, type ResultMoment } from '../lib/mascot';
 import { COURSES, type CourseId } from '../lib/courses';
-import type { DailyGoalInfo, GradeResult, LevelInfo, PathStateV2, PathSummaryV2, RewardSummary, StreakInfo } from '../lib/path-v2-types';
-import { dailyGoalFraction, dailyGoalLabel, dayCount, formatXp, levelRemainingLabel, levelSpanLabel, nextStepLabel, percent, streakHint, streakLabel } from '../lib/path-v2-model';
+import type { GradeResult, PathStateV2, PathSummaryV2, RewardSummary, StreakInfo } from '../lib/path-v2-types';
+import { dayCount, nextStepLabel, pathSteps, pathStepsLabel, percent, streakHint, streakLabel } from '../lib/path-v2-model';
 
 const nativeDriver = Platform.OS !== 'web';
-
-/** Dark "career" card: level number, rank title and XP toward the next rank. */
-export function CareerCard({ level, compact = false }: { level: LevelInfo; compact?: boolean }) {
-  const { colors, type } = useTheme();
-  const styles = useStyles();
-  const next = level.nextLevelTitle ? `Seuraava: ${level.nextLevelTitle}` : 'Korkein arvo saavutettu';
-  return <View style={[styles.career, compact && styles.careerCompact]}>
-    <View style={styles.careerTop}>
-      <View accessible accessibilityLabel={`Taso ${level.level}`} style={styles.levelBadge}>
-        <Text style={styles.levelSmall} maxFontSizeMultiplier={1.2}>TASO</Text>
-        <Text style={styles.levelNumber} maxFontSizeMultiplier={1.2}>{level.level}</Text>
-      </View>
-      <View style={styles.flex}>
-        <Text style={[type.overline, { color: colors.accent }]}>Urapolku</Text>
-        <Text accessibilityRole="header" style={[type.heading, { color: colors.onHero }]} maxFontSizeMultiplier={maxScale.title}>{level.title}</Text>
-        <Text style={[type.caption, { color: colors.onHeroMuted }]}>{formatXp(level.xp)} yhteensä</Text>
-      </View>
-    </View>
-    <ProgressBar dark value={percent(level.progress)} label={`Eteneminen seuraavalle tasolle: ${levelRemainingLabel(level)}`} />
-    <View style={styles.careerFoot}>
-      <Text style={[type.caption, styles.flex, { color: colors.onHeroMuted }]} numberOfLines={2}>{next}</Text>
-      <Text style={[type.caption, { color: colors.onHero, fontWeight: '600' }]}>{levelSpanLabel(level)}</Text>
-    </View>
-  </View>;
-}
 
 /** Abi's first-time intro (moments.onboarding). "Ohita" hides it for good on this device, for this course. */
 export function MascotIntro({ course, onStart }: { course: CourseId; onStart: () => void }) {
@@ -54,7 +29,7 @@ export function MascotIntro({ course, onStart }: { course: CourseId; onStart: ()
   </Card>;
 }
 
-/** Home screen entry to Polku: level, streak, today's goal and the next lesson. */
+/** Home screen entry to Polku: steps done, streak and the next step. */
 export function PathHomeCard({ course, state, error, disabled, onPress, onStart }: {
   /** The course `state` belongs to. */ course: CourseId;
   state: PathStateV2 | null; error: boolean; disabled: boolean; onPress: () => void;
@@ -72,9 +47,9 @@ function PathHomeButton({ course, state, error, disabled, onPress }: { course: C
   const { colors, type } = useTheme();
   const styles = useStyles();
   const next = state ? nextStepLabel(state, COURSES[course].features.flashcards) : null;
-  const kicker = state ? `Polku · Taso ${state.level.level} · ${state.level.title}` : 'Polku';
+  const kicker = state ? `Polku · ${pathStepsLabel(state)}` : 'Polku';
   const title = next ? (state?.nextLessonId ? `Seuraavaksi: ${next.title}` : next.title) : error ? 'Avaa oppimispolku' : 'Ladataan polkua…';
-  const detail = state ? `${streakLabel(state.streak)} · Tänään ${dailyGoalLabel(state.dailyGoal)}` : error ? 'Tilannetta ei saatu juuri nyt. Avaa polku yrittääksesi uudelleen.' : 'Oppitunnit, välietapit ja kertaus.';
+  const detail = state ? `${streakLabel(state.streak)} · ${next?.detail ?? ''}` : error ? 'Tilannetta ei saatu juuri nyt. Avaa polku yrittääksesi uudelleen.' : 'Oppitunnit, välietapit ja kertaus.';
   return <Pressable accessibilityRole="button" accessibilityLabel={`${kicker}. ${title}. ${detail}`} accessibilityHint="Avaa oppimispolun" accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
     style={[styles.homeShell, disabled && { opacity: disabledOpacity }]}>
     {/* Real glass under a graphite scrim (contrast holds whatever is behind). Pressed darkens the scrim
@@ -88,23 +63,25 @@ function PathHomeButton({ course, state, error, disabled, onPress }: { course: C
       </View>
       <Chevron light />
     </View>
-    {state && <ProgressBar dark value={percent(dailyGoalFraction(state.dailyGoal))} label="Päivän XP-tavoite" />}
+    {state && <ProgressBar dark value={percent(pathSteps(state).fraction)} label={`Polun eteneminen: ${pathStepsLabel(state)}`} />}
     </Glass>}
   </Pressable>;
 }
 
-/** Two side-by-side tiles: today's XP goal and the study streak. Stacks at large text sizes. */
-export function GoalStreak({ goal, streak, stacked = false, atRiskLine = null }: {
-  goal: DailyGoalInfo; streak: StreakInfo; stacked?: boolean;
+/** Two side-by-side tiles: path progress and the study streak. Stacks at large text sizes. */
+export function StepsStreak({ summary, streak, stacked = false, atRiskLine = null }: {
+  summary: Pick<PathSummaryV2, 'units'>; streak: StreakInfo; stacked?: boolean;
   /** moments.streakAtRisk line; replaces the hint and adds Abi when the streak can still be kept this evening. */ atRiskLine?: string | null;
 }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
+  const steps = pathSteps(summary);
   return <View style={[styles.tiles, stacked && { flexDirection: 'column' }]}>
-    <View accessible accessibilityLabel={`Päivän tavoite: ${goal.earnedXp} / ${goal.targetXp} XP${goal.reached ? ', saavutettu' : ''}`} style={styles.tile}>
-      <Text style={type.overline}>Päivän tavoite</Text>
-      <Text style={[type.subheading, goal.reached && { color: colors.success }]}>{goal.reached ? '✓ ' : ''}{dailyGoalLabel(goal)}</Text>
-      <ProgressBar tone={goal.reached ? 'success' : 'accent'} value={percent(dailyGoalFraction(goal))} label="Päivän tavoite" />
+    <View accessible accessibilityLabel={`Polku: ${pathStepsLabel(summary)} tehty, ${steps.unitsDone} / ${steps.units} osiota valmiina`} style={styles.tile}>
+      <Text style={type.overline}>Polku</Text>
+      <Text style={[type.subheading, steps.done === steps.total && { color: colors.success }]}>{pathStepsLabel(summary)}</Text>
+      <ProgressBar tone={steps.done === steps.total ? 'success' : 'accent'} value={percent(steps.fraction)} label="Polun eteneminen" />
+      <Text style={type.caption}>{steps.unitsDone} / {steps.units} osiota valmiina</Text>
     </View>
     <View accessible accessibilityLabel={`Opiskeluputki: ${streakLabel(streak)}. Pisin ${dayCount(streak.longest)}. ${atRiskLine ?? streakHint(streak)}`} style={styles.tile}>
       <Text style={type.overline}>Putki</Text>
@@ -119,8 +96,8 @@ export function GoalStreak({ goal, streak, stacked = false, atRiskLine = null }:
 
 /**
  * Abi's reaction on the lesson result screen. The moment is decided once (when the device flags
- * are known) so counting a big celebration does not change it; only unitCompleted / levelUp count
- * toward the daily cap. The line is real text; the image is decorative.
+ * are known) so counting a big celebration does not change it; only unitCompleted counts toward
+ * the daily cap (levelUp is paused with XP). The line is real text; the image is decorative.
  */
 export function ResultMascot({ result, rewards, summary }: { result: GradeResult; rewards: RewardSummary | null; summary: PathSummaryV2 }) {
   const flags = useMascotFlags();
@@ -134,7 +111,7 @@ export function ResultMascot({ result, rewards, summary }: { result: GradeResult
     if (isBigCelebration(chosen)) addCelebration(summary.today);
   }, [chosen, summary.today]);
   if (!chosen) return null;
-  const line = pickLine(chosen, summary.today, userId, { level: summary.level.title });
+  const line = pickLine(chosen, summary.today, userId);
   return <MascotRow pose={poseFor(chosen)} size={isBigCelebration(chosen) ? 'lg' : 'md'} line={line} animateIn />;
 }
 
@@ -155,48 +132,33 @@ export function ScoreCard({ result, passScore, checkpoint, review }: { result: G
 }
 
 /**
- * Rewards after a submit. A short entrance (fade + rise) and an XP count-up, skipped entirely
- * when the system's Reduce motion setting is on.
+ * What a submit unlocked: unit completed, new unit open, streak day. A short entrance (fade + rise),
+ * skipped when Reduce motion is on. Renders nothing when there is nothing to report. (XP is paused.)
  */
-export function RewardCard({ rewards, levelTitle, unlockedTitle, completedTitle, passed }: {
-  rewards: RewardSummary; levelTitle: string; unlockedTitle?: string | null; completedTitle?: string | null;
+export function RewardCard({ rewards, unlockedTitle, completedTitle, passed }: {
+  rewards: RewardSummary; unlockedTitle?: string | null; completedTitle?: string | null;
   /** The streak line is only shown for an attempt that counted as a study day. */ passed: boolean;
 }) {
   const { colors, type } = useTheme();
   const styles = useStyles();
   const reduce = useReduceMotion();
   const appear = useState(() => new Animated.Value(0))[0];
-  const counter = useState(() => new Animated.Value(0))[0];
-  const [shownXp, setShownXp] = useState(0);
   useEffect(() => {
     if (reduce === null) return;
     if (reduce) { appear.setValue(1); return; }
-    const id = counter.addListener(({ value }) => setShownXp(Math.round(value)));
-    const animation = Animated.sequence([
-      Animated.timing(appear, { toValue: 1, duration: 260, easing: Easing.out(Easing.cubic), useNativeDriver: nativeDriver }),
-      Animated.timing(counter, { toValue: rewards.xpGained, duration: Math.min(900, 200 + rewards.xpGained * 20), easing: Easing.out(Easing.quad), useNativeDriver: false }),
-    ]);
-    animation.start(() => setShownXp(rewards.xpGained));
-    return () => { animation.stop(); counter.removeListener(id); };
-  }, [reduce, rewards.xpGained, appear, counter]);
+    const animation = Animated.timing(appear, { toValue: 1, duration: 260, easing: Easing.out(Easing.cubic), useNativeDriver: nativeDriver });
+    animation.start();
+    return () => animation.stop();
+  }, [reduce, appear]);
 
   const lines: { key: string; title: string; detail: string }[] = [];
-  if (rewards.leveledUp) lines.push({ key: 'level', title: `Ylennys: taso ${rewards.levelAfter}`, detail: `Uusi arvosi on ${levelTitle}.` });
   if (completedTitle) lines.push({ key: 'unit', title: 'Osa suoritettu', detail: completedTitle });
   if (unlockedTitle) lines.push({ key: 'unlock', title: 'Uusi osa avautui', detail: unlockedTitle });
-  if (rewards.dailyGoalReached) lines.push({ key: 'goal', title: 'Päivän tavoite saavutettu', detail: 'Tämän päivän XP-tavoite on täynnä.' });
   if (passed && rewards.streak.practicedToday && rewards.streak.current > 0) lines.push({ key: 'streak', title: streakLabel(rewards.streak), detail: rewards.streak.current >= rewards.streak.longest && rewards.streak.current > 1 ? 'Pisin putkesi tähän mennessä.' : 'Tämä päivä on kirjattu putkeen.' });
+  if (lines.length === 0) return null;
 
-  const summary = [rewards.xpGained > 0 ? `Ansaitsit ${rewards.xpGained} XP` : 'Ei uutta XP:tä tästä suorituksesta', ...lines.map(l => `${l.title}. ${l.detail}`)].join('. ');
-  return <Animated.View accessible accessibilityRole="summary" accessibilityLabel={summary} accessibilityLiveRegion="polite"
+  return <Animated.View accessible accessibilityRole="summary" accessibilityLabel={lines.map(l => `${l.title}. ${l.detail}`).join('. ')} accessibilityLiveRegion="polite"
     style={[styles.reward, { opacity: appear, transform: [{ translateY: appear.interpolate({ inputRange: [0, 1], outputRange: [12, 0] }) }] }]}>
-    <View style={styles.rewardTop}>
-      <Text style={[type.overline, { color: colors.accent }]}>Palkinnot</Text>
-      <Text style={styles.rewardXp} maxFontSizeMultiplier={maxScale.stat}>{rewards.xpGained > 0 ? `+${reduce ? rewards.xpGained : shownXp} XP` : '+0 XP'}</Text>
-      <Text style={[type.caption, { color: colors.onHeroMuted }]}>
-        {rewards.xpGained > 0 ? `${formatXp(rewards.xpAfter)} yhteensä` : passed ? 'XP:tä saa ensimmäisestä läpäisystä. Uusinta voi silti nostaa parasta tulosta.' : 'XP:tä saa, kun läpäiset ensimmäistä kertaa.'}
-      </Text>
-    </View>
     {lines.map(line => <View key={line.key} style={styles.rewardLine}>
       <View style={styles.rewardMark}><Text style={styles.rewardMarkText} maxFontSizeMultiplier={1.2}>✓</Text></View>
       <View style={styles.flex}>
@@ -225,15 +187,7 @@ export function usePulse() {
 
 const useStyles = makeStyles(({ colors, shadow, glass }) => StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
-  // Hero cards: graphite with a faint lighter top rim (faux glass); the home entry below uses real glass.
-  career: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, borderWidth: 1, borderColor: colors.hero, borderTopColor: colors.heroTrack, ...shadow.raised },
-  careerCompact: { padding: space.md, gap: space.sm, borderRadius: radii.xl },
-  careerTop: { flexDirection: 'row', alignItems: 'center', gap: space.md },
-  levelBadge: { width: 64, height: 64, borderRadius: radii.lg, borderWidth: 2, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
-  levelSmall: { color: colors.accent, fontSize: 10, fontWeight: '700', letterSpacing: 1 },
-  levelNumber: { color: colors.onHero, fontSize: 28, lineHeight: 32, fontWeight: '700' },
   introTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
-  careerFoot: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   home: { borderRadius: radii.xl, padding: space.lg, gap: space.sm, minHeight: 72 },
   homeShell: { borderRadius: radii.xl, ...shadow.raised },
   homeTop: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
@@ -244,8 +198,6 @@ const useStyles = makeStyles(({ colors, shadow, glass }) => StyleSheet.create({
   streakDotOn: { backgroundColor: colors.accentInk },
   score: { fontSize: 48, lineHeight: 56 },
   reward: { backgroundColor: colors.hero, borderRadius: radii.xl, padding: space.lg, gap: space.md, borderWidth: 1, borderColor: colors.hero, borderTopColor: colors.heroTrack, ...shadow.raised },
-  rewardTop: { gap: 2 },
-  rewardXp: { color: colors.onHero, fontSize: 40, lineHeight: 46, fontWeight: '700', letterSpacing: -1 },
   rewardLine: { flexDirection: 'row', alignItems: 'flex-start', gap: space.sm },
   rewardMark: { width: 24, height: 24, borderRadius: 12, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
   // Fixed dark ink on the gold mark in both modes.

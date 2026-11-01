@@ -6,7 +6,7 @@ import { Button, Card, EmptyState, LoadingState, Notice, PageHeader, ProgressBar
 import { loadDailyTasks } from '../lib/course';
 import { taskChoice } from '../lib/daily-task-choice';
 import { loadPathCached } from '../lib/path-v2';
-import { findLesson } from '../lib/path-v2-model';
+import { findLesson, taskKicker } from '../lib/path-v2-model';
 import { useSyncedResource } from '../hooks/useSyncedResource';
 import { useCourse } from '../providers/CourseProvider';
 import { space, useTheme } from '../theme';
@@ -20,10 +20,10 @@ function PolkuRow() {
   if (!data) return null;
   const next = data.nextLessonId ? findLesson(data.content.units, data.nextLessonId) : null;
   if (next) return <Card>
-    <Text style={type.overline}>Polku · noin 5 min</Text>
+    <Text style={type.overline}>Polku · noin {next.lesson.estimatedMinutes} min</Text>
     <Text accessibilityRole="header" style={type.subheading}>{next.lesson.title}</Text>
-    <Text style={type.caption}>{next.unit.title}</Text>
-    <Button title={data.progress[next.lesson.id]?.status === 'in_progress' ? 'Jatka oppituntia' : 'Aloita oppitunti'} onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: next.lesson.id } })} />
+    <Text style={type.caption}>{next.lesson.kind === 'task' ? `${taskKicker(next.lesson.task)} · ${next.unit.title}` : next.unit.title}</Text>
+    <Button title={next.lesson.kind === 'task' ? 'Avaa tehtävä' : data.progress[next.lesson.id]?.status === 'in_progress' ? 'Jatka oppituntia' : 'Aloita oppitunti'} onPress={() => router.push({ pathname: '/path-lesson', params: { lessonId: next.lesson.id } })} />
   </Card>;
   if (data.review.pendingItems > 0) return <Card>
     <Text style={type.overline}>Polku · Kertaus</Text>

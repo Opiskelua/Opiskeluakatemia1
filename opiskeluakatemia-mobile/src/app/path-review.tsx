@@ -115,7 +115,7 @@ function ReviewSession() {
     return <Screen scrollRef={scroll}>
       <Stack.Screen options={{ title: 'Kertauksen tulos' }} />
       <ScoreCard result={result} passScore={0} checkpoint={false} review />
-      <RewardCard rewards={rewards} levelTitle={summary.level.title} passed={result.passed} />
+      <RewardCard rewards={rewards} passed={result.passed} />
       <WrongList items={outcome.session.items} answers={outcome.answers} result={result} />
       <View style={{ gap: space.sm }}>
         {summary.review.pendingItems > 0 && <Button title={`Uusi kertaus (${summary.review.pendingItems} jäljellä)`} onPress={() => { setOutcome(null); setAnswers({}); setSession(null); void fetchSession(); }} />}
@@ -126,7 +126,7 @@ function ReviewSession() {
   }
 
   return <Screen scrollRef={scroll}>
-    <PageHeader kicker="Polku" title="Kertaus" intro="Omat virheesi viimeisimmistä oppitunneista. Oikea vastaus poistaa kohdan listalta ja antaa XP:tä kerran." />
+    <PageHeader kicker="Polku" title="Kertaus" intro="Omat virheesi viimeisimmistä oppitunneista. Oikea vastaus poistaa kohdan listalta." />
     {!session && !loadError && <LoadingState label="Kootaan kertausta…" />}
     {!!loadError && <Notice tone="error" title="Kertausta ei voitu ladata" message={loadError} actionTitle="Yritä uudelleen" onAction={() => void fetchSession()} />}
     {session && !items.length && <>

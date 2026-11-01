@@ -91,19 +91,16 @@ test('prompts split on the blank and wrong answers are described', () => {
   assert.equal(m.describeAnswer(gap, undefined), 'Ei vastausta');
 });
 
-test('progress formatting', () => {
-  const level = { level: 2, title: 'Assistentti', xp: 45, levelStartXp: 40, nextLevelXp: 100, nextLevelTitle: 'Nuorempi asiantuntija', progress: 0.083 };
-  assert.equal(m.formatXp(45), '45 XP');
-  assert.equal(m.formatXp(Number.NaN), '0 XP');
-  assert.equal(m.levelRemainingLabel(level), '55 XP seuraavaan tasoon');
-  assert.equal(m.levelSpanLabel(level), '5 / 60 XP');
-  assert.equal(m.levelRemainingLabel({ ...level, nextLevelXp: null, nextLevelTitle: null }), 'Korkein taso saavutettu');
+test('progress formatting (XP is paused: path steps instead)', () => {
+  const unit = (status, lessonsCompleted, lessonsTotal, checkpointPassed) => ({ unitId: 'u', status, lessonsCompleted, lessonsTotal, checkpointPassed, mastery: 0, masteryLabel: '', xpEarned: 0, xpTotal: 0 });
+  const summary = { units: [unit('completed', 4, 4, true), unit('available', 2, 6, false), unit('locked', 0, 5, false), unit('coming_soon', 0, 0, false)] };
+  const steps = m.pathSteps(summary);
+  assert.deepEqual({ done: steps.done, total: steps.total, unitsDone: steps.unitsDone, units: steps.units }, { done: 7, total: 18, unitsDone: 1, units: 3 });
+  assert.equal(m.pathStepsLabel(summary), '7 / 18 askelta');
+  assert.equal(m.pathSteps({ units: [] }).fraction, 0);
+  assert.equal(m.formatXp, undefined, 'XP helpers are gone');
   assert.equal(m.percent(0.083), 8);
   assert.equal(m.percent(4), 100);
-  const goal = { date: '2026-10-28', targetXp: 20, earnedXp: 15, reached: false, lessonsCompletedToday: 1, reviewItemsToday: 0 };
-  assert.equal(m.dailyGoalFraction(goal), 0.75);
-  assert.equal(m.dailyGoalLabel(goal), '15 / 20 XP');
-  assert.equal(m.dailyGoalLabel({ ...goal, earnedXp: 45, reached: true }), 'Tavoite täynnä · 45 XP');
   assert.equal(m.streakLabel({ current: 1, longest: 1, practicedToday: true }), '1 päivä putkeen');
   assert.equal(m.streakLabel({ current: 4, longest: 5, practicedToday: false }), '4 päivää putkeen');
   assert.equal(m.streakLabel({ current: 0, longest: 5, practicedToday: false }), 'Ei putkea vielä');

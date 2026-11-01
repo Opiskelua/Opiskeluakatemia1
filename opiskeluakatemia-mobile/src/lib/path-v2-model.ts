@@ -1,7 +1,7 @@
 // Pure helpers for the Polku v2 screens (no React Native imports, unit-tested in tests/path-v2.test.cjs).
 import type { CourseFeatures } from './courses';
 import type {
-  AnswerValue, Answers, DailyGoalInfo, ItemFeedback, LessonProgressV2, LevelInfo, PathErrorCode, PathStateV2, PathSummaryV2,
+  AnswerValue, Answers, ItemFeedback, LessonProgressV2, PathErrorCode, PathStateV2, PathSummaryV2, PathTaskV2,
   PublicItem, PublicLessonV2, PublicUnitV2, ResourceLink, SkillArea, StreakInfo,
 } from './path-v2-types';
 
@@ -103,27 +103,19 @@ export function wrongFeedback(feedback: ItemFeedback[]) { return feedback.filter
 const clamp01 = (n: number) => (Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0);
 export const percent = (fraction: number) => Math.round(clamp01(fraction) * 100);
 
-export function formatXp(xp: number) {
-  const value = Number.isFinite(xp) ? Math.max(0, Math.round(xp)) : 0;
-  return `${value.toLocaleString('fi-FI')} XP`;
+/**
+ * Steps done on the built path (lessons, tasks and checkpoints) and finished units. Replaces the
+ * XP level and daily XP goal, which are paused (2026-11-01).
+ */
+export function pathSteps(state: Pick<PathSummaryV2, 'units'>) {
+  const built = state.units.filter(unit => unit.status !== 'coming_soon');
+  const done = built.reduce((sum, unit) => sum + unit.lessonsCompleted + (unit.checkpointPassed ? 1 : 0), 0);
+  const total = built.reduce((sum, unit) => sum + unit.lessonsTotal + 1, 0);
+  return { done, total, fraction: total > 0 ? clamp01(done / total) : 0, unitsDone: built.filter(unit => unit.status === 'completed').length, units: built.length };
 }
-
-/** "55 XP seuraavaan tasoon" / "Korkein taso saavutettu". */
-export function levelRemainingLabel(level: LevelInfo) {
-  if (level.nextLevelXp === null) return 'Korkein taso saavutettu';
-  return `${formatXp(Math.max(0, level.nextLevelXp - level.xp))} seuraavaan tasoon`;
-}
-/** XP inside the current level, e.g. "5 / 60 XP". */
-export function levelSpanLabel(level: LevelInfo) {
-  if (level.nextLevelXp === null) return formatXp(level.xp);
-  return `${Math.max(0, level.xp - level.levelStartXp)} / ${formatXp(level.nextLevelXp - level.levelStartXp)}`;
-}
-
-export function dailyGoalFraction(goal: DailyGoalInfo) {
-  return goal.targetXp > 0 ? clamp01(goal.earnedXp / goal.targetXp) : 0;
-}
-export function dailyGoalLabel(goal: DailyGoalInfo) {
-  return goal.reached ? `Tavoite täynnä · ${formatXp(goal.earnedXp)}` : `${Math.min(goal.earnedXp, goal.targetXp)} / ${formatXp(goal.targetXp)}`;
+export function pathStepsLabel(state: Pick<PathSummaryV2, 'units'>) {
+  const steps = pathSteps(state);
+  return `${steps.done} / ${steps.total} askelta`;
 }
 
 /** "1 päivä" / "3 päivää" (Finnish partitive after numbers other than one). */
@@ -134,7 +126,7 @@ export function streakLabel(streak: StreakInfo) {
 }
 export function streakHint(streak: StreakInfo) {
   if (streak.practicedToday) return 'Tämä päivä on kirjattu.';
-  return streak.current > 0 ? 'Läpäise oppitunti tänään, niin putki jatkuu.' : 'Läpäise oppitunti, niin putki alkaa.';
+  return streak.current > 0 ? 'Läpäise oppitunti tai palauta koetehtävä tänään, niin putki jatkuu.' : 'Läpäise oppitunti tai palauta koetehtävä, niin putki alkaa.';
 }
 
 // ---------------------------------------------------------------------------
@@ -186,10 +178,10 @@ export function mergeSummary(state: PathStateV2, summary: PathSummaryV2): PathSt
  */
 export function nextStepLabel(state: Pick<PathStateV2, 'nextLessonId' | 'content' | 'review'>, flashcards = true) {
   const next = state.nextLessonId ? findLesson(state.content.units, state.nextLessonId) : null;
-  if (next) return { title: next.lesson.title, detail: `${next.unit.title} · ${next.lesson.kind === 'checkpoint' ? 'Välietappi' : `Oppitunti ${next.lesson.order}`}` };
+  if (next) return { title: next.lesson.title, detail: `${next.unit.title} · ${next.lesson.kind === 'checkpoint' ? 'Välietappi' : next.lesson.kind === 'task' ? taskKicker(next.lesson.task) : `Oppitunti ${next.lesson.order}`}` };
   if (state.review.pendingItems > 0) return { title: 'Kertaa virheesi', detail: `${state.review.pendingItems} kerrattavaa kohtaa` };
   if (!flashcards) return { title: 'Kaikki tehty', detail: 'Voit tehdä oppitunteja uudelleen ja kerrata teoriaa.' };
-  return { title: 'Kaikki tehty – kertaa korteilla', detail: 'Uusia osia on tulossa.' };
+  return { title: 'Kaikki tehty – kertaa korteilla', detail: 'Koko polku on tehty. Pidä taidot tuoreina kertaamalla.' };
 }
 
 /**
@@ -257,7 +249,7 @@ export function resourceAvailable(resource: Pick<ResourceLink, 'kind'>, features
 }
 export function resourceRoute(resource: ResourceLink, catalogue: { id: string; category: string; path?: string; multipleChoiceOnly?: boolean }[]): ResourceRoute {
   if (resource.kind === 'theory') return resource.id ? { pathname: '/theory', params: { section: resource.id } } : { pathname: '/theory' };
-  if (resource.kind === 'essay') return { pathname: '/essays' };
+  if (resource.kind === 'essay') return resource.id ? { pathname: '/essays', params: { topic: resource.id } } : { pathname: '/essays' };
   if (resource.kind === 'flashcards') return { pathname: '/flashcards' };
   const category = resource.kind === 'listening-mc' ? 'listening' : resource.kind;
   const match = resource.id ? catalogue.find(choice => choice.category === category && !choice.multipleChoiceOnly && !!choice.path && choice.path.endsWith(`/${resource.id}.json`)) : undefined;
@@ -266,4 +258,24 @@ export function resourceRoute(resource: ResourceLink, catalogue: { id: string; c
 
 export const skillLabel: Record<SkillArea, string> = {
   grammar: 'Kielioppi', vocabulary: 'Sanasto', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen', writing: 'Kirjoittaminen',
+  exam: 'Koeharjoitus',
 };
+
+/** Kicker of a task step (a real exam-style exercise on the path). */
+export function taskKicker(task: Pick<PathTaskV2, 'exercise'> | null | undefined) {
+  if (task?.exercise === 'essay') return 'Kirjoitustehtävä';
+  if (task?.exercise === 'reading') return 'Tekstitehtävä';
+  return 'Kuuntelutehtävä';
+}
+
+/** Glyph shown in a task node. */
+export function taskGlyph(task: Pick<PathTaskV2, 'exercise'> | null | undefined) {
+  if (task?.exercise === 'essay') return '✎';
+  if (task?.exercise === 'reading') return '¶';
+  return '♪';
+}
+
+/** Where a task step opens in the app: the matching exercise, or the essay editor with the topic chosen. */
+export function taskRoute(task: PathTaskV2, catalogue: Parameters<typeof resourceRoute>[1]): ResourceRoute {
+  return resourceRoute({ kind: task.exercise, id: task.exerciseId, label: task.link.label, href: task.link.href }, catalogue);
+}

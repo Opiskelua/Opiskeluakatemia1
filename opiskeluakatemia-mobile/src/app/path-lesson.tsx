@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, StyleSheet, Text, View, type ScrollViewInstance } from 'react-native';
-import { router, Stack, useLocalSearchParams, usePreventRemove } from 'expo-router';
+import { router, Stack, useFocusEffect, useLocalSearchParams, usePreventRemove } from 'expo-router';
 import { Screen } from '../components/Screen';
 import { Button, EmptyState, LoadingState, Notice, Pill } from '../components/ui';
 import { GuidePanel, ItemStepper, WrongList } from '../components/PathItems';
@@ -11,8 +11,9 @@ import { loadPath, loadPathCached, saveLesson } from '../lib/path-v2';
 import { useDraftAutosave } from '../hooks/useDraftAutosave';
 import { useCourse } from '../providers/CourseProvider';
 import type { CourseId } from '../lib/courses';
-import type { AnswerValue, Answers, LessonMutationResponseV2, PathStateV2 } from '../lib/path-v2-types';
-import { allAnswered, answersForSubmit, checkpointGoal, findLesson, firstUnanswered, lessonState, mergeSummary, pathErrorMessage, pathFailure, sanitizeDraft } from '../lib/path-v2-model';
+import { choices } from '../lib/catalogue';
+import type { AnswerValue, Answers, LessonMutationResponseV2, LessonProgressV2, PathStateV2, PublicLessonV2, PublicUnitV2 } from '../lib/path-v2-types';
+import { allAnswered, answersForSubmit, checkpointGoal, findLesson, firstUnanswered, lessonState, mergeSummary, pathErrorMessage, pathFailure, sanitizeDraft, taskKicker, taskRoute } from '../lib/path-v2-model';
 
 const LESSON_ID = /^[a-z0-9-]{1,80}$/;
 
@@ -73,7 +74,7 @@ function LessonPlayer({ course, lessonId }: { course: CourseId; lessonId: string
 
   const autosave = useDraftAutosave({
     course, lessonId, items, answers, index, busy: inFlight,
-    enabled: !!entry && !outcome && !blocked && lessonState(progress) !== 'locked',
+    enabled: !!entry && entry.lesson.kind !== 'task' && !outcome && !blocked && lessonState(progress) !== 'locked',
     savedDraft: progress?.draft, revision: progress?.revision ?? 0,
     onSaved: (response, current) => { setState(previous => previous ? mergeSummary(previous, response.summary) : previous); if (current) setDirty(false); },
     onReload: setState,
@@ -162,6 +163,7 @@ function LessonPlayer({ course, lessonId }: { course: CourseId; lessonId: string
   if (!entry) return <Screen><EmptyState title="Oppituntia ei löytynyt." message="Oppitunti on voinut poistua polulta. Valitse uusi oppitunti." actionTitle="Takaisin polulle" onAction={() => router.back()} /></Screen>;
 
   const { unit, lesson } = entry;
+  if (lesson.kind === 'task') return <TaskView lesson={lesson} unit={unit} progress={progress} onRefresh={() => setReload(n => n + 1)} />;
   const checkpoint = lesson.kind === 'checkpoint';
   const locked = lessonState(progress) === 'locked';
   const disabled = busy !== null || blocked;
@@ -179,7 +181,7 @@ function LessonPlayer({ course, lessonId }: { course: CourseId; lessonId: string
       </View>
       {result && <ResultMascot key={outcome.response.revision} result={result} rewards={rewards} summary={summary} />}
       {result && <ScoreCard result={result} passScore={state.rules.passScore} checkpoint={checkpoint} review={false} />}
-      {rewards && <RewardCard rewards={rewards} levelTitle={summary.level.title} unlockedTitle={unitTitle(rewards.unitUnlocked)} completedTitle={unitTitle(rewards.unitCompleted)} passed={!!result?.passed} />}
+      {rewards && <RewardCard rewards={rewards} unlockedTitle={unitTitle(rewards.unitUnlocked)} completedTitle={unitTitle(rewards.unitCompleted)} passed={!!result?.passed} />}
       {result && <WrongList items={lesson.items} answers={outcome.answers} result={result} />}
       <View style={{ gap: space.sm }}>
         {result?.passed && next && <Button title={`Seuraavaksi: ${next.lesson.title}`} onPress={() => router.replace({ pathname: '/path-lesson', params: { lessonId: next.lesson.id } })} />}
@@ -199,7 +201,7 @@ function LessonPlayer({ course, lessonId }: { course: CourseId; lessonId: string
       <Text style={type.body}>{lesson.subtitle}</Text>
       <View style={styles.meta}>
         <Pill label={`${lesson.items.length} kohtaa · n. ${lesson.estimatedMinutes} min`} />
-        <Pill label={progress?.status === 'completed' ? `Suoritettu · paras ${progress.bestScore ?? 0} %` : `Jopa ${lesson.maxXp} XP`} tone={progress?.status === 'completed' ? 'success' : 'accent'} />
+        {progress?.status === 'completed' && <Pill label={`Suoritettu · paras ${progress.bestScore ?? 0} %`} tone="success" />}
       </View>
     </View>
     {checkpoint && <Notice title="Välietappi" message={`Läpäise vähintään ${state.rules.passScore} %, niin ${checkpointGoal(state.content.units, unit.id)}. Jos et läpäise, näet mitkä kohdat menivät väärin, mutta et oikeita vastauksia.`} />}
@@ -218,6 +220,42 @@ function LessonPlayer({ course, lessonId }: { course: CourseId; lessonId: string
         : autosave.status === 'saved' && !dirty ? 'Luonnos tallennettu automaattisesti.'
           : autosave.status === 'error' && dirty ? 'Automaattinen tallennus ei onnistunut. Tallenna keskeneräisenä, niin voit jatkaa myöhemmin.' : ''}
     </Text>}
+  </Screen>;
+}
+
+/**
+ * A task step: a real exam-style exercise (reading text, listening clip, essay). It completes on the
+ * server when the exercise is submitted, so this screen explains the task, opens the exercise and
+ * reloads the status whenever the student comes back to it.
+ */
+function TaskView({ lesson, unit, progress, onRefresh }: { lesson: PublicLessonV2; unit: PublicUnitV2; progress?: LessonProgressV2; onRefresh: () => void }) {
+  const { type } = useTheme();
+  const task = lesson.task;
+  const done = progress?.status === 'completed';
+  const locked = lessonState(progress) === 'locked';
+  const opened = useRef(false);
+  // Coming back from the exercise screen: fetch the path again so a submission shows as done.
+  useFocusEffect(useCallback(() => { if (opened.current) { opened.current = false; onRefresh(); } }, [onRefresh]));
+  return <Screen>
+    <Stack.Screen options={{ title: taskKicker(task) }} />
+    <View style={{ gap: space.xs }}>
+      <Text style={type.overline}>Osa {unit.order} · {unit.title}</Text>
+      <Text accessibilityRole="header" style={type.title}>{lesson.title}</Text>
+      <Text style={type.body}>{lesson.subtitle}</Text>
+      <View style={styles.meta}>
+        <Pill label={`${taskKicker(task)} · n. ${lesson.estimatedMinutes} min`} />
+        {done && <Pill label={progress?.bestScore == null ? 'Palautettu' : `Tehty · paras ${progress.bestScore} %`} tone="success" />}
+      </View>
+    </View>
+    {task ? <Notice title="Tehtävänanto" message={task.brief} /> : <Notice message="Tämä tehtävä tehdään kurssin harjoituksissa." />}
+    {locked
+      ? <Notice tone="error" title="Tehtävä on lukittu" message="Tee ensin polun edelliset askeleet." actionTitle="Takaisin polulle" onAction={() => router.back()} />
+      : <Text style={type.caption}>{done ? 'Polku on edennyt. Voit tehdä tehtävän uudelleen harjoitukseksi.' : 'Polku etenee automaattisesti, kun palautat tehtävän.'}</Text>}
+    <View style={{ gap: space.sm }}>
+      {task && !locked && <Button title={done ? 'Avaa tehtävä uudelleen' : 'Avaa tehtävä'} onPress={() => { opened.current = true; router.push(taskRoute(task, choices)); }} />}
+      {!done && !locked && <Button title="Tarkista tilanne" secondary onPress={onRefresh} />}
+      <Button title="Takaisin polulle" variant="ghost" onPress={() => router.back()} />
+    </View>
   </Screen>;
 }
 

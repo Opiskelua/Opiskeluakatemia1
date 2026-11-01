@@ -63,14 +63,13 @@ export function pickLine(name: MascotMoment, dateYmd: string, userId: string, va
 // Moments
 // ---------------------------------------------------------------------------
 
-/** Result-screen moment (spec rules.momentForResult). */
-export function momentForResult(grade: Pick<GradeResult, 'score' | 'passed'>, rewards: Pick<RewardSummary, 'unitCompleted' | 'leveledUp' | 'dailyGoalReached'> | null, bigCelebrationsToday: number): ResultMoment {
+/**
+ * Result-screen moment (spec rules.momentForResult). XP is paused (2026-11-01), so levelUp and
+ * dailyGoalReached are no longer shown; same as the website.
+ */
+export function momentForResult(grade: Pick<GradeResult, 'score' | 'passed'>, rewards: Pick<RewardSummary, 'unitCompleted'> | null, bigCelebrationsToday: number): ResultMoment {
   if (!grade.passed) return 'lessonFailed';
-  if (rewards && bigCelebrationsToday < MAX_BIG_CELEBRATIONS_PER_DAY) {
-    if (rewards.unitCompleted) return 'unitCompleted';
-    if (rewards.leveledUp) return 'levelUp';
-  }
-  if (rewards?.dailyGoalReached) return 'dailyGoalReached';
+  if (rewards && bigCelebrationsToday < MAX_BIG_CELEBRATIONS_PER_DAY && rewards.unitCompleted) return 'unitCompleted';
   if (grade.score === 100) return 'lessonPerfect';
   return 'lessonPassed';
 }
@@ -129,8 +128,9 @@ export function allDone(state: { nextLessonId: string | null; content: { units: 
   return state.nextLessonId === null && state.content.units.some(unit => unit.comingSoon);
 }
 
-/** Onboarding card: no XP yet and the intro has not been dismissed. */
-export const showOnboarding = (summary: Pick<PathSummaryV2, 'xp'>, introDismissed: boolean) => summary.xp.total === 0 && !introDismissed;
+/** Onboarding card: nothing completed on the path yet and the intro has not been dismissed. */
+export const showOnboarding = (summary: Pick<PathSummaryV2, 'progress'>, introDismissed: boolean) =>
+  !introDismissed && !Object.values(summary.progress).some(entry => entry.status === 'completed');
 
 /**
  * Device flag for a dismissed intro, per course, so a Swedish beginner still meets Abi after
