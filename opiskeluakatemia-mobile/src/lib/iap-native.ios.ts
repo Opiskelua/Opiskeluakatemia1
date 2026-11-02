@@ -19,7 +19,8 @@ function toPurchase(purchase: Purchase | null | undefined): IapPurchase | null {
   const apple = purchase as PurchaseIOS;
   const transactionId = apple.transactionId || apple.id;
   if (!transactionId || !apple.productId) return null;
-  return { transactionId, productId: apple.productId, token: apple.purchaseToken ?? null, state: apple.purchaseState, raw: purchase };
+  const transactionDate = typeof apple.transactionDate === 'number' && Number.isFinite(apple.transactionDate) ? apple.transactionDate : 0;
+  return { transactionId, productId: apple.productId, token: apple.purchaseToken ?? null, state: apple.purchaseState, transactionDate, raw: purchase };
 }
 const apple = (purchases: readonly (Purchase | null | undefined)[] | null | undefined) =>
   (purchases ?? []).map(toPurchase).filter((purchase): purchase is IapPurchase => purchase !== null);
@@ -44,7 +45,8 @@ export const iapNative: IapNative | null = Platform.OS === 'ios' ? {
   },
   async buy(sku, appAccountToken) {
     // appAccountToken = the Supabase user id (a UUID): the server refuses a transaction made for another account.
-    await iap().requestPurchase({ type: 'subs', request: { apple: { sku, appAccountToken } } });
+    const result = await iap().requestPurchase({ type: 'subs', request: { apple: { sku, appAccountToken } } });
+    return apple(Array.isArray(result) ? result : [result]);
   },
   finish: purchase => iap().finishTransaction({ purchase: purchase.raw as Purchase, isConsumable: false }),
   pending: async () => apple(await iap().getPendingTransactionsIOS()),

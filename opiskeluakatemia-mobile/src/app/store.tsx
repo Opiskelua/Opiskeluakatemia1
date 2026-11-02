@@ -18,20 +18,24 @@ export default function StoreRoute() {
 function Store() {
   const iap = useIap();
   const { type } = useTheme();
-  const [now, setNow] = useState(() => Date.now());
-  const { refreshStore, loadPrices, pricesState } = iap;
+  const { refreshStore, loadPrices, pricesState, clearMessage } = iap;
   const reload = useCallback(async () => {
-    setNow(Date.now());
     if (pricesState === 'error') loadPrices();
     await refreshStore();
-    setNow(Date.now());
   }, [refreshStore, loadPrices, pricesState]);
   // Fresh ownership and trial state every time the store opens (a purchase on the web counts too).
-  useFocusEffect(useCallback(() => { void refreshStore().then(() => setNow(Date.now())); }, [refreshStore]));
+  // Outcome messages belong to this visit: leaving the store clears them.
+  useFocusEffect(useCallback(() => {
+    void refreshStore();
+    return clearMessage;
+  }, [refreshStore, clearMessage]));
   const [refreshing, setRefreshing] = useState(false);
 
   if (!iap.enabled) return <Screen><LoadingState label="Ladataan kurssikauppaa…" /></Screen>;
   const busyAny = !!iap.busy || iap.verifying;
+  // Buy and the trial need a fresh, successful access check: a stale or failed one never offers
+  // a course the account may already own (a Non-Renewing Subscription can be charged twice).
+  const storeReady = iap.storeState === 'ready';
   const restoring = iap.busy?.kind === 'restore';
 
   return <Screen refreshing={refreshing} onRefresh={() => { setRefreshing(true); void reload().finally(() => setRefreshing(false)); }}>
@@ -43,14 +47,14 @@ function Store() {
     {iap.pricesState === 'error' && <Notice tone="error" title="Hintoja ei saatu App Storesta" message="Ostaminen ja kokeilu avautuvat, kun hinnat on haettu. Tarkista verkkoyhteys ja yritä uudelleen." actionTitle="Yritä uudelleen" onAction={loadPrices} />}
     {!iap.access && iap.storeState !== 'error' && <LoadingState label="Ladataan kurssikauppaa…" />}
 
-    {iap.access && COURSE_IDS.map(id => <CourseCard key={id} course={id} offer={offerForCourse(id, iap.access, iap.catalog[id], now)}
-      price={iap.prices[id]} pricesLoading={iap.pricesState === 'loading' || iap.pricesState === 'idle'} busyAny={busyAny}
+    {iap.access && COURSE_IDS.map(id => <CourseCard key={id} course={id} offer={offerForCourse(id, iap.access, iap.catalog[id], iap.now)}
+      price={iap.prices[id]} pricesLoading={iap.pricesState === 'loading' || iap.pricesState === 'idle'} busyAny={busyAny || !storeReady}
       buying={iap.busy?.kind === 'buy' && iap.busy.course === id} startingTrial={iap.busy?.kind === 'trial' && iap.busy.course === id}
       onBuy={() => iap.buy(id)} onTrial={() => iap.startTrial(id)} />)}
 
     <Card tone="muted">
       <Text accessibilityRole="header" style={type.subheading}>Palauta ostokset</Text>
-      <Text style={type.body}>Jos olet ostanut kurssin App Storesta tällä Apple ID:llä, voit liittää oston uudelleen tähän tiliin.</Text>
+      <Text style={type.body}>Jos ostit kurssin App Storesta tällä Opiskeluakatemia-tilillä, voit palauttaa oston tähän tiliin. Ostoa, joka on tehty toisella tilillä, ei voi siirtää.</Text>
       <Button title={restoring ? 'Palautetaan…' : 'Palauta ostokset'} secondary loading={restoring} disabled={busyAny} onPress={iap.restore} />
     </Card>
 
@@ -73,14 +77,15 @@ function CourseCard({ course, offer, price, pricesLoading, busyAny, buying, star
       {offer.state === 'trial-running' && <Pill label="Kokeilu käynnissä" tone="accent" />}
     </View>
     <View style={ui.bullets}>{STORE_COPY[course].includes.map(line => <Bullet key={line}>{line}</Bullet>)}</View>
-    {!!offer.accessUntilLabel && <Text style={type.caption}>{accessLine(offer.accessUntilLabel)}</Text>}
+    {/* The purchase terms only next to a price that can be bought (never as an owner's own end date). */}
+    {offer.showBuy && !!offer.accessUntilLabel && <Text style={type.caption}>{accessLine(offer.accessUntilLabel)}</Text>}
 
     {offer.state === 'owned' && <Text style={type.bodyStrong}>Kurssi on käytössäsi tällä tilillä.</Text>}
     {offer.state === 'trial-running' && <Text style={type.bodyStrong}>Ilmaista kokeilua jäljellä noin {offer.trialMinutesLeft} min.</Text>}
     {offer.state === 'not-on-sale' && <Text style={type.body}>Kurssi ei ole juuri nyt myynnissä.</Text>}
 
     {offer.showBuy && <>
-      <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat} accessibilityLabel={price ? `Hinta ${price}` : 'Hintaa haetaan'}>{price ?? '—'}</Text>
+      <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat} accessibilityLabel={price ? `Hinta ${price}` : pricesLoading ? 'Hintaa haetaan' : 'Hinta ei saatavilla'}>{price ?? '—'}</Text>
       <Button title={buying ? 'Avataan App Store…' : price ? `Osta ${price}` : pricesLoading ? 'Haetaan hintaa…' : 'Hinta ei saatavilla'}
         accessibilityLabel={price ? `Osta ${label}, ${price}` : undefined} loading={buying} disabled={!price || busyAny} onPress={onBuy} />
     </>}

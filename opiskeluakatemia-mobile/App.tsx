@@ -90,7 +90,7 @@ function StoreCallToAction({ course, offerState, trialPriceKnown, busy, onTrial,
 function CourseHome({ session }: { session: Session }) {
   const { course, info, owned, choose, reportAccess } = useCourse();
   const iap = useIap();
-  const { refreshStore, accessVersion } = iap;
+  const { refreshStore, accessVersion, clearMessage } = iap;
   const features = info.features;
   const [accessByCourse, setAccessByCourse] = useState<Record<CourseId, CourseAccess>>(CHECKING_ACCESS);
   const [errors, setErrors] = useState<Partial<Record<CourseId, string>>>({});
@@ -140,8 +140,9 @@ function CourseHome({ session }: { session: Session }) {
   }, [course]);
   useFocusEffect(useCallback(() => {
     void refreshAll();
-    return () => { request.current++; };
-  }, [refreshAll]));
+    // Purchase and trial notes are shown where they happened; leaving the home clears them.
+    return () => { request.current++; clearMessage(); };
+  }, [refreshAll, clearMessage]));
   // A purchase or trial verified while this screen is open (e.g. an Ask to Buy approval) opens the course.
   const seenAccessVersion = useRef(accessVersion);
   useEffect(() => {
@@ -170,8 +171,10 @@ function CourseHome({ session }: { session: Session }) {
   const shownPath = path?.course === course ? path.state : null;
   const go = (path: Href) => () => router.push(path);
   // iOS only (null elsewhere): what the store offers for the shown course.
-  const offer = iap.enabled && iap.access ? offerForCourse(course, iap.access, iap.catalog[course], Date.now()) : null;
+  const offer = iap.enabled && iap.access ? offerForCourse(course, iap.access, iap.catalog[course], iap.now) : null;
   const trialRunning = active && offer?.state === 'trial-running';
+  // One text for the eye and for VoiceOver (the row's label replaces its children).
+  const statusText = trialRunning ? `Ilmainen kokeilu, noin ${offer.trialMinutesLeft} min jäljellä` : active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…';
   return <ScrollView
     refreshControl={<RefreshControl refreshing={pulling} tintColor={colors.ink} colors={[colors.ink]} onRefresh={() => { setPulling(true); void Promise.all([refreshAll(), refreshHistory(), refreshPath()]).finally(() => setPulling(false)); }} />}
     contentContainerStyle={[styles.homeContent, { paddingHorizontal: gutter, paddingBottom: space.xxxl + insets.bottom }]}>
@@ -189,12 +192,13 @@ function CourseHome({ session }: { session: Session }) {
 
     {ownedCourses(owned).length > 1 && <CourseSwitcher course={course} onChange={choose} />}
 
-    <View accessible accessibilityLabel={`${info.label}. ${access === 'active' ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia'}`} style={styles.status}>
+    <View accessible accessibilityLabel={`${info.label}. ${statusText}`} style={styles.status}>
       <View style={[styles.statusDot, { backgroundColor: active ? colors.success : access === 'loading' ? colors.placeholder : colors.danger }]} />
-      <Text style={[type.caption, styles.flex]} numberOfLines={2}>{info.label} · {trialRunning ? `Ilmainen kokeilu, noin ${offer.trialMinutesLeft} min jäljellä` : active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…'}</Text>
+      <Text style={[type.caption, styles.flex]} numberOfLines={2}>{info.label} · {statusText}</Text>
     </View>
 
-    {iap.enabled && !!iap.message && <Notice tone={iap.message.tone} message={iap.message.text} />}
+    {iap.enabled && !!iap.message && (!iap.message.course || iap.message.course === course)
+      && <Notice tone={iap.message.tone} message={iap.message.text} actionTitle="Sulje" onAction={iap.clearMessage} />}
     {trialRunning && offer.showBuy && <Button title="Avaa kurssikauppa" secondary onPress={go('/store')} accessibilityHint="Kurssin voi ostaa ennen kuin kokeilu päättyy." />}
 
     {access === 'error' && <Notice tone="error" title="Kurssioikeutta ei voitu tarkistaa" message={error} actionTitle="Yritä uudelleen" onAction={() => void refresh()} />}

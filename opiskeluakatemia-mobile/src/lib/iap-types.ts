@@ -10,6 +10,8 @@ export interface IapPurchase {
   /** The transaction's JWS (sent to the server), or null when StoreKit gave none. */
   token: string | null;
   state: 'pending' | 'purchased' | 'unknown';
+  /** When the transaction was made (ms since epoch; 0 when unknown). Tells a fresh purchase from a replayed one. */
+  transactionDate: number;
   /** The library's own purchase object, handed back to finishTransaction. */
   raw: unknown;
 }
@@ -21,8 +23,11 @@ export interface IapNative {
   disconnect(): Promise<void>;
   /** productId → StoreKit's localized displayPrice, for the products the App Store returned. */
   prices(skus: readonly string[]): Promise<Record<string, string>>;
-  /** Opens the App Store sheet. The outcome arrives through onPurchase / onError. */
-  buy(sku: string, appAccountToken: string): Promise<void>;
+  /**
+   * Opens the App Store sheet. Resolves with the purchase(s) StoreKit returned (empty when the
+   * outcome only arrives through onPurchase); rejects on cancel, Ask to Buy (deferred) or failure.
+   */
+  buy(sku: string, appAccountToken: string): Promise<IapPurchase[]>;
   finish(purchase: IapPurchase): Promise<void>;
   /** Unfinished transactions (Transaction.unfinished), e.g. after a crash between payment and claim. */
   pending(): Promise<IapPurchase[]>;
