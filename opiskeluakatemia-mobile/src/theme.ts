@@ -214,7 +214,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }).catch(() => undefined);
   }, []);
   // Native UI (alerts, keyboard, date pickers) follows the chosen theme too.
-  useEffect(() => { Appearance.setColorScheme(preference === 'system' ? 'unspecified' : preference); }, [preference]);
+  useEffect(() => { Appearance.setColorScheme?.(preference === 'system' ? 'unspecified' : preference); }, [preference]);
   const setPreference = useCallback((value: ThemePreference) => {
     setPreferenceState(value);
     AsyncStorage.setItem(STORAGE_KEY, value).catch(() => undefined);

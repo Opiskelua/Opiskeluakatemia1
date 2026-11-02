@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AppState, KeyboardAvoidingView, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { AppState, Image, KeyboardAvoidingView, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import type { Session } from '@supabase/supabase-js';
@@ -211,7 +211,7 @@ function Login() {
   const [email, setEmail] = useState(''); const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false); const [message, setMessage] = useState('');
   const [messageTone, setMessageTone] = useState<'error' | 'info'>('error');
-  const { type } = useTheme();
+  const { type, colors } = useTheme();
   const styles = useStyles();
   const show = (text: string, tone: 'error' | 'info' = 'error') => { setMessage(text); setMessageTone(tone); };
   async function login() {
@@ -232,24 +232,34 @@ function Login() {
     } catch { show('Salasanan palautus ei onnistunut. Yritä myöhemmin uudelleen.'); }
     finally { setBusy(false); }
   }
-  return <>
-    <Wordmark />
-    <View style={styles.hero}>
-      <Text style={type.overline}>Abikurssit</Text>
-      <Text accessibilityRole="header" style={type.display} maxFontSizeMultiplier={maxScale.display}>Oma tahti.{'\n'}Selkeä suunta.</Text>
-      <Text style={type.body}>Kirjaudu Opiskeluakatemian tunnuksillasi. Kurssioikeutesi kulkee mukanasi.</Text>
+  function submit() {
+    if (busy) return;
+    if (!email.trim() || !password) { show('Kirjoita sähköpostiosoitteesi ja salasanasi.', 'info'); return; }
+    void login();
+  }
+  return <View style={styles.login}>
+    <View style={styles.loginHero}>
+      <Image source={require('./assets/brand/logo-mark.png')} style={[styles.logo, { tintColor: colors.ink }]} resizeMode="contain" accessible={false} />
+      <Text style={[type.overline, styles.centerText]}>Opiskeluakatemia</Text>
+      <Text accessibilityRole="header" style={[type.title, styles.centerText]} maxFontSizeMultiplier={maxScale.title}>Tervetuloa takaisin</Text>
+      <Text style={[type.body, styles.centerText]}>Kirjaudu samoilla tunnuksilla kuin opiskeluakatemia.fi:ssä.</Text>
     </View>
-    <Card style={styles.loginCard}>
-      <Text style={type.heading}>Kirjaudu sisään</Text>
+    <View style={styles.loginForm}>
       <Field label="Sähköposti" value={email} onChangeText={setEmail} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" autoComplete="email" textContentType="emailAddress" placeholder="sinä@esimerkki.fi" editable={!busy} returnKeyType="next" />
-      <Field label="Salasana" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Salasanasi" editable={!busy} returnKeyType="go" onSubmitEditing={() => { if (!busy && email.trim() && password) void login(); }} />
+      <View>
+        <Field label="Salasana" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Salasanasi" editable={!busy} returnKeyType="go" onSubmitEditing={submit} />
+        <Pressable onPress={() => void resetPassword()} disabled={busy} hitSlop={8} accessibilityRole="button" style={styles.forgot}>
+          <Text style={[type.label, styles.forgotText]}>Unohditko salasanasi?</Text>
+        </Pressable>
+      </View>
       {!!message && <Notice tone={messageTone} message={message} />}
-      <Button title={busy ? 'Hetkinen…' : 'Kirjaudu sisään'} loading={busy} disabled={!email.trim() || !password} onPress={() => void login()} />
-      <Button title="Unohditko salasanasi?" variant="ghost" disabled={busy} onPress={() => void resetPassword()} />
-    </Card>
-    <Text style={type.caption}>Kirjaudu sähköpostilla ja salasanalla. Käyttämällä sovellusta hyväksyt käyttöehdot.</Text>
-    <LegalLinks />
-  </>;
+      <Button title={busy ? 'Hetkinen…' : 'Kirjaudu sisään'} loading={busy} onPress={submit} />
+    </View>
+    <View style={styles.loginFooter}>
+      <Text style={[type.caption, styles.centerText]}>Kirjautumalla hyväksyt käyttöehdot.</Text>
+      <LegalLinks compact />
+    </View>
+  </View>;
 }
 
 function ScrollShell({ children }: { children: React.ReactNode }) {
@@ -262,9 +272,11 @@ function ScrollShell({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { session, loading } = useSession();
-  const { type, scheme } = useTheme();
+  const { type, scheme, colors } = useTheme();
   const styles = useStyles();
-  return <SafeAreaProvider><SafeAreaView style={styles.safe} edges={session ? ['top', 'left', 'right'] : undefined}><StatusBar style={scheme === 'dark' ? 'light' : 'dark'} /><Ambient />
+  // Signed out in light mode: a clean white sign-in screen (matches the white splash), no ambient wash.
+  const plainWhite = !session && scheme === 'light';
+  return <SafeAreaProvider><SafeAreaView style={[styles.safe, plainWhite && { backgroundColor: colors.white }]} edges={session ? ['top', 'left', 'right'] : undefined}><StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />{!plainWhite && <Ambient />}
     {!isConfigured ? <ScrollShell><Wordmark /><Card><Text style={type.heading}>{__DEV__ ? 'Yhteys odottaa määritystä' : 'Palveluun ei saada yhteyttä'}</Text><Text style={type.body}>{__DEV__ ? 'Lisää projektin .env.local-tiedostoon README-ohjeen mukaiset julkiset HTTPS-yhteysasetukset ja käynnistä sovellus uudelleen.' : 'Päivitä sovellus uusimpaan versioon tai yritä myöhemmin uudelleen.'}</Text></Card></ScrollShell>
       : loading ? <View style={styles.center}><LoadingState label="Ladataan tiliä" /></View>
       : session ? <CourseHome key={session.user.id} session={session} /> : <ScrollShell><Login /></ScrollShell>}
@@ -297,5 +309,12 @@ const useStyles = makeStyles(({ colors, glass }) => StyleSheet.create({
   markText: { color: colors.onPrimary, fontSize: 18, fontWeight: '700' },
   brandText: { fontSize: 17, fontWeight: '600', color: colors.ink, letterSpacing: -0.4 },
   hero: { gap: space.xs, marginTop: space.md, marginBottom: space.xs },
-  loginCard: { gap: space.md },
+  login: { flexGrow: 1, gap: space.xl },
+  loginHero: { alignItems: 'center', gap: space.xs, marginTop: space.xxl },
+  logo: { width: 72, height: 72, marginBottom: space.sm },
+  centerText: { textAlign: 'center' },
+  loginForm: { gap: space.md },
+  forgot: { alignSelf: 'flex-end', marginTop: space.xs, minHeight: 32, justifyContent: 'center' },
+  forgotText: { textDecorationLine: 'underline' },
+  loginFooter: { marginTop: 'auto', gap: space.xxs, alignItems: 'center' },
 }));
