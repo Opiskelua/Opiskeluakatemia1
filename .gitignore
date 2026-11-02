@@ -12,3 +12,6 @@
 .env*.bak*
 /assets/mascot/source/
 /opiskeluakatemia-programme-info/
+/opiskeluakatemia-iap-server/
+/opiskeluakatemia-iap-legal/
+/outer-iap/
