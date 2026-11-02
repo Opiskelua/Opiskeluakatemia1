@@ -34,11 +34,11 @@ Release builds enforce the following:
 ## 3. Apple review notes (paste into App Store Connect → App Review Information)
 
 > Opiskeluakatemia is the companion app for an existing Finnish web service for matriculation exam courses: Englannin abikurssi (English) and Ruotsin abikurssi (Swedish). Users sign in with an account created on opiskeluakatemia.fi. The app does not sell anything: there are no purchases, prices or links to purchase pages. The app shows only the courses the account has access to; owners of both switch course on the home screen. For the Swedish course the app offers the learning path and theory, and the home screen says that Swedish exercises, writing and flashcards are on the website (no purchase wording). Accounts without course access see neutral "no active course access" copy (guideline 3.1.3(b), multiplatform services).
-> Demo account: test@example.com / (password in the owner's password manager, not in the repo) — has active access to both courses.
+> Demo account: appreview@opiskeluakatemia.fi / (password in the owner's password manager, not in the repo) — has active access to both courses (English until 22.3.2027, Swedish until 27.9.2027).
 
 > **⚠ OPEN DECISION (owner, before submitting): guideline 3.1.3(b).** The justification above relies on 3.1.3(b) "Multiplatform Services". Apple's current 3.1.3(b) lets an app give access to content bought elsewhere only if those items are **also available as in-app purchases** in the app. This app offers no IAP, so as written it may be rejected. Choose one before submitting: (a) add the course as an in-app purchase; (b) distribute under Apple's EU alternative business terms; or (c) give the app a meaningful free tier so it does not depend only on web-bought access. Verify against the current guideline text when deciding. The strategy text above is unchanged until that decision is made.
 
-> **⚠ Replace the demo account.** `test@example.com` is a placeholder (here and in section 6, "App access"). Create a real review account on opiskeluakatemia.fi with active access to both courses (for example the bundle, access until 27.9.2027) and sample data, and enter its email and password in App Store Connect and Play Console. Never put the password in the repo.
+> **Review account (created 2.11.2026):** `appreview@opiskeluakatemia.fi`, a normal user (no admin role) with both courses granted at €0 via admin grants (recorded in `admin_audit_log`). Enter its email and password in App Store Connect and Play Console. Never put the password in the repo. The mailbox does not exist, so password reset cannot be used for this account; if the password is lost, set a new one from the database. Delete or disable the account once the app is approved and no review is pending.
 > Legal pages (privacy policy, terms) open in the browser with ?app=1, which hides all purchase links on those pages.
 > Account deletion: tap the round avatar (initial) in the top-right of the home screen → scroll down → Poista tili…. Deletion requires the password and typing POISTA, and it permanently removes the account on the server.
 > Essays and open answers are graded by AI (Google Gemini) via our server. The user is asked for consent before the first upload.
@@ -105,7 +105,7 @@ Android permissions in the release manifest:
 | Section | Answer |
 | --- | --- |
 | Privacy policy | `https://opiskeluakatemia.fi/tietosuojakaytanto` |
-| App access | "All or some functionality is restricted" → add the demo account (**⚠ replace the placeholder test@example.com with the real review account, see section 3**), instructions: "Sign in with these credentials. The account has active access to both courses; switch course on the home screen." |
+| App access | "All or some functionality is restricted" → add the review account `appreview@opiskeluakatemia.fi` (section 3), instructions: "Sign in with these credentials. The account has active access to both courses; switch course on the home screen." |
 | Ads | No, the app contains no ads |
 | Content rating | IARC questionnaire as above (Education) |
 | Target audience | 16–17 and 18+ |
