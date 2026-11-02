@@ -4,6 +4,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SessionProvider, useSession } from '../providers/SessionProvider';
 import { CourseProvider } from '../providers/CourseProvider';
+import { IapProvider } from '../providers/IapProvider';
 import { Button, LoadingState } from '../components/ui';
 import { maxScale, space, ThemeProvider, useTheme } from '../theme';
 import { PATH_PREVIEW } from '../lib/path-v2';
@@ -32,6 +33,8 @@ function Navigation() {
       <Stack.Screen name="essays" options={{ title: 'Kirjoitelmat' }} />
       <Stack.Screen name="history" options={{ title: 'Harjoitushistoria' }} />
       <Stack.Screen name="settings" options={{ title: 'Tili' }} />
+      {/* iOS only: the screen itself redirects home on Android and web. */}
+      <Stack.Screen name="store" options={{ title: 'Kurssikauppa' }} />
     </Stack.Protected>
     {/* PATH_PREVIEW is a development-only flag (always false in release builds); see src/lib/path-v2.ts. */}
     <Stack.Protected guard={!!session || PATH_PREVIEW}>
@@ -54,5 +57,5 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   </ScrollView>;
 }
 export default function RootLayout() {
-  return <SafeAreaProvider><ThemeProvider><SessionProvider><CourseProvider><Navigation /></CourseProvider></SessionProvider></ThemeProvider></SafeAreaProvider>;
+  return <SafeAreaProvider><ThemeProvider><SessionProvider><CourseProvider><IapProvider><Navigation /></IapProvider></CourseProvider></SessionProvider></ThemeProvider></SafeAreaProvider>;
 }

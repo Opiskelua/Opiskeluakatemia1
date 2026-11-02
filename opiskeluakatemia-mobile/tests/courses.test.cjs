@@ -31,7 +31,8 @@ test('the registry follows the build contract identifiers', () => {
   assert.ok(Object.values(c.COURSES.en.features).every(Boolean), 'English keeps every area');
   assert.deepEqual(Object.entries(c.COURSES.sv.features).filter(([, on]) => on).map(([name]) => name), ['path', 'theory'], 'Swedish: Polku and theory only');
   assert.equal(c.COURSES.en.homeNote, null);
-  // App Store 3.1.3(b): no purchase prompt, price or link anywhere in the course copy.
+  // The course registry is rendered on Android and web too: no purchase prompt, price or link in it.
+  // iOS store copy lives in src/lib/store.ts (STORE_COPY), shown only where storeEnabled() (tests/store.test.cjs).
   const copy = JSON.stringify(c.COURSES);
   for (const word of ['osta', 'hinta', '€', 'hankki', 'http']) assert.ok(!copy.toLowerCase().includes(word), word);
   assert.equal(c.isCourseId('sv'), true);

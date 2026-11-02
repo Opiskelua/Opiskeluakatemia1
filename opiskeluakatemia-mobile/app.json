@@ -2,7 +2,7 @@
   "expo": {
     "name": "Opiskeluakatemia",
     "slug": "opiskeluakatemia-mobile",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "owner": "opiskeluakatemias-team",
     "updates": {
       "url": "https://u.expo.dev/54f701b7-84fd-499a-b8ce-a5f676b9a615"
@@ -53,6 +53,14 @@
           },
           {
             "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeOtherUserContent",
+            "NSPrivacyCollectedDataTypeLinked": true,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": [
+              "NSPrivacyCollectedDataTypePurposeAppFunctionality"
+            ]
+          },
+          {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypePurchaseHistory",
             "NSPrivacyCollectedDataTypeLinked": true,
             "NSPrivacyCollectedDataTypeTracking": false,
             "NSPrivacyCollectedDataTypePurposes": [
@@ -150,7 +158,8 @@
           }
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      "expo-iap"
     ]
   }
 }

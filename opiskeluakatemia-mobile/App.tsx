@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AppState, Image, KeyboardAvoidingView, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { AppState, Image, KeyboardAvoidingView, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, Text, useWindowDimensions, View, type TextInputInstance } from 'react-native';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import type { Session } from '@supabase/supabase-js';
@@ -19,6 +19,9 @@ import { loadPath } from './src/lib/path-v2';
 import type { PathStateV2 } from './src/lib/path-v2-types';
 import { accessFromChecks, CHECKING_ACCESS, COURSE_IDS, COURSES, ownedCourses, type CourseAccess, type CourseId } from './src/lib/courses';
 import { useCourse } from './src/providers/CourseProvider';
+import { useIap } from './src/providers/IapProvider';
+import { offerForCourse, TRIAL_MINUTES } from './src/lib/store';
+import { EMAIL_CONFIRMED_URL, MIN_PASSWORD_LENGTH, resendErrorMessage, signInErrorMessage, signUpEnabled, signUpErrorMessage, signUpOutcome, signUpProblem } from './src/lib/signup';
 
 const categoryLabel = { grammar: 'Kielioppi', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' } as const;
 const categoryBadge = { grammar: 'K', reading: 'L', listening: 'U' } as const;
@@ -55,13 +58,39 @@ function AreaTile({ badge, title, description, onPress, disabled }: { badge: str
   </Pressable>;
 }
 
-/** Shown only to owners of both courses; nothing hints at a course the student does not own. */
+/**
+ * Shown only to owners of both courses. On Android and web nothing hints at a course the student
+ * does not own; on iOS the course store (src/app/store.tsx) lists both courses.
+ */
 function CourseSwitcher({ course, onChange }: { course: CourseId; onChange: (course: CourseId) => void }) {
   return <ChipRow>{COURSE_IDS.map(id => <Chip key={id} label={COURSES[id].shortLabel} selected={id === course} onPress={() => onChange(id)} />)}</ChipRow>;
 }
 
+/** iOS no-access card: the free trial and the course store. Android and web keep the neutral notice. */
+function StoreCallToAction({ course, offerState, trialPriceKnown, busy, onTrial, onStore, onRetry }: {
+  course: CourseId; offerState: string | null; trialPriceKnown: boolean; busy: boolean; onTrial: () => void; onStore: () => void; onRetry: () => void;
+}) {
+  const { type } = useTheme();
+  const label = COURSES[course].label;
+  const trial = offerState === 'trial-available';
+  const onSale = trial || offerState === 'buy';
+  return <Card>
+    <Text accessibilityRole="header" style={type.subheading}>{label} ei ole vielä käytössäsi</Text>
+    <Text style={type.body}>{trial
+      ? `Kokeile kurssia ilmaiseksi ${TRIAL_MINUTES} minuuttia tai osta se kurssikaupasta.`
+      : onSale ? 'Voit ostaa kurssin kurssikaupasta.' : offerState === 'not-on-sale' ? 'Kurssi ei ole juuri nyt myynnissä.' : 'Kurssikaupassa voit kokeilla tai ostaa kurssin.'}
+      {' '}Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä.</Text>
+    {trial && <Button title={`Aloita ilmainen ${TRIAL_MINUTES} min kokeilu`} disabled={busy} onPress={onTrial}
+      accessibilityHint={trialPriceKnown ? 'Näyttää kokeilun ehdot ennen aloittamista.' : 'Avaa kurssikaupan, jossa kokeilun ehdot näkyvät.'} />}
+    <Button title="Avaa kurssikauppa" secondary={trial} onPress={onStore} />
+    <Button title="Tarkista uudelleen" variant="ghost" onPress={onRetry} />
+  </Card>;
+}
+
 function CourseHome({ session }: { session: Session }) {
   const { course, info, owned, choose, reportAccess } = useCourse();
+  const iap = useIap();
+  const { refreshStore, accessVersion } = iap;
   const features = info.features;
   const [accessByCourse, setAccessByCourse] = useState<Record<CourseId, CourseAccess>>(CHECKING_ACCESS);
   const [errors, setErrors] = useState<Partial<Record<CourseId, string>>>({});
@@ -95,6 +124,8 @@ function CourseHome({ session }: { session: Session }) {
     setAccessByCourse(access); setErrors(messages);
     reportAccess(userId, known);
   }, [reportAccess, userId]);
+  // iOS: trial and store state for the no-access card (a no-op elsewhere: the store is disabled).
+  const refreshAll = useCallback(async () => { await Promise.all([refresh(), iap.enabled ? refreshStore() : undefined]); }, [refresh, refreshStore, iap.enabled]);
   const refreshHistory = useCallback(async () => {
     // Exercise history is English; a course without exercises shows none.
     if (!features.exercises) return;
@@ -108,9 +139,16 @@ function CourseHome({ session }: { session: Session }) {
     catch { if (current === pathRequest.current) setPathError(course); }
   }, [course]);
   useFocusEffect(useCallback(() => {
-    void refresh();
+    void refreshAll();
     return () => { request.current++; };
-  }, [refresh]));
+  }, [refreshAll]));
+  // A purchase or trial verified while this screen is open (e.g. an Ask to Buy approval) opens the course.
+  const seenAccessVersion = useRef(accessVersion);
+  useEffect(() => {
+    if (seenAccessVersion.current === accessVersion) return;
+    seenAccessVersion.current = accessVersion;
+    void refresh();
+  }, [accessVersion, refresh]);
   // Separate from the access check, so switching course reloads only the course's own content.
   useFocusEffect(useCallback(() => {
     void refreshHistory();
@@ -118,9 +156,9 @@ function CourseHome({ session }: { session: Session }) {
     return () => { historyRequest.current++; pathRequest.current++; };
   }, [refreshHistory, refreshPath]));
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', state => { if (state === 'active') { void refresh(); void refreshHistory(); void refreshPath(); } });
+    const subscription = AppState.addEventListener('change', state => { if (state === 'active') { void refreshAll(); void refreshHistory(); void refreshPath(); } });
     return () => subscription.remove();
-  }, [refresh, refreshHistory, refreshPath]);
+  }, [refreshAll, refreshHistory, refreshPath]);
   const rows = recent ?? [];
   const latest = rows.slice(0, 3);
   const last = rows[0];
@@ -131,8 +169,11 @@ function CourseHome({ session }: { session: Session }) {
   const active = access === 'active';
   const shownPath = path?.course === course ? path.state : null;
   const go = (path: Href) => () => router.push(path);
+  // iOS only (null elsewhere): what the store offers for the shown course.
+  const offer = iap.enabled && iap.access ? offerForCourse(course, iap.access, iap.catalog[course], Date.now()) : null;
+  const trialRunning = active && offer?.state === 'trial-running';
   return <ScrollView
-    refreshControl={<RefreshControl refreshing={pulling} tintColor={colors.ink} colors={[colors.ink]} onRefresh={() => { setPulling(true); void Promise.all([refresh(), refreshHistory(), refreshPath()]).finally(() => setPulling(false)); }} />}
+    refreshControl={<RefreshControl refreshing={pulling} tintColor={colors.ink} colors={[colors.ink]} onRefresh={() => { setPulling(true); void Promise.all([refreshAll(), refreshHistory(), refreshPath()]).finally(() => setPulling(false)); }} />}
     contentContainerStyle={[styles.homeContent, { paddingHorizontal: gutter, paddingBottom: space.xxxl + insets.bottom }]}>
     <View style={styles.header}>
       <View style={styles.headerText}>
@@ -150,11 +191,17 @@ function CourseHome({ session }: { session: Session }) {
 
     <View accessible accessibilityLabel={`${info.label}. ${access === 'active' ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia'}`} style={styles.status}>
       <View style={[styles.statusDot, { backgroundColor: active ? colors.success : access === 'loading' ? colors.placeholder : colors.danger }]} />
-      <Text style={[type.caption, styles.flex]} numberOfLines={2}>{info.label} · {active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…'}</Text>
+      <Text style={[type.caption, styles.flex]} numberOfLines={2}>{info.label} · {trialRunning ? `Ilmainen kokeilu, noin ${offer.trialMinutesLeft} min jäljellä` : active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…'}</Text>
     </View>
 
+    {iap.enabled && !!iap.message && <Notice tone={iap.message.tone} message={iap.message.text} />}
+    {trialRunning && offer.showBuy && <Button title="Avaa kurssikauppa" secondary onPress={go('/store')} accessibilityHint="Kurssin voi ostaa ennen kuin kokeilu päättyy." />}
+
     {access === 'error' && <Notice tone="error" title="Kurssioikeutta ei voitu tarkistaa" message={error} actionTitle="Yritä uudelleen" onAction={() => void refresh()} />}
-    {access === 'inactive' && <Notice title="Kurssioikeutta ei löytynyt" message="Tälle tilille ei löytynyt aktiivista kurssioikeutta. Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä." actionTitle="Tarkista uudelleen" onAction={() => void refresh()} />}
+    {access === 'inactive' && (iap.enabled
+      ? <StoreCallToAction course={course} offerState={offer?.state ?? null} trialPriceKnown={!!iap.prices[course]} busy={!!iap.busy || iap.verifying}
+        onTrial={() => { if (!iap.startTrial(course)) router.push('/store'); }} onStore={go('/store')} onRetry={() => void refreshAll()} />
+      : <Notice title="Kurssioikeutta ei löytynyt" message="Tälle tilille ei löytynyt aktiivista kurssioikeutta. Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä." actionTitle="Tarkista uudelleen" onAction={() => void refresh()} />)}
 
     <SectionTitle title="Tänään" />
     <PathHomeCard course={course} state={active ? shownPath : null} error={pathError === course} disabled={!active} onPress={go('/path')}
@@ -207,19 +254,82 @@ function Wordmark() {
   </View>;
 }
 
-function Login() {
-  const [email, setEmail] = useState(''); const [password, setPassword] = useState('');
-  const [busy, setBusy] = useState(false); const [message, setMessage] = useState('');
-  const [messageTone, setMessageTone] = useState<'error' | 'info'>('error');
+type LoginMode = 'signin' | 'signup' | 'confirm';
+
+function LoginHero({ title, body }: { title: string; body: string }) {
   const { type, colors } = useTheme();
   const styles = useStyles();
+  return <View style={styles.loginHero}>
+    <Image source={require('./assets/brand/logo-mark.png')} style={[styles.logo, { tintColor: colors.ink }]} resizeMode="contain" accessible={false} />
+    <Text style={[type.overline, styles.centerText]}>Opiskeluakatemia</Text>
+    <Text accessibilityRole="header" style={[type.title, styles.centerText]} maxFontSizeMultiplier={maxScale.title}>{title}</Text>
+    <Text style={[type.body, styles.centerText]}>{body}</Text>
+  </View>;
+}
+
+/** Underlined text action under the form, e.g. "Luo tili". */
+function TextLink({ lead, label, onPress, disabled }: { lead: string; label: string; onPress: () => void; disabled: boolean }) {
+  const { type } = useTheme();
+  const styles = useStyles();
+  return <View style={styles.switchRow}>
+    <Text style={type.caption}>{lead}</Text>
+    <Pressable onPress={onPress} disabled={disabled} hitSlop={8} accessibilityRole="button" style={styles.switchLink}>
+      <Text style={[type.label, styles.forgotText]}>{label}</Text>
+    </Pressable>
+  </View>;
+}
+
+/**
+ * Sign-in; on iOS also account creation (App Store purchases need an account). Android and web
+ * offer sign-in only, exactly as before.
+ */
+function Login() {
+  const canSignUp = signUpEnabled(Platform.OS);
+  const [mode, setMode] = useState<LoginMode>('signin');
+  const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [again, setAgain] = useState('');
+  const [busy, setBusy] = useState(false); const [message, setMessage] = useState('');
+  const [messageTone, setMessageTone] = useState<'error' | 'info'>('error');
+  const [unconfirmed, setUnconfirmed] = useState(false);
+  const passwordField = useRef<TextInputInstance>(null);
+  const againField = useRef<TextInputInstance>(null);
+  const { type } = useTheme();
+  const styles = useStyles();
   const show = (text: string, tone: 'error' | 'info' = 'error') => { setMessage(text); setMessageTone(tone); };
+  const switchMode = (next: LoginMode) => { setMode(next); setMessage(''); setUnconfirmed(false); setPassword(''); setAgain(''); };
   async function login() {
-    setBusy(true); setMessage('');
+    setBusy(true); setMessage(''); setUnconfirmed(false);
     try {
       const { error } = await supabase!.auth.signInWithPassword({ email: email.trim(), password });
-      if (error) { show('Kirjautuminen epäonnistui. Tarkista sähköposti ja salasana sekä verkkoyhteys.'); }
+      if (error) {
+        const result = signInErrorMessage(error);
+        show(result.text, result.unconfirmed ? 'info' : 'error');
+        setUnconfirmed(result.unconfirmed && canSignUp);
+      }
     } catch { show('Yhteys ei onnistunut. Yritä uudelleen.'); }
+    finally { setBusy(false); }
+  }
+  async function signUp() {
+    const problem = signUpProblem(email, password, again);
+    if (problem) { show(problem, 'info'); return; }
+    setBusy(true); setMessage('');
+    try {
+      const { data, error } = await supabase!.auth.signUp({ email: email.trim(), password, options: { emailRedirectTo: EMAIL_CONFIRMED_URL } });
+      if (error) { show(signUpErrorMessage(error)); return; }
+      const outcome = signUpOutcome(data);
+      if (outcome === 'exists') show(signUpErrorMessage({ code: 'user_already_exists' }));
+      else if (outcome === 'confirm') { setPassword(''); setAgain(''); setMode('confirm'); }
+      // 'signed-in': SessionProvider receives the session and the home screen opens.
+    } catch { show('Yhteys ei onnistunut. Yritä uudelleen.'); }
+    finally { setBusy(false); }
+  }
+  async function resend() {
+    if (!email.trim()) { show('Kirjoita ensin sähköpostiosoitteesi.', 'info'); return; }
+    setBusy(true); setMessage('');
+    try {
+      const { error } = await supabase!.auth.resend({ type: 'signup', email: email.trim(), options: { emailRedirectTo: EMAIL_CONFIRMED_URL } });
+      if (error) throw error;
+      show('Lähetimme vahvistuslinkin uudelleen. Tarkista myös roskapostikansio.', 'info');
+    } catch (error) { show(resendErrorMessage(error)); }
     finally { setBusy(false); }
   }
   async function resetPassword() {
@@ -237,23 +347,53 @@ function Login() {
     if (!email.trim() || !password) { show('Kirjoita sähköpostiosoitteesi ja salasanasi.', 'info'); return; }
     void login();
   }
-  return <View style={styles.login}>
-    <View style={styles.loginHero}>
-      <Image source={require('./assets/brand/logo-mark.png')} style={[styles.logo, { tintColor: colors.ink }]} resizeMode="contain" accessible={false} />
-      <Text style={[type.overline, styles.centerText]}>Opiskeluakatemia</Text>
-      <Text accessibilityRole="header" style={[type.title, styles.centerText]} maxFontSizeMultiplier={maxScale.title}>Tervetuloa takaisin</Text>
-      <Text style={[type.body, styles.centerText]}>Kirjaudu samoilla tunnuksilla kuin opiskeluakatemia.fi:ssä.</Text>
-    </View>
+  function submitSignUp() {
+    if (busy) return;
+    void signUp();
+  }
+  const emailField = <Field label="Sähköposti" value={email} onChangeText={setEmail} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" autoComplete="email" textContentType="emailAddress" placeholder="sinä@esimerkki.fi" editable={!busy} returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => passwordField.current?.focus()} />;
+
+  if (canSignUp && mode === 'confirm') return <View style={styles.login}>
+    <LoginHero title="Vahvista sähköpostisi" body={`Lähetimme vahvistuslinkin osoitteeseen ${email.trim()}. Avaa linkki, palaa sitten sovellukseen ja kirjaudu sisään.`} />
     <View style={styles.loginForm}>
-      <Field label="Sähköposti" value={email} onChangeText={setEmail} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" autoComplete="email" textContentType="emailAddress" placeholder="sinä@esimerkki.fi" editable={!busy} returnKeyType="next" />
+      {!!message && <Notice tone={messageTone} message={message} />}
+      <Button title="Kirjaudu sisään" onPress={() => switchMode('signin')} />
+      <Button title={busy ? 'Lähetetään…' : 'Lähetä vahvistuslinkki uudelleen'} secondary loading={busy} onPress={() => void resend()} />
+      <Text style={[type.caption, styles.centerText]}>Etkö saanut viestiä? Tarkista roskapostikansio ja että osoite on oikein.</Text>
+    </View>
+    <View style={styles.loginFooter}><LegalLinks compact /></View>
+  </View>;
+
+  if (canSignUp && mode === 'signup') return <View style={styles.login}>
+    <LoginHero title="Luo tili" body="Samalla tilillä opiskelet sovelluksessa ja verkossa opiskeluakatemia.fi:ssä." />
+    <View style={styles.loginForm}>
+      {emailField}
+      <Field ref={passwordField} label="Salasana" hint={`Vähintään ${MIN_PASSWORD_LENGTH} merkkiä`} value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="new-password" textContentType="newPassword" placeholder="Uusi salasana" editable={!busy} returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => againField.current?.focus()} />
+      <Field ref={againField} label="Salasana uudelleen" value={again} onChangeText={setAgain} secureTextEntry autoCapitalize="none" autoComplete="new-password" textContentType="newPassword" placeholder="Sama salasana uudelleen" editable={!busy} returnKeyType="go" onSubmitEditing={submitSignUp} />
+      {!!message && <Notice tone={messageTone} message={message} />}
+      <Button title={busy ? 'Hetkinen…' : 'Luo tili'} loading={busy} onPress={submitSignUp} />
+      <TextLink lead="Onko sinulla jo tili?" label="Kirjaudu sisään" disabled={busy} onPress={() => switchMode('signin')} />
+    </View>
+    <View style={styles.loginFooter}>
+      <Text style={[type.caption, styles.centerText]}>Luomalla tilin hyväksyt käyttöehdot ja vahvistat lukeneesi tietosuojakäytännön.</Text>
+      <LegalLinks compact />
+    </View>
+  </View>;
+
+  return <View style={styles.login}>
+    <LoginHero title="Tervetuloa takaisin" body="Kirjaudu samoilla tunnuksilla kuin opiskeluakatemia.fi:ssä." />
+    <View style={styles.loginForm}>
+      {emailField}
       <View>
-        <Field label="Salasana" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Salasanasi" editable={!busy} returnKeyType="go" onSubmitEditing={submit} />
+        <Field ref={passwordField} label="Salasana" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Salasanasi" editable={!busy} returnKeyType="go" onSubmitEditing={submit} />
         <Pressable onPress={() => void resetPassword()} disabled={busy} hitSlop={8} accessibilityRole="button" style={styles.forgot}>
           <Text style={[type.label, styles.forgotText]}>Unohditko salasanasi?</Text>
         </Pressable>
       </View>
       {!!message && <Notice tone={messageTone} message={message} />}
+      {unconfirmed && <Button title={busy ? 'Lähetetään…' : 'Lähetä vahvistuslinkki uudelleen'} secondary disabled={busy} onPress={() => void resend()} />}
       <Button title={busy ? 'Hetkinen…' : 'Kirjaudu sisään'} loading={busy} onPress={submit} />
+      {canSignUp && <TextLink lead="Eikö sinulla ole vielä tiliä?" label="Luo tili" disabled={busy} onPress={() => switchMode('signup')} />}
     </View>
     <View style={styles.loginFooter}>
       <Text style={[type.caption, styles.centerText]}>Kirjautumalla hyväksyt käyttöehdot.</Text>
@@ -316,5 +456,7 @@ const useStyles = makeStyles(({ colors, glass }) => StyleSheet.create({
   loginForm: { gap: space.md },
   forgot: { alignSelf: 'flex-end', marginTop: space.xs, minHeight: 32, justifyContent: 'center' },
   forgotText: { textDecorationLine: 'underline' },
+  switchRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', columnGap: space.xs },
+  switchLink: { minHeight: layout.minTouch, justifyContent: 'center' },
   loginFooter: { marginTop: 'auto', gap: space.xxs, alignItems: 'center' },
 }));

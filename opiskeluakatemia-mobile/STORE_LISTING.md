@@ -1,11 +1,12 @@
 # Store listing texts (Finnish)
 
-Listing copy for App Store Connect and Google Play Console, app version 1.1.0 (`app.json`). Character counts are Unicode characters (NFC), which is how both consoles count them. The copy follows Apple guideline 3.1.3(b): it describes the app as the companion app for an existing opiskeluakatemia.fi account and never mentions prices, buying or purchase links. It avoids unverifiable claims (no "best", no grade promises, no review numbers). The grade estimate is described as indicative, matching the in-app disclaimer.
+Listing copy for App Store Connect and Google Play Console, app version 1.2.0 (`app.json`). Character counts are Unicode characters (NFC), which is how both consoles count them. From 1.2.0 the iOS app sells the courses through In-App Purchase, offers the 60-minute free trial and lets users create an account; the App Store copy says so, without naming a price (StoreKit shows the storefront price) and without any reference to buying on the website. The Google Play copy is unchanged: the Android app has no purchases or sign-up, so it never mentions prices, buying or purchase links. It avoids unverifiable claims (no "best", no grade promises, no review numbers). The grade estimate is described as indicative, matching the in-app disclaimer.
 
 The app serves both courses: Englannin abikurssi (pitkä englanti) and Ruotsin abikurssi (keskipitkä ruotsi).
 - For Swedish the app offers the learning path (Polku with Kertaus) and the theory. Swedish exercises, writing and flashcards are on the website. The app says so on the Swedish home screen (`homeNote` in `src/lib/courses.ts`).
 - The copy marks the English-only sections with "(ENGLANTI)" so that a Swedish-only student is not promised features the app does not have for Swedish.
 - It names the website only as the place where those features are, never as a place to buy.
+- App Store copy only: the free trial, the in-app purchase (one-time, valid until the end of the course season, does not renew) and in-app account creation. Google Play copy only: an existing account is required and no accounts are created in the app.
 
 Category: **Education** (App Store primary category "Education"; Google Play category "Education"). Optional App Store secondary category: Reference.
 
@@ -43,17 +44,17 @@ englanti,ruotsi,yo-koe,ylioppilaskoe,lukio,abi,kielioppi,sanasto,muistikortit,es
 
 Keywords are comma-separated with no spaces and do not repeat words from the name or subtitle (Apple already indexes those).
 
-### App Store: kuvaus (description) (3310/4000 merkkiä)
+### App Store: kuvaus (description) (3410/4000 merkkiä)
 
 ```text
 Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun mobiilisovellus Englannin abikurssille ja Ruotsin abikurssille. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
 
-Sovelluksen käyttö edellyttää olemassa olevaa opiskeluakatemia.fi-tiliä, jolla on aktiivinen kurssioikeus. Sovelluksessa ei luoda uusia tilejä.
+Luo tili sovelluksessa tai kirjaudu opiskeluakatemia.fi-tunnuksillasi. Voit kokeilla kumpaakin kurssia ilmaiseksi 60 minuuttia ja ostaa kurssin sovelluksessa. Kurssi on kertaosto: käyttöoikeus on voimassa kurssikauden loppuun, eikä osto uusiudu. Sama kurssi toimii myös verkossa samalla tilillä.
 
 KAKSI KURSSIA
 • Englannin abikurssi (pitkä englanti): oppimispolku, kertaus, harjoitukset, kirjoitelmat, muistikortit, päivän tehtävät, edistyminen ja teoria.
 • Ruotsin abikurssi (keskipitkä ruotsi): oppimispolku, kertaus ja teoria. Ruotsin kurssin harjoitukset, kirjoitustehtävät ja muistikortit ovat verkkopalvelussa.
-• Sovellus näyttää kurssit, joihin tililläsi on kurssioikeus. Jos sinulla on molemmat, vaihdat kurssia kotinäkymässä.
+• Jos sinulla on molemmat kurssit, vaihdat kurssia kotinäkymässä.
 
 OPPIMISPOLKU
 • Etene oppitunti kerrallaan polulla, jonka osat avautuvat järjestyksessä. Kummallakin kurssilla on oma polkunsa.
@@ -112,7 +113,7 @@ Opiskeluakatemia
 Englannin ja ruotsin abikurssi puhelimessa: oppimispolku, kertaus ja teoria.
 ```
 
-The full description is the same text as the App Store description.
+The full description is the 1.1.0 text below. It differs from the App Store description: no trial, purchase or sign-up wording on Android.
 
 ### Google Play: koko kuvaus (full description) (3310/4000 merkkiä)
 
@@ -171,7 +172,7 @@ Tuki: https://opiskeluakatemia.fi/ota-yhteytta
 
 ## Suggested screenshots
 
-Capture on a release (preview) build signed in with the demo account (it should own both courses, so the course switcher shows), so that no personal email address, draft text or real name is visible. Do not show the "Kurssioikeutta ei löytynyt" state, the sign-in screen's password field with content, or anything that refers to buying. Sizes: iPhone 6.9" (1320×2868) and 6.5" (1284×2778); Android phone (for example 1080×1920 or larger, 9:16). Google Play also needs a 1024×500 feature graphic.
+Capture on a release (preview) build signed in with the demo account (it should own both courses, so the course switcher shows), so that no personal email address, draft text or real name is visible. Do not show the "Kurssioikeutta ei löytynyt" state or the sign-in screen's password field with content. Google Play screenshots must not show anything that refers to buying. App Store screenshots may add the iOS store (row 10); the App Review screenshot of each In-App Purchase is the same store screen. Sizes: iPhone 6.9" (1320×2868) and 6.5" (1284×2778); Android phone (for example 1080×1920 or larger, 9:16). Google Play also needs a 1024×500 feature graphic.
 
 | # | Screen (route) | What to show | Caption |
 | --- | --- | --- | --- |
@@ -184,5 +185,6 @@ Capture on a release (preview) build signed in with the demo account (it should 
 | 7 | Edistyminen (`/progress`) | Skill profile with strengths and next skills to practise | Näe vahvuutesi ja mitä kannattaa harjoitella seuraavaksi. |
 | 8 | Koti (`/`) | Home screen with the path card, daily tasks and recent results (signed in, course active) | Sama tili puhelimessa ja verkossa. |
 | 9 | Polku, Ruotsin abikurssi (`/path` after switching to Ruotsi on the home screen) | The Swedish path map, or a Swedish lesson mid-way | Ruotsin abikurssin polku ja teoria samassa sovelluksessa. |
+| 10 (App Store only, optional) | Kurssikauppa (`/store`) on a sandbox account without access | Both course cards with what is included, the access end date and the StoreKit price | Kokeile 60 minuuttia ilmaiseksi tai osta kurssi sovelluksessa. |
 
 If the grade estimate is visible in screenshot 7, keep the disclaimer ("ei takaa koetulosta") in the frame or crop the estimate out, so the screenshot does not read as a grade promise.

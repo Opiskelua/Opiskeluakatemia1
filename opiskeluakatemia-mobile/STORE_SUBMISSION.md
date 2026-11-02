@@ -1,6 +1,6 @@
 # App Store / Google Play submission
 
-Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store release, version 1.1.0 (`app.json`). The app serves two courses: Englannin abikurssi (everything) and Ruotsin abikurssi (Polku and theory; see the website's `docs/RUOTSIN_ABIKURSSI.md` and this app's README, "Courses").
+Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store release, version 1.2.0 (`app.json`). From 1.2.0 the iOS app sells both courses through Apple In-App Purchase, offers the 60-minute free trial and lets new users create an account; the Android app stays consumption-only (no store, prices, trial button or sign-up). The app serves two courses: Englannin abikurssi (everything) and Ruotsin abikurssi (Polku and theory; see the website's `docs/RUOTSIN_ABIKURSSI.md` and this app's README, "Courses").
 
 ## 1. Identifiers and versions
 
@@ -9,9 +9,11 @@ Status of the Opiskeluakatemia mobile app (Expo SDK 58) for its first store rele
 | App name | Opiskeluakatemia | `app.json` → `expo.name` |
 | iOS bundle identifier | `fi.opiskeluakatemia.app` | `app.json` → `ios.bundleIdentifier` |
 | Android package | `fi.opiskeluakatemia.app` | `app.json` → `android.package` |
-| Marketing version | 1.1.0 | `app.json` → `version` |
+| Marketing version | 1.2.0 (1.1.0 builds have no IAP module; see section 10) | `app.json` → `version` |
 | Build number / versionCode | Managed remotely by EAS (not set in `app.json`); starts at 1 and auto-increments on production builds | `eas.json` → `cli.appVersionSource: "remote"`, `production.autoIncrement` |
 | Deep-link scheme | `opiskeluakatemia://` | `app.json` → `scheme` |
+| App Store Connect app id | 6829643902 | `eas.json` → `submit.production.ios.ascAppId` |
+| In-App Purchases (Non-Renewing Subscriptions) | `fi.opiskeluakatemia.app.englannin_abikurssi`, `fi.opiskeluakatemia.app.ruotsin_abikurssi` | `src/lib/store.ts` → `APPLE_PRODUCT_IDS` |
 
 The identifier `fi.opiskeluakatemia.app` is final (confirmed 29.10.2026). Do not change it: it cannot be changed after the app exists in App Store Connect or Play Console.
 
@@ -33,15 +35,23 @@ Release builds enforce the following:
 
 ## 3. Apple review notes (paste into App Store Connect → App Review Information)
 
-> Opiskeluakatemia is the companion app for an existing Finnish web service for matriculation exam courses: Englannin abikurssi (English) and Ruotsin abikurssi (Swedish). Users sign in with an account created on opiskeluakatemia.fi. The app does not sell anything: there are no purchases, prices or links to purchase pages. The app shows only the courses the account has access to; owners of both switch course on the home screen. For the Swedish course the app offers the learning path and theory, and the home screen says that Swedish exercises, writing and flashcards are on the website (no purchase wording). Accounts without course access see neutral "no active course access" copy (guideline 3.1.3(b), multiplatform services).
-> Demo account: appreview@opiskeluakatemia.fi / (password in the owner's password manager, not in the repo) — has active access to both courses (English until 22.3.2027, Swedish until 27.9.2027).
-
-> **⚠ OPEN DECISION (owner, before submitting): guideline 3.1.3(b).** The justification above relies on 3.1.3(b) "Multiplatform Services". Apple's current 3.1.3(b) lets an app give access to content bought elsewhere only if those items are **also available as in-app purchases** in the app. This app offers no IAP, so as written it may be rejected. Choose one before submitting: (a) add the course as an in-app purchase; (b) distribute under Apple's EU alternative business terms; or (c) give the app a meaningful free tier so it does not depend only on web-bought access. Verify against the current guideline text when deciding. The strategy text above is unchanged until that decision is made.
-
-> **Review account (created 2.11.2026):** `appreview@opiskeluakatemia.fi`, a normal user (no admin role) with both courses granted at €0 via admin grants (recorded in `admin_audit_log`). Enter its email and password in App Store Connect and Play Console. Never put the password in the repo. The mailbox does not exist, so password reset cannot be used for this account; if the password is lost, set a new one from the database. Delete or disable the account once the app is approved and no review is pending.
-> Legal pages (privacy policy, terms) open in the browser with ?app=1, which hides all purchase links on those pages.
-> Account deletion: tap the round avatar (initial) in the top-right of the home screen → scroll down → Poista tili…. Deletion requires the password and typing POISTA, and it permanently removes the account on the server.
+> Opiskeluakatemia is the app for a Finnish matriculation exam preparation service with two courses: Englannin abikurssi (English) and Ruotsin abikurssi (Swedish). On iPhone, each course is sold as an In-App Purchase (Non-Renewing Subscription; price from StoreKit). Access lasts until the end of the course season shown on the purchase card ("Käyttöoikeus 22.3.2027 asti · kertaosto, ei uusiudu") and does not renew.
+> Where to find it: sign in (or create an account: "Luo tili" on the sign-in screen) → the home screen shows "… ei ole vielä käytössäsi" with "Aloita ilmainen 60 min kokeilu" and "Avaa kurssikauppa". The store (Kurssikauppa) is also under the avatar → Tili → Avaa kurssikauppa. Each course card shows what is included, the access end date, the StoreKit price, Buy, the free trial (with its terms: 60 minutes, then the course locks, then the price) and "Palauta ostokset", plus links to the terms and the privacy policy.
+> Why an account is required: the course is account-based. Progress, AI grading of essays and the course access itself are stored with the user's Opiskeluakatemia account and also work on the website. Apple's guidance for Non-Renewing Subscriptions requires the developer's own account system to make a purchase available on all of the user's devices. Account creation is in the app, and account deletion is in Tili → Poista tili.
+> Free trial: a one-time 60-minute trial per course, started only by the user's tap after a confirmation that states the duration, that the course locks afterwards and the price to continue. No payment details are asked.
+> Purchases are verified on our server (StoreKit 2 signed transactions, App Store Server Notifications V2). Sandbox purchases are accepted for review.
+> Review account WITHOUT course access (to see the store, the trial and to buy in the sandbox): `<second review account, created by the owner in section 8 step 14>` / (password in the owner's password manager, not in the repo). Its email is confirmed and its trials are unused. The trial needs a confirmed email address.
+> Review account WITH access to both courses (to see the course content): appreview@opiskeluakatemia.fi / (password in the owner's password manager) — English until 22.3.2027, Swedish until 27.9.2027.
+> Legal pages (privacy policy, terms) open in the browser with ?app=1, which hides all web prices and purchase links on those pages. The app never links to or mentions purchasing on the website.
+> Account deletion: tap the round avatar (initial) in the top-right of the home screen → scroll down → Poista tili…. Deletion requires the password and typing POISTA, and it permanently removes the account on the server. The deletion text explains that App Store purchases are not refunded by deleting the account and that refunds are requested from Apple.
 > Essays and open answers are graded by AI (Google Gemini) via our server. The user is asked for consent before the first upload.
+
+> **Guideline 3.1.3(b) decision (resolved 2.11.2026):** option (a), In-App Purchase on iOS. Purchases made in the app also unlock the website (allowed by 3.1.3(b)). Android stays a consumption-only companion app without any purchase UI.
+
+> **Review accounts:**
+> - `appreview@opiskeluakatemia.fi` (created 2.11.2026): a normal user (no admin role) with both courses granted at €0 via admin grants (recorded in `admin_audit_log`). The mailbox does not exist, so password reset cannot be used for this account; if the password is lost, set a new one from the database.
+> - A second account without any course access and without a used trial (section 8 step 14), so the reviewer reaches the store and the trial. Give both in App Store Connect; the Play Console review uses the first one only.
+> - Never put passwords in the repo. Delete or disable both accounts once the app is approved and no review is pending.
 
 ## 4. Apple App Privacy ("nutrition label") answers
 
@@ -54,11 +64,11 @@ These answers are based on the data the app actually sends. The app has no analy
 | User Content → Other User Content (essays, exercise answers, flashcards, daily-task completions) | Yes | Yes | No | App Functionality |
 | Usage Data → Product Interaction | No (no analytics) | | | |
 | Diagnostics (crash/performance) | No | | | |
-| Purchases | No (the app only receives a yes/no course-access answer) | | | |
+| Purchases → Purchase History (iOS: App Store transactions of the courses: transaction id, product, price, currency, environment, sent to our server to grant access) | Yes | Yes | No | App Functionality |
 | Contact Info → Name | Not collected by the app. A name stored with the web account is only displayed. | | | |
 | Audio | No (playback only, no microphone permission) | | | |
 
-The same declarations are in the iOS privacy manifest (`ios.privacyManifests` in `app.json`). It also declares these required-reason APIs, aggregated from the bundled SDKs:
+The same declarations are in the iOS privacy manifest (`ios.privacyManifests` in `app.json`, including `NSPrivacyCollectedDataTypePurchaseHistory` from 1.2.0). Apple processes the payment itself; the app never sees card or billing details. It also declares these required-reason APIs, aggregated from the bundled SDKs:
 - UserDefaults: CA92.1
 - FileTimestamp: C617.1, 0A2A.1, 3B52.1
 - SystemBootTime: 35F9.1
@@ -80,7 +90,7 @@ If Apple's post-upload email lists another missing reason, add it there.
 | App activity → Other user-generated content (essays, answers, flashcards) | Yes | No* | Optional (only when used) | App functionality | No |
 | App activity → App interactions (exercise results/history, daily tasks) | Yes | No | Required for core features | App functionality | No |
 | App info and performance (crash logs, diagnostics) | No | | | | |
-| Financial info / Purchase history | No | | | | |
+| Financial info / Purchase history | No (the Android app has no purchases; App Store purchases happen only in the iOS app) | | | | |
 | Location, Contacts, Photos, Audio, Device IDs | No | | | | |
 
 \* The server sends essays and open answers to Google Gemini for grading. Gemini acts as a service provider processing on Opiskeluakatemia's behalf, which Google Play does not count as "sharing". The app still discloses it and asks for consent.
@@ -119,16 +129,25 @@ Android permissions in the release manifest:
 
 ## 7. Policy compliance implemented in the app
 
-- **3.1.1 / 3.1.3(b):**
-  - No purchase links, prices or "buy" calls to action anywhere.
-  - Users without access see "Kurssioikeutta ei löytynyt" with neutral advice to sign in with the right email.
-  - Sign-up is not offered in the app.
+- **3.1.1 / 3.1.3(b), iOS (In-App Purchase):**
+  - Both courses are sold only through Apple In-App Purchase (expo-iap, StoreKit 2). The price shown is StoreKit's localized `displayPrice`; no price is written in the app (unit-tested).
+  - Each store card shows the course, what it includes, "Käyttöoikeus D.M.YYYY asti · kertaosto, ei uusiudu" (date from the server catalog), the price, Buy, "Palauta ostokset", and links to the terms and the privacy policy.
+  - Restore: "Palauta ostokset" re-sends the current App Store entitlements to our server; `AppStore.sync()` runs only on that explicit tap, and only when no entitlement was found. Nothing is restored automatically at launch, but unfinished transactions are verified and finished after sign-in.
+  - Buy is hidden when the account already owns the course (also when it was bought on the web), and when the server catalog says the course is not on sale.
+  - Ask to Buy: a pending purchase shows "odottaa huoltajan hyväksyntää"; the approved purchase is verified later by the app-wide listener.
+  - The free 60-minute trial starts only after a confirmation stating the duration, that the course locks afterwards and the price to continue.
+  - No links, buttons or wording that point to buying on the website.
+- **Android / Google Play (consumption-only):**
+  - No store, prices, trial button, purchase links or sign-up. `expo-iap` is excluded from Android autolinking (no BILLING permission, no Play Billing library), and Metro resolves `src/lib/iap-native.ts` (a null stub) instead of the iOS bridge, so the Android bundle contains no expo-iap code.
+  - Users without access see "Kurssioikeutta ei löytynyt" with neutral advice to sign in with the right email (unchanged).
+- **Sign-up (iOS only):** "Luo tili" on the sign-in screen: email, password (at least 6 characters, as on the website), password again, consent line with links to the terms and privacy policy. The confirmation email links to `https://opiskeluakatemia.fi/sahkoposti-vahvistettu` (no prices or purchase links), and the app then asks the user to sign in.
 - **5.1.1(v) account deletion:**
   - Flow: Tili → Poista tili → password + type POISTA → native destructive confirmation.
   - The app calls `POST /api/account/delete`, then signs out locally.
+  - On iOS the deletion text adds that App Store purchases are not refunded by deleting the account, access cannot be moved to another account, and refunds are requested from Apple.
 - **5.1.2(i) third-party AI:** a one-time consent dialog appears before essays or open answers are sent for AI grading. Declining keeps the text unsent.
 - **Google Play AI-generated content:** generated exercises have an "Ilmoita ongelmasta" link that opens an email to support@opiskeluakatemia.fi (subject "Ilmoitus tehtävästä", exercise id and category prefilled).
-- **Privacy policy and terms links:** on the sign-in screen and in Tili. They open `https://opiskeluakatemia.fi/tietosuojakaytanto` and `/kayttoehdot`.
+- **Privacy policy and terms links:** on the sign-in and sign-up screens, in the store and in Tili. They open `https://opiskeluakatemia.fi/tietosuojakaytanto` and `/kayttoehdot` with `?app=1`.
 - **Removed "coming later" copy:** the Google sign-in placeholder text is gone (guideline 2.1 / 2.3).
 
 ## 8. Remaining human steps (in order)
@@ -165,7 +184,7 @@ Android permissions in the release manifest:
 9. **Device testing (preview build on a physical iPhone and Android phone):**
    - sign in with the demo account; wrong password shows a Finnish error; password reset email opens `https://opiskeluakatemia.fi/reset-password` (outside the launch code gate) and works;
    - app restart keeps the session (Keychain/Keystore); an old AsyncStorage session migrates;
-   - active course access (demo account) and no course access (a throwaway account): neutral "Kurssioikeutta ei löytynyt", no purchase wording anywhere;
+   - active course access (demo account) and no course access (a throwaway account): on Android the neutral "Kurssioikeutta ei löytynyt" without purchase wording; on iOS the trial and "Avaa kurssikauppa";
    - exercises load through `/api/abikurssi/course-exercises` (reading, listening incl. audio playback, listening MC, grammar sets) and are graded by the server; results and explanations show after submitting;
    - essay: the AI consent dialog appears once; grading returns feedback;
    - flashcards, daily tasks, path lessons and review, history, progress;
@@ -173,12 +192,30 @@ Android permissions in the release manifest:
    - Tili → Tietosuojakäytäntö / Käyttöehdot open the site with `?app=1`: no "Osta kurssi", no sales links in the header or footer;
    - offline (airplane mode): Finnish error and retry;
    - deep link `opiskeluakatemia://history`;
-   - account deletion end to end with a throwaway account (never the demo account).
+   - account deletion end to end with a throwaway account (never the demo account);
+   - Android: no store, price, trial button or "Luo tili" anywhere (no-access state shows only "Kurssioikeutta ei löytynyt").
+   - iOS store (development-device or TestFlight build, sandbox tester signed in under Settings → App Store → Sandbox Account): see step 15.
 10. **Store listings:** the Finnish texts, character counts and the screenshot plan are in `STORE_LISTING.md`. Enter the description, keywords, support URL (https://opiskeluakatemia.fi/ota-yhteytta), privacy policy URL, screenshots (6.9" and 6.5" iPhone; Android phone), feature graphic (Play), category Education. Fill in the sections 4–6 answers, the review notes and the demo account (section 3).
 11. **Submit:**
     - Run `npx eas-cli@latest submit --platform ios --profile production`. The first run asks for the App Store Connect app; add `submit.production.ios.ascAppId` to `eas.json` afterwards.
     - Run `npx eas-cli@latest submit --platform android --profile production`. This uploads to the internal track as a draft. Store the Google service-account JSON outside the repo and reference it with `serviceAccountKeyPath`.
     - The first Android upload may have to be done manually in Play Console.
+    - Attach both In-App Purchases to the 1.2.0 version in App Store Connect before submitting (the first IAPs must be reviewed together with an app version).
+
+### In-App Purchase setup (owner, before the 1.2.0 iOS build is submitted)
+
+12. **Agreements and tax:** the Account Holder accepts the Paid Apps Agreement (Business → Agreements) and enters banking information and the W-8BEN-E tax form. Without an active agreement StoreKit returns no products: the store shows "Hintoja ei saatu App Storesta" and Buy stays disabled. Enrol in the App Store Small Business Program (15 % commission; it starts 15 days after the end of the fiscal month of approval, so enrol early).
+13. **Products:** App Store Connect → Monetization → Subscriptions → Non-Renewing Subscriptions → create exactly:
+    - `fi.opiskeluakatemia.app.englannin_abikurssi` (Englannin abikurssi)
+    - `fi.opiskeluakatemia.app.ruotsin_abikurssi` (Ruotsin abikurssi)
+
+    Product ids can never be changed or reused. Price 49,99 € with Finland as the base storefront (confirm the price point in the picker), Finnish display name and description (say until when access lasts, e.g. "Käyttöoikeus 22.3.2027 asti, ei uusiudu"; update it each season), a review screenshot of the store screen and review notes. Season dates live only on the server (website `src/lib/apple-iap/catalog.ts`); the binary has none.
+14. **Second review account:** create an account with no course access and no used trial, confirm its email, and put it in the review notes (section 3). The existing `appreview@` account owns both courses, so the reviewer would never see the store.
+15. **Sandbox testing:** create sandbox testers (Users and Access → Sandbox, Finland storefront). Test on a `development-device` build or TestFlight (the simulator `development` profile has no sandbox purchases): buy, cancel, Ask to Buy (deferred), restore on a second device, a purchase while the claim endpoint is unreachable (it must be finished only after the next successful claim), and an account mismatch (buy with account A, restore on account B → "liitetty toiseen Opiskeluakatemia-tiliin", not finished).
+16. **App Store Server Notifications V2:** App Store Connect → App Information → App Store Server Notifications: set `https://opiskeluakatemia.fi/api/iap/apple/notifications` as the **Production** URL **and** the **Sandbox** URL, version 2. Use "Request a Test Notification" and check that the website logs a `TEST` notification.
+17. **Supabase Auth:** add `https://opiskeluakatemia.fi/sahkoposti-vahvistettu` to the allowed redirect URLs (Authentication → URL Configuration), next to `/reset-password`. Otherwise the confirmation link of an in-app sign-up falls back to the Site URL.
+18. **Website first:** deploy the website's Apple IAP routes (`/api/iap/apple/claim`, `/api/iap/apple/notifications`, `/api/iap/apple/catalog`), the migration `20261102120000_apple_iap.sql`, the `/sahkoposti-vahvistettu` page and the updated Käyttöehdot / Tietosuojakäytäntö before App Review starts.
+19. **Privacy label:** update App Privacy in App Store Connect with Purchases → Purchase History (section 4).
 
 ## 9. Known limitations and follow-ups
 
@@ -186,13 +223,16 @@ Android permissions in the release manifest:
 - Deletion refuses automatically (409, user is told to contact support) if a legacy recurring Stripe subscription is active. Cancel it in Stripe, then delete.
 - The `user_course_purchases` rows follow the database's `ON DELETE CASCADE`. Stripe retains the payment records required by Finnish bookkeeping law.
 - `npm audit` reports advisories in Expo CLI build tooling (not shipped in the app bundle). The automatic fix downgrades Expo, so it was not applied.
-- Google sign-in, sign-up, offline study and push notifications are not in 1.1.0.
+- Google sign-in, offline study and push notifications are not in 1.2.0. Sign-up and purchases are iOS only.
+- A purchase whose `appAccountToken` belongs to a deleted account cannot be restored onto a new account (the server answers 409); the user is told to contact support.
 - Ruotsin abikurssi in the app is Polku and theory only; Swedish exercises, writing and flashcards are on the website.
 
 ## 10. Over-the-air updates (EAS Update)
 
 `expo-updates` is installed and configured:
-- `app.json` → `runtimeVersion: { "policy": "appVersion" }`. The runtime version equals the marketing version (`1.1.0`), so an update only reaches builds with the same `version`. Builds made with an earlier version never receive the Swedish course update.
+- `app.json` → `runtimeVersion: { "policy": "appVersion" }`. The runtime version equals the marketing version (`1.2.0`), so an update only reaches builds with the same `version`.
+  - 1.2.0 adds the native `expo-iap` module. JavaScript published for runtime 1.2.0 never reaches the 1.1.0 TestFlight builds, which have no IAP module. Never publish IAP code to the 1.1.0 runtime; make new `development-device`, `preview` and `production` builds at 1.2.0.
+  - Builds made with an earlier version never receive updates published for a later one (for example the Swedish course update).
   - That includes the English-only history filter. The history (`loadHistory` in `src/lib/exercises.ts`) reads the `*_attempts` tables straight from Supabase, not through the server. The Swedish course on the website writes its reading attempts into the same `reading_attempts` table, with `course_type = 'ruotsin-abikurssi'`. Any binary whose JavaScript lacks the filter shows those attempts in the English home stats and in Historia. That means the 1.0.0 internal preview build, and a 1.1.0 build made from `glass-ui` until the update applies on its second launch. No server change can hide the rows from an old build.
   - Before the Swedish course launches on the website, build the 1.1.0 preview binary from the merged `ruotsin-abikurssi` code and move every tester to it. Steps and a 1.0.0 fallback: website `docs/RUOTSIN_ABIKURSSI.md` §6 step 6. The first store builds (section 8 step 8) are made from that merged code, so they are not affected.
 - `eas.json` → `build.preview.channel: "preview"`, `build.production.channel: "production"`. The `development` profiles have no channel (the dev client loads from Metro).
@@ -231,7 +271,7 @@ Needs a new store build (and review):
 - adding, removing or upgrading any package with native code (any `expo-*` module, `react-native-*`, `react-native` itself, an Expo SDK upgrade);
 - any change to native configuration in `app.json`: permissions, `blockedPermissions`, `infoPlist`, privacy manifest, plugins, bundle identifier, scheme, icon, splash screen, `updates` settings;
 - changing `version` (with the `appVersion` policy this creates a new runtime version, so existing builds stop receiving updates published from it);
-- anything Apple or Google must review as a new feature or a change of the app's purpose. Updates must stay within App Store guideline 2.5.2 and Google Play's policy: bug fixes and improvements to the reviewed app, not a different app or new purchase flows.
+- anything Apple or Google must review as a new feature or a change of the app's purpose. Updates must stay within App Store guideline 2.5.2 and Google Play's policy: bug fixes and improvements to the reviewed app, not a different app or new purchase flows. The App Store purchase flow therefore ships in the reviewed 1.2.0 binary, not as an update.
 
 When native code changes, bump `version` (for example to `1.1.1`), build, submit, and publish later updates against that new runtime version.
 

@@ -8,6 +8,8 @@ import { deleteAccount, RequestError } from '../lib/api';
 import { supportEmail } from '../lib/config';
 import { LegalLinks, openExternal } from '../components/LegalLinks';
 import { useTheme, type ThemePreference } from '../theme';
+import { router } from 'expo-router';
+import { storeEnabled } from '../lib/store';
 
 const CONFIRM_WORD = 'POISTA';
 
@@ -40,6 +42,8 @@ export default function Settings() {
   const [confirmation, setConfirmation] = useState('');
   const ready = !!password && confirmation.trim().toUpperCase() === CONFIRM_WORD;
   const confirmField = useRef<TextInputInstance>(null);
+  // App Store purchases exist only in the iOS app; Android and web keep the original copy.
+  const appStore = storeEnabled(Platform.OS);
 
   async function signOut() {
     setBusy(true); setError('');
@@ -82,6 +86,12 @@ export default function Settings() {
       <Button title={busy && !deleting ? 'Hetkinen…' : 'Kirjaudu ulos'} secondary disabled={busy} onPress={() => void signOut()} />
     </Card>
 
+    {appStore && <Card>
+      <Text accessibilityRole="header" style={type.subheading}>Kurssit</Text>
+      <Text style={type.body}>Kokeile tai osta kurssi ja palauta App Store -ostot.</Text>
+      <Button title="Avaa kurssikauppa" secondary onPress={() => router.push('/store')} />
+    </Card>}
+
     <SectionTitle title="Ulkoasu" detail="Järjestelmä seuraa puhelimen asetusta." />
     <OptionGroup accessibilityLabel="Ulkoasu" options={appearanceOptions} value={preference} onChange={setPreference} />
 
@@ -98,6 +108,7 @@ export default function Settings() {
     <Card tone="danger">
       <Text accessibilityRole="header" style={[type.subheading, { color: colors.danger }]}>Poista tili</Text>
       <Text style={type.body}>Tilin poistaminen poistaa pysyvästi kirjautumistietosi sekä harjoitushistoriasi, kirjoitelmasi, muistikorttisi ja edistymistietosi. Poisto koskee sekä sovellusta että verkkopalvelua, ja tiliin liitetty kurssioikeus poistuu samalla. Poistoa ei voi perua.</Text>
+      {appStore && <Text style={type.body}>App Store -ostoja tilin poistaminen ei peru eikä hyvitä, eikä kurssioikeutta voi siirtää toiselle tilille. Hyvitystä haetaan Applelta (reportaproblem.apple.com).</Text>}
       {!deleting ? <Button title="Poista tili…" secondary disabled={busy} accessibilityHint="Näyttää vahvistuksen. Tiliä ei poisteta vielä." onPress={() => { setDeleting(true); setError(''); }} /> : <>
         <Field label="Salasana" accessibilityLabel="Salasana tilin poiston vahvistamiseen" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" autoComplete="current-password" textContentType="password" placeholder="Nykyinen salasanasi" editable={!busy} returnKeyType="next" submitBehavior="submit" onSubmitEditing={() => confirmField.current?.focus()} />
         <Field ref={confirmField} label={`Kirjoita ${CONFIRM_WORD} vahvistaaksesi`} value={confirmation} onChangeText={setConfirmation} autoCapitalize="characters" autoCorrect={false} autoComplete="off" placeholder={CONFIRM_WORD} editable={!busy} returnKeyType="done" onSubmitEditing={confirmRemove} />

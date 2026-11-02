@@ -7,6 +7,7 @@ An Expo / React Native TypeScript app for iOS and Android, beside the existing N
 - Existing email/password accounts, persistent sessions and foreground token refresh.
 - Password recovery using the website's existing reset-password page.
 - Purchase linking and server-verified course access, with loading, retry, and no-access states.
+- iOS only (1.2.0): account creation, the 60-minute free trial and the course store with Apple In-App Purchase (see "iOS In-App Purchase" below). Android stays sign-in and consumption only.
 - Sign-out, Finnish copy, keyboard handling and safe-area layout.
 - Grammar, reading-comprehension and listening exercises from the same web course catalogue.
 - AI-generated grammar and reading exercises, with the selected mobile difficulty sent to the existing web APIs.
@@ -14,7 +15,7 @@ An Expo / React Native TypeScript app for iOS and Android, beside the existing N
 - Retry-safe mobile submissions: a repeated request reuses the same saved attempt instead of recording it twice.
 - Reading and listening media, answer feedback, history refresh and pull-to-refresh.
 
-Google sign-in, signup, native payments, notifications and offline study are not implemented yet. Store-release configuration (identifiers, privacy manifest, EAS profiles, account deletion) is in place; see `STORE_SUBMISSION.md` for the remaining human steps. The icon and splash assets are still Expo placeholders.
+Google sign-in, notifications and offline study are not implemented yet. Sign-up and native payments exist on iOS only. Store-release configuration (identifiers, privacy manifest, EAS profiles, account deletion) is in place; see `STORE_SUBMISSION.md` for the remaining human steps. The icon and splash assets are still Expo placeholders.
 
 ## Run
 
@@ -58,10 +59,11 @@ Requests send `Authorization: Bearer <Supabase access token>` to the existing Ne
 
 - `POST /api/courses/link-purchases` associates matching purchases with the signed-in account, as the website does.
 - `GET /api/courses/check-access?courseType=abikurssi` (and `?courseType=ruotsin-abikurssi`) returns `{ hasAccess: boolean, courseType: string }`. The home screen checks each course separately.
+- iOS only: `GET /api/courses/check-access?courseType=all` (`{ courses, paid, trials }`), `GET /api/iap/apple/catalog` (`{ products: [{ courseType, productId, accessUntil, onSale }] }`), `POST /api/courses/trial` (`{ courseType }`) and `POST /api/iap/apple/claim` (`{ signedTransaction }` → `{ ok, courseType, environment, status, access }`; errors `409 account_mismatch`, `400 invalid_transaction`, `503 unavailable`).
 
 ## Courses
 
-The app serves Englannin abikurssi (`en`) and Ruotsin abikurssi (`sv`). `src/lib/courses.ts` holds the identifiers (from the website's `docs/RUOTSIN_ABIKURSSI.md`), the URLs and what each course offers in the app; `src/providers/CourseProvider.tsx` holds the selected course (AsyncStorage `oa.course.v1`, cleared on sign-out, else the first owned course, English first). The home screen shows a course switcher only to owners of both courses and never mentions a course the student does not own.
+The app serves Englannin abikurssi (`en`) and Ruotsin abikurssi (`sv`). `src/lib/courses.ts` holds the identifiers (from the website's `docs/RUOTSIN_ABIKURSSI.md`), the URLs and what each course offers in the app; `src/providers/CourseProvider.tsx` holds the selected course (AsyncStorage `oa.course.v1`, cleared on sign-out, else the first owned course, English first). The home screen shows a course switcher only to owners of both courses. On Android and web it never mentions a course the student does not own; on iOS the course store lists both courses.
 
 - Polku: English `/api/abikurssi/path`, `/path/review`, `/path/target`; Swedish `/api/abikurssi/ruotsi/path`, `/ruotsi/path/review`, `/ruotsi/path/target`. Both send `version: 'v2-2026'` (`path-v2-types.ts` stays a byte mirror of the website). The dev preview uses `/api/abikurssi/path-preview` for both, plus `course=sv` for Swedish. The path cache is per course and every mutation drops all of it (the study streak is shared).
 - Theory: `/api/abikurssi/content` (English) and `/api/abikurssi/content?course=sv`.
@@ -69,6 +71,15 @@ The app serves Englannin abikurssi (`en`) and Ruotsin abikurssi (`sv`). `src/lib
 - The mascot intro is dismissed per course (`mascot.introDismissed`, `mascot.introDismissed.sv`).
 
 The server verifies the user and evaluates course access. A local UI state never grants access to protected course material. Supabase public keys are expected to be visible in a client app; server service-role keys, Stripe secrets and AI keys must never be included. The Supabase session is stored in the iOS Keychain / Android Keystore through `expo-secure-store` (chunked, `src/lib/chunked-storage.ts`); a session saved in AsyncStorage by an earlier build is migrated on first launch. The web preview still uses AsyncStorage.
+
+## iOS In-App Purchase (1.2.0)
+
+- Library: `expo-iap` (StoreKit 2, installed with `npx expo install expo-iap`), config plugin in `app.json`. It is excluded from Android autolinking (`package.json` → `expo.autolinking.android.exclude`), and Metro bundles `src/lib/iap-native.ios.ts` only for iOS; Android and web get `src/lib/iap-native.ts` (`null`). The iOS bridge requires `expo-iap` on first use, not at import time. Expo Go has no IAP module: use a development build (`development-device` profile for sandbox purchases on a phone).
+- Products: one Non-Renewing Subscription per course, `fi.opiskeluakatemia.app.englannin_abikurssi` and `fi.opiskeluakatemia.app.ruotsin_abikurssi` (`src/lib/store.ts`). Prices come only from StoreKit (`displayPrice`); season dates and "on sale" come only from the server catalog.
+- `src/providers/IapProvider.tsx` (inside SessionProvider, iOS and signed in only): one App Store connection, one purchase listener and one error listener for the whole app. Each transaction's JWS goes to `POST /api/iap/apple/claim`, and `finishTransaction` runs only after a 2xx (also "already recorded"); never after a 409, 400, 5xx or network error. After connecting, `getPendingTransactionsIOS()` goes through the same path. The loop itself is `src/lib/iap-service.ts` (unit-tested with a fake StoreKit).
+- `src/app/store.tsx` (Kurssikauppa): course cards with what is included, "Käyttöoikeus D.M.YYYY asti · kertaosto, ei uusiudu", price, Buy (hidden when owned or not on sale), the free trial with its disclosure, "Palauta ostokset" (current entitlements; `AppStore.sync` only on that tap and only when nothing was found) and the legal links. Android and web are redirected home.
+- Home (iOS, no access): "Aloita ilmainen 60 min kokeilu" and "Avaa kurssikauppa"; a running trial shows the minutes left. Android keeps "Kurssioikeutta ei löytynyt" unchanged.
+- Sign-up (iOS): "Luo tili" on the sign-in screen; the confirmation email links to `https://opiskeluakatemia.fi/sahkoposti-vahvistettu`, which must be in Supabase's allowed redirect URLs. Owner steps for App Store Connect are in `STORE_SUBMISSION.md` section 8 (steps 12–19).
 
 ## Next milestone
 
@@ -120,4 +131,4 @@ Live Gemini verification subsequently succeeded on 27 October: `gemini-3.5-flash
 - New **Tili** screen (`src/app/settings.tsx`): sign out, privacy policy / terms links, contact, and **Poista tili** (password + typing POISTA + destructive confirmation), backed by the website's `POST /api/account/delete`.
 - Deep links pass through `src/app/+native-intent.tsx`: only known screens open, and external links cannot carry task IDs.
 - A root error boundary, Finnish timeout/offline messages without internal details, and a one-time consent before essays or open answers are sent for AI grading.
-- Neutral no-access copy without purchase prompts; the "Google sign-in later" text was removed.
+- Neutral no-access copy without purchase prompts (Android and web; iOS has the store from 1.2.0); the "Google sign-in later" text was removed.
