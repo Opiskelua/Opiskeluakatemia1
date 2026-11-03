@@ -15,3 +15,24 @@
 /opiskeluakatemia-iap-server/
 /opiskeluakatemia-iap-legal/
 /outer-iap/
+
+# This repo is PUBLIC on GitHub: keys, credentials and private business docs must never be committed
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*.pem
+*.key
+*.jks
+*.keystore
+*.mobileprovision
+credentials.json
+*service-account*.json
+google-services.json
+GoogleService-Info.plist
+test-credentials*.json
+*.har
+.mcp.local.json
+/research/marketing-brief.md
+/opiskeluakatemia alias
