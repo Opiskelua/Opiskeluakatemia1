@@ -1,11 +1,19 @@
 // The App Store purchase loop, without React: verify each StoreKit transaction on our server, then
 // finish it. Pure (dependencies injected), so tests/store.test.cjs can drive it with fakes.
 //
-// - A transaction is finished ONLY after the server answered 2xx (including "already recorded").
-//   On a 409 (another account), 400, 5xx or a network error it stays unfinished: StoreKit offers
-//   it again on the next launch or return to the app (recoverPending) and through "Palauta ostokset".
+// - A transaction is finished after the server answered 2xx (including "already recorded"), or a
+//   settled 409 account_mismatch (another account's purchase, e.g. on a shared iPhone; see
+//   claimSettled). On a 400, 401, 429, 5xx, timeout or network error it stays unfinished: StoreKit
+//   offers it again on the next launch (recoverPending) and through "Palauta ostokset".
+// - A 2xx opens the course only when the answer's access says paid (claimOpensCourse): the row's
+//   status alone can be 'active' after its access period ended.
 // - requestPurchase resolves AND the listener fires for the same transaction: one claim per
-//   transaction id (in flight or done in this session).
+//   transaction id (in flight or done in this session). A transaction whose claim failed is claimed
+//   quietly at most once per session (not on every return to the app); "Palauta ostokset" or a
+//   live purchase event still claims it again.
+// - Unsettled: a product with a failed claim, or an unfinished transaction found at recovery, in
+//   this session. Its Buy stays off (no second charge for a payment still waiting) until a claim
+//   for the product answers 2xx.
 // - Only what the user just asked for speaks up. A transaction is 'live' (errors shown) when its
 //   product was requested with Buy in this session and it is not older than that tap (expo-iap's
 //   own rule, see purchaseFlowBinding.takeRequested); StoreKit's launch replay of an old,
@@ -17,10 +25,11 @@
 import type { CourseId } from './courses';
 import type { IapNative, IapPurchase } from './iap-types';
 import {
-  claimErrorMessage, claimSuccessMessage, courseForProductId, isJws, parseClaimResponse, purchaseErrorMessage, restoreFailedMessage,
-  restoreMessage, type StoreAccess, type StoreMessage,
+  claimErrorMessage, claimOpensCourse, claimSettled, claimSuccessMessage, courseForProductId, isJws, parseClaimResponse, purchaseErrorMessage,
+  restoreFailedMessage, restoreMessage, type StoreAccess, type StoreMessage,
 } from './store';
 
+/** active: recorded and the course is open; expired: recorded, but its access period is over (opens nothing). */
 export type ClaimOutcome = 'active' | 'expired' | 'failed' | 'skipped';
 /** live: a purchase the user just made or an Ask to Buy approval; quiet: replays and the launch scan; restore: "Palauta ostokset". */
 export type ClaimMode = 'live' | 'quiet' | 'restore';
@@ -38,6 +47,12 @@ export interface PurchaseServiceDeps {
   granted: (course: CourseId, access: StoreAccess | null) => void;
   /** Claims in flight went from none to some (true) or back to none (false). */
   verifying?: (active: boolean) => void;
+  /**
+   * The courses whose App Store payment is not confirmed by the server yet (a failed claim or an
+   * unfinished transaction in this session), whenever that list changes. Called before
+   * `verifying(false)`, so Buy never comes back for them in between.
+   */
+  unsettled?: (courses: CourseId[]) => void;
   now?: () => number;
   /** How long buy() waits for the purchase event when requestPurchase returned no transaction. */
   eventWaitMs?: number;
@@ -59,11 +74,16 @@ export function createPurchaseService(deps: PurchaseServiceDeps) {
   const now = deps.now ?? Date.now;
   const eventWaitMs = deps.eventWaitMs ?? 5000;
   const inFlight = new Map<string, { productId: string; task: Promise<Result> }>();
-  const done = new Map<string, 'active' | 'expired'>();
+  /** Settled in this session (a 2xx, or a finished account_mismatch): never claimed again until the next launch. */
+  const done = new Map<string, Result>();
   /** Product id → when Buy was tapped. Kept through Ask to Buy, so the later approval is 'live'. */
   const requested = new Map<string, number>();
   /** buy() calls waiting for a purchase event of a product id. */
   const waiters = new Map<string, Set<() => void>>();
+  /** Transaction ids whose claim failed in this session: not claimed quietly again until the next launch. */
+  const failed = new Set<string>();
+  /** Product id → its unconfirmed transactions (failed claim, or unfinished at recovery) in this session. */
+  const unsettled = new Map<string, Set<string>>();
   let buying = 0;
   let last: { text: string; at: number } | null = null;
 
@@ -75,10 +95,34 @@ export function createPurchaseService(deps: PurchaseServiceDeps) {
     deps.say(message);
   }
 
+  function publishUnsettled() {
+    deps.unsettled?.([...unsettled.keys()].map(courseForProductId).filter((course): course is CourseId => course !== null));
+  }
+  function markUnsettled(purchase: IapPurchase) {
+    const ids = unsettled.get(purchase.productId) ?? new Set<string>();
+    if (ids.has(purchase.transactionId)) return;
+    ids.add(purchase.transactionId);
+    unsettled.set(purchase.productId, ids);
+    publishUnsettled();
+  }
+  /** One transaction is settled (a finished account_mismatch); the product stays unsettled if it has others. */
+  function settleTransaction(purchase: IapPurchase) {
+    const ids = unsettled.get(purchase.productId);
+    if (!ids?.delete(purchase.transactionId)) return;
+    if (!ids.size) unsettled.delete(purchase.productId);
+    publishUnsettled();
+  }
+  /** A claim for the product answered 2xx: the server's access decides about Buy from now on. */
+  function settleProduct(productId: string) {
+    if (unsettled.delete(productId)) publishUnsettled();
+  }
+
   async function claimAndFinish(purchase: IapPurchase, course: CourseId, mode: ClaimMode): Promise<Result> {
     if (!isJws(purchase.token)) {
       // OpenIAP falls back to the transaction id when StoreKit has no JWS; the server would refuse it.
       const error = claimErrorMessage(400, 'invalid_transaction');
+      failed.add(purchase.transactionId);
+      markUnsettled(purchase);
       if (mode === 'live') say(error);
       return { outcome: 'failed', error };
     }
@@ -88,30 +132,45 @@ export function createPurchaseService(deps: PurchaseServiceDeps) {
     } catch (cause) {
       const { status, code } = failure(cause);
       const error = claimErrorMessage(status, code);
+      if (claimSettled(status, code)) {
+        // Another account's purchase: finished, so it is not claimed again on every launch (a
+        // failed finish only means one more claim on the next launch). Buy is not held back for it.
+        try { await native.finish(purchase); } catch { /* Offered again on the next launch. */ }
+        done.set(purchase.transactionId, { outcome: 'failed', error });
+        settleTransaction(purchase);
+      } else {
+        failed.add(purchase.transactionId);
+        markUnsettled(purchase);
+      }
       if (mode === 'live') say(error);
       return { outcome: 'failed', error };
     }
-    // 2xx: the server has recorded the transaction, so it is safe to finish. A failed finish only
-    // means StoreKit offers it again; the next claim is idempotent.
+    // 2xx: the server has recorded the transaction, so it is safe to finish, even when it opens
+    // nothing. A failed finish only means StoreKit offers it again; the next claim is idempotent.
     try { await native.finish(purchase); } catch { /* Replayed on the next launch. */ }
     const result = parseClaimResponse(body, now());
-    const status = result?.status ?? 'active';
-    done.set(purchase.transactionId, status);
+    const opened = claimOpensCourse(result, course);
+    const outcome = opened ? 'active' : 'expired';
+    done.set(purchase.transactionId, { outcome, error: null });
+    failed.delete(purchase.transactionId);
     requested.delete(purchase.productId);
-    if (status === 'active') deps.granted(course, result?.access ?? null);
-    if (mode !== 'restore' && result) say(claimSuccessMessage(result));
-    return { outcome: status, error: null };
+    settleProduct(purchase.productId);
+    if (opened) deps.granted(course, result?.access ?? null);
+    if (mode !== 'restore' && result) say(claimSuccessMessage(result, opened));
+    return { outcome, error: null };
   }
 
-  /** Verify one transaction on the server and finish it after a 2xx. Safe to call twice. */
+  /** Verify one transaction on the server and finish it once settled (2xx or account_mismatch). Safe to call twice. */
   function process(purchase: IapPurchase, mode: ClaimMode): Promise<Result> {
     const course = courseForProductId(purchase.productId);
     // Not our product, or Ask to Buy still waiting (the approved purchase arrives again later).
     if (!course || purchase.state === 'pending') return Promise.resolve({ outcome: 'skipped', error: null });
     const previous = done.get(purchase.transactionId);
-    if (previous) return Promise.resolve({ outcome: previous, error: null });
+    if (previous) return Promise.resolve(previous);
     const running = inFlight.get(purchase.transactionId);
     if (running) return running.task;
+    // Already failed in this session: "Palauta ostokset", a live event or the next launch tries again.
+    if (mode === 'quiet' && failed.has(purchase.transactionId)) return Promise.resolve({ outcome: 'failed', error: null });
     const task = claimAndFinish(purchase, course, mode).finally(() => {
       inFlight.delete(purchase.transactionId);
       if (inFlight.size === 0) deps.verifying?.(false);
@@ -169,6 +228,9 @@ export function createPurchaseService(deps: PurchaseServiceDeps) {
      * the error shown. The caller keeps Buy busy until then.
      */
     async buy(sku: string, appAccountToken: string) {
+      // A payment for this product still waits for the server: never a second charge. The store
+      // shows Buy disabled with a pointer to "Palauta ostokset", which claims it again.
+      if (unsettled.has(sku)) return;
       buying++;
       requested.set(sku, now());
       try {
@@ -197,10 +259,17 @@ export function createPurchaseService(deps: PurchaseServiceDeps) {
         buying--;
       }
     },
-    /** Unfinished transactions (e.g. the app closed between payment and claim), quietly. */
+    /**
+     * Unfinished transactions (e.g. the app closed between payment and claim), quietly. Each is
+     * claimed at most once per session: a return to the app does not retry one that failed.
+     */
     async recoverPending() {
       let pending: IapPurchase[];
       try { pending = await native.pending(); } catch { return; }
+      // A payment StoreKit still holds: Buy stays off for its course until a claim answers 2xx.
+      for (const purchase of pending) {
+        if (courseForProductId(purchase.productId) && purchase.state !== 'pending' && !done.has(purchase.transactionId)) markUnsettled(purchase);
+      }
       for (const purchase of pending) await process(purchase, 'quiet');
     },
     /**

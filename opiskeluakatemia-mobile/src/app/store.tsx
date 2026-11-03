@@ -6,7 +6,7 @@ import { Bullet, Button, Card, LoadingState, Notice, PageHeader, Pill } from '..
 import { LegalLinks } from '../components/LegalLinks';
 import { useIap } from '../providers/IapProvider';
 import { COURSE_IDS, COURSES, type CourseId } from '../lib/courses';
-import { accessLine, offerForCourse, STORE_COPY, storeEnabled, trialDisclosure, TRIAL_MINUTES, type CourseOffer } from '../lib/store';
+import { accessLine, offerForCourse, STORE_COPY, storeEnabled, trialDisclosure, TRIAL_MINUTES, UNSETTLED_PURCHASE_NOTE, type CourseOffer } from '../lib/store';
 import { makeStyles, maxScale, space, useTheme } from '../theme';
 
 /** Kurssikauppa: iOS only. Android and web have no store, so the route sends them home. */
@@ -50,7 +50,7 @@ function Store() {
     {iap.access && COURSE_IDS.map(id => <CourseCard key={id} course={id} offer={offerForCourse(id, iap.access, iap.catalog[id], iap.now)}
       price={iap.prices[id]} pricesLoading={iap.pricesState === 'loading' || iap.pricesState === 'idle'} busyAny={busyAny || !storeReady}
       buying={iap.busy?.kind === 'buy' && iap.busy.course === id} startingTrial={iap.busy?.kind === 'trial' && iap.busy.course === id}
-      onBuy={() => iap.buy(id)} onTrial={() => iap.startTrial(id)} />)}
+      unsettled={iap.unsettled.includes(id)} onBuy={() => iap.buy(id)} onTrial={() => iap.startTrial(id)} />)}
 
     <Card tone="muted">
       <Text accessibilityRole="header" style={type.subheading}>Palauta ostokset</Text>
@@ -63,9 +63,10 @@ function Store() {
   </Screen>;
 }
 
-function CourseCard({ course, offer, price, pricesLoading, busyAny, buying, startingTrial, onBuy, onTrial }: {
+function CourseCard({ course, offer, price, pricesLoading, busyAny, buying, startingTrial, unsettled, onBuy, onTrial }: {
   course: CourseId; offer: CourseOffer; price: string | undefined; pricesLoading: boolean; busyAny: boolean; buying: boolean; startingTrial: boolean;
-  onBuy: () => void; onTrial: () => void;
+  /** An App Store payment for this course waits for the server: no second Buy, restore instead. */
+  unsettled: boolean; onBuy: () => void; onTrial: () => void;
 }) {
   const { type } = useTheme();
   const ui = useStyles();
@@ -87,7 +88,8 @@ function CourseCard({ course, offer, price, pricesLoading, busyAny, buying, star
     {offer.showBuy && <>
       <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat} accessibilityLabel={price ? `Hinta ${price}` : pricesLoading ? 'Hintaa haetaan' : 'Hinta ei saatavilla'}>{price ?? '—'}</Text>
       <Button title={buying ? 'Avataan App Store…' : price ? `Osta ${price}` : pricesLoading ? 'Haetaan hintaa…' : 'Hinta ei saatavilla'}
-        accessibilityLabel={price ? `Osta ${label}, ${price}` : undefined} loading={buying} disabled={!price || busyAny} onPress={onBuy} />
+        accessibilityLabel={price ? `Osta ${label}, ${price}` : undefined} loading={buying} disabled={!price || busyAny || unsettled} onPress={onBuy} />
+      {unsettled && <Text style={type.caption}>{UNSETTLED_PURCHASE_NOTE}</Text>}
     </>}
     {offer.showTrial && <>
       <Button title={startingTrial ? 'Aloitetaan…' : `Aloita ilmainen ${TRIAL_MINUTES} min kokeilu`} secondary loading={startingTrial} disabled={!price || busyAny} onPress={onTrial}

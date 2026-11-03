@@ -31,6 +31,8 @@ export const CLAIM_PATH = '/api/iap/apple/claim';
 export const CATALOG_PATH = '/api/iap/apple/catalog';
 export const TRIAL_PATH = '/api/courses/trial';
 export const ACCESS_ALL_PATH = '/api/courses/check-access?courseType=all';
+/** Attaches web guest checkouts (pending_activation) to the account by its verified email. */
+export const LINK_PURCHASES_PATH = '/api/courses/link-purchases';
 /** Must match the website's TRIAL_MINUTES (src/lib/course-trial.ts). */
 export const TRIAL_MINUTES = 60;
 
@@ -112,6 +114,26 @@ export function parseStoreAccess(value: unknown, receivedAt: number): StoreAcces
     result.trials[id] = trialState(trials[type], receivedAt);
   }
   return result;
+}
+
+/** An authenticated request to our server (apiRequest): resolves with the 2xx body, rejects otherwise. */
+export type StoreRequest = (path: string, options?: { method?: string; timeout?: number }) => Promise<unknown>;
+/** link-purchases runs before every store refresh; it may not hold the access check up for long. */
+export const LINK_TIMEOUT_MS = 8000;
+
+/**
+ * The store's server state: the catalog and, after POST link-purchases, check-access?courseType=all.
+ * A web guest checkout stays pending_activation until link-purchases attaches it to the account by
+ * the verified email, so it runs first: the store never offers Buy for a course already bought on
+ * the web. Its errors are ignored (check-access stays authoritative). Throws like the parsers.
+ */
+export async function fetchStoreState(request: StoreRequest, now: () => number = Date.now) {
+  const [accessBody, catalogBody] = await Promise.all([
+    request(LINK_PURCHASES_PATH, { method: 'POST', timeout: LINK_TIMEOUT_MS }).catch(() => undefined).then(() => request(ACCESS_ALL_PATH)),
+    request(CATALOG_PATH),
+  ]);
+  const receivedAt = now();
+  return { access: parseStoreAccess(accessBody, receivedAt), catalog: parseCatalog(catalogBody), receivedAt };
 }
 
 /**
@@ -272,24 +294,37 @@ export function parseClaimResponse(value: unknown, receivedAt: number = Date.now
   return { courseType, environment: typeof environment === 'string' ? environment : '', status, access: parsed };
 }
 
-/** The copy after a verified claim. */
-export function claimSuccessMessage(result: ClaimResult): StoreMessage {
+/**
+ * Whether a recorded claim opened `course`. `status` is only the purchase row's status column: a
+ * purchase can be recorded as active and still be past its access end (the season's access_until,
+ * or the Sandbox cap), so the account's paid access in the answer decides. Only without a readable
+ * access does the status decide (and a 2xx without a readable body counts as opened, as before).
+ */
+export function claimOpensCourse(result: ClaimResult | null, course: CourseId): boolean {
+  if (!result) return true;
+  return result.access ? result.access.paid[course] : result.status === 'active';
+}
+
+/** The copy after a verified claim; `opened` from claimOpensCourse. */
+export function claimSuccessMessage(result: ClaimResult, opened: boolean): StoreMessage {
   const course = COURSE_IDS.find(id => COURSES[id].courseType === result.courseType);
   const name = course ? COURSES[course].label : 'Kurssi';
+  if (opened) return { tone: 'success', course, text: `${name} on nyt käytössäsi. Kiitos ostosta!` };
   if (result.status === 'expired') {
     return { tone: 'info', course, text: `Ostos löytyi, mutta sen kurssikausi on jo päättynyt, joten se ei avaa kurssia. Hyvitystä voit pyytää Applelta (reportaproblem.apple.com). Kysyttävää: ${SUPPORT}.` };
   }
-  return { tone: 'success', course, text: `${name} on nyt käytössäsi. Kiitos ostosta!` };
+  // Recorded as active, but its access period is over (e.g. last season's purchase, restored now).
+  return { tone: 'info', course, text: `Ostos löytyi, mutta sen käyttöoikeus on jo päättynyt, joten se ei avaa kurssia. Kysyttävää: ${SUPPORT}.` };
 }
 
 /**
- * A failed claim (HTTP status + server code, or no status for a network failure) → copy and
- * whether the transaction may be finished. It never may: only a 2xx finishes a transaction, so
- * StoreKit keeps offering it and the app retries on the next launch or on "Palauta ostokset".
+ * A failed claim (HTTP status + server code, or no status for a network failure) → copy. Only a
+ * 409 account_mismatch is settled (see claimSettled); everything else stays unfinished, so StoreKit
+ * keeps offering it and the app retries on the next launch or on "Palauta ostokset".
  */
 export function claimErrorMessage(status: number | undefined, code: string | undefined): StoreMessage {
   if (code === 'account_mismatch' || status === 409) {
-    return { tone: 'error', text: `Tämä App Store -osto on liitetty toiseen Opiskeluakatemia-tiliin. Kirjaudu sillä tilillä, jolla kurssi ostettiin. Jos tarvitset apua, kirjoita: ${SUPPORT}.` };
+    return { tone: 'error', text: `Tämä App Store -osto on liitetty toiseen Opiskeluakatemia-tiliin. Kirjaudu sillä tilillä, jolla kurssi ostettiin, ja paina ”Palauta ostokset”. Jos tarvitset apua, kirjoita: ${SUPPORT}.` };
   }
   if (code === 'invalid_transaction' || status === 400) {
     return { tone: 'error', text: `Ostoa ei voitu vahvistaa. Kurssia ei avattu. Ota yhteyttä: ${SUPPORT}.` };
@@ -301,14 +336,31 @@ export function claimErrorMessage(status: number | undefined, code: string | und
   return { tone: 'error', text: `Ostoa ei voitu vahvistaa. Yritä ”Palauta ostokset” hetken kuluttua tai kirjoita: ${SUPPORT}.` };
 }
 
+/**
+ * Whether a failed claim is settled, so the transaction may be finished anyway. Only a 409
+ * account_mismatch is: the server will never record it for this account. A finished non-renewing
+ * transaction stays in Transaction.currentEntitlements, so the rightful account can still restore
+ * it (and the server records it from Apple's ONE_TIME_CHARGE notification too).
+ * Never a 400: invalid_transaction is the server's only 400 code and it covers a revoked
+ * transaction and a server misconfiguration (bundle id, app id, product catalog) alike, so
+ * finishing on it could lose a real purchase. Never a 401, 429, 5xx, timeout or network failure.
+ */
+export const claimSettled = (status: number | undefined, code: string | undefined) => status === 409 && code === 'account_mismatch';
+
+/** Under a disabled Buy while an App Store payment for the course waits for the server's confirmation. */
+export const UNSETTLED_PURCHASE_NOTE = 'Edellistä ostoa ei ole vielä vahvistettu. Paina alta ”Palauta ostokset”, niin yritämme uudelleen.';
+
 /** "Palauta ostokset" could not reach the App Store (the sync or the purchase query failed). */
 export const restoreFailedMessage: StoreMessage = { tone: 'error', text: 'Ostojen palautus ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.' };
 
-/** Restore summary from the claim results of every App Store purchase found. */
+/**
+ * Restore summary from the claim results of every App Store purchase found: 'active' = the claim
+ * opened its course, 'expired' = recorded, but its access period is over (see claimOpensCourse).
+ */
 export function restoreMessage(results: readonly ('active' | 'expired' | 'failed')[], firstError: StoreMessage | null): StoreMessage {
   if (results.includes('active')) return { tone: 'success', text: 'Ostot palautettu. Kurssi on käytössäsi.' };
   if (firstError) return firstError;
-  if (results.includes('expired')) return { tone: 'info', text: 'Löysimme oston, mutta sen kurssikausi on jo päättynyt.' };
+  if (results.includes('expired')) return { tone: 'info', text: 'Löysimme oston, mutta sen käyttöoikeus on jo päättynyt, joten se ei avaa kurssia.' };
   return { tone: 'info', text: 'Tällä Apple ID:llä ei löytynyt palautettavia kurssiostoja.' };
 }
 

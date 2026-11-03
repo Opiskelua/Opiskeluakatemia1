@@ -6,8 +6,7 @@ import { COURSE_IDS, COURSES, type CourseId } from '../lib/courses';
 import { iapNative } from '../lib/iap-native';
 import { createPurchaseService, type PurchaseService } from '../lib/iap-service';
 import {
-  ACCESS_ALL_PATH, CATALOG_PATH, CLAIM_PATH, markOwned, parseCatalog, parseStoreAccess, productIdFor, STORE_SKUS, storeEnabled, TRIAL_PATH,
-  trialDisclosure, trialErrorMessage, trialStartedMessage,
+  CLAIM_PATH, fetchStoreState, markOwned, productIdFor, STORE_SKUS, storeEnabled, TRIAL_PATH, trialDisclosure, trialErrorMessage, trialStartedMessage,
   type StoreAccess, type StoreCatalog, type StoreMessage,
 } from '../lib/store';
 
@@ -22,7 +21,7 @@ interface IapContextValue {
   prices: Partial<Record<CourseId, string>>;
   pricesState: LoadState;
   loadPrices: () => void;
-  /** check-access?courseType=all and the server catalog. */
+  /** link-purchases, then check-access?courseType=all; and the server catalog (fetchStoreState). */
   access: StoreAccess | null;
   catalog: StoreCatalog;
   storeState: LoadState;
@@ -31,6 +30,11 @@ interface IapContextValue {
   busy: IapBusy;
   /** A claim is being verified on the server. */
   verifying: boolean;
+  /**
+   * Courses with an App Store payment the server has not confirmed yet (a failed claim or an
+   * unfinished transaction in this session): Buy stays disabled and "Palauta ostokset" retries.
+   */
+  unsettled: readonly CourseId[];
   /** The one place purchase, restore and trial outcomes are shown. */
   message: StoreMessage | null;
   clearMessage: () => void;
@@ -47,7 +51,7 @@ interface IapContextValue {
 const noop = () => undefined;
 const disabled: IapContextValue = {
   enabled: false, prices: {}, pricesState: 'idle', loadPrices: noop, access: null, catalog: {}, storeState: 'idle', storeError: '',
-  refreshStore: async () => undefined, busy: null, verifying: false, message: null, clearMessage: noop, accessVersion: 0, now: 0,
+  refreshStore: async () => undefined, busy: null, verifying: false, unsettled: [], message: null, clearMessage: noop, accessVersion: 0, now: 0,
   buy: noop, restore: noop, startTrial: () => false,
 };
 const IapContext = createContext<IapContextValue>(disabled);
@@ -81,6 +85,7 @@ function IosStore({ userId, children }: { userId: string; children: ReactNode })
   const [storeError, setStoreError] = useState('');
   const [busy, setBusy] = useState<IapBusy>(null);
   const [verifying, setVerifying] = useState(false);
+  const [unsettled, setUnsettled] = useState<readonly CourseId[]>([]);
   const [message, setMessage] = useState<StoreMessage | null>(null);
   const [accessVersion, setAccessVersion] = useState(0);
   const [now, setNow] = useState(() => Date.now());
@@ -92,13 +97,13 @@ function IosStore({ userId, children }: { userId: string; children: ReactNode })
     const current = ++storeRequest.current;
     setStoreState('loading'); setStoreError('');
     try {
-      const [accessBody, catalogBody] = await Promise.all([apiRequest(ACCESS_ALL_PATH), apiRequest(CATALOG_PATH)]);
-      const receivedAt = Date.now();
+      // Links web guest checkouts first (errors ignored), so a course bought on the web is never offered.
+      const next = await fetchStoreState(apiRequest);
       if (current !== storeRequest.current || !mounted.current) return;
-      setAccess(parseStoreAccess(accessBody, receivedAt));
-      setCatalog(parseCatalog(catalogBody));
+      setAccess(next.access);
+      setCatalog(next.catalog);
       setStoreState('ready');
-      setNow(receivedAt);
+      setNow(next.receivedAt);
     } catch (error) {
       if (current !== storeRequest.current || !mounted.current) return;
       setStoreState('error');
@@ -154,6 +159,7 @@ function IosStore({ userId, children }: { userId: string; children: ReactNode })
       say: value => { if (!cancelled) setMessage(value); },
       granted: (course, access) => { if (!cancelled) granted({ course, access }); },
       verifying: active => { if (!cancelled) setVerifying(active); },
+      unsettled: courses => { if (!cancelled) setUnsettled(courses); },
     });
     service.current = purchases;
     const subscriptions: { remove: () => void }[] = [];
@@ -173,8 +179,9 @@ function IosStore({ userId, children }: { userId: string; children: ReactNode })
         if (!cancelled) setPricesState('error');
       }
     })();
-    // Back in the foreground (e.g. after the network came back): verify anything still unfinished.
-    // Claims in flight or already done in this session are not sent again (the service dedupes).
+    // Back in the foreground: verify anything newly unfinished. Claims in flight, done, or already
+    // failed in this session are not sent again (the service dedupes; a failed one waits for the
+    // next launch or "Palauta ostokset"), so returning to the app does not flash "Vahvistetaan ostoa…".
     const foreground = AppState.addEventListener('change', state => {
       if (state !== 'active' || cancelled) return;
       // A success note ("Kokeilu alkoi…", "…on nyt käytössäsi") is old news once the user has been away.
@@ -193,12 +200,13 @@ function IosStore({ userId, children }: { userId: string; children: ReactNode })
   const buy = useCallback((course: CourseId) => {
     const purchases = service.current;
     // Never a second charge for a course the account already owns (the UI hides Buy too): only
-    // with a fresh, successful access check that says the course is not paid.
-    if (!purchases || busy || verifying || !prices[course] || storeState !== 'ready' || !access || access.paid[course]) return;
+    // with a fresh, successful access check that says the course is not paid, and no App Store
+    // payment for it still waiting for the server.
+    if (!purchases || busy || verifying || !prices[course] || storeState !== 'ready' || !access || access.paid[course] || unsettled.includes(course)) return;
     setMessage(null);
     setBusy({ kind: 'buy', course });
     void purchases.buy(productIdFor(course), userId).finally(() => { if (mounted.current) setBusy(null); });
-  }, [busy, verifying, prices, storeState, access, userId]);
+  }, [busy, verifying, prices, storeState, access, unsettled, userId]);
 
   const restore = useCallback(() => {
     const purchases = service.current;
@@ -258,9 +266,9 @@ function IosStore({ userId, children }: { userId: string; children: ReactNode })
   }, [access, refreshStore]);
 
   const value = useMemo<IapContextValue>(() => ({
-    enabled: true, prices, pricesState, loadPrices, access, catalog, storeState, storeError, refreshStore, busy, verifying, message, clearMessage,
+    enabled: true, prices, pricesState, loadPrices, access, catalog, storeState, storeError, refreshStore, busy, verifying, unsettled, message, clearMessage,
     accessVersion, now, buy, restore, startTrial,
-  }), [prices, pricesState, loadPrices, access, catalog, storeState, storeError, refreshStore, busy, verifying, message, clearMessage, accessVersion, now, buy, restore, startTrial]);
+  }), [prices, pricesState, loadPrices, access, catalog, storeState, storeError, refreshStore, busy, verifying, unsettled, message, clearMessage, accessVersion, now, buy, restore, startTrial]);
   return <IapContext.Provider value={value}>{children}</IapContext.Provider>;
 }
 

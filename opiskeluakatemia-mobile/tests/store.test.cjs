@@ -39,6 +39,7 @@ test('product ids follow the contract and map back to courses', () => {
   assert.equal(store.CLAIM_PATH, '/api/iap/apple/claim');
   assert.equal(store.CATALOG_PATH, '/api/iap/apple/catalog');
   assert.equal(store.ACCESS_ALL_PATH, '/api/courses/check-access?courseType=all');
+  assert.equal(store.LINK_PURCHASES_PATH, '/api/courses/link-purchases');
   assert.equal(store.TRIAL_PATH, '/api/courses/trial');
 });
 
@@ -92,6 +93,47 @@ test('check-access?courseType=all: paid, trials (none, running, used) and malfor
   assert.deepEqual(store.parseStoreAccess({ ...body, trials: { abikurssi: null } }, NOW).trials, { en: { kind: 'none' }, sv: { kind: 'none' } });
   assert.throws(() => store.parseStoreAccess({ courses: body.courses }, NOW), /Palvelimen vastausta/, 'missing paid never shows Buy to an owner');
   assert.throws(() => store.parseStoreAccess({ courses: { abikurssi: 'true' }, paid: body.paid }, NOW));
+});
+
+test('the store links web guest checkouts before checking access; a failed link never blocks the check', async () => {
+  const LINK = store.LINK_PURCHASES_PATH; const ACCESS = store.ACCESS_ALL_PATH; const CATALOG = store.CATALOG_PATH;
+  const catalogBody = { products: [{ courseType: 'abikurssi', productId: EN, accessUntil: '2027-03-22', onSale: true }] };
+  // A guest checkout on the web: pending_activation until link-purchases attaches it.
+  let linked = false;
+  const calls = [];
+  let finishLink;
+  const request = (path, options = {}) => {
+    calls.push([path, options.method ?? 'GET', options.timeout]);
+    if (path === LINK) return new Promise(resolve => { finishLink = () => { linked = true; resolve({ linked: 1 }); }; });
+    if (path === ACCESS) return Promise.resolve({ courses: { abikurssi: linked, 'ruotsin-abikurssi': false }, paid: { abikurssi: linked, 'ruotsin-abikurssi': false }, trials: {} });
+    if (path === CATALOG) return Promise.resolve(catalogBody);
+    return Promise.reject(new Error(path));
+  };
+  const loading = store.fetchStoreState(request, () => NOW);
+  await new Promise(resolve => setTimeout(resolve, 1));
+  assert.deepEqual(calls, [[LINK, 'POST', store.LINK_TIMEOUT_MS], [CATALOG, 'GET', undefined]], 'check-access waits for link-purchases; the catalog does not');
+  assert.ok(store.LINK_TIMEOUT_MS <= 10000, 'a short timeout of its own');
+  finishLink();
+  const state = await loading;
+  assert.deepEqual(calls.map(call => call[0]), [LINK, CATALOG, ACCESS]);
+  assert.equal(state.receivedAt, NOW);
+  assert.equal(store.offerForCourse('en', state.access, state.catalog.en, NOW).state, 'owned', 'no Buy for a course bought on the web');
+
+  // link-purchases fails (5xx, network, timeout): check-access runs anyway.
+  for (const failure of [httpError(500), new Error('Palvelu ei vastannut ajoissa.')]) {
+    const seen = [];
+    const failing = (path) => {
+      seen.push(path);
+      if (path === LINK) return Promise.reject(failure);
+      return Promise.resolve(path === ACCESS ? ACCESS_BODY : catalogBody);
+    };
+    const result = await store.fetchStoreState(failing, () => NOW);
+    assert.deepEqual(seen, [LINK, CATALOG, ACCESS]);
+    assert.equal(result.access.paid.en, true);
+  }
+  // A failed or malformed access check is still an error: never a Buy on a guess.
+  await assert.rejects(store.fetchStoreState(path => path === ACCESS ? Promise.reject(httpError(500)) : Promise.resolve(catalogBody)));
+  await assert.rejects(store.fetchStoreState(path => Promise.resolve(path === ACCESS ? { courses: {} } : catalogBody)), /Palvelimen vastausta/);
 });
 
 test('CTA mapping: owned, trial running, trial available, buy, not on sale', () => {
@@ -168,10 +210,10 @@ test('purchase, claim and trial outcomes have Finnish copy; cancel is silent', (
   assert.equal(before.paid.en, false, 'markOwned does not mutate');
   assert.equal(store.parseClaimResponse({ ok: false }), null);
   assert.equal(store.parseClaimResponse({ ok: true, courseType: 'abikurssi', status: 'pending' }), null);
-  assert.match(store.claimSuccessMessage({ courseType: 'ruotsin-abikurssi', environment: 'Production', status: 'active' }).text, /Ruotsin abikurssi on nyt käytössäsi/);
-  assert.equal(store.claimSuccessMessage({ courseType: 'ruotsin-abikurssi', environment: 'Production', status: 'active' }).course, 'sv', 'shown only on its own course home');
+  assert.match(store.claimSuccessMessage({ courseType: 'ruotsin-abikurssi', environment: 'Production', status: 'active' }, true).text, /Ruotsin abikurssi on nyt käytössäsi/);
+  assert.equal(store.claimSuccessMessage({ courseType: 'ruotsin-abikurssi', environment: 'Production', status: 'active' }, true).course, 'sv', 'shown only on its own course home');
   assert.equal(store.trialStartedMessage('en').course, 'en');
-  assert.match(store.claimSuccessMessage({ courseType: 'abikurssi', environment: 'Production', status: 'expired' }).text, /kurssikausi on jo päättynyt/);
+  assert.match(store.claimSuccessMessage({ courseType: 'abikurssi', environment: 'Production', status: 'expired' }, false).text, /kurssikausi on jo päättynyt/);
 
   assert.match(store.trialErrorMessage(403, 'email_unconfirmed').text, /Vahvista ensin sähköpostiosoitteesi/);
   assert.match(store.trialErrorMessage(409, 'trial_used').text, /jo käyttänyt/);
@@ -226,14 +268,15 @@ function fakeNative({ pending = [], entitlements = [[]], buyError = null, buyRes
 const purchase = (transactionId, extra = {}) => ({ transactionId, productId: EN, token: JWS, state: 'purchased', transactionDate: 0, raw: {}, ...extra });
 const httpError = (status, code) => Object.assign(new Error('failed'), { status, code });
 function service(native, claim) {
-  const said = []; const grants = []; const claims = []; const activity = [];
+  const said = []; const grants = []; const claims = []; const activity = []; const unsettled = [];
   let clock = 0;
   const s = createPurchaseService({
     native, say: message => said.push(message), verifying: value => activity.push(value), now: () => clock, eventWaitMs: 20,
     granted: (course, access) => { grants.push({ course, access }); activity.push(`granted:${course}`); },
+    unsettled: courses => { unsettled.push(courses); activity.push(`unsettled:${courses.join(',')}`); },
     claim: async token => { claims.push(token); return claim(token, claims.length); },
   });
-  return { s, said, claims, activity, grants, granted: () => grants.length, tick: ms => { clock += ms; } };
+  return { s, said, claims, activity, grants, unsettled, granted: () => grants.length, tick: ms => { clock += ms; } };
 }
 const OK = { ok: true, courseType: 'abikurssi', environment: 'Production', status: 'active', access: {} };
 
@@ -268,26 +311,139 @@ test("the claim answer's access reaches the store before verifying ends", async 
   assert.equal(t.grants[0].access.paid.en, true, 'the owned course hides Buy at once, even if the later refresh fails');
 });
 
-test('409, 400, 5xx and network failures never finish the transaction', async () => {
+test("a recorded claim opens the course only when the answer's access says paid, not by the row status", async () => {
+  // Recorded as 'active', but access is closed (the Sandbox 14-day cap or the season's access_until passed).
+  const closed = { courses: { abikurssi: false, 'ruotsin-abikurssi': false }, paid: { abikurssi: false, 'ruotsin-abikurssi': false }, trials: {} };
+  const native = fakeNative();
+  const t = service(native, async () => ({ ...OK, access: closed }));
+  const result = await t.s.process(purchase('c1'), 'live');
+  assert.equal(result.outcome, 'expired');
+  assert.deepEqual(native.calls.finished, ['c1'], 'a settled 2xx is finished even when it opens nothing');
+  assert.equal(t.granted(), 0, 'the course is not marked owned');
+  assert.equal(t.said.length, 1);
+  assert.equal(t.said[0].tone, 'info');
+  assert.match(t.said[0].text, /Ostos löytyi, mutta sen käyttöoikeus on jo päättynyt/);
+  assert.doesNotMatch(t.said[0].text, /käytössäsi/);
+  assert.equal(t.said[0].course, 'en');
+
+  // "Palauta ostokset" with such a purchase: no "Kurssi on käytössäsi".
+  const restoring = fakeNative({ entitlements: [[purchase('c2')]] });
+  const u = service(restoring, async () => ({ ...OK, access: closed }));
+  await u.s.restore();
+  assert.deepEqual(restoring.calls.finished, ['c2']);
+  assert.equal(u.granted(), 0);
+  assert.equal(u.said.length, 1);
+  assert.match(u.said[0].text, /käyttöoikeus on jo päättynyt/);
+  assert.doesNotMatch(u.said[0].text, /Ostot palautettu|käytössäsi/);
+
+  // Paid access decides; the status only when the answer has no readable access.
+  const opens = (status, access, course = 'en') => store.claimOpensCourse(store.parseClaimResponse({ ...OK, status, access }, NOW), course);
+  assert.equal(opens('active', closed), false);
+  assert.equal(opens('active', ACCESS_BODY), true);
+  assert.equal(opens('active', ACCESS_BODY, 'sv'), false, 'per course');
+  assert.equal(opens('expired', ACCESS_BODY), true, 'owned another way (web, bundle): the course is open');
+  assert.equal(opens('active', null), true);
+  assert.equal(opens('expired', null), false);
+  assert.equal(opens('active', { courses: {} }), true, 'unreadable access falls back to the status');
+  assert.equal(store.claimOpensCourse(null, 'en'), true, 'a 2xx without a readable body counts as recorded, as before');
+  const opened = store.claimSuccessMessage({ courseType: 'abikurssi', environment: 'Sandbox', status: 'expired' }, true);
+  assert.deepEqual([opened.tone, /on nyt käytössäsi/.test(opened.text)], ['success', true]);
+  assert.match(store.restoreMessage(['expired'], null).text, /käyttöoikeus on jo päättynyt/);
+  assert.match(store.restoreMessage(['expired', 'active'], null).text, /Ostot palautettu/);
+});
+
+test('400, 401, 409 without account_mismatch, 429, 5xx, timeouts and network failures never finish the transaction', async () => {
   for (const [error, pattern] of [
-    [httpError(409, 'account_mismatch'), /toiseen Opiskeluakatemia-tiliin/],
+    // invalid_transaction is the server's only 400 code: a revoked transaction and a server
+    // misconfiguration (bundle id, app id, product catalog) look the same, so a 400 is never settled.
     [httpError(400, 'invalid_transaction'), /ei voitu vahvistaa/],
+    [httpError(400), /ei voitu vahvistaa/],
+    [httpError(401), /Kirjaudu uudelleen/],
+    [httpError(409), /toiseen Opiskeluakatemia-tiliin/],
+    [httpError(429, 'rate_limited'), /Maksu on tallessa/],
     [httpError(503, 'unavailable'), /Maksu on tallessa/],
     [httpError(500), /Maksu on tallessa/],
+    [new Error('Palvelu ei vastannut ajoissa. Tarkista verkkoyhteys ja yritä uudelleen.'), /Maksu on tallessa/],
     [new Error('Yhteys palvelimeen ei onnistunut.'), /Maksu on tallessa/],
   ]) {
     const native = fakeNative();
     const t = service(native, async () => { throw error; });
     const result = await t.s.process(purchase('t1'), 'live');
     assert.equal(result.outcome, 'failed');
-    assert.deepEqual(native.calls.finished, [], String(error.status));
+    assert.deepEqual(native.calls.finished, [], `${error.status} ${error.code}`);
     assert.equal(t.granted(), 0);
     assert.match(t.said[0].text, pattern);
-    // The next attempt (e.g. the next launch) claims again.
+    assert.deepEqual(t.unsettled.at(-1), ['en'], 'Buy stays off for a payment the server has not confirmed');
+    // A quiet retry in the same session (a return to the app) does not claim it again...
     await t.s.process(purchase('t1'), 'quiet');
+    assert.equal(t.claims.length, 1);
+    // ...but "Palauta ostokset" does, and the next launch (a new service) does.
+    await t.s.process(purchase('t1'), 'restore');
     assert.equal(t.claims.length, 2);
-    assert.equal(t.said.length, 1, 'the launch scan fails quietly');
+    assert.equal(t.said.length, 1, 'retries fail quietly');
+    const next = service(native, async () => { throw error; });
+    await next.s.process(purchase('t1'), 'quiet');
+    assert.equal(next.claims.length, 1);
+    assert.deepEqual(native.calls.finished, []);
   }
+});
+
+test("a 409 account_mismatch (another account's purchase) is settled: finished once, never claimed again this session", async () => {
+  for (const mode of ['live', 'quiet', 'restore']) {
+    const native = fakeNative();
+    const t = service(native, async () => { throw httpError(409, 'account_mismatch'); });
+    const result = await t.s.process(purchase('m1'), mode);
+    assert.equal(result.outcome, 'failed');
+    assert.match(result.error.text, /toiseen Opiskeluakatemia-tiliin.*Palauta ostokset/);
+    assert.deepEqual(native.calls.finished, ['m1'], `${mode}: finished, so StoreKit stops offering it on every launch`);
+    assert.equal(t.granted(), 0);
+    assert.deepEqual(t.unsettled.at(-1) ?? [], [], `${mode}: Buy is not held back for another account's purchase`);
+    await t.s.process(purchase('m1'), 'quiet');
+    assert.equal(t.claims.length, 1);
+    assert.deepEqual(native.calls.finished, ['m1']);
+  }
+  // recoverPending on every return to the app: no claim, no "Vahvistetaan ostoa…" flash.
+  const native = fakeNative({ pending: [purchase('m2')] });
+  const t = service(native, async () => { throw httpError(409, 'account_mismatch'); });
+  await t.s.recoverPending();
+  const first = ['unsettled:en', true, 'unsettled:', false];
+  assert.deepEqual(t.activity, first, 'Buy is off while the unfinished transaction is claimed, and back once it is settled');
+  native.calls.finished.length = 0; // StoreKit would drop it now; this fake keeps offering it.
+  await t.s.recoverPending();
+  await t.s.recoverPending();
+  assert.equal(t.claims.length, 1);
+  assert.deepEqual(t.activity, first, 'later scans neither claim nor show verifying');
+  assert.deepEqual(t.unsettled.at(-1), []);
+  // A Buy on this account still works (its own, new purchase).
+  await t.s.buy(EN, 'user-uuid');
+  assert.deepEqual(native.calls.bought, [[EN, 'user-uuid']]);
+  assert.equal(store.claimSettled(409, 'account_mismatch'), true);
+  for (const [status, code] of [[409, undefined], [400, 'invalid_transaction'], [400, undefined], [401, undefined], [429, 'rate_limited'], [503, 'unavailable'], [500, undefined], [undefined, undefined]]) {
+    assert.equal(store.claimSettled(status, code), false, `${status} ${code}`);
+  }
+});
+
+test('an unfinished transaction whose claim fails is claimed quietly once per session, not on every return to the app', async () => {
+  const native = fakeNative({ pending: [purchase('u1')], entitlements: [[purchase('u1')]] });
+  let fail = true;
+  const t = service(native, async () => { if (fail) throw httpError(503, 'unavailable'); return OK; });
+  // Launch: StoreKit's listener replay and the launch scan see the same transaction; one claim.
+  await t.s.onPurchase(purchase('u1'));
+  await t.s.recoverPending();
+  assert.equal(t.claims.length, 1);
+  const afterLaunch = [...t.activity];
+  for (let i = 0; i < 3; i++) await t.s.recoverPending(); // AppState 'active'
+  assert.equal(t.claims.length, 1);
+  assert.deepEqual(t.activity, afterLaunch, 'no "Vahvistetaan ostoa…" flash, Buy and restore stay usable');
+  assert.deepEqual(native.calls.finished, []);
+  assert.deepEqual(t.said, [], 'quiet');
+  // "Palauta ostokset" still claims it; the 2xx finishes it and releases Buy.
+  fail = false;
+  await t.s.restore();
+  assert.equal(t.claims.length, 2);
+  assert.deepEqual(native.calls.finished, ['u1']);
+  assert.deepEqual(t.unsettled.at(-1), []);
+  assert.match(t.said.at(-1).text, /Ostot palautettu/);
 });
 
 test('non-JWS tokens, other products and Ask to Buy pending transactions are not claimed', async () => {
@@ -347,12 +503,16 @@ test('restore claims current entitlements; AppStore.sync only when nothing was f
   await t.s.restore();
   assert.match(t.said.at(-1).text, /ei löytynyt palautettavia/);
 
-  native = fakeNative({ entitlements: [[purchase('r3')]] });
+  native = fakeNative({ entitlements: [[purchase('r3'), purchase('r4', { productId: SV })]] });
   t = service(native, async () => { throw httpError(409, 'account_mismatch'); });
   await t.s.restore();
-  assert.deepEqual(native.calls.finished, []);
+  assert.deepEqual(native.calls.finished, ['r3', 'r4'], 'settled: another account\'s purchases are finished');
   assert.match(t.said.at(-1).text, /toiseen Opiskeluakatemia-tiliin/);
   assert.equal(t.said.length, 1, 'one summary, not one message per transaction');
+  // A second tap in the same session answers the same without asking the server again.
+  await t.s.restore();
+  assert.equal(t.claims.length, 2);
+  assert.match(t.said.at(-1).text, /toiseen Opiskeluakatemia-tiliin/);
 });
 
 test('Buy stays busy until the returned transaction is verified and the course is marked owned', async () => {
@@ -372,6 +532,49 @@ test('Buy stays busy until the returned transaction is verified and the course i
   // The listener's copy of the same transaction is not claimed again.
   await t.s.onPurchase(purchase('b1'));
   assert.equal(t.claims.length, 1);
+});
+
+test('after a failed claim Buy stays off for that course until a claim for it answers 2xx', async () => {
+  for (const error of [httpError(503, 'unavailable'), httpError(500), httpError(429, 'rate_limited'), new Error('Palvelu ei vastannut ajoissa.'), new Error('Yhteys palvelimeen ei onnistunut.')]) {
+    const native = fakeNative({ buyResult: [purchase('f1')], entitlements: [[purchase('f1')]] });
+    let fail = true;
+    const t = service(native, async () => { if (fail) throw error; return { ...OK, access: ACCESS_BODY }; });
+    await t.s.buy(EN, 'user-uuid');
+    assert.match(t.said.at(-1).text, /Maksu on tallessa/);
+    assert.deepEqual(t.activity, [true, 'unsettled:en', false], 'marked before verifying ends: no moment with Buy enabled');
+    // Another tap never opens the App Store sheet again (the store disables the button too).
+    await t.s.buy(EN, 'user-uuid');
+    assert.equal(native.calls.bought.length, 1);
+    // The other course is not held back.
+    await t.s.buy(SV, 'user-uuid');
+    assert.equal(native.calls.bought.length, 2);
+    // "Palauta ostokset" claims it again; the 2xx releases the mark.
+    fail = false;
+    await t.s.restore();
+    assert.deepEqual(native.calls.finished, ['f1']);
+    assert.deepEqual(t.unsettled.at(-1), []);
+    assert.equal(t.granted(), 1);
+  }
+});
+
+test('an unfinished transaction found at recovery holds Buy back while it is claimed and after a failure', async () => {
+  const native = fakeNative({ pending: [purchase('p9', { productId: SV }), purchase('ask', { state: 'pending' })] });
+  let reject;
+  const t = service(native, () => new Promise((_, no) => { reject = no; }));
+  const recovering = t.s.recoverPending();
+  await new Promise(resolve => setTimeout(resolve, 1));
+  assert.deepEqual(t.unsettled.at(-1), ['sv'], 'an Ask to Buy still waiting is not a payment');
+  await t.s.buy(SV, 'user-uuid');
+  assert.deepEqual(native.calls.bought, []);
+  reject(httpError(503, 'unavailable'));
+  await recovering;
+  assert.deepEqual(t.unsettled.at(-1), ['sv'], 'still unconfirmed after the failed claim');
+  // A new session (the next launch) claims it again; a 2xx that opens nothing still releases Buy.
+  const closed = { courses: { abikurssi: false, 'ruotsin-abikurssi': false }, paid: { abikurssi: false, 'ruotsin-abikurssi': false }, trials: {} };
+  const next = service(native, async () => ({ ...OK, courseType: 'ruotsin-abikurssi', access: closed }));
+  await next.s.recoverPending();
+  assert.deepEqual(next.activity, ['unsettled:sv', true, 'unsettled:', false]);
+  assert.equal(next.granted(), 0);
 });
 
 test('Buy with no transaction returned waits for the listener (or a short timeout)', async () => {
@@ -406,13 +609,13 @@ test('store errors outside a purchase are not shown as a failed purchase; Ask to
 });
 
 test("launch replays of old transactions verify quietly; only this session's Buy shows errors", async () => {
-  // A replay through the listener with no Buy tapped: a 409 stays unfinished and silent.
+  // A replay through the listener with no Buy tapped: a 409 account_mismatch is settled silently.
   const native = fakeNative();
   const t = service(native, async () => { throw httpError(409, 'account_mismatch'); });
   const replay = await t.s.onPurchase(purchase('old1', { transactionDate: 1000 }));
   assert.equal(replay.outcome, 'failed');
   assert.deepEqual(t.said, []);
-  assert.deepEqual(native.calls.finished, []);
+  assert.deepEqual(native.calls.finished, ['old1']);
 
   // A transaction older than the Buy tap (beyond the clock allowance) is a replay too.
   t.tick(2 * 3600_000);
@@ -461,10 +664,18 @@ test('restore: a failed AppStore.sync with nothing found is an error, not "no pu
 
 test('the provider never enables Buy on a stale or failed access check', () => {
   const provider = fs.readFileSync(path.join(root, 'src/providers/IapProvider.tsx'), 'utf8');
-  assert.match(provider, /storeState !== 'ready' \|\| !access \|\| access\.paid\[course\]/);
+  assert.match(provider, /storeState !== 'ready' \|\| !access \|\| access\.paid\[course\] \|\| unsettled\.includes\(course\)\) return/,
+    'no Buy while an App Store payment for the course waits for the server');
+  assert.match(provider, /unsettled: courses => \{ if \(!cancelled\) setUnsettled\(courses\); \}/);
   assert.match(provider, /purchases\.onPurchase\(purchase\)/, 'the listener goes through the replay-aware path');
+  assert.match(provider, /await fetchStoreState\(apiRequest\)/, 'the store refresh links web purchases first');
+  assert.doesNotMatch(provider, /ACCESS_ALL_PATH/, 'no access check that skips link-purchases');
   const screen = fs.readFileSync(path.join(root, 'src/app/store.tsx'), 'utf8');
   assert.match(screen, /busyAny=\{busyAny \|\| !storeReady\}/);
+  assert.match(screen, /unsettled=\{iap\.unsettled\.includes\(id\)\}/);
+  assert.match(screen, /disabled=\{!price \|\| busyAny \|\| unsettled\} onPress=\{onBuy\}/);
+  assert.match(screen, /\{unsettled && <Text style=\{type\.caption\}>\{UNSETTLED_PURCHASE_NOTE\}<\/Text>\}/);
+  assert.match(store.UNSETTLED_PURCHASE_NOTE, /”Palauta ostokset”/);
 });
 
 test('expo-iap is reachable only from the iOS bridge and excluded from Android autolinking', () => {
