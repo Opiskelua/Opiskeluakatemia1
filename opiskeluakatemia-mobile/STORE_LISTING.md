@@ -44,7 +44,7 @@ englanti,ruotsi,yo-koe,ylioppilaskoe,lukio,abi,kielioppi,sanasto,muistikortit,es
 
 Keywords are comma-separated with no spaces and do not repeat words from the name or subtitle (Apple already indexes those).
 
-### App Store: kuvaus (description) (3410/4000 merkkiä)
+### App Store: kuvaus (description) (3373/4000 merkkiä)
 
 ```text
 Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun mobiilisovellus Englannin abikurssille ja Ruotsin abikurssille. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
@@ -62,7 +62,7 @@ OPPIMISPOLKU
 • Jokaisen tehtävän jälkeen näet, mikä meni oikein ja mikä väärin. Säännön ja esimerkit saa näkyviin kesken oppitunnin.
 • Osan lopussa on välietappi. Kun läpäiset sen, seuraava osa avautuu.
 • Keskeneräinen oppitunti tallentuu luonnoksena, ja voit jatkaa sitä myöhemmin tällä tai toisella laitteella.
-• Kerää XP:tä, seuraa päivän XP-tavoitetta ja harjoittelupäivien putkea.
+• Seuraa harjoittelupäivien putkea.
 
 KERTAUS
 • Oppitunneilla väärin menneet kohdat kootaan Kertaus-listalle.
@@ -115,7 +115,7 @@ Englannin ja ruotsin abikurssi puhelimessa: oppimispolku, kertaus ja teoria.
 
 The full description is the 1.1.0 text below. It differs from the App Store description: no trial, purchase or sign-up wording on Android.
 
-### Google Play: koko kuvaus (full description) (3310/4000 merkkiä)
+### Google Play: koko kuvaus (full description) (3273/4000 merkkiä)
 
 ```text
 Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun mobiilisovellus Englannin abikurssille ja Ruotsin abikurssille. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
@@ -133,7 +133,7 @@ OPPIMISPOLKU
 • Jokaisen tehtävän jälkeen näet, mikä meni oikein ja mikä väärin. Säännön ja esimerkit saa näkyviin kesken oppitunnin.
 • Osan lopussa on välietappi. Kun läpäiset sen, seuraava osa avautuu.
 • Keskeneräinen oppitunti tallentuu luonnoksena, ja voit jatkaa sitä myöhemmin tällä tai toisella laitteella.
-• Kerää XP:tä, seuraa päivän XP-tavoitetta ja harjoittelupäivien putkea.
+• Seuraa harjoittelupäivien putkea.
 
 KERTAUS
 • Oppitunneilla väärin menneet kohdat kootaan Kertaus-listalle.
@@ -176,7 +176,7 @@ Capture on a release (preview) build signed in with the demo account (it should 
 
 | # | Screen (route) | What to show | Caption |
 | --- | --- | --- | --- |
-| 1 | Polku (`/path`) | Path map with completed, open and locked lessons, the XP goal and streak card | Etene oppitunti kerrallaan omalla polullasi. |
+| 1 | Polku (`/path`) | Path map with completed, open and locked lessons and the streak card | Etene oppitunti kerrallaan omalla polullasi. |
 | 2 | Oppitunti (`/path-lesson`) | A sentence-ordering or gap-fill item, mid-lesson | Kokoa lauseita ja täydennä puuttuvat kohdat. |
 | 3 | Kertaus (`/path-review`) | Review list with a few items from earlier mistakes | Kertaa omat virheesi, kunnes ne ovat hallussa. |
 | 4 | Harjoitukset (`/exercises`) or a listening exercise (`/exercise`) | Exercise types and the difficulty chips, or the audio player with questions | Kielioppia, luetun ja kuullun ymmärtämistä. |
