@@ -13,7 +13,7 @@ import { dayCount, nextStepLabel, pathSteps, pathStepsLabel, percent, streakHint
 
 const nativeDriver = Platform.OS !== 'web';
 
-/** Abi's first-time intro (moments.onboarding). "Ohita" hides it for good on this device, for this course. */
+/** Abi's first-time intro (moments.onboarding). "Aloitetaan" and "Ohita" both hide it for good on this device, for this course (as on the website). */
 export function MascotIntro({ course, onStart }: { course: CourseId; onStart: () => void }) {
   const { type } = useTheme();
   const styles = useStyles();
@@ -24,7 +24,7 @@ export function MascotIntro({ course, onStart }: { course: CourseId; onStart: ()
       <Text accessibilityRole="header" style={[type.heading, styles.flex]}>{intro.title}</Text>
     </View>
     {intro.lines.map(line => <Text key={line} style={type.body}>{line}</Text>)}
-    <Button title={intro.cta ?? ''} onPress={onStart} />
+    <Button title={intro.cta ?? ''} onPress={() => { dismissIntro(course); onStart(); }} />
     <Button title={intro.dismiss ?? ''} variant="ghost" onPress={() => dismissIntro(course)} accessibilityHint="Piilottaa esittelyn" />
   </Card>;
 }
