@@ -85,7 +85,7 @@ export default function Flashcards() {
     <PageHeader kicker="Sanasto" title="Muista enemmän." intro="Pakat ja kertausvälit tallentuvat tilillesi ja kulkevat mukana verkkokurssille." />
     {!!(error || saveError) && <Notice tone="error" message={error || saveError} actionTitle="Päivitä pakat" actionDisabled={loading} onAction={() => { setSaveError(''); void refresh(); }} />}
     {loading && !data && <LoadingState label="Haetaan pakkoja…" />}
-    {data && <SectionTitle title="Omat pakat" detail={data.decks.length ? `${data.decks.length} pakkaa` : undefined} />}
+    {data && <SectionTitle title="Omat pakat" detail={data.decks.length ? `${data.decks.length} ${data.decks.length === 1 ? 'pakka' : 'pakkaa'}` : undefined} />}
     {data && !data.decks.length && <EmptyState title="Ei vielä pakkoja" message="Lisää kurssin sanasto alta tai luo oma pakka." />}
     {data?.decks.map(d => <NavCard key={d.id} title={d.title} description="Kertaa erääntyneet kortit" accessibilityHint="Avaa pakan kertauksen" onPress={() => setDeck(d)} />)}
     <Card>

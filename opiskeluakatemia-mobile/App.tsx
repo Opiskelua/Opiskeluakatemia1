@@ -239,7 +239,7 @@ function CourseHome({ session }: { session: Session }) {
     </Pressable>
     {features.progress && <NavCard title="Arvosana-arvio ja taitoprofiili" description="Vahvuudet ja seuraavaksi harjoiteltavat taidot" disabled={!active} onPress={go('/progress')} />}
 
-    <SectionTitle title="Viimeisimmät" detail={recent ? `${rows.length} suoritusta` : undefined} action={{ label: 'Kaikki', accessibilityLabel: 'Avaa koko harjoitushistoria', onPress: go('/history') }} />
+    <SectionTitle title="Viimeisimmät" detail={recent ? `${rows.length} ${rows.length === 1 ? 'suoritus' : 'suoritusta'}` : undefined} action={{ label: 'Kaikki', accessibilityLabel: 'Avaa koko harjoitushistoria', onPress: go('/history') }} />
     {!!historyError && <Notice tone="error" message={historyError} actionTitle="Päivitä suoritukset" onAction={() => void refreshHistory()} />}
     {!recent && !historyError && <LoadingState label="Haetaan suorituksia…" />}
     {recent && !latest.length && <Card tone="muted"><Text style={type.body}>Ei vielä suorituksia. Palauta ensimmäinen harjoitus, niin tulos näkyy täällä ja verkkopalvelussa.</Text></Card>}

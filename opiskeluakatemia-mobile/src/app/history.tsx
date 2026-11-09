@@ -33,7 +33,7 @@ export default function History() {
     {!loaded && loading && <LoadingState label="Haetaan suorituksia…" />}
     {loaded && <Card>
       <Text style={type.overline}>Yhteenveto</Text>
-      <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat} accessibilityLabel={`${attempts.length} suoritusta`}>{attempts.length}</Text>
+      <Text style={type.stat} maxFontSizeMultiplier={maxScale.stat} accessibilityLabel={`${attempts.length} ${attempts.length === 1 ? 'suoritus' : 'suoritusta'}`}>{attempts.length}</Text>
       <Text style={type.body}>{attempts.length ? `${Math.round(average)} % keskiarvo` : 'Ei vielä suorituksia'}</Text>
       {attempts.length > 0 && <ProgressBar value={average} label="Keskiarvo" />}
       {!!updated && <Text style={type.caption}>Päivitetty klo {updated} · vedä alas päivittääksesi</Text>}

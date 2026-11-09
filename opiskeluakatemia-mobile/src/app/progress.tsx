@@ -26,7 +26,7 @@ export default function Progress() {
       {Object.entries(grade.data.breakdown).map(([key, item]) => <Card key={key}>
         <View style={{ gap: space.xxs }}>
           <Text accessibilityRole="header" style={type.subheading}>{item.label}</Text>
-          <Text style={type.caption}>{item.exercisesCompleted ? `${Math.round(item.rawScore)} % · ${item.exercisesCompleted} suoritusta` : 'Ei vielä suorituksia'}</Text>
+          <Text style={type.caption}>{item.exercisesCompleted ? `${Math.round(item.rawScore)} % · ${item.exercisesCompleted} ${item.exercisesCompleted === 1 ? 'suoritus' : 'suoritusta'}` : 'Ei vielä suorituksia'}</Text>
         </View>
         <ProgressBar tone="accent" value={item.rawScore} label={`${item.label}, osaaminen`} />
       </Card>)}
