@@ -85,7 +85,7 @@ test('card text matches the web copy', () => {
   assert.equal(tg.raiseRowLabel(undefined, 'gone-1', undefined), 'gone-1 · paras 0 %');
 
   assert.deepEqual(tg.TARGET_GRADE_OPTIONS.map(g => `${g.grade} ${g.label} ${g.points}`), ['C Cum laude 218', 'M Magna 241', 'E Eximia 259', 'L Laudatur 278']);
-  assert.equal(tg.TARGET_COPY.coverage, 'Polku kattaa nyt rakenteet ja sanaston, noin 11 % kokeen pisteistä. Arvio perustuu myös luetun ja kuullun ymmärtämisen ja kirjoittamisen harjoituksiin.');
+  assert.equal(tg.TARGET_COPY.coverage, 'Pistearvio perustuu tekemiisi lukemisen, kuuntelun, kirjoittamisen ja rakenteiden tehtäviin. Se on suuntaa antava.');
 });
 
 test('save errors use target wording', () => {

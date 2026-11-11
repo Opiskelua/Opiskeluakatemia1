@@ -52,7 +52,7 @@ export const TARGET_COPY = {
   eyebrow: 'Tavoite',
   paceLabel: 'Tahti',
   estimateLabel: 'Pistearvio',
-  coverage: 'Polku kattaa nyt rakenteet ja sanaston, noin 11 % kokeen pisteistä. Arvio perustuu myös luetun ja kuullun ymmärtämisen ja kirjoittamisen harjoituksiin.',
+  coverage: 'Pistearvio perustuu tekemiisi lukemisen, kuuntelun, kirjoittamisen ja rakenteiden tehtäviin. Se on suuntaa antava.',
   raiseTitle: 'Nosta tavoitetasolle',
 } as const;
 
@@ -77,7 +77,7 @@ export const TARGET_COURSE_COPY: Readonly<Record<CourseId, TargetCourseCopy>> = 
   sv: {
     options: SV_TARGET_GRADE_OPTIONS,
     sourceNote: 'Pisteet: YTL:n korkein pisteraja kevät 2023 – kevät 2026, ruotsi, keskipitkä oppimäärä.',
-    coverage: 'Polku kattaa rakenteet ja sanaston, noin 10–12 % kokeen pisteistä, sekä luetun ja kuullun ymmärtämisen ja kirjoittamisen strategiat.',
+    coverage: 'Polku kattaa rakenteet ja sanaston sekä luetun ja kuullun ymmärtämisen ja kirjoittamisen strategiat.',
     noEstimate: targetPoints => `Ruotsin pistearvio ei ole vielä käytössä. Tavoite ${targetPoints} / 299 p.`,
   },
 };
