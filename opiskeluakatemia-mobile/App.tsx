@@ -20,7 +20,7 @@ import type { PathStateV2 } from './src/lib/path-v2-types';
 import { accessFromChecks, CHECKING_ACCESS, COURSE_IDS, COURSES, ownedCourses, type CourseAccess, type CourseId } from './src/lib/courses';
 import { useCourse } from './src/providers/CourseProvider';
 import { useIap } from './src/providers/IapProvider';
-import { offerForCourse, TRIAL_MINUTES } from './src/lib/store';
+import { offerForCourse, TRIAL_DAYS, trialLeftLabel } from './src/lib/store';
 import { EMAIL_CONFIRMED_URL, MIN_PASSWORD_LENGTH, resendErrorMessage, signInErrorMessage, signUpEnabled, signUpErrorMessage, signUpOutcome, signUpProblem } from './src/lib/signup';
 
 const categoryLabel = { grammar: 'Kielioppi', reading: 'Luetunymmärtäminen', listening: 'Kuullunymmärtäminen' } as const;
@@ -77,10 +77,10 @@ function StoreCallToAction({ course, offerState, trialPriceKnown, busy, onTrial,
   return <Card>
     <Text accessibilityRole="header" style={type.subheading}>{label} ei ole vielä käytössäsi</Text>
     <Text style={type.body}>{trial
-      ? `Kokeile kurssia ilmaiseksi ${TRIAL_MINUTES} minuuttia tai osta se kurssikaupasta.`
+      ? `Kokeile kurssia ilmaiseksi ${TRIAL_DAYS} päivää tai osta se kurssikaupasta.`
       : onSale ? 'Voit ostaa kurssin kurssikaupasta.' : offerState === 'not-on-sale' ? 'Kurssi ei ole juuri nyt myynnissä.' : 'Kurssikaupassa voit kokeilla tai ostaa kurssin.'}
       {' '}Jos kurssioikeutesi on toisella sähköpostiosoitteella, kirjaudu sillä.</Text>
-    {trial && <Button title={`Aloita ilmainen ${TRIAL_MINUTES} min kokeilu`} disabled={busy} onPress={onTrial}
+    {trial && <Button title={`Aloita ilmainen ${TRIAL_DAYS} päivän kokeilu`} disabled={busy} onPress={onTrial}
       accessibilityHint={trialPriceKnown ? 'Näyttää kokeilun ehdot ennen aloittamista.' : 'Avaa kurssikaupan, jossa kokeilun ehdot näkyvät.'} />}
     <Button title="Avaa kurssikauppa" secondary={trial} onPress={onStore} />
     <Button title="Tarkista uudelleen" variant="ghost" onPress={onRetry} />
@@ -174,7 +174,7 @@ function CourseHome({ session }: { session: Session }) {
   const offer = iap.enabled && iap.access ? offerForCourse(course, iap.access, iap.catalog[course], iap.now) : null;
   const trialRunning = active && offer?.state === 'trial-running';
   // One text for the eye and for VoiceOver (the row's label replaces its children).
-  const statusText = trialRunning ? `Ilmainen kokeilu, noin ${offer.trialMinutesLeft} min jäljellä` : active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…';
+  const statusText = trialRunning ? `Ilmainen kokeilu, noin ${trialLeftLabel(offer.trialMinutesLeft)} jäljellä` : active ? 'Kurssi käytössä' : access === 'inactive' ? 'Ei käyttöoikeutta' : access === 'error' ? 'Tarkistus epäonnistui' : 'Tarkistetaan kurssia…';
   return <ScrollView
     refreshControl={<RefreshControl refreshing={pulling} tintColor={colors.ink} colors={[colors.ink]} onRefresh={() => { setPulling(true); void Promise.all([refreshAll(), refreshHistory(), refreshPath()]).finally(() => setPulling(false)); }} />}
     contentContainerStyle={[styles.homeContent, { paddingHorizontal: gutter, paddingBottom: space.xxxl + insets.bottom }]}>

@@ -6,7 +6,7 @@ import { Bullet, Button, Card, LoadingState, Notice, PageHeader, Pill } from '..
 import { LegalLinks } from '../components/LegalLinks';
 import { useIap } from '../providers/IapProvider';
 import { COURSE_IDS, COURSES, type CourseId } from '../lib/courses';
-import { accessLine, offerForCourse, STORE_COPY, storeEnabled, trialDisclosure, TRIAL_MINUTES, UNSETTLED_PURCHASE_NOTE, type CourseOffer } from '../lib/store';
+import { accessLine, offerForCourse, STORE_COPY, storeEnabled, trialDisclosure, TRIAL_DAYS, trialLeftLabel, UNSETTLED_PURCHASE_NOTE, type CourseOffer } from '../lib/store';
 import { makeStyles, maxScale, space, useTheme } from '../theme';
 
 /** Kurssikauppa: iOS only. Android and web have no store, so the route sends them home. */
@@ -82,7 +82,7 @@ function CourseCard({ course, offer, price, pricesLoading, busyAny, buying, star
     {offer.showBuy && !!offer.accessUntilLabel && <Text style={type.caption}>{accessLine(offer.accessUntilLabel)}</Text>}
 
     {offer.state === 'owned' && <Text style={type.bodyStrong}>Kurssi on käytössäsi tällä tilillä.</Text>}
-    {offer.state === 'trial-running' && <Text style={type.bodyStrong}>Ilmaista kokeilua jäljellä noin {offer.trialMinutesLeft} min.</Text>}
+    {offer.state === 'trial-running' && <Text style={type.bodyStrong}>Ilmaista kokeilua jäljellä noin {trialLeftLabel(offer.trialMinutesLeft)}.</Text>}
     {offer.state === 'not-on-sale' && <Text style={type.body}>Kurssi ei ole juuri nyt myynnissä.</Text>}
 
     {offer.showBuy && <>
@@ -92,7 +92,7 @@ function CourseCard({ course, offer, price, pricesLoading, busyAny, buying, star
       {unsettled && <Text style={type.caption}>{UNSETTLED_PURCHASE_NOTE}</Text>}
     </>}
     {offer.showTrial && <>
-      <Button title={startingTrial ? 'Aloitetaan…' : `Aloita ilmainen ${TRIAL_MINUTES} min kokeilu`} secondary loading={startingTrial} disabled={!price || busyAny} onPress={onTrial}
+      <Button title={startingTrial ? 'Aloitetaan…' : `Aloita ilmainen ${TRIAL_DAYS} päivän kokeilu`} secondary loading={startingTrial} disabled={!price || busyAny} onPress={onTrial}
         accessibilityHint="Näyttää kokeilun ehdot ennen aloittamista." />
       {!!price && <Text style={type.caption}>{trialDisclosure(course, price)}</Text>}
     </>}

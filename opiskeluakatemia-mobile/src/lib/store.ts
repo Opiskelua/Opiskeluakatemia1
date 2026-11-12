@@ -33,8 +33,20 @@ export const TRIAL_PATH = '/api/courses/trial';
 export const ACCESS_ALL_PATH = '/api/courses/check-access?courseType=all';
 /** Attaches web guest checkouts (pending_activation) to the account by its verified email. */
 export const LINK_PURCHASES_PATH = '/api/courses/link-purchases';
-/** Must match the website's TRIAL_MINUTES (src/lib/course-trial.ts). */
-export const TRIAL_MINUTES = 60;
+/** Must match the website's TRIAL_DAYS (src/lib/course-trial.ts). */
+export const TRIAL_DAYS = 3;
+
+/** Minutes left on a trial as "2 pv 5 h", "5 h 12 min" or "42 min" (like the website's countdown). */
+export function trialLeftLabel(minutesLeft: number | null): string {
+  const total = Math.max(1, minutesLeft ?? 1);
+  const totalHours = Math.floor(total / 60);
+  const minutes = total % 60;
+  if (totalHours === 0) return `${minutes} min`;
+  const days = Math.floor(totalHours / 24);
+  const hours = totalHours % 24;
+  if (days === 0) return `${hours} h${minutes ? ` ${minutes} min` : ''}`;
+  return `${days} pv${hours ? ` ${hours} h` : ''}`;
+}
 
 /** The App Store exists only in the iOS app. Android and web (and anything unknown) get no store UI. */
 export const storeEnabled = (platform: string) => platform === 'ios';
@@ -234,7 +246,7 @@ export const STORE_COPY: Readonly<Record<CourseId, { includes: readonly string[]
  * the price to continue). `price` is StoreKit's localized displayPrice.
  */
 export function trialDisclosure(course: CourseId, price: string) {
-  return `Ilmainen kokeilu avaa koko kurssin (${COURSES[course].label}) heti ${TRIAL_MINUTES} minuutiksi, ilman maksutietoja. `
+  return `Ilmainen kokeilu avaa koko kurssin (${COURSES[course].label}) heti ${TRIAL_DAYS} päiväksi, ilman maksutietoja. `
     + `Kun aika on kulunut, kurssin sisältö lukittuu. Sen jälkeen kurssin voi ostaa sovelluksessa hintaan ${price} (kertaosto, ei uusiudu). Kokeilun voi käyttää kerran.`;
 }
 
@@ -377,7 +389,7 @@ export function trialErrorMessage(status: number | undefined, code: string | und
 }
 
 export const trialStartedMessage = (course: CourseId): StoreMessage => ({
-  tone: 'success', course, text: `Kokeilu alkoi: ${COURSES[course].label} on käytössäsi ${TRIAL_MINUTES} minuuttia.`,
+  tone: 'success', course, text: `Kokeilu alkoi: ${COURSES[course].label} on käytössäsi ${TRIAL_DAYS} päivää.`,
 });
 
 /** A StoreKit purchase token is the transaction's JWS (header.payload.signature); anything else is not sent. */

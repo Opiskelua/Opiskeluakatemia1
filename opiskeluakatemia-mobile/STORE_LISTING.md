@@ -49,7 +49,7 @@ Keywords are comma-separated with no spaces and do not repeat words from the nam
 ```text
 Opiskeluakatemia on opiskeluakatemia.fi-verkkopalvelun mobiilisovellus Englannin abikurssille ja Ruotsin abikurssille. Kirjaudu samalla sähköpostiosoitteella ja salasanalla kuin verkkopalvelussa. Oppimispolku, harjoitukset, kirjoitelmat, muistikortit ja edistyminen ovat samat puhelimessa ja verkossa.
 
-Luo tili sovelluksessa tai kirjaudu opiskeluakatemia.fi-tunnuksillasi. Voit kokeilla kumpaakin kurssia ilmaiseksi 60 minuuttia ja ostaa kurssin sovelluksessa. Kurssi on kertaosto: käyttöoikeus on voimassa kurssikauden loppuun, eikä osto uusiudu. Sama kurssi toimii myös verkossa samalla tilillä.
+Luo tili sovelluksessa tai kirjaudu opiskeluakatemia.fi-tunnuksillasi. Voit kokeilla kumpaakin kurssia ilmaiseksi 3 päivää ja ostaa kurssin sovelluksessa. Kurssi on kertaosto: käyttöoikeus on voimassa kurssikauden loppuun, eikä osto uusiudu. Sama kurssi toimii myös verkossa samalla tilillä.
 
 KAKSI KURSSIA
 • Englannin abikurssi (pitkä englanti): oppimispolku, kertaus, harjoitukset, kirjoitelmat, muistikortit, päivän tehtävät, edistyminen ja teoria.
@@ -185,6 +185,6 @@ Capture on a release (preview) build signed in with the demo account (it should 
 | 7 | Edistyminen (`/progress`) | Skill profile with strengths and next skills to practise | Näe vahvuutesi ja mitä kannattaa harjoitella seuraavaksi. |
 | 8 | Koti (`/`) | Home screen with the path card, daily tasks and recent results (signed in, course active) | Sama tili puhelimessa ja verkossa. |
 | 9 | Polku, Ruotsin abikurssi (`/path` after switching to Ruotsi on the home screen) | The Swedish path map, or a Swedish lesson mid-way | Ruotsin abikurssin polku ja teoria samassa sovelluksessa. |
-| 10 (App Store only, optional) | Kurssikauppa (`/store`) on a sandbox account without access | Both course cards with what is included, the access end date and the StoreKit price | Kokeile 60 minuuttia ilmaiseksi tai osta kurssi sovelluksessa. |
+| 10 (App Store only, optional) | Kurssikauppa (`/store`) on a sandbox account without access | Both course cards with what is included, the access end date and the StoreKit price | Kokeile 3 päivää ilmaiseksi tai osta kurssi sovelluksessa. |
 
 If the grade estimate is visible in screenshot 7, keep the disclaimer ("ei takaa koetulosta") in the frame or crop the estimate out, so the screenshot does not read as a grade promise.

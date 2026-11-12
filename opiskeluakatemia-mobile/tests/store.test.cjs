@@ -169,8 +169,14 @@ test('CTA mapping: owned, trial running, trial available, buy, not on sale', () 
 
 test('the trial disclosure states the duration, what happens after it and the StoreKit price', () => {
   const text = store.trialDisclosure('sv', '49,99 €');
-  for (const part of ['60 minuutiksi', 'lukittuu', '49,99 €', 'Ruotsin abikurssi', 'kerran']) assert.ok(text.includes(part), part);
-  assert.equal(store.TRIAL_MINUTES, 60);
+  for (const part of ['3 päiväksi', 'lukittuu', '49,99 €', 'Ruotsin abikurssi', 'kerran']) assert.ok(text.includes(part), part);
+  assert.equal(store.TRIAL_DAYS, 3);
+  assert.equal(store.trialLeftLabel(3 * 24 * 60), '3 pv');
+  assert.equal(store.trialLeftLabel((2 * 24 + 5) * 60 + 12), '2 pv 5 h');
+  assert.equal(store.trialLeftLabel(5 * 60 + 12), '5 h 12 min');
+  assert.equal(store.trialLeftLabel(60), '1 h');
+  assert.equal(store.trialLeftLabel(42), '42 min');
+  assert.equal(store.trialLeftLabel(null), '1 min');
 });
 
 test('no price is written in the app: it always comes from StoreKit', () => {
@@ -220,7 +226,7 @@ test('purchase, claim and trial outcomes have Finnish copy; cancel is silent', (
   assert.match(store.trialErrorMessage(409, 'already_owned').text, /jo käytössäsi/);
   assert.match(store.trialErrorMessage(503, 'unavailable').text, /hetken päästä/);
   assert.match(store.trialErrorMessage(undefined, undefined).text, /verkkoyhteys/);
-  assert.match(store.trialStartedMessage('en').text, /60 minuuttia/);
+  assert.match(store.trialStartedMessage('en').text, /3 päivää/);
 
   assert.equal(store.isJws(JWS), true);
   for (const token of ['2000000123456789', 'a.b', '', null, 'a.b.c.d', 'a.b.c d']) assert.equal(store.isJws(token), false, String(token));
