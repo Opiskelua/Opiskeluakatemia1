@@ -3,10 +3,10 @@
 // (src/app/login/page.tsx): at least 6 characters and the password typed twice.
 
 import { PRODUCTION_ORIGIN } from './api-origin';
-import { storeEnabled } from './store';
+import { IOS_STORE_OPEN, storeEnabled } from './store';
 
 /** Sign-up belongs to the iOS store flow; Android and web stay sign-in only. */
-export const signUpEnabled = (platform: string) => storeEnabled(platform);
+export const signUpEnabled = (platform: string, open: boolean = IOS_STORE_OPEN) => storeEnabled(platform, open);
 
 export const MIN_PASSWORD_LENGTH = 6;
 

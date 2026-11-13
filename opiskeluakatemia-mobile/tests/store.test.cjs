@@ -43,17 +43,24 @@ test('product ids follow the contract and map back to courses', () => {
   assert.equal(store.TRIAL_PATH, '/api/courses/trial');
 });
 
+test('while the iPhone app is on TestFlight only, iOS has no store or sign-up either', () => {
+  assert.equal(store.IOS_STORE_OPEN, false);
+  assert.equal(store.storeEnabled('ios'), false);
+  assert.equal(signup.signUpEnabled('ios'), false);
+  assert.equal(store.storeOffers('ios', null, {}, NOW), null);
+});
+
 test('only iOS gets a store, prices, a trial button or sign-up; Android and web get none', () => {
-  assert.equal(store.storeEnabled('ios'), true);
-  assert.equal(signup.signUpEnabled('ios'), true);
+  assert.equal(store.storeEnabled('ios', true), true);
+  assert.equal(signup.signUpEnabled('ios', true), true);
   const access = store.parseStoreAccess({ courses: { abikurssi: false, 'ruotsin-abikurssi': false }, paid: { abikurssi: false, 'ruotsin-abikurssi': false }, trials: {} }, NOW);
   const catalog = { en: { productId: EN, accessUntil: '2027-03-22', onSale: true }, sv: { productId: SV, accessUntil: '2027-09-27', onSale: true } };
   for (const platform of ['android', 'web', 'windows', 'macos', '', undefined]) {
-    assert.equal(store.storeEnabled(platform), false, String(platform));
-    assert.equal(signup.signUpEnabled(platform), false, String(platform));
-    assert.equal(store.storeOffers(platform, access, catalog, NOW), null, `${platform}: no offers at all`);
+    assert.equal(store.storeEnabled(platform, true), false, String(platform));
+    assert.equal(signup.signUpEnabled(platform, true), false, String(platform));
+    assert.equal(store.storeOffers(platform, access, catalog, NOW, true), null, `${platform}: no offers at all`);
   }
-  const ios = store.storeOffers('ios', access, catalog, NOW);
+  const ios = store.storeOffers('ios', access, catalog, NOW, true);
   assert.equal(ios.en.state, 'trial-available');
   assert.equal(ios.sv.showBuy, true);
 });

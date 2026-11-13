@@ -48,8 +48,17 @@ export function trialLeftLabel(minutesLeft: number | null): string {
   return `${days} pv${hours ? ` ${hours} h` : ''}`;
 }
 
+/**
+ * Whether the iOS app sells through the App Store yet. False while the iPhone app is distributed
+ * through TestFlight only (13.11.2026): the Paid Apps Agreement and the EU trader details wait for
+ * Apple's address change, so StoreKit returns no products. iOS then behaves like Android (no store,
+ * no prices, no trial button, no sign-up; courses are bought on the website). Set back to true,
+ * and publish an iOS update, before the 1.2.0 App Store submission.
+ */
+export const IOS_STORE_OPEN = false;
+
 /** The App Store exists only in the iOS app. Android and web (and anything unknown) get no store UI. */
-export const storeEnabled = (platform: string) => platform === 'ios';
+export const storeEnabled = (platform: string, open: boolean = IOS_STORE_OPEN) => platform === 'ios' && open;
 
 // ---------------------------------------------------------------------------
 // Server answers
@@ -182,8 +191,8 @@ export interface CourseOffer {
  * `access` null means check-access has not answered yet: every course is then "not on sale" (no
  * Buy button can appear before the app knows the account does not own the course).
  */
-export function storeOffers(platform: string, access: StoreAccess | null, catalog: StoreCatalog, now: number): Record<CourseId, CourseOffer> | null {
-  if (!storeEnabled(platform)) return null;
+export function storeOffers(platform: string, access: StoreAccess | null, catalog: StoreCatalog, now: number, open: boolean = IOS_STORE_OPEN): Record<CourseId, CourseOffer> | null {
+  if (!storeEnabled(platform, open)) return null;
   return Object.fromEntries(COURSE_IDS.map(id => [id, offerForCourse(id, access, catalog[id], now)])) as Record<CourseId, CourseOffer>;
 }
 
