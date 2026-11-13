@@ -1,0 +1,81 @@
+# EAS build archive (replaces .gitignore for eas build): only the mobile app is uploaded.
+# Keeps the upload small; the app imports nothing outside opiskeluakatemia-mobile/.
+
+# --- from /.gitignore ---
+.DS_Store
+# Older standalone copy of the website (own git repo)
+/opiskeluakatemia-platform/
+# Website worktrees (branches polku-content and target-grade of the opiskeluakatemia repo)
+/opiskeluakatemia-content/
+/opiskeluakatemia-mascot/
+/opiskeluakatemia-glass/
+/opiskeluakatemia-harjoituskoe/
+/opiskeluakatemia-svtasks/
+
+# Local secrets backups and large mascot source art (Blender, GLB)
+.env*.bak*
+/assets/mascot/source/
+/opiskeluakatemia-programme-info/
+/opiskeluakatemia-iap-server/
+/opiskeluakatemia-iap-legal/
+/opiskeluakatemia-oikaisu/
+/outer-iap/
+
+# This repo is PUBLIC on GitHub: keys, credentials and private business docs must never be committed
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*.pem
+*.key
+*.jks
+*.keystore
+*.mobileprovision
+credentials.json
+*service-account*.json
+google-services.json
+GoogleService-Info.plist
+test-credentials*.json
+*.har
+.mcp.local.json
+/research/marketing-brief.md
+/opiskeluakatemia alias
+
+# --- from opiskeluakatemia-mobile/.gitignore (unanchored rules apply everywhere) ---
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+.metro-health-check*
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+.DS_Store
+*.pem
+.env*.local
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+dist/
+/opiskeluakatemia-mobile/ios
+/opiskeluakatemia-mobile/android
+
+# --- not needed in the app build ---
+/opiskeluakatemia/
+/assets/
+/research/
+/yokielioppi.md
+/.cursor/
+/.claude/
+/opiskeluakatemia-mobile/store-assets/
+/opiskeluakatemia-mobile/tests/
